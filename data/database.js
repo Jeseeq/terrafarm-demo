@@ -9,14 +9,11 @@
  */
 
 // Model types
-class User extends Object {}
-class Role extends Object {}
-class Space extends Object {}
-class Tool extends Object {}
-// class Project extends Object {}
+export class User extends Object {}
+export class Role extends Object {}
 
 // Mock data
-var users = ['Anonymous', 'Bob', 'Jane'].map((name, i) => {
+var users = ['Me', 'Bob', 'Jane'].map((name, i) => {
   var user = new User();
   user.name = name;
   user.id = `${i}`;
@@ -28,31 +25,46 @@ var roles = ['Leader', 'Engineer', 'Hands'].map((name, i) => {
   role.id = `${i}`;
   return role;
 });
-var spaces = ['Plot', 'Greenhouse', 'Building'].map((name, i) => {
-  var space = new Space();
-  space.name = name;
-  space.id = `${i}`;
-  return space;
-});
-var tools = ['Rake', 'Shovel', 'Barrel'].map((name, i) => {
-  var tool = new Tool();
-  tool.name = name;
-  tool.id = `${i}`;
-  return tool;
-});
 
-module.exports = {
-  // Export methods that your schema can use to interact with your database
-  getUser: (id) => users.find(u => u.id === id),
-  getViewer: () => users[0],
-  getRole: (id) => roles.find(r => r.id === id),
-  getRoles: () => roles,
-  getSpace: (id) => spaces.find(s => s.id === id),
-  getSpaces: () => spaces,
-  getTool: (id) => tools.find(t => t.id === id),
-  getTools: () => tools,
-  User,
-  Role,
-  Space,
-  Tool
+// Mock authenticated ID
+const VIEWER_ID = '0';
+
+var roleIdsByUser = {
+  [VIEWER_ID]: []
 };
+
+export function getUser (id) {
+  return users.find(u => u.id === id);
+}
+
+export function getViewer () {
+  return getUser(VIEWER_ID);
+}
+
+export function getRole (id) {
+  return roles.find(r => r.id === id);
+}
+
+export function getRoles () {
+  return roles;
+}
+
+export function getViewerRoles () {
+  var roles = roleIdsByUser[VIEWER_ID].map(id => getRole(id));
+  return roles;
+}
+
+export function addRoleToViewer (id) {
+  var role = getRole(id);
+  roleIdsByUser[VIEWER_ID].push(role.id);
+  return role.id;
+}
+
+export function removeRoleFromViewer (id) {
+  var roleIndex = roleIdsByUser[VIEWER_ID].indexOf(id);
+  if (roleIndex !== -1) {
+    roleIdsByUser[VIEWER_ID].splice(roleIndex, 1);
+  }
+}
+
+

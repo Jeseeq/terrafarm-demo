@@ -1,4 +1,5 @@
 /**
+ *  Copyright (c) 2015, Ryan Blakeley
  *  Copyright (c) 2015, Facebook, Inc.
  *  All rights reserved.
  *
@@ -32,11 +33,14 @@ import {
 import {
   // Import methods that your schema can use to interact with your database
   User,
-  Widget,
+  Role,
   getUser,
   getViewer,
-  getWidget,
-  getWidgets,
+  getRole,
+  getRoles,
+  getViewerRoles,
+  addRoleToViewer,
+  removeRoleFromViewer,
 } from './database';
 
 /**
@@ -50,17 +54,17 @@ var {nodeInterface, nodeField} = nodeDefinitions(
     var {type, id} = fromGlobalId(globalId);
     if (type === 'User') {
       return getUser(id);
-    } else if (type === 'Widget') {
-      return getWidget(id);
+    } else if (type === 'Role') {
+      return getRole(id);
     } else {
       return null;
     }
   },
   (obj) => {
     if (obj instanceof User) {
-      return userType;
-    } else if (obj instanceof Widget)  {
-      return widgetType;
+      return GraphQLUser;
+    } else if (obj instanceof Role) {
+      return GraphQLRole;
     } else {
       return null;
     }
@@ -71,64 +75,105 @@ var {nodeInterface, nodeField} = nodeDefinitions(
  * Define your own types here
  */
 
-var userType = new GraphQLObjectType({
+var GraphQLUser = new GraphQLObjectType({
   name: 'User',
   description: 'A person who uses our app',
   fields: () => ({
     id: globalIdField('User'),
-    widgets: {
-      type: widgetConnection,
-      description: 'A person\'s collection of widgets',
+    roles: {
+      type: RolesConnection,
+      description: 'A person\'s collection of roles',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(getWidgets(), args),
+      resolve: (_, args) => connectionFromArray(getViewerRoles(), args),
     },
   }),
   interfaces: [nodeInterface],
 });
 
-var widgetType = new GraphQLObjectType({
-  name: 'Widget',
-  description: 'A shiny widget',
+var GraphQLRole = new GraphQLObjectType({
+  name: 'Role',
+  description: 'An economic input',
   fields: () => ({
-    id: globalIdField('Widget'),
+    id: globalIdField('Role'),
     name: {
       type: GraphQLString,
-      description: 'The name of the widget',
+      description: 'The name of the role',
     },
   }),
   interfaces: [nodeInterface],
 });
 
-/**
- * Define your own connection types here
- */
-var {connectionType: widgetConnection} =
-  connectionDefinitions({name: 'Widget', nodeType: widgetType});
+var {connectionType: RolesConnection} =
+  connectionDefinitions({name: 'Role', nodeType: GraphQLRole});
 
 /**
  * This is the type that will be the root of our query,
  * and the entry point into our schema.
  */
-var queryType = new GraphQLObjectType({
-  name: 'Query',
+var Root = new GraphQLObjectType({
+  name: 'Root',
   fields: () => ({
     node: nodeField,
-    // Add your own root fields here
     viewer: {
-      type: userType,
+      type: GraphQLUser,
       resolve: () => getViewer(),
     },
   }),
+});
+
+var GraphQLAddRoleToViewerMutation = mutationWithClientMutationId({
+  name: 'AddRoleToViewer',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLString) }
+  },
+  outputFields: {
+    role: {
+      type: GraphQLRole,
+      resolve: (payload) => getRole(payload.roleId)
+    },
+    viewer: {
+      type: GraphQLUser,
+      resolve: () => getViewer(),
+    },
+  },
+  mutateAndGetPayload: ({id}) => {
+    var localRoleId = fromGlobalId(id).id;
+    addRoleToViewer(localRoleId);
+    return {localRoleId};
+  }
+});
+
+var GraphQLRemoveRoleFromViewerMutation = mutationWithClientMutationId({
+  name: 'RemoveRoleFromViewer',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLString) }
+  },
+  outputFields: {
+    removedRoleId: {
+      type: GraphQLID,
+      resolve: ({id}) => id
+    },
+    viewer: {
+      type: GraphQLUser,
+      resolve: () => getViewer(),
+    },
+  },
+  mutateAndGetPayload: ({id}) => {
+    var localRoleId = fromGlobalId(id).id;
+    removeRoleFromViewer(localRoleId);
+    return {id};
+  }
 });
 
 /**
  * This is the type that will be the root of our mutations,
  * and the entry point into performing writes in our schema.
  */
-var mutationType = new GraphQLObjectType({
+var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    // Add your own mutations here
+    addRoleToViewer: GraphQLAddRoleToViewerMutation,
+    removeRoleFromViewer: GraphQLRemoveRoleFromViewerMutation,
   })
 });
 
@@ -137,7 +182,6 @@ var mutationType = new GraphQLObjectType({
  * type we defined above) and export it.
  */
 export var Schema = new GraphQLSchema({
-  query: queryType,
-  // Uncomment the following after adding some mutation fields:
-  // mutation: mutationType
+  query: Root,
+  mutation: Mutation
 });
