@@ -30,7 +30,7 @@ var roles = ['Leader', 'Engineer', 'Hands'].map((name, i) => {
 const VIEWER_ID = '0';
 
 var roleIdsByUser = {
-  [VIEWER_ID]: []
+  [VIEWER_ID]: ['0']
 };
 
 export function getUser (id) {
