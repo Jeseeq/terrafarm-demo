@@ -38,5 +38,5 @@ npm start
 
 ## License
 
-Copyright (c) 2015, Ryan Blakeley
+Copyright (c) 2015, Ryan Blakeley  
 Relay Starter Kit is [BSD licensed](./LICENSE). We also provide an additional [patent grant](./PATENTS).
