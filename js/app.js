@@ -5,13 +5,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
 import App from './components/App';
-import ViewerQueries from './queries/ViewerQueries';
+import MasterQueries from './queries/MasterQueries';
 
 ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
     <Route
       path='/' component={App}
-      queries={ViewerQueries}
+      queries={MasterQueries}
     />
   </RelayRouter>,
   document.getElementById('root')
