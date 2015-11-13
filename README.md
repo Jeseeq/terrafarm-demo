@@ -5,7 +5,7 @@ Work-in-progress
 - app server
 - GraphQL server
 - transpiler that works with Relay
-- react-router-relay URL routing
+- url routing
 
 ## Installation
 
