@@ -2,6 +2,8 @@
 
 Work-in-progress
 
+## Features
+
 - app server
 - GraphQL server
 - transpiler that works with Relay
