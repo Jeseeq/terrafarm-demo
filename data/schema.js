@@ -37,7 +37,6 @@ import {
   getUser,
   getViewer,
   getRole,
-  getRoles,
   getViewerRoles,
   addRoleToViewer,
   removeRoleFromViewer,
@@ -74,12 +73,15 @@ var {nodeInterface, nodeField} = nodeDefinitions(
 /**
  * Define your own types here
  */
-
 var GraphQLUser = new GraphQLObjectType({
   name: 'User',
   description: 'A person who uses our app',
   fields: () => ({
     id: globalIdField('User'),
+    name: {
+      type: GraphQLString,
+      description: 'A person\'s name',
+    },
     roles: {
       type: RolesConnection,
       description: 'A person\'s collection of roles',
@@ -117,7 +119,7 @@ var Root = new GraphQLObjectType({
     viewer: {
       type: GraphQLUser,
       resolve: () => getViewer(),
-    },
+    }
   }),
 });
 
