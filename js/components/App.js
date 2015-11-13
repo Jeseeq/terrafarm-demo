@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 
 class App extends React.Component {
   render () {
+    console.log(this.props.master);
     return <div>
       <h1>Profile</h1>
       <h2>{this.props.viewer.name}</h2>
@@ -19,6 +20,19 @@ class App extends React.Component {
 export default Relay.createContainer(App, {
   fragments: {
     viewer: () => Relay.QL`
+      fragment on User {
+        name,
+        roles(first: 10) {
+          edges {
+            node {
+              id,
+              name,
+            },
+          },
+        },
+      }
+    `,
+    master: () => Relay.QL`
       fragment on User {
         name,
         roles(first: 10) {

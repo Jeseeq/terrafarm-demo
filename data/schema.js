@@ -35,6 +35,7 @@ import {
   User,
   Role,
   getUser,
+  getMaster,
   getViewer,
   getRole,
   getRolesByUser,
@@ -116,10 +117,14 @@ var Root = new GraphQLObjectType({
   name: 'Root',
   fields: () => ({
     node: nodeField,
+    master: {
+      type: GraphQLUser,
+      resolve: () => getMaster(),
+    },
     viewer: {
       type: GraphQLUser,
       resolve: () => getViewer(),
-    }
+    },
   }),
 });
 

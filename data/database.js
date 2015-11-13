@@ -39,6 +39,10 @@ export function getUser (id) {
   return users.find(u => u.id === id);
 }
 
+export function getMaster () {
+  return getUser(MASTER_ID);
+}
+
 export function getViewer () {
   return getUser(VIEWER_ID);
 }
