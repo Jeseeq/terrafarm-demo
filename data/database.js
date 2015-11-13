@@ -13,7 +13,7 @@ export class User extends Object {}
 export class Role extends Object {}
 
 // Mock data
-var users = ['Master', 'Me', 'Bob', 'Jane'].map((name, i) => {
+var users = ['Master', 'Anonymous', 'Bob', 'Jane'].map((name, i) => {
   var user = new User();
   user.name = name;
   user.id = `${i}`;
@@ -26,7 +26,7 @@ var roles = ['Leader', 'Engineer', 'Hands'].map((name, i) => {
   return role;
 });
 
-// Mock authenticated ID
+// Mock authenticated IDs
 const MASTER_ID = '0';
 const VIEWER_ID = '1';
 
@@ -47,8 +47,8 @@ export function getRole (id) {
   return roles.find(r => r.id === id);
 }
 
-export function getViewerRoles () {
-  var roles = roleIdsByUser[VIEWER_ID].map(id => getRole(id));
+export function getRolesByUser (id) {
+  var roles = roleIdsByUser[id].map(id => getRole(id));
   return roles;
 }
 

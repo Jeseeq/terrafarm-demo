@@ -37,7 +37,7 @@ import {
   getUser,
   getViewer,
   getRole,
-  getViewerRoles,
+  getRolesByUser,
   addRoleToViewer,
   removeRoleFromViewer,
 } from './database';
@@ -86,7 +86,7 @@ var GraphQLUser = new GraphQLObjectType({
       type: RolesConnection,
       description: 'A person\'s collection of roles',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(getViewerRoles(), args),
+      resolve: (_, args) => connectionFromArray(getRolesByUser(_.id), args),
     },
   }),
   interfaces: [nodeInterface],
