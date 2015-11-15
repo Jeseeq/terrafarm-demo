@@ -1,9 +1,16 @@
+import RemoveUserRoleMutation from '../mutations/RemoveUserRoleMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import User from './User';
 import Role from './Role';
 
 class App extends React.Component {
+  _handleRemoveRole = (user, role) => {
+    console.log(`remove role ${role} from user ${user}`);
+    Relay.Store.update(
+      new RemoveUserRoleMutation({user, role})
+    );
+  }
   render () {
     var {roles, users} = this.props;
     return <div>
@@ -24,7 +31,7 @@ class App extends React.Component {
           <h2>{user.name}</h2>
           <ol>
             {user.roles.edges.map((edge, jj) => <li key={jj}>
-              <Role role={edge.node}/>
+              <Role role={edge.node} onClick={this._handleRemoveRole(user, edge.node)}/>
             </li>)}
           </ol>
         </li>)}
@@ -37,23 +44,29 @@ export default Relay.createContainer(App, {
   fragments: {
     users: () => Relay.QL`
       fragment on User @relay(plural: true) {
+        id,
         name,
         roles(first: 10) {
           edges {
             node {
+              id,
               ${Role.getFragment('role')}
+              ${RemoveUserRoleMutation.getFragment('role')},
             }
           }
-        }
+        },
+        ${RemoveUserRoleMutation.getFragment('user')},
       }
     `,
     roles: () => Relay.QL`
       fragment on Role @relay(plural: true) {
+        id,
         name,
         users(first: 10) {
           edges {
             node {
-              ${User.getFragment('user')}
+              id,
+              ${User.getFragment('user')},
             }
           }
         }

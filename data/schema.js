@@ -36,9 +36,9 @@ import {
   getUser,
   getRoles,
   getUsers,
-  createUser,
-  //addUserToRole,
-  //removeUserFromRole,
+  //createUser,
+  addUserRole,
+  removeUserRole,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -159,7 +159,7 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: ({userName, roleId}) => {
-    var newUser = createUser(userName, groupId);
+    var newUser = createUser(userName, roleId);
     return {
       userId: newUser.id,
       roleId: roleId,
@@ -167,10 +167,80 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
   }
 });
 
+var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
+  name: 'AddUserRole',
+  inputFields: {
+    userId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    roleId: {
+      type: new GraphQLNonNull(GraphQLID)
+    }
+  },
+  outputFields: {
+    user: {
+      type: GraphQLUser,
+      resolve: (payload) => getUser(payload.userId)
+    },
+    role: {
+      type: GraphQLRole,
+      resolve: (payload) => getRole(payload.roleId)
+    }
+  },
+  mutateAndGetPayload: ({userId, roleId}) => {
+    addUserRole(userId, roleId);
+    return {
+      userId: userId,
+      roleId: roleId,
+    };
+  }
+});
+
+var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
+  name: 'RemoveUserRole',
+  inputFields: {
+    userId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    roleId: {
+      type: new GraphQLNonNull(GraphQLID)
+    }
+  },
+  outputFields: {
+    user: {
+      type: GraphQLUser,
+      resolve: (payload) => getUser(payload.userId)
+    },
+    removedRoleID: {
+      type: GraphQLID,
+      resolve: ({roleId}) => roleId,
+    },
+    // TODO: remove if unnecessary
+    role: {
+      type: GraphQLRole,
+      resolve: (payload) => getRole(payload.roleId)
+    },
+    removedUserID: {
+      type: GraphQLID,
+      resolve: ({userId}) => userId,
+    },
+  },
+  mutateAndGetPayload: ({userId, roleId}) => {
+    removeUserRole(userId, roleId);
+    return {
+      userId: userId,
+      // TODO: remove if unnecessary
+      roleId:  roleId,
+    };
+  }
+});
+
 var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    newUserMutation: GraphQLNewUserMutation,
+    newUser: GraphQLNewUserMutation,
+    addUserRole: GraphQLAddUserRoleMutation,
+    removeUserRole: GraphQLRemoveUserRoleMutation,
   })
 });
 

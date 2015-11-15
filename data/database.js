@@ -41,31 +41,17 @@ var farmhand = {
 };
 
 var data = {
+  User: {
+    1: anonymous,
+    2: jane,
+    3: bob
+  },
   Role: {
     1: supervisor,
     2: engineer,
     3: farmhand
   },
-  User: {
-    1: anonymous,
-    2: jane,
-    3: bob
-  }
 };
-
-// Mock authenticated ID
-const VIEWER_ID = '1';
-
-var nextUser = 4;
-export function createUser(userName, roleId) {
-  var newUser = {
-    id: '' + (nextUser += 1),
-    name: userName
-  };
-  data.User[newUser.id] = newUser;
-  data.Role[roleId].users.push(newUser.id);
-  return newUser;
-}
 
 export function getUser (id) {
   return data.User[id];
@@ -101,3 +87,42 @@ export function getRoles (names) {
   });
 }
 
+var nextUser = 4;
+export function createUser(userName, roleId) {
+  var newUser = {
+    id: '' + (nextUser += 1),
+    name: userName
+  };
+  data.User[newUser.id] = newUser;
+  // TODO: accept array of role ids
+  data.Role[roleId].users.push(newUser.id);
+  return newUser;
+}
+
+export function addUserRole (userId, roleId) {
+  var user = getUser(userId);
+  var role = getRole(roleId);
+  var roleIndex = user.roles.indexOf(roleId);
+  var userIndex = role.users.indexOf(userId);
+
+  if (roleIndex > -1 || userIndex > -1) {
+    return console.error(`User ${userId} and role ${roleId} already paired.`);
+  }
+  user.roles.push(roleId);
+  role.users.push(userId);
+  return role;
+}
+
+export function removeUserRole (userId, roleId) {
+  var user = getUser(userId);
+  var role = getRole(roleId);
+  var roleIndex = user.roles.indexOf(roleId);
+  var userIndex = role.users.indexOf(userId);
+
+  if (roleIndex === -1 || userIndex === -1) {
+    return console.error(`User ${userId} and role ${roleId} not paired.`);
+  }
+  user.roles.splice(roleIndex, 1);
+  role.users.splice(userIndex, 1);
+  return role;
+}
