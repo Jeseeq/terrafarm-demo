@@ -35,6 +35,7 @@ import {
   getRole,
   getUser,
   getRoles,
+  getUsers,
   createUser,
   //addUserToRole,
   //removeUserFromRole,
@@ -71,12 +72,21 @@ var GraphQLUser = new GraphQLObjectType({
       type: GraphQLString,
       description: 'A person\'s name',
     },
+    roles: {
+      type: RoleConnection,
+      description: 'The roles for the user',
+      args: connectionArgs,
+      resolve: (user, args) => connectionFromArray(
+        user.roles.map((id) => getRole(id)),
+        args
+      ),
+    },
   }),
   interfaces: [nodeInterface],
 });
 
 var {connectionType: UserConnection} =
-  connectionDefinitions({name: 'Role', nodeType: GraphQLUser});
+  connectionDefinitions({name: 'User', nodeType: GraphQLUser});
 
 var GraphQLRole = new GraphQLObjectType({
   name: 'Role',
@@ -89,16 +99,19 @@ var GraphQLRole = new GraphQLObjectType({
     },
     users: {
       type: UserConnection,
-      description: 'The users fulfill the role',
+      description: 'The users who fulfill the role',
       args: connectionArgs,
       resolve: (role, args) => connectionFromArray(
         role.users.map((id) => getUser(id)),
         args
       ),
-    }
+    },
   }),
   interfaces: [nodeInterface],
 });
+
+var {connectionType: RoleConnection} =
+  connectionDefinitions({name: 'Role', nodeType: GraphQLRole});
 
 var Root = new GraphQLObjectType({
   name: 'Root',
@@ -111,6 +124,15 @@ var Root = new GraphQLObjectType({
         },
       },
       resolve: (root, {names}) => getRoles(names),
+    },
+    users: {
+      type: new GraphQLList(GraphQLUser),
+      args: {
+        names: {
+          type: new GraphQLList(GraphQLString),
+        },
+      },
+      resolve: (root, {names}) => getUsers(names),
     },
     node: nodeField,
   }),

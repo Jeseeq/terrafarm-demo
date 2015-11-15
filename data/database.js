@@ -11,37 +11,40 @@
 // Mock data
 var anonymous = {
   id: '1',
-  name: 'Anonymous'
+  name: 'Anonymous',
+  roles: ['1', '2']
 };
 var jane = {
   id: '2',
-  name: 'Jane'
+  name: 'Jane',
+  roles: ['2']
 };
 var bob = {
   id: '3',
-  name: 'Bob'
+  name: 'Bob',
+  roles: ['3']
 };
-var supervisors = {
+var supervisor = {
   id: '1',
-  name: 'Supervisors',
+  name: 'Supervisor',
   users: ['1']
 };
-var engineers = {
+var engineer = {
   id: '2',
-  name: 'Engineers',
+  name: 'Engineer',
   users: ['1', '2']
 };
-var farmhands = {
+var farmhand = {
   id: '3',
-  name: 'Farmhands',
+  name: 'Farmhand',
   users: ['3']
 };
 
 var data = {
   Role: {
-    1: supervisors,
-    2: engineers,
-    3: farmhands
+    1: supervisor,
+    2: engineer,
+    3: farmhand
   },
   User: {
     1: anonymous,
@@ -72,14 +75,27 @@ export function getRole (id) {
   return data.Role[id];
 }
 
+export function getUsers (names) {
+  return names.map(name => {
+    if (name === 'anonymous') {
+      return anonymous;
+    } else if (name === 'jane') {
+      return jane;
+    } else if (name === 'bob') {
+      return bob;
+    }
+    return null;
+  });
+}
+
 export function getRoles (names) {
   return names.map(name => {
-    if (name === 'supervisors') {
-      return supervisors;
-    } else if (name === 'engineers') {
-      return engineers;
-    } else if (name === 'farmhands') {
-      return farmhands;
+    if (name === 'supervisor') {
+      return supervisor;
+    } else if (name === 'engineer') {
+      return engineer;
+    } else if (name === 'farmhand') {
+      return farmhand;
     }
     return null;
   });

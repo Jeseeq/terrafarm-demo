@@ -13,7 +13,8 @@ ReactDOM.render(
   <Relay.RootContainer
     Component={App}
     route={new HomeRoute({
-      roleNames: ['supervisors', 'engineers', 'farmhands']
+      roleNames: ['supervisor', 'engineer', 'farmhand'],
+      userNames: ['anonymous', 'jane', 'bob']
     })}
   />,
   document.getElementById('root')
