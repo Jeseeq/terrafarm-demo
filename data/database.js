@@ -8,37 +8,40 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
 
+export class User extends Object {}
+export class Role extends Object {}
+
 // Mock data
-var anonymous = {
+var anonymous = Object.assign(new User(), {
   id: '1',
   name: 'Anonymous',
   roles: ['1', '2']
-};
-var jane = {
+});
+var jane = Object.assign(new User(), {
   id: '2',
   name: 'Jane',
   roles: ['2']
-};
-var bob = {
+});
+var bob = Object.assign(new User(), {
   id: '3',
   name: 'Bob',
   roles: ['3']
-};
-var supervisor = {
+});
+var supervisor = Object.assign(new Role(), {
   id: '1',
   name: 'Supervisor',
   users: ['1']
-};
-var engineer = {
+});
+var engineer = Object.assign(new Role(), {
   id: '2',
   name: 'Engineer',
   users: ['1', '2']
-};
-var farmhand = {
+});
+var farmhand = Object.assign(new Role(), {
   id: '3',
   name: 'Farmhand',
   users: ['3']
-};
+});
 
 var data = {
   User: {

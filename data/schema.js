@@ -31,7 +31,8 @@ import {
 } from 'graphql-relay';
 
 import {
-  // Import methods that your schema can use to interact with your database
+  Role,
+  User,
   getRole,
   getUser,
   getRoles,
