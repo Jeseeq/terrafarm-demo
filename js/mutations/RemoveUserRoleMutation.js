@@ -34,14 +34,14 @@ export default class RemoveUserRoleMutation extends Relay.Mutation {
   getConfigs () {
     return [
     {
-      type: 'RANGE_DELETE',
+      type: 'NODE_DELETE',
       parentName: 'user',
       parentID: this.props.user.id,
       connectionName: 'roles',
       deletedIDFieldName: 'removedRoleID',
     },
     {
-      type: 'RANGE_DELETE',
+      type: 'NODE_DELETE',
       parentName: 'role',
       parentID: this.props.role.id,
       connectionName: 'users',

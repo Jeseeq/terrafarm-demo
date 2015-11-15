@@ -209,7 +209,7 @@ var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
   outputFields: {
     user: {
       type: GraphQLUser,
-      resolve: (payload) => getUser(payload.userId)
+      resolve: ({userId}) => getUser(userId)
     },
     removedRoleID: {
       type: GraphQLID,
@@ -218,7 +218,7 @@ var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
     // TODO: remove if unnecessary
     role: {
       type: GraphQLRole,
-      resolve: (payload) => getRole(payload.roleId)
+      resolve: ({roleId}) => getRole(roleId)
     },
     removedUserID: {
       type: GraphQLID,
@@ -226,12 +226,10 @@ var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ({userId, roleId}) => {
-    removeUserRole(userId, roleId);
-    return {
-      userId: userId,
-      // TODO: remove if unnecessary
-      roleId:  roleId,
-    };
+    var localUserId = fromGlobalId(userId).id;
+    var localRoleId = fromGlobalId(roleId).id;
+    removeUserRole(localUserId, localRoleId);
+    return { userId, roleId };
   }
 });
 
