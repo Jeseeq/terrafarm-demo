@@ -8,65 +8,80 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
 
-// Model types
-export class User extends Object {}
-export class Role extends Object {}
-
 // Mock data
-var users = ['Master', 'Anonymous', 'Bob', 'Jane'].map((name, i) => {
-  var user = new User();
-  user.name = name;
-  user.id = `${i}`;
-  return user;
-});
-var roles = ['Leader', 'Engineer', 'Hands'].map((name, i) => {
-  var role = new Role();
-  role.name = name;
-  role.id = `${i}`;
-  return role;
-});
-
-// Mock authenticated IDs
-const MASTER_ID = '0';
-const VIEWER_ID = '1';
-
-var roleIdsByUser = {
-  [MASTER_ID]: roles.map(r => r.id),
-  [VIEWER_ID]: ['0']
+var anonymous = {
+  id: '1',
+  name: 'Anonymous'
+};
+var jane = {
+  id: '2',
+  name: 'Jane'
+};
+var bob = {
+  id: '3',
+  name: 'Bob'
+};
+var supervisors = {
+  id: '1',
+  name: 'Supervisors',
+  users: ['1']
+};
+var engineers = {
+  id: '2',
+  name: 'Engineers',
+  users: ['1', '2']
+};
+var farmhands = {
+  id: '3',
+  name: 'Farmhands',
+  users: ['3']
 };
 
+var data = {
+  Role: {
+    1: supervisors,
+    2: engineers,
+    3: farmhands
+  },
+  User: {
+    1: anonymous,
+    2: jane,
+    3: bob
+  }
+};
+
+// Mock authenticated ID
+const VIEWER_ID = '1';
+
+var nextUser = 4;
+export function createUser(userName, roleId) {
+  var newUser = {
+    id: '' + (nextUser += 1),
+    name: userName
+  };
+  data.User[newUser.id] = newUser;
+  data.Role[roleId].users.push(newUser.id);
+  return newUser;
+}
+
 export function getUser (id) {
-  return users.find(u => u.id === id);
-}
-
-export function getMaster () {
-  return getUser(MASTER_ID);
-}
-
-export function getViewer () {
-  return getUser(VIEWER_ID);
+  return data.User[id];
 }
 
 export function getRole (id) {
-  return roles.find(r => r.id === id);
+  return data.Role[id];
 }
 
-export function getRolesByUser (id) {
-  var roles = roleIdsByUser[id].map(id => getRole(id));
-  return roles;
+export function getRoles (names) {
+  return names.map(name => {
+    if (name === 'supervisors') {
+      return supervisors;
+    } else if (name === 'engineers') {
+      return engineers;
+    } else if (name === 'farmhands') {
+      return farmhands;
+    }
+    return null;
+  });
 }
-
-export function addRoleToViewer (id) {
-  var role = getRole(id);
-  roleIdsByUser[VIEWER_ID].push(role.id);
-  return role.id;
-}
-
-export function removeRoleFromViewer (id) {
-  var roleIndex = roleIdsByUser[VIEWER_ID].indexOf(id);
-  if (roleIndex !== -1) {
-    roleIdsByUser[VIEWER_ID].splice(roleIndex, 1);
-  }
-}
-
 
