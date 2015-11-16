@@ -160,26 +160,18 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
   inputFields: {
     userName: {
       type: new GraphQLNonNull(GraphQLString)
-    },
-    roleId: {
-      type: new GraphQLNonNull(GraphQLID)
     }
   },
   outputFields: {
     user: {
       type: GraphQLUser,
       resolve: (payload) => getUser(payload.userId)
-    },
-    role: {
-      type: GraphQLRole,
-      resolve: (payload) => getRole(payload.roleId)
     }
   },
-  mutateAndGetPayload: ({userName, roleId}) => {
-    var newUser = createUser(userName, roleId);
+  mutateAndGetPayload: ({userName}) => {
+    var newUser = createUser(userName);
     return {
       userId: newUser.id,
-      roleId: roleId,
     };
   }
 });
