@@ -139,7 +139,7 @@ export function getRole (id) {
   return data.Role[id];
 }
 /*
-var nextUser = 4;
+var nextUser = 11;
 export function createUser(userName) {
   var newUser = {
     id: '' + (nextUser += 1),

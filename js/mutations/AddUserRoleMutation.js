@@ -22,8 +22,8 @@ export default class AddUserRoleMutation extends Relay.Mutation {
       fragment on AddUserRolePayload {
         user,
         role,
-        addedUserEdge,
-        addedRoleEdge,
+        userEdge,
+        roleEdge,
       }
     `;
   }
@@ -33,7 +33,7 @@ export default class AddUserRoleMutation extends Relay.Mutation {
       parentName: 'user',
       parentID: this.props.user.id,
       connectionName: 'roles',
-      edgeName: 'addedRoleEdge',
+      edgeName: 'roleEdge',
       rangeBehaviors: {
         '': 'append',
       },
@@ -43,7 +43,7 @@ export default class AddUserRoleMutation extends Relay.Mutation {
       parentName: 'role',
       parentID: this.props.role.id,
       connectionName: 'users',
-      edgeName: 'addedUserEdge',
+      edgeName: 'userEdge',
       rangeBehaviors: {
         '': 'append',
       },

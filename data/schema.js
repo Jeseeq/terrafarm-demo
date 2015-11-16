@@ -81,8 +81,13 @@ var GraphQLUser = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
-var {connectionType: UserConnection} =
-  connectionDefinitions({name: 'User', nodeType: GraphQLUser});
+var {
+  connectionType: UserConnection,
+  edgeType: GraphQLUserEdge
+} = connectionDefinitions({
+  name: 'User',
+  nodeType: GraphQLUser,
+});
 
 var GraphQLRole = new GraphQLObjectType({
   name: 'Role',
@@ -106,8 +111,13 @@ var GraphQLRole = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
-var {connectionType: RoleConnection} =
-  connectionDefinitions({name: 'Role', nodeType: GraphQLRole});
+var {
+  connectionType: RoleConnection,
+  edgeType: GraphQLRoleEdge
+} = connectionDefinitions({
+  name: 'Role',
+  nodeType: GraphQLRole,
+});
 
 var GraphQLViewer = new GraphQLObjectType({
   name: 'Viewer',
@@ -191,10 +201,12 @@ var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
     },
     role: {
       type: GraphQLRole,
-      resolve: ({localRoleId}) => getRole(localRoleId),
+      resolve: ({localRoleId}) => {
+        return getRole(localRoleId)
+      },
     },
-    addedUserEdge: {
-      type: UserConnection,
+    userEdge: {
+      type: GraphQLUserEdge,
       resolve: ({localRoleId, localUserId}) => {
         var role = getRole(localRoleId);
         var user = getUser(localUserId);
@@ -207,8 +219,8 @@ var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
         };
       }
     },
-    addedRoleEdge: {
-      type: RoleConnection,
+    roleEdge: {
+      type: GraphQLRoleEdge,
       resolve: ({localRoleId, localUserId}) => {
         var role = getRole(localRoleId);
         var user = getUser(localUserId);

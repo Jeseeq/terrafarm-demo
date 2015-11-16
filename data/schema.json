@@ -856,24 +856,24 @@
               "deprecationReason": null
             },
             {
-              "name": "addedUserEdge",
+              "name": "userEdge",
               "description": null,
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "UserConnection",
+                "name": "UserEdge",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "addedRoleEdge",
+              "name": "roleEdge",
               "description": null,
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "RoleConnection",
+                "name": "RoleEdge",
                 "ofType": null
               },
               "isDeprecated": false,

@@ -1,10 +1,11 @@
 import RemoveUserRoleMutation from '../mutations/RemoveUserRoleMutation';
+import AddUserRoleMutation from '../mutations/AddUserRoleMutation';
 import React from 'react';
 import Relay from 'react-relay';
 
 class RoleSwitch extends React.Component {
-  _handleDestroyClick = () => {
-    this._removeRole();
+  _handleClick = () => {
+    this.props.connected ? this._removeRole() : this._addRole();
   }
   _removeRole () {
     Relay.Store.update(
@@ -14,9 +15,17 @@ class RoleSwitch extends React.Component {
       })
     );
   }
+  _addRole () {
+    Relay.Store.update(
+      new AddUserRoleMutation({
+        user: this.props.user,
+        role: this.props.role,
+      })
+    );
+  }
   render () {
     var {role, connected} = this.props;
-    return <div onClick={this._handleDestroyClick}>
+    return <div onClick={this._handleClick}>
       {role.name} {connected && '*'}
     </div>;
   }
@@ -29,12 +38,14 @@ export default Relay.createContainer(RoleSwitch, {
         id,
         name,
         ${RemoveUserRoleMutation.getFragment('role')},
+        ${AddUserRoleMutation.getFragment('role')},
       }
     `,
     user: () => Relay.QL`
       fragment on User {
         id,
         ${RemoveUserRoleMutation.getFragment('user')},
+        ${AddUserRoleMutation.getFragment('user')},
       }
     `,
   },
