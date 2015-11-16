@@ -6,59 +6,116 @@ export class Role extends Object {}
 const VIEWER_ID = 'me';
 
 // Mock data
-var anonymous = Object.assign(
+var busquets = Object.assign(
   new User(), {
     id: '1',
-    name: 'Anonymous',
-    roles: ['1', '2']
-  }
-);
-var jane = Object.assign(
-  new User(), {
-    id: '2',
-    name: 'Jane',
+    name: 'Sergio Busquets',
     roles: ['2']
   }
 );
-var bob = Object.assign(
+var rakitic = Object.assign(
+  new User(), {
+    id: '2',
+    name: 'Ivan Rakitic',
+    roles: ['2']
+  }
+);
+var iniesta = Object.assign(
   new User(), {
     id: '3',
-    name: 'Bob',
-    roles: ['3']
+    name: 'Andres Iniesta',
+    roles: ['2','3']
   }
 );
-var supervisor = Object.assign(
+var alves = Object.assign(
+  new User(), {
+    id: '4',
+    name: 'Dani Alves',
+    roles: ['1'],
+  }
+);
+var roberto = Object.assign(
+  new User(), {
+    id: '5',
+    name: 'Sergi Roberto',
+    roles: ['1','2'],
+  }
+);
+var mathieu = Object.assign(
+  new User(), {
+    id: '6',
+    name: 'Jeremy Mathieu',
+    roles: ['1','2'],
+  }
+);
+var mascherano = Object.assign(
+  new User(), {
+    id: '7',
+    name: 'Javier Mascherano',
+    roles: ['1','2']
+  }
+);
+var suarez = Object.assign(
+  new User(), {
+    id: '8',
+    name: 'Luis Suarez',
+    roles: ['3'],
+  }
+);
+var messi = Object.assign(
+  new User(), {
+    id: '9',
+    name: 'Lionel Messi',
+    roles: ['3'],
+  }
+);
+var neymar = Object.assign(
+  new User(), {
+    id: '10',
+    name: 'Neymar',
+    roles: ['3'],
+  }
+);
+
+var defender = Object.assign(
   new Role(), {
     id: '1',
-    name: 'Supervisor',
-    users: ['1']
+    name: 'Defender',
+    users: ['4','5','6','7']
   }
 );
-var engineer = Object.assign(
+var midfielder = Object.assign(
   new Role(), {
     id: '2',
-    name: 'Engineer',
-    users: ['1', '2']
+    name: 'Midfielder',
+    users: ['1','2','3','5','6','7']
   }
 );
-var farmhand = Object.assign(
+var forward = Object.assign(
   new Role(), {
     id: '3',
-    name: 'Farmhand',
-    users: ['3']
+    name: 'Forward',
+    users: ['3','8','9','10']
   }
 );
 
 var data = {
   User: {
-    1: anonymous,
-    2: jane,
-    3: bob
+    1: busquets,
+    2: rakitic,
+    3: iniesta,
+    4: alves,
+    5: roberto,
+    6: mathieu,
+    7: mascherano,
+    8: suarez,
+    9: messi,
+    10: neymar,
   },
   Role: {
-    1: supervisor,
-    2: engineer,
-    3: farmhand
+    1: defender,
+    2: midfielder,
+    3: forward,
   },
 };
 
