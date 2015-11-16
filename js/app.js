@@ -12,10 +12,7 @@ import HomeRoute from './routes/HomeRoute';
 ReactDOM.render(
   <Relay.RootContainer
     Component={App}
-    route={new HomeRoute({
-      roleNames: ['supervisor', 'engineer', 'farmhand'],
-      userNames: ['anonymous', 'jane', 'bob']
-    })}
+    route={new HomeRoute()}
   />,
   document.getElementById('root')
 );

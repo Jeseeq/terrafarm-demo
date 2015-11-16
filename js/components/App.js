@@ -1,12 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay';
-import User from './User';
-import Role from './Role';
+//import User from './User';
+//import Role from './Role';
 
 class App extends React.Component {
   render () {
-    var {roles, users} = this.props.viewer;
-    return <div>
+    var {viewer} = this.props;
+    return <div>Got sum work to do
+    </div>;
+    /*
       <h1>By Role</h1>
       <ol>
         {roles.map(role => <li key={role.id}>
@@ -29,7 +31,7 @@ class App extends React.Component {
           </ol>
         </li>)}
       </ol>
-    </div>;
+    */
   }
 }
 
@@ -37,37 +39,22 @@ export default Relay.createContainer(App, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        users,
-        roles,
-      }
-    `,
-    users: () => Relay.QL`
-      fragment on User @relay(plural: true) {
-        id,
-        name,
-        roles(first: 10) {
-          edges {
-            node {
-              id,
-              ${Role.getFragment('role')}
-            }
-          }
-        },
-        ${Role.getFragment('user')}
-      }
-    `,
-    roles: () => Relay.QL`
-      fragment on Role @relay(plural: true) {
-        id,
-        name,
         users(first: 10) {
           edges {
             node {
               id,
-              ${User.getFragment('user')},
+              name,
             }
           }
-        }
+        },
+        roles(first: 10) {
+          edges {
+            node {
+              id,
+              name,
+            }
+          }
+        },
       }
     `,
   },

@@ -63,6 +63,8 @@ const VIEWER_ID = 'me';
 // Wrapper for root connections
 var viewer = Object.assign(new Viewer(), {
   id: VIEWER_ID,
+  roles: Object.keys(data.Role),
+  users: Object.keys(data.User),
 });
 
 export function getViewer () {
@@ -76,7 +78,7 @@ export function getUser (id) {
 export function getRole (id) {
   return data.Role[id];
 }
-
+/*
 export function getUsers (names) {
   return names.map(name => {
     if (name === 'anonymous') {
@@ -128,7 +130,7 @@ export function addUserRole (userId, roleId) {
   role.users.push(userId);
   return role;
 }
-
+*/
 export function removeUserRole (userId, roleId) {
   var user = getUser(userId);
   var role = getRole(roleId);
