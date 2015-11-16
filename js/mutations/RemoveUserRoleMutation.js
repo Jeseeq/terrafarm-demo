@@ -20,33 +20,29 @@ export default class RemoveUserRoleMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on RemoveUserRolePayload {
-        user {
-          roles,
-        },
-        removedRoleID,
-        role {
-          users,
-        },
+        user,
+        role,
         removedUserID,
+        removedRoleID,
       }
     `;
   }
   getConfigs () {
     return [
-    {
-      type: 'NODE_DELETE',
-      parentName: 'user',
-      parentID: this.props.user.id,
-      connectionName: 'roles',
-      deletedIDFieldName: 'removedRoleID',
-    },
-    {
-      type: 'NODE_DELETE',
-      parentName: 'role',
-      parentID: this.props.role.id,
-      connectionName: 'users',
-      deletedIDFieldName: 'removedUserID',
-    },
+      {
+        type: 'NODE_DELETE',
+        parentName: 'user',
+        parentID: this.props.user.id,
+        connectionName: 'roles',
+        deletedIDFieldName: 'removedRoleID',
+      },
+      {
+        type: 'NODE_DELETE',
+        parentName: 'role',
+        parentID: this.props.role.id,
+        connectionName: 'users',
+        deletedIDFieldName: 'removedUserID',
+      },
     ];
   }
   getVariables () {

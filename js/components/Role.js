@@ -11,13 +11,11 @@ class Role extends React.Component {
       new RemoveUserRoleMutation({
         user: this.props.user,
         role: this.props.role,
-        removedUserID: this.props.user.id,
-        removedRoleID: this.props.role.id,
       })
     );
   }
   render () {
-    var {role, user} = this.props;
+    var {role} = this.props;
     return <div onClick={this._handleDestroyClick}>{role.name}</div>;
   }
 }
