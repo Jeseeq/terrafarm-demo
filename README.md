@@ -39,4 +39,7 @@ npm start
 ## License
 
 Copyright (c) 2015, Ryan Blakeley  
-Relay Starter Kit is [BSD licensed](./LICENSE). We also provide an additional [patent grant](./PATENTS).
+All rights reserved.  
+Pluck Yourself is [Creative Commons License](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
+Pluck Yourself was modified from [relayjs/relay-starter-kit](https://github.com/relayjs/relay-starter-kit).  
+Relay Starter Kit is [BSD licensed](./LICENSE) and provides an additional [patent grant](./PATENTS).  
