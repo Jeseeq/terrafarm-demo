@@ -1,37 +1,36 @@
 import React from 'react';
 import Relay from 'react-relay';
-//import User from './User';
-//import Role from './Role';
+import User from './User';
+import Role from './Role';
 
 class App extends React.Component {
   render () {
     var {viewer} = this.props;
-    return <div>Got sum work to do
-    </div>;
-    /*
+    var {users, roles} = viewer;
+    return <div>
       <h1>By Role</h1>
       <ol>
-        {roles.map(role => <li key={role.id}>
-          <h2>{role.name}</h2>
+        {roles.edges.map(role => <li key={role.node.id}>
+          <h2>{role.node.name}</h2>
           <ol>
-            {role.users.edges.map(edge => <li key={edge.node.id}>
-              <User user={edge.node}/>
+            {role.node.users.edges.map(user => <li key={user.node.id}>
+              <User user={user.node} role={role.node}/>
             </li>)}
           </ol>
         </li>)}
       </ol>
       <h1>By User</h1>
       <ol>
-        {users.map(user => <li key={user.id}>
-          <h2>{user.name}</h2>
+        {users.edges.map(user => <li key={user.node.id}>
+          <h2>{user.node.name}</h2>
           <ol>
-            {user.roles.edges.map(edge => <li key={edge.node.id}>
-              <Role role={edge.node} user={user}/>
+            {user.node.roles.edges.map(role => <li key={role.node.id}>
+              <Role role={role.node} user={user.node}/>
             </li>)}
           </ol>
         </li>)}
       </ol>
-    */
+    </div>;
   }
 }
 
@@ -44,7 +43,16 @@ export default Relay.createContainer(App, {
             node {
               id,
               name,
-            }
+              roles(first: 10) {
+                edges {
+                  node {
+                    id,
+                    ${Role.getFragment('role')},
+                  }
+                }
+              },
+              ${Role.getFragment('user')},
+            },
           }
         },
         roles(first: 10) {
@@ -52,6 +60,14 @@ export default Relay.createContainer(App, {
             node {
               id,
               name,
+              users(first: 10) {
+                edges {
+                  node {
+                    id,
+                    ${User.getFragment('user')},
+                  }
+                }
+              },
             }
           }
         },

@@ -62,7 +62,7 @@
         {
           "kind": "OBJECT",
           "name": "Viewer",
-          "description": "Wrapper for root connections",
+          "description": "A root-level client wrapper to support connection types.",
           "fields": [
             {
               "name": "id",
@@ -244,7 +244,7 @@
         {
           "kind": "OBJECT",
           "name": "User",
-          "description": "A person who uses our app",
+          "description": "A person who uses our app.",
           "fields": [
             {
               "name": "id",
@@ -264,7 +264,7 @@
             },
             {
               "name": "name",
-              "description": "A person's name",
+              "description": "A person's name.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -276,7 +276,7 @@
             },
             {
               "name": "roles",
-              "description": "The roles for the user",
+              "description": "A person's list of labor inputs.",
               "args": [
                 {
                   "name": "after",
@@ -531,7 +531,7 @@
         {
           "kind": "OBJECT",
           "name": "Role",
-          "description": "A labor input",
+          "description": "A labor input.",
           "fields": [
             {
               "name": "id",
@@ -551,7 +551,7 @@
             },
             {
               "name": "name",
-              "description": "The name of the role",
+              "description": "A labor input's name.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -563,7 +563,7 @@
             },
             {
               "name": "users",
-              "description": "The users who fulfill the role",
+              "description": "A labor input's list of users.",
               "args": [
                 {
                   "name": "after",
@@ -805,7 +805,7 @@
           "description": null,
           "fields": [
             {
-              "name": "user",
+              "name": "viewer",
               "description": null,
               "args": [],
               "type": {
@@ -817,12 +817,12 @@
               "deprecationReason": null
             },
             {
-              "name": "removedRoleID",
+              "name": "user",
               "description": null,
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "ID",
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -842,6 +842,18 @@
             },
             {
               "name": "removedUserID",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "removedRoleID",
               "description": null,
               "args": [],
               "type": {

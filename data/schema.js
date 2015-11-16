@@ -1,13 +1,3 @@
-/**
- *  Copyright (c) 2015, Ryan Blakeley
- *  Copyright (c) 2015, Facebook, Inc.
- *  All rights reserved.
- *
- *  This source code is licensed under the BSD-style license found in the
- *  LICENSE file in the root directory of this source tree. An additional grant
- *  of patent rights can be found in the PATENTS file in the same directory.
- */
-
 import {
   GraphQLBoolean,
   GraphQLFloat,
@@ -37,8 +27,6 @@ import {
   getViewer,
   getRole,
   getUser,
-  //getRoles,
-  //getUsers,
   //createUser,
   //addUserRole,
   removeUserRole,
@@ -72,19 +60,19 @@ var {nodeInterface, nodeField} = nodeDefinitions(
 
 var GraphQLUser = new GraphQLObjectType({
   name: 'User',
-  description: 'A person who uses our app',
+  description: 'A person who uses our app.',
   fields: () => ({
     id: globalIdField('User'),
     name: {
       type: GraphQLString,
-      description: 'A person\'s name',
+      description: 'A person\'s name.',
     },
     roles: {
       type: RoleConnection,
-      description: 'The roles for the user',
+      description: 'A person\'s list of labor inputs.',
       args: connectionArgs,
-      resolve: (user, args) => connectionFromArray(
-        user.roles.map((id) => getRole(id)),
+      resolve: (_, args) => connectionFromArray(
+        _.roles.map(id => getRole(id)),
         args
       ),
     },
@@ -97,23 +85,23 @@ var {connectionType: UserConnection} =
 
 var GraphQLRole = new GraphQLObjectType({
   name: 'Role',
-  description: 'A labor input',
-  fields: () => ({
+  description: 'A labor input.',
+  fields: {
     id: globalIdField('Role'),
     name: {
       type: GraphQLString,
-      description: 'The name of the role',
+      description: 'A labor input\'s name.',
     },
     users: {
       type: UserConnection,
-      description: 'The users who fulfill the role',
+      description: 'A labor input\'s list of users.',
       args: connectionArgs,
-      resolve: (role, args) => connectionFromArray(
-        role.users.map((id) => getUser(id)),
+      resolve: (_, args) => connectionFromArray(
+        _.users.map(id => getUser(id)),
         args
       ),
     },
-  }),
+  },
   interfaces: [nodeInterface],
 });
 
@@ -122,22 +110,22 @@ var {connectionType: RoleConnection} =
 
 var GraphQLViewer = new GraphQLObjectType({
   name: 'Viewer',
-  description: 'Wrapper for root connections',
+  description: 'A root-level client wrapper to support connection types.',
   fields: {
     id: globalIdField('Viewer'),
     roles: {
       type: RoleConnection,
       args: connectionArgs,
-      resolve: (viewer, args) => connectionFromArray(
-        viewer.roles.map(id => getRole(id)),
+      resolve: (_, args) => connectionFromArray(
+        _.roles.map(id => getRole(id)),
         args
       ),
     },
     users: {
       type: UserConnection,
       args: connectionArgs,
-      resolve: (viewer, args) => connectionFromArray(
-        viewer.users.map(id => getUser(id)),
+      resolve: (_, args) => connectionFromArray(
+        _.users.map(id => getUser(id)),
         args
       ),
     },
@@ -147,13 +135,13 @@ var GraphQLViewer = new GraphQLObjectType({
 
 var Root = new GraphQLObjectType({
   name: 'Root',
-  fields: () => ({
+  fields: {
     viewer: {
       type: GraphQLViewer,
       resolve: () => getViewer(),
     },
     node: nodeField,
-  }),
+  },
 });
 /*
 var GraphQLNewUserMutation = mutationWithClientMutationId({
@@ -225,21 +213,25 @@ var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
     }
   },
   outputFields: {
+     viewer: {
+      type: GraphQLUser,
+      resolve: () => getViewer(),
+    },
     user: {
       type: GraphQLUser,
-      resolve: ({userId}) => getUser(userId)
-    },
-    removedRoleID: {
-      type: GraphQLID,
-      resolve: ({roleId}) => roleId,
+      resolve: ({userId}) => getUser(userId),
     },
     role: {
       type: GraphQLRole,
-      resolve: ({roleId}) => getRole(roleId)
+      resolve: ({roleId}) => getRole(roleId),
     },
     removedUserID: {
       type: GraphQLID,
       resolve: ({userId}) => userId,
+    },
+    removedRoleID: {
+      type: GraphQLID,
+      resolve: ({roleId}) => roleId,
     },
   },
   mutateAndGetPayload: ({userId, roleId}) => {
