@@ -2,11 +2,11 @@ import RemoveUserRoleMutation from '../mutations/RemoveUserRoleMutation';
 import React from 'react';
 import Relay from 'react-relay';
 
-class Role extends React.Component {
+class UserSwitch extends React.Component {
   _handleDestroyClick = () => {
-    this._removeRole();
+    this._removeUser();
   }
-  _removeRole () {
+  _removeUser () {
     Relay.Store.update(
       new RemoveUserRoleMutation({
         user: this.props.user,
@@ -15,23 +15,23 @@ class Role extends React.Component {
     );
   }
   render () {
-    var {role} = this.props;
-    return <div onClick={this._handleDestroyClick}>{role.name}</div>;
+    var {user} = this.props;
+    return <div onClick={this._handleDestroyClick}>{user.name}</div>;
   }
 }
 
-export default Relay.createContainer(Role, {
+export default Relay.createContainer(UserSwitch, {
   fragments: {
     role: () => Relay.QL`
       fragment on Role {
         id,
-        name,
         ${RemoveUserRoleMutation.getFragment('role')},
       }
     `,
     user: () => Relay.QL`
       fragment on User {
         id,
+        name,
         ${RemoveUserRoleMutation.getFragment('user')},
       }
     `,
