@@ -5,7 +5,7 @@ import Role from './Role';
 
 class App extends React.Component {
   render () {
-    var {roles, users} = this.props;
+    var {roles, users} = this.props.viewer;
     return <div>
       <h1>By Role</h1>
       <ol>
@@ -35,6 +35,12 @@ class App extends React.Component {
 
 export default Relay.createContainer(App, {
   fragments: {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        users,
+        roles,
+      }
+    `,
     users: () => Relay.QL`
       fragment on User @relay(plural: true) {
         id,

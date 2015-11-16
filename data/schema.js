@@ -31,6 +31,7 @@ import {
 } from 'graphql-relay';
 
 import {
+  Viewer,
   Role,
   User,
   getRole,
@@ -45,7 +46,9 @@ import {
 var {nodeInterface, nodeField} = nodeDefinitions(
   (globalId) => {
     var {type, id} = fromGlobalId(globalId);
-    if (type === 'Role') {
+    if (type === 'Viewer') {
+      return getViewer();
+    } else if (type === 'Role') {
       return getRole(id);
     } else if (type === 'User') {
       return getUser(id);
@@ -54,7 +57,9 @@ var {nodeInterface, nodeField} = nodeDefinitions(
     }
   },
   (obj) => {
-    if (obj instanceof Role) {
+    if (obj instanceof Viewer) {
+      return GraphQLViewer;
+    } else if (obj instanceof Role) {
       return GraphQLRole;
     } else if (obj instanceof User) {
       return GraphQLUser;
@@ -114,9 +119,11 @@ var GraphQLRole = new GraphQLObjectType({
 var {connectionType: RoleConnection} =
   connectionDefinitions({name: 'Role', nodeType: GraphQLRole});
 
-var Root = new GraphQLObjectType({
-  name: 'Root',
-  fields: () => ({
+var GraphQLViewer = new GraphQLObjectType({
+  name: 'Viewer',
+  description: 'Wrapper for root connections',
+  fields: {
+    id: globalIdField('Viewer'),
     roles: {
       type: new GraphQLList(GraphQLRole),
       args: {
@@ -134,6 +141,17 @@ var Root = new GraphQLObjectType({
         },
       },
       resolve: (root, {names}) => getUsers(names),
+    },
+  },
+  interfaces: [nodeInterface],
+});
+
+var Root = new GraphQLObjectType({
+  name: 'Root',
+  fields: () => ({
+    viewer: {
+      type: GraphQLViewer,
+      resolve: () => getViewer(),
     },
     node: nodeField,
   }),

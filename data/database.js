@@ -8,6 +8,7 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
 
+export class Viewer extends Object {}
 export class User extends Object {}
 export class Role extends Object {}
 
@@ -55,6 +56,18 @@ var data = {
     3: farmhand
   },
 };
+
+// Mock authenticated ID
+const VIEWER_ID = 'me';
+
+// Wrapper for root connections
+var viewer = Object.assign(new Viewer(), {
+  id: VIEWER_ID,
+});
+
+export function getViewer () {
+  return viewer;
+}
 
 export function getUser (id) {
   return data.User[id];
