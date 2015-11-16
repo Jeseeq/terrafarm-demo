@@ -92,21 +92,21 @@ export function createUser(userName) {
   data.User[newUser.id] = newUser;
   return newUser;
 }
-
+*/
 export function addUserRole (userId, roleId) {
   var user = getUser(userId);
   var role = getRole(roleId);
   var roleIndex = user.roles.indexOf(roleId);
   var userIndex = role.users.indexOf(userId);
 
-  if (roleIndex > -1 || userIndex > -1) {
-    return console.error(`User ${userId} and role ${roleId} already paired.`);
+  if (roleIndex > -1 && userIndex > -1) {
+    return console.error(`User ${userId} and role ${roleId} already connected.`);
   }
   user.roles.push(roleId);
   role.users.push(userId);
-  return role;
+  return {user, role};
 }
-*/
+
 export function removeUserRole (userId, roleId) {
   var user = getUser(userId);
   var role = getRole(roleId);
@@ -114,7 +114,7 @@ export function removeUserRole (userId, roleId) {
   var userIndex = role.users.indexOf(userId);
 
   if (roleIndex === -1 || userIndex === -1) {
-    return console.error(`User ${userId} and role ${roleId} link not true.`);
+    return console.error(`User ${userId} and role ${roleId} not connected.`);
   }
   user.roles.splice(roleIndex, 1);
   role.users.splice(userIndex, 1);

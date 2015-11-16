@@ -16,16 +16,14 @@ export default class AddUserRoleMutation extends Relay.Mutation {
   getMutation () {
     return Relay.QL`mutation{addUserRole}`;
   }
-  // TODO: getCollisionKey ()
+  // getCollisionKey ()
   getFatQuery () {
     return Relay.QL`
       fragment on AddUserRolePayload {
-        user {
-          roles,
-        },
-        role {
-          users,
-        },
+        user,
+        role,
+        addedUserEdge,
+        addedRoleEdge,
       }
     `;
   }
@@ -35,7 +33,7 @@ export default class AddUserRoleMutation extends Relay.Mutation {
       parentName: 'user',
       parentID: this.props.user.id,
       connectionName: 'roles',
-      //edgeName: 'newShipEdge',
+      edgeName: 'addedRoleEdge',
       rangeBehaviors: {
         '': 'append',
       },
@@ -45,7 +43,7 @@ export default class AddUserRoleMutation extends Relay.Mutation {
       parentName: 'role',
       parentID: this.props.role.id,
       connectionName: 'users',
-      //edgeName: 'newShipEdge',
+      edgeName: 'addedUserEdge',
       rangeBehaviors: {
         '': 'append',
       },
@@ -57,5 +55,6 @@ export default class AddUserRoleMutation extends Relay.Mutation {
       roleId: this.props.role.id,
     };
   }
-  // TODO: getOptimisticResponse ()
+  // getOptimisticResponse ()
 }
+

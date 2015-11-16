@@ -14,6 +14,7 @@ import {
   connectionArgs,
   connectionDefinitions,
   connectionFromArray,
+  cursorForObjectInConnection,
   fromGlobalId,
   globalIdField,
   mutationWithClientMutationId,
@@ -28,7 +29,7 @@ import {
   getRole,
   getUser,
   //createUser,
-  //addUserRole,
+  addUserRole,
   removeUserRole,
 } from './database';
 
@@ -172,7 +173,7 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
     };
   }
 });
-
+*/
 var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
   name: 'AddUserRole',
   inputFields: {
@@ -186,22 +187,49 @@ var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
   outputFields: {
     user: {
       type: GraphQLUser,
-      resolve: (payload) => getUser(payload.userId)
+      resolve: ({localUserId}) => getUser(localUserId),
     },
     role: {
       type: GraphQLRole,
-      resolve: (payload) => getRole(payload.roleId)
-    }
+      resolve: ({localRoleId}) => getRole(localRoleId),
+    },
+    addedUserEdge: {
+      type: UserConnection,
+      resolve: ({localRoleId, localUserId}) => {
+        var role = getRole(localRoleId);
+        var user = getUser(localUserId);
+        return {
+          cursor: cursorForObjectInConnection(
+            role.users.map(id => getUser(id)), 
+            user
+          ),
+          node: user,
+        };
+      }
+    },
+    addedRoleEdge: {
+      type: RoleConnection,
+      resolve: ({localRoleId, localUserId}) => {
+        var role = getRole(localRoleId);
+        var user = getUser(localUserId);
+        return {
+          cursor: cursorForObjectInConnection(
+            user.roles.map(id => getRole(id)), 
+            role
+          ),
+          node: role,
+        };
+      }
+    },
   },
   mutateAndGetPayload: ({userId, roleId}) => {
-    addUserRole(userId, roleId);
-    return {
-      userId: userId,
-      roleId: roleId,
-    };
+    var localUserId = fromGlobalId(userId).id;
+    var localRoleId = fromGlobalId(roleId).id;
+    addUserRole(localUserId, localRoleId);
+    return { localUserId, localRoleId };
   }
 });
-*/
+
 var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
   name: 'RemoveUserRole',
   inputFields: {
@@ -242,7 +270,7 @@ var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     //newUser: GraphQLNewUserMutation,
-    //addUserRole: GraphQLAddUserRoleMutation,
+    addUserRole: GraphQLAddUserRoleMutation,
     removeUserRole: GraphQLRemoveUserRoleMutation,
   })
 });
