@@ -7,7 +7,7 @@ Work-in-progress
 - app server
 - GraphQL server
 - transpiler that works with Relay
-- url routing
+- URL routing
 
 ## Installation
 
@@ -39,7 +39,5 @@ npm start
 ## License
 
 Copyright (c) 2015, Ryan Blakeley  
-All rights reserved.  
-Pluck Yourself is [Creative Commons License](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
-Pluck Yourself was modified from [relayjs/relay-starter-kit](https://github.com/relayjs/relay-starter-kit).  
-Relay Starter Kit is [BSD licensed](./LICENSE) and provides an additional [patent grant](./PATENTS).  
+This project is [Creative Commons License](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
+Parts from [Relay Starter Kit](https://github.com/relayjs/relay-starter-kit), which is [BSD licensed](./LICENSE) and provides an additional [patent grant](./PATENTS).  
