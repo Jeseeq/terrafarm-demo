@@ -11,7 +11,7 @@ class App extends React.Component {
       <h1>By User</h1>
       <ol>
         {users.edges.map(edge => <li key={edge.node.id}>
-          <UserDetail user={edge.node} />
+          <UserDetail user={edge.node} roles={roles} />
         </li>)}
       </ol>
       <h1>By Role</h1>
@@ -43,8 +43,8 @@ export default Relay.createContainer(App, {
               ${RoleDetail.getFragment('role')},
             },
           }
+          ${UserDetail.getFragment('roles')},
         },
-
       }
     `,
   },

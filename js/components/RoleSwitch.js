@@ -15,8 +15,10 @@ class RoleSwitch extends React.Component {
     );
   }
   render () {
-    var {role} = this.props;
-    return <div onClick={this._handleDestroyClick}>{role.name}</div>;
+    var {role, connected} = this.props;
+    return <div onClick={this._handleDestroyClick}>
+      {role.name} {connected && '*'}
+    </div>;
   }
 }
 
