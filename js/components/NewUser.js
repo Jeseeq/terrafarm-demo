@@ -12,6 +12,7 @@ class NewUser extends React.Component {
   render () {
     return (
       <TextInput
+        style={style.input}
         autoFocus={true}
         onSave={this._handleTextInputSave}
         placeholder='Name'
@@ -37,4 +38,9 @@ export default Relay.createContainer(NewUser, {
   },
 });
 
+var style = {
+  input: {
+    color: 'red',
+  },
+};
 

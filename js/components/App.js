@@ -5,23 +5,39 @@ import UserDetail from './UserDetail';
 import RoleDetail from './RoleDetail';
 
 class App extends React.Component {
+  getStyles () {
+    return {
+      container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        lineHeight: '1.34em',
+      },
+      list: {
+        flexGrow: 1,
+        padding: 0,
+        minWidth: 200,
+        maxWidth: 260,
+        listStyleType: 'none',
+      },
+    };
+  }
   render () {
     var {viewer} = this.props;
+    var styles = this.getStyles();
     var {users, roles} = viewer;
-    return <div>
-      <NewUser viewer={viewer}/>
-      <h1>By User</h1>
-      <ol>
+
+    return <div style={styles.container}>
+      <ul style={styles.list}>
         {users.edges.map(edge => <li key={edge.node.id}>
           <UserDetail user={edge.node} roles={roles} />
         </li>)}
-      </ol>
-      <h1>By Role</h1>
-      <ol>
+        <li><NewUser viewer={viewer}/></li>
+      </ul>
+      <ul style={styles.list}>
         {roles.edges.map(edge => <li key={edge.node.id}>
           <RoleDetail role={edge.node} />
         </li>)}
-      </ol>
+      </ul>
     </div>;
   }
 }

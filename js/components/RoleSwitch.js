@@ -4,6 +4,15 @@ import React from 'react';
 import Relay from 'react-relay';
 
 class RoleSwitch extends React.Component {
+  getStyles () {
+    var {connected} = this.props;
+    return {
+      container: {
+        display: 'inline-block',
+        fontWeight: connected ? 'bold' : 'normal',
+      },
+    };
+  }
   _handleClick = () => {
     this.props.connected ? this._removeRole() : this._addRole();
   }
@@ -24,9 +33,10 @@ class RoleSwitch extends React.Component {
     );
   }
   render () {
-    var {role, connected} = this.props;
-    return <div onClick={this._handleClick}>
-      {role.name} {connected && '*'}
+    var {role} = this.props;
+    var styles = this.getStyles();
+    return <div style={styles.container} onClick={this._handleClick}>
+      {role.name.charAt(0)}
     </div>;
   }
 }

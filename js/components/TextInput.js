@@ -11,6 +11,7 @@ export default class TextInput extends React.Component {
     commitOnBlur: false,
   }
   static propTypes = {
+    style: PropTypes.object,
     commitOnBlur: PropTypes.bool.isRequired,
     initialValue: PropTypes.string,
     onCancel: PropTypes.func,
@@ -54,6 +55,7 @@ export default class TextInput extends React.Component {
   render() {
     return (
       <input
+        style={this.props.style}
         onBlur={this._handleBlur}
         onChange={this._handleChange}
         onKeyDown={this._handleKeyDown}
@@ -63,3 +65,4 @@ export default class TextInput extends React.Component {
     );
   }
 }
+
