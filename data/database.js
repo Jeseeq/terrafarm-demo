@@ -138,18 +138,19 @@ export function getUser (id) {
 export function getRole (id) {
   return data.Role[id];
 }
-/*
-var nextUser = 11;
+
+var nextUserId = 10;
 export function createUser(userName) {
-  var newUser = {
-    id: '' + (nextUser += 1),
+  var newUser = Object.assign(new User(), {
+    id: `${nextUserId += 1}`,
     name: userName,
     roles: [],
-  };
+  });
+  viewer.users.push(newUser.id);
   data.User[newUser.id] = newUser;
-  return newUser;
+  return newUser.id;
 }
-*/
+
 export function addUserRole (userId, roleId) {
   var user = getUser(userId);
   var role = getRole(roleId);

@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
+import NewUser from './NewUser';
 import UserDetail from './UserDetail';
 import RoleDetail from './RoleDetail';
 
@@ -8,6 +9,7 @@ class App extends React.Component {
     var {viewer} = this.props;
     var {users, roles} = viewer;
     return <div>
+      <NewUser viewer={viewer}/>
       <h1>By User</h1>
       <ol>
         {users.edges.map(edge => <li key={edge.node.id}>
@@ -28,7 +30,7 @@ export default Relay.createContainer(App, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        users(first: 10) {
+        users(first: 18) {
           edges {
             node {
               id,
@@ -36,7 +38,7 @@ export default Relay.createContainer(App, {
             },
           }
         },
-        roles(first: 10) {
+        roles(first: 5) {
           edges {
             node {
               id,
@@ -45,6 +47,7 @@ export default Relay.createContainer(App, {
           }
           ${UserDetail.getFragment('roles')},
         },
+        ${NewUser.getFragment('viewer')},
       }
     `,
   },

@@ -16,7 +16,6 @@ export default class RemoveUserRoleMutation extends Relay.Mutation {
   getMutation () {
     return Relay.QL`mutation{removeUserRole}`;
   }
-  // TODO: getCollisionKey ()
   getFatQuery () {
     return Relay.QL`
       fragment on RemoveUserRolePayload {
@@ -51,6 +50,5 @@ export default class RemoveUserRoleMutation extends Relay.Mutation {
       roleId: this.props.role.id,
     };
   }
-  // TODO: getOptimisticResponse ()
 }
 

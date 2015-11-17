@@ -16,7 +16,6 @@ export default class AddUserRoleMutation extends Relay.Mutation {
   getMutation () {
     return Relay.QL`mutation{addUserRole}`;
   }
-  // getCollisionKey ()
   getFatQuery () {
     return Relay.QL`
       fragment on AddUserRolePayload {
@@ -55,6 +54,5 @@ export default class AddUserRoleMutation extends Relay.Mutation {
       roleId: this.props.role.id,
     };
   }
-  // getOptimisticResponse ()
 }
 
