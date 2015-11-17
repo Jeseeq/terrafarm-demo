@@ -10,14 +10,13 @@ class NewUser extends React.Component {
     );
   }
   render () {
-    return <div>
-      Enter a new user name and press enter:
+    return (
       <TextInput
         autoFocus={true}
         onSave={this._handleTextInputSave}
         placeholder='Name'
       />
-    </div>;
+    );
   }
 }
 
