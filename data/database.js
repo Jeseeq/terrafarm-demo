@@ -1,121 +1,82 @@
 export class Viewer extends Object {}
 export class User extends Object {}
-export class Role extends Object {}
+export class Input extends Object {}
 
 // Mock authenticated ID
 const VIEWER_ID = 'me';
 
 // Mock data
-var busquets = Object.assign(
+var jane = Object.assign(
   new User(), {
     id: '1',
-    name: 'Sergio Busquets',
-    roles: ['2']
+    name: 'Jane',
+    inputs: {
+      provided: ['1'],
+      requested: ['2'],
+    },
   }
 );
-var rakitic = Object.assign(
+var joe = Object.assign(
   new User(), {
     id: '2',
-    name: 'Ivan Rakitic',
-    roles: ['2']
+    name: 'Joe',
+    inputs: {
+      provided: ['3'],
+      requested: ['1','2'],
+    },
   }
 );
-var iniesta = Object.assign(
+var hank = Object.assign(
   new User(), {
     id: '3',
-    name: 'Andres Iniesta',
-    roles: ['2','3']
+    name: 'Hank',
+    inputs: {
+      provided: ['2'],
+      requested: ['3']
+    },
   }
 );
-var alves = Object.assign(
-  new User(), {
-    id: '4',
-    name: 'Dani Alves',
-    roles: ['1'],
-  }
-);
-var roberto = Object.assign(
-  new User(), {
-    id: '5',
-    name: 'Sergi Roberto',
-    roles: ['1','2'],
-  }
-);
-var mathieu = Object.assign(
-  new User(), {
-    id: '6',
-    name: 'Jeremy Mathieu',
-    roles: ['1','2'],
-  }
-);
-var mascherano = Object.assign(
-  new User(), {
-    id: '7',
-    name: 'Javier Mascherano',
-    roles: ['1','2']
-  }
-);
-var suarez = Object.assign(
-  new User(), {
-    id: '8',
-    name: 'Luis Suarez',
-    roles: ['3'],
-  }
-);
-var messi = Object.assign(
-  new User(), {
-    id: '9',
-    name: 'Lionel Messi',
-    roles: ['3'],
-  }
-);
-var neymar = Object.assign(
-  new User(), {
-    id: '10',
-    name: 'Neymar',
-    roles: ['3'],
-  }
-);
-
-var defender = Object.assign(
-  new Role(), {
+var shovel = Object.assign(
+  new Input(), {
     id: '1',
-    name: 'Defender',
-    users: ['4','5','6','7']
+    name: 'Shovel',
+    users: {
+      providers: ['1'],
+      requesters: ['2'],
+    },
   }
 );
-var midfielder = Object.assign(
-  new Role(), {
+var muscle = Object.assign(
+  new Input(), {
     id: '2',
-    name: 'Midfielder',
-    users: ['1','2','3','5','6','7']
+    name: 'Muscle',
+    users: {
+      providers: ['3'],
+      requesters: ['1','2'],
+    },
   }
 );
-var forward = Object.assign(
-  new Role(), {
+var land = Object.assign(
+  new Input(), {
     id: '3',
-    name: 'Forward',
-    users: ['3','8','9','10']
+    name: 'Land',
+    users: {
+      providers: ['3'],
+      requesters: ['2'],
+    },
   }
 );
 
 var data = {
   User: {
-    1: busquets,
-    2: rakitic,
-    3: iniesta,
-    4: alves,
-    5: roberto,
-    6: mathieu,
-    7: mascherano,
-    8: suarez,
-    9: messi,
-    10: neymar,
+    1: jane,
+    2: joe,
+    3: hank,
   },
-  Role: {
-    1: defender,
-    2: midfielder,
-    3: forward,
+  Input: {
+    1: shovel,
+    2: muscle,
+    3: land,
   },
 };
 
@@ -123,7 +84,7 @@ var viewer = Object.assign(
   new Viewer(), {
     id: VIEWER_ID,
     users: Object.keys(data.User),
-    roles: Object.keys(data.Role),
+    inputs: Object.keys(data.Input),
   }
 );
 
@@ -135,10 +96,10 @@ export function getUser (id) {
   return data.User[id];
 }
 
-export function getRole (id) {
-  return data.Role[id];
+export function getInput (id) {
+  return data.Input[id];
 }
-
+// stop
 var nextUserId = 10;
 export function createUser(userName) {
   var newUser = Object.assign(new User(), {
