@@ -24,11 +24,11 @@ export default Relay.createContainer(NewUser, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        users(first: 18) {
+        users(first: 10) {
           edges {
             node {
               id,
-            },
+            }
           }
         },
         ${NewUserMutation.getFragment('viewer')},

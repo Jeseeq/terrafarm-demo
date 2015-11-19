@@ -32,6 +32,7 @@ import {
   getInput,
   getGroup,
   getProvision,
+  createUser,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -254,7 +255,7 @@ var Root = new GraphQLObjectType({
     node: nodeField,
   },
 });
-/*
+
 var GraphQLNewUserMutation = mutationWithClientMutationId({
   name: 'NewUser',
   inputFields: {
@@ -287,7 +288,7 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
     return {localUserId};
   }
 });
-
+/*
 var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
   name: 'AddUserRole',
   inputFields: {
@@ -379,17 +380,17 @@ var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
     return { localUserId, localRoleId };
   }
 });
-
+*/
 var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     newUser: GraphQLNewUserMutation,
-    addUserRole: GraphQLAddUserRoleMutation,
-    removeUserRole: GraphQLRemoveUserRoleMutation,
+    //addUserRole: GraphQLAddUserRoleMutation,
+    //removeUserRole: GraphQLRemoveUserRoleMutation,
   })
 });
-*/
+
 export var Schema = new GraphQLSchema({
   query: Root,
-  //mutation: Mutation
+  mutation: Mutation
 });

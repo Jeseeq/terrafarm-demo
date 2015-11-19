@@ -5,9 +5,7 @@ class UserDetail extends React.Component {
   render () {
     var {user} = this.props;
 
-    return <div>
-      <div>user: {user.name}</div>
-    </div>;
+    return <div>{user.name}</div>;
   }
 }
 

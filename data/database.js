@@ -135,22 +135,18 @@ export function getGroup (id) {
 export function getProvision (id) {
   return data.Provision[id];
 }
-/*
-var nextUserId = 3;
+
 export function createUser(userName) {
   var newUser = Object.assign(new User(), {
-    id: `${nextUserId += 1}`,
+    id: Object.keys(data.User).length + 1,
     name: userName,
-    inputs: {
-      provide: [],
-      request: [],
-    },
+    provisions: [],
   });
   viewer.users.push(newUser.id);
   data.User[newUser.id] = newUser;
   return newUser.id;
 }
-
+/*
 export function connectUserToInput (userId, inputId, relationship) {
   var user = getUser(userId);
   var input = getInput(inputId);
