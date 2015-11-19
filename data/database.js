@@ -11,8 +11,8 @@ var jane = Object.assign(
     id: '1',
     name: 'Jane',
     inputs: {
-      provided: ['1'],
-      requested: ['2'],
+      provide: ['1'],
+      request: ['2'],
     },
   }
 );
@@ -21,8 +21,8 @@ var joe = Object.assign(
     id: '2',
     name: 'Joe',
     inputs: {
-      provided: ['3'],
-      requested: ['1','2'],
+      provide: ['3'],
+      request: ['1','2'],
     },
   }
 );
@@ -31,8 +31,8 @@ var hank = Object.assign(
     id: '3',
     name: 'Hank',
     inputs: {
-      provided: ['2'],
-      requested: ['3']
+      provide: ['2'],
+      request: ['3']
     },
   }
 );
@@ -41,8 +41,8 @@ var shovel = Object.assign(
     id: '1',
     name: 'Shovel',
     users: {
-      providers: ['1'],
-      requesters: ['2'],
+      provide: ['1'],
+      request: ['2'],
     },
   }
 );
@@ -51,8 +51,8 @@ var muscle = Object.assign(
     id: '2',
     name: 'Muscle',
     users: {
-      providers: ['3'],
-      requesters: ['1','2'],
+      provide: ['3'],
+      request: ['1','2'],
     },
   }
 );
@@ -61,8 +61,8 @@ var land = Object.assign(
     id: '3',
     name: 'Land',
     users: {
-      providers: ['3'],
-      requesters: ['2'],
+      provide: ['3'],
+      request: ['2'],
     },
   }
 );
@@ -99,43 +99,46 @@ export function getUser (id) {
 export function getInput (id) {
   return data.Input[id];
 }
-// stop
-var nextUserId = 10;
+
+var nextUserId = 3;
 export function createUser(userName) {
   var newUser = Object.assign(new User(), {
     id: `${nextUserId += 1}`,
     name: userName,
-    roles: [],
+    inputs: {
+      provide: [],
+      request: [],
+    },
   });
   viewer.users.push(newUser.id);
   data.User[newUser.id] = newUser;
   return newUser.id;
 }
 
-export function addUserRole (userId, roleId) {
+export function connectUserToInput (userId, inputId, relationship) {
   var user = getUser(userId);
-  var role = getRole(roleId);
-  var roleIndex = user.roles.indexOf(roleId);
-  var userIndex = role.users.indexOf(userId);
+  var input = getInput(inputId);
+  var userIndex = input.users[relationship].indexOf(userId);
+  var inputIndex = user.inputs[relationship].indexOf(inputId);
 
-  if (roleIndex > -1 && userIndex > -1) {
-    return console.error(`User ${userId} and role ${roleId} already connected.`);
+  if (userIndex > -1 && inputIndex > -1) {
+    return console.error(`User ${userId} and input ${inputId} already connected.`);
   }
-  user.roles.push(roleId);
-  role.users.push(userId);
-  return {user, role};
+  user.inputs[relationship].push(inputId);
+  input.users[relationship].push(userId);
+  return {user, input};
 }
 
-export function removeUserRole (userId, roleId) {
+export function disconnectUserFromInput (userId, inputId, relationship) {
   var user = getUser(userId);
-  var role = getRole(roleId);
-  var roleIndex = user.roles.indexOf(roleId);
-  var userIndex = role.users.indexOf(userId);
+  var input = getInput(inputId);
+  var userIndex = input.users[relationship].indexOf(userId);
+  var inputIndex = user.inputs[relationship].indexOf(inputId);
 
-  if (roleIndex === -1 || userIndex === -1) {
-    return console.error(`User ${userId} and role ${roleId} not connected.`);
+  if (userIndex === -1 || inputIndex === -1) {
+    return console.error(`User ${userId} and input ${inputId} not connected.`);
   }
-  user.roles.splice(roleIndex, 1);
-  role.users.splice(userIndex, 1);
-  return {user, role};
+  user.inputs[relationship].splice(inputIndex, 1);
+  input.users[relationship].splice(userIndex, 1);
+  return {user, input};
 }
