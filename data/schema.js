@@ -23,14 +23,15 @@ import {
 
 import {
   Viewer,
-  Role,
   User,
+  Input,
+  Group,
+  Provision,
   getViewer,
-  getRole,
   getUser,
-  createUser,
-  addUserRole,
-  removeUserRole,
+  getInput,
+  getGroup,
+  getProvision,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -38,10 +39,14 @@ var {nodeInterface, nodeField} = nodeDefinitions(
     var {type, id} = fromGlobalId(globalId);
     if (type === 'Viewer') {
       return getViewer();
-    } else if (type === 'Role') {
-      return getRole(id);
     } else if (type === 'User') {
       return getUser(id);
+    } else if (type === 'Input') {
+      return getInput(id);
+    } else if (type === 'Group') {
+      return getGroup(id);
+    } else if (type === 'Provision') {
+      return getProvision(id);
     } else {
       return null;
     }
@@ -49,10 +54,14 @@ var {nodeInterface, nodeField} = nodeDefinitions(
   (obj) => {
     if (obj instanceof Viewer) {
       return GraphQLViewer;
-    } else if (obj instanceof Role) {
-      return GraphQLRole;
     } else if (obj instanceof User) {
       return GraphQLUser;
+    } else if (obj instanceof Input) {
+      return GraphQLInput;
+    } else if (obj instanceof Group) {
+      return GraphQLGroup;
+    } else if (obj instanceof Provision) {
+      return GraphQLProvision;
     } else {
       return null;
     }
@@ -68,12 +77,12 @@ var GraphQLUser = new GraphQLObjectType({
       type: GraphQLString,
       description: 'A person\'s name.',
     },
-    roles: {
-      type: RoleConnection,
-      description: 'A person\'s list of labor inputs.',
+    provisions: {
+      type: ProvisionConnection,
+      description: 'A person\'s list of commitments.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.roles.map(id => getRole(id)),
+        _.provisions.map(id => getProvision(id)),
         args
       ),
     },
@@ -89,21 +98,96 @@ var {
   nodeType: GraphQLUser,
 });
 
-var GraphQLRole = new GraphQLObjectType({
-  name: 'Role',
-  description: 'A labor input.',
-  fields: {
-    id: globalIdField('Role'),
+var GraphQLInput = new GraphQLObjectType({
+  name: 'Input',
+  description: 'An economic resource.',
+  fields: () => ({
+    id: globalIdField('Input'),
     name: {
       type: GraphQLString,
-      description: 'A labor input\'s name.',
+      description: 'An economic resource\'s name.',
     },
-    users: {
-      type: UserConnection,
-      description: 'A labor input\'s list of users.',
+    provisions: {
+      type: ProvisionConnection,
+      description: 'An economic resource\'s list of commitments.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.users.map(id => getUser(id)),
+        _.provisions.map(id => getProvision(id)),
+        args
+      ),
+    },
+  }),
+  interfaces: [nodeInterface],
+});
+
+var {
+  connectionType: InputConnection,
+  edgeType: GraphQLInputEdge
+} = connectionDefinitions({
+  name: 'Input',
+  nodeType: GraphQLInput,
+});
+
+var GraphQLGroup = new GraphQLObjectType({
+  name: 'Group',
+  description: 'An organized community.',
+  fields: () => ({
+    id: globalIdField('Group'),
+    name: {
+      type: GraphQLString,
+      description: 'An organized community\'s name.',
+    },
+    provisions: {
+      type: ProvisionConnection,
+      description: 'An organized community\'s list of commitments.',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.provisions.map(id => getProvision(id)),
+        args
+      ),
+    },
+  }),
+  interfaces: [nodeInterface],
+});
+
+var {
+  connectionType: GroupConnection,
+  edgeType: GraphQLGroupEdge
+} = connectionDefinitions({
+  name: 'Group',
+  nodeType: GraphQLGroup,
+});
+
+var GraphQLProvision = new GraphQLObjectType({
+  name: 'Provision',
+  description: 'A commitment describing a person, economic resource, and community.',
+  fields: {
+    id: globalIdField('Provision'),
+    name: {
+      type: GraphQLString,
+      description: 'A commitment\'s name.',
+    },
+    user: {
+      type: UserConnection,
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.user.map(id => getUser(id)),
+        args
+      ),
+    },
+    input: {
+      type: InputConnection,
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.input.map(id => getInput(id)),
+        args
+      ),
+    },
+    group: {
+      type: GroupConnection,
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.group.map(id => getGroup(id)),
         args
       ),
     },
@@ -112,11 +196,11 @@ var GraphQLRole = new GraphQLObjectType({
 });
 
 var {
-  connectionType: RoleConnection,
-  edgeType: GraphQLRoleEdge
+  connectionType: ProvisionConnection,
+  edgeType: GraphQLProvisionEdge
 } = connectionDefinitions({
-  name: 'Role',
-  nodeType: GraphQLRole,
+  name: 'Provision',
+  nodeType: GraphQLProvision,
 });
 
 var GraphQLViewer = new GraphQLObjectType({
@@ -124,19 +208,35 @@ var GraphQLViewer = new GraphQLObjectType({
   description: 'A root-level client wrapper.',
   fields: {
     id: globalIdField('Viewer'),
-    roles: {
-      type: RoleConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.roles.map(id => getRole(id)),
-        args
-      ),
-    },
     users: {
       type: UserConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
         _.users.map(id => getUser(id)),
+        args
+      ),
+    },
+    inputs: {
+      type: InputConnection,
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.inputs.map(id => getInput(id)),
+        args
+      ),
+    },
+    groups: {
+      type: GroupConnection,
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.groups.map(id => getGroup(id)),
+        args
+      ),
+    },
+    provisions: {
+      type: ProvisionConnection,
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.provisions.map(id => getProvision(id)),
         args
       ),
     },
@@ -154,7 +254,7 @@ var Root = new GraphQLObjectType({
     node: nodeField,
   },
 });
-
+/*
 var GraphQLNewUserMutation = mutationWithClientMutationId({
   name: 'NewUser',
   inputFields: {
@@ -288,8 +388,8 @@ var Mutation = new GraphQLObjectType({
     removeUserRole: GraphQLRemoveUserRoleMutation,
   })
 });
-
+*/
 export var Schema = new GraphQLSchema({
   query: Root,
-  mutation: Mutation
+  //mutation: Mutation
 });

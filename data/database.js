@@ -1,6 +1,8 @@
 export class Viewer extends Object {}
 export class User extends Object {}
 export class Input extends Object {}
+export class Group extends Object {}
+export class Provision extends Object {}
 
 // Mock authenticated ID
 const VIEWER_ID = 'me';
@@ -10,60 +12,76 @@ var jane = Object.assign(
   new User(), {
     id: '1',
     name: 'Jane',
-    inputs: {
-      provide: ['1'],
-      request: ['2'],
-    },
+    provisions: ['1'],
   }
 );
 var joe = Object.assign(
   new User(), {
     id: '2',
     name: 'Joe',
-    inputs: {
-      provide: ['3'],
-      request: ['1','2'],
-    },
+    provisions: ['2'],
   }
 );
 var hank = Object.assign(
   new User(), {
     id: '3',
     name: 'Hank',
-    inputs: {
-      provide: ['2'],
-      request: ['3']
-    },
+    provisions: ['3'],
   }
 );
 var shovel = Object.assign(
   new Input(), {
     id: '1',
     name: 'Shovel',
-    users: {
-      provide: ['1'],
-      request: ['2'],
-    },
+    provisions: ['1'],
   }
 );
 var muscle = Object.assign(
   new Input(), {
     id: '2',
     name: 'Muscle',
-    users: {
-      provide: ['3'],
-      request: ['1','2'],
-    },
+    provisions: ['2'],
   }
 );
 var land = Object.assign(
   new Input(), {
     id: '3',
     name: 'Land',
-    users: {
-      provide: ['3'],
-      request: ['2'],
-    },
+    provisions: ['3'],
+  }
+);
+var purple = Object.assign(
+  new Group(), {
+    id: '1',
+    name: 'Purple',
+    provisions: ['1','2','3'],
+  },
+);
+var warsaw = Object.assign(
+  new Provision, {
+    id: '1',
+    name: 'Warsaw',
+    user: ['1'],
+    input: ['1'],
+    group: ['1'],
+  }
+);
+var berlin = Object.assign(
+  new Provision, {
+    id: '2',
+    name: 'Berlin',
+    user: ['2'],
+    input: ['2'],
+    group: ['1'],
+  }
+);
+var moscow = Object.assign(
+  new Provision, {
+    id: '3',
+    name: 'Moscow',
+    user: ['3'],
+    input: ['3'],
+    group: ['1'],
   }
 );
 
@@ -78,6 +96,14 @@ var data = {
     2: muscle,
     3: land,
   },
+  Group: {
+    1: purple,
+  },
+  Provision: {
+    1: warsaw,
+    2: berlin,
+    3: moscow,
+  },
 };
 
 var viewer = Object.assign(
@@ -85,6 +111,8 @@ var viewer = Object.assign(
     id: VIEWER_ID,
     users: Object.keys(data.User),
     inputs: Object.keys(data.Input),
+    groups: Object.keys(data.Group),
+    provisions: Object.keys(data.Provision),
   }
 );
 
@@ -100,6 +128,14 @@ export function getInput (id) {
   return data.Input[id];
 }
 
+export function getGroup (id) {
+  return data.Group[id];
+}
+
+export function getProvision (id) {
+  return data.Provision[id];
+}
+/*
 var nextUserId = 3;
 export function createUser(userName) {
   var newUser = Object.assign(new User(), {
@@ -142,3 +178,4 @@ export function disconnectUserFromInput (userId, inputId, relationship) {
   input.users[relationship].splice(userIndex, 1);
   return {user, input};
 }
+*/
