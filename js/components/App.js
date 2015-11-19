@@ -1,41 +1,21 @@
 import React from 'react';
 import Relay from 'react-relay';
-import NewUser from './NewUser';
 import UserDetail from './UserDetail';
-import RoleDetail from './RoleDetail';
+// InputDetail
+// GroupDetail
+// ProvisionDetail
 
 class App extends React.Component {
-  getStyles () {
-    return {
-      container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        lineHeight: '1.34em',
-      },
-      list: {
-        flexGrow: 1,
-        padding: 0,
-        minWidth: 200,
-        maxWidth: 260,
-        listStyleType: 'none',
-      },
-    };
-  }
   render () {
     var {viewer} = this.props;
-    var styles = this.getStyles();
-    var {users, roles} = viewer;
+    console.log('viewer:', viewer);
+    var {users, inputs, groups, provisions} = viewer;
 
-    return <div style={styles.container}>
-      <ul style={styles.list}>
+    return <div>
+      <h1>App</h1>
+      <ul>
         {users.edges.map(edge => <li key={edge.node.id}>
-          <UserDetail user={edge.node} roles={roles} />
-        </li>)}
-        <li><NewUser viewer={viewer}/></li>
-      </ul>
-      <ul style={styles.list}>
-        {roles.edges.map(edge => <li key={edge.node.id}>
-          <RoleDetail role={edge.node} />
+          <UserDetail user={edge.node} />
         </li>)}
       </ul>
     </div>;
@@ -46,7 +26,7 @@ export default Relay.createContainer(App, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        users(first: 18) {
+        users(first: 5) {
           edges {
             node {
               id,
@@ -54,16 +34,6 @@ export default Relay.createContainer(App, {
             },
           }
         },
-        roles(first: 5) {
-          edges {
-            node {
-              id,
-              ${RoleDetail.getFragment('role')},
-            },
-          }
-          ${UserDetail.getFragment('roles')},
-        },
-        ${NewUser.getFragment('viewer')},
       }
     `,
   },
