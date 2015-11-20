@@ -1,15 +1,17 @@
 import React from 'react';
 import Relay from 'react-relay';
 import UserDetail from './UserDetail';
-import InputDetail from './InputDetail';
+import ResourceDetail from './ResourceDetail';
 import GroupDetail from './GroupDetail';
 import ProvisionDetail from './ProvisionDetail';
 import NewUser from './NewUser';
+import NewResource from './NewResource';
+import NewGroup from './NewGroup';
 
 class App extends React.Component {
   render () {
     var {viewer} = this.props;
-    var {users, inputs, groups, provisions} = viewer;
+    var {users, resources, groups, provisions} = viewer;
 
     return <div>
       <h1>App</h1>
@@ -22,11 +24,12 @@ class App extends React.Component {
         <li><NewUser viewer={viewer}/></li>
       </ul>
 
-      <h2>Inputs</h2>
+      <h2>Resources</h2>
       <ul>
-        {inputs.edges.map(edge => <li key={edge.node.id}>
-          <InputDetail input={edge.node} />
+        {resources.edges.map(edge => <li key={edge.node.id}>
+          <ResourceDetail resource={edge.node} />
         </li>)}
+        <li><NewResource viewer={viewer}/></li>
       </ul>
 
       <h2>Groups</h2>
@@ -34,6 +37,7 @@ class App extends React.Component {
         {groups.edges.map(edge => <li key={edge.node.id}>
           <GroupDetail group={edge.node} />
         </li>)}
+        <li><NewGroup viewer={viewer}/></li>
       </ul>
 
       <h2>Provisions</h2>
@@ -58,11 +62,11 @@ export default Relay.createContainer(App, {
             },
           }
         },
-        inputs(first: 5) {
+        resources(first: 5) {
           edges {
             node {
               id,
-              ${InputDetail.getFragment('input')},
+              ${ResourceDetail.getFragment('resource')},
             },
           }
         },
@@ -83,6 +87,8 @@ export default Relay.createContainer(App, {
           }
         },
         ${NewUser.getFragment('viewer')},
+        ${NewResource.getFragment('viewer')},
+        ${NewGroup.getFragment('viewer')},
       }
     `,
   },

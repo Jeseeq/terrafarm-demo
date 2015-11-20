@@ -134,7 +134,7 @@
               "deprecationReason": null
             },
             {
-              "name": "inputs",
+              "name": "resources",
               "description": null,
               "args": [
                 {
@@ -180,7 +180,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "InputConnection",
+                "name": "ResourceConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -337,7 +337,7 @@
             },
             {
               "kind": "OBJECT",
-              "name": "Input",
+              "name": "Resource",
               "ofType": null
             },
             {
@@ -731,7 +731,7 @@
               "deprecationReason": null
             },
             {
-              "name": "input",
+              "name": "resource",
               "description": null,
               "args": [
                 {
@@ -777,7 +777,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "InputConnection",
+                "name": "ResourceConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -932,7 +932,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "InputConnection",
+          "name": "ResourceConnection",
           "description": "A connection to a list of items.",
           "fields": [
             {
@@ -960,7 +960,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "InputEdge",
+                  "name": "ResourceEdge",
                   "ofType": null
                 }
               },
@@ -975,7 +975,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "InputEdge",
+          "name": "ResourceEdge",
           "description": "An edge in a connection.",
           "fields": [
             {
@@ -984,7 +984,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Input",
+                "name": "Resource",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1014,7 +1014,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "Input",
+          "name": "Resource",
           "description": "An economic resource.",
           "fields": [
             {
@@ -1321,6 +1321,60 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "newResource",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "NewResourceInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NewResourcePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "newGroup",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "NewGroupInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NewGroupPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -1379,6 +1433,186 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "UserEdge",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "viewer",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Viewer",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NewResourceInput",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "resourceName",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "NewResourcePayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "resourceEdge",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ResourceEdge",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "viewer",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Viewer",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NewGroupInput",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "groupName",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "NewGroupPayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "groupEdge",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "GroupEdge",
                 "ofType": null
               },
               "isDeprecated": false,

@@ -1,6 +1,6 @@
 export class Viewer extends Object {}
 export class User extends Object {}
-export class Input extends Object {}
+export class Resource extends Object {}
 export class Group extends Object {}
 export class Provision extends Object {}
 
@@ -30,21 +30,21 @@ var hank = Object.assign(
   }
 );
 var shovel = Object.assign(
-  new Input(), {
+  new Resource(), {
     id: '1',
     name: 'Shovel',
     provisions: ['1'],
   }
 );
 var muscle = Object.assign(
-  new Input(), {
+  new Resource(), {
     id: '2',
     name: 'Muscle',
     provisions: ['2'],
   }
 );
 var land = Object.assign(
-  new Input(), {
+  new Resource(), {
     id: '3',
     name: 'Land',
     provisions: ['3'],
@@ -62,7 +62,7 @@ var warsaw = Object.assign(
     id: '1',
     name: 'Warsaw',
     user: ['1'],
-    input: ['1'],
+    resource: ['1'],
     group: ['1'],
   }
 );
@@ -71,7 +71,7 @@ var berlin = Object.assign(
     id: '2',
     name: 'Berlin',
     user: ['2'],
-    input: ['2'],
+    resource: ['2'],
     group: ['1'],
   }
 );
@@ -80,7 +80,7 @@ var moscow = Object.assign(
     id: '3',
     name: 'Moscow',
     user: ['3'],
-    input: ['3'],
+    resource: ['3'],
     group: ['1'],
   }
 );
@@ -91,7 +91,7 @@ var data = {
     2: joe,
     3: hank,
   },
-  Input: {
+  Resource: {
     1: shovel,
     2: muscle,
     3: land,
@@ -110,7 +110,7 @@ var viewer = Object.assign(
   new Viewer(), {
     id: VIEWER_ID,
     users: Object.keys(data.User),
-    inputs: Object.keys(data.Input),
+    resources: Object.keys(data.Resource),
     groups: Object.keys(data.Group),
     provisions: Object.keys(data.Provision),
   }
@@ -124,8 +124,8 @@ export function getUser (id) {
   return data.User[id];
 }
 
-export function getInput (id) {
-  return data.Input[id];
+export function getResource (id) {
+  return data.Resource[id];
 }
 
 export function getGroup (id) {
@@ -136,7 +136,7 @@ export function getProvision (id) {
   return data.Provision[id];
 }
 
-export function createUser(userName) {
+export function createUser (userName) {
   var newUser = Object.assign(new User(), {
     id: Object.keys(data.User).length + 1,
     name: userName,
@@ -146,32 +146,54 @@ export function createUser(userName) {
   data.User[newUser.id] = newUser;
   return newUser.id;
 }
-/*
-export function connectUserToInput (userId, inputId, relationship) {
-  var user = getUser(userId);
-  var input = getInput(inputId);
-  var userIndex = input.users[relationship].indexOf(userId);
-  var inputIndex = user.inputs[relationship].indexOf(inputId);
 
-  if (userIndex > -1 && inputIndex > -1) {
-    return console.error(`User ${userId} and input ${inputId} already connected.`);
-  }
-  user.inputs[relationship].push(inputId);
-  input.users[relationship].push(userId);
-  return {user, input};
+export function createResource (resourceName) {
+  var newResource = Object.assign(new Resource(), {
+    id: Object.keys(data.Resource).length + 1,
+    name: resourceName,
+    provisions: [],
+  });
+  viewer.resources.push(newResource.id);
+  data.Resource[newResource.id] = newResource;
+  return newResource.id;
 }
 
-export function disconnectUserFromInput (userId, inputId, relationship) {
+export function createGroup (groupName) {
+  var newGroup = Object.assign(new Group(), {
+    id: Object.keys(data.Group).length + 1,
+    name: groupName,
+    provisions: [],
+  });
+  viewer.groups.push(newGroup.id);
+  data.Group[newGroup.id] = newGroup;
+  return newGroup.id;
+}
+/*
+export function connectUserToResource (userId, resourceId, relationship) {
   var user = getUser(userId);
-  var input = getInput(inputId);
-  var userIndex = input.users[relationship].indexOf(userId);
-  var inputIndex = user.inputs[relationship].indexOf(inputId);
+  var resource = getResource(resourceId);
+  var userIndex = resource.users[relationship].indexOf(userId);
+  var resourceIndex = user.resources[relationship].indexOf(resourceId);
 
-  if (userIndex === -1 || inputIndex === -1) {
-    return console.error(`User ${userId} and input ${inputId} not connected.`);
+  if (userIndex > -1 && resourceIndex > -1) {
+    return console.error(`User ${userId} and resource ${resourceId} already connected.`);
   }
-  user.inputs[relationship].splice(inputIndex, 1);
-  input.users[relationship].splice(userIndex, 1);
-  return {user, input};
+  user.resources[relationship].push(resourceId);
+  resource.users[relationship].push(userId);
+  return {user, resource};
+}
+
+export function disconnectUserFromResource (userId, resourceId, relationship) {
+  var user = getUser(userId);
+  var resource = getResource(resourceId);
+  var userIndex = resource.users[relationship].indexOf(userId);
+  var resourceIndex = user.resources[relationship].indexOf(resourceId);
+
+  if (userIndex === -1 || resourceIndex === -1) {
+    return console.error(`User ${userId} and resource ${resourceId} not connected.`);
+  }
+  user.resources[relationship].splice(resourceIndex, 1);
+  resource.users[relationship].splice(userIndex, 1);
+  return {user, resource};
 }
 */

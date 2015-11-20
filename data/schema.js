@@ -24,15 +24,17 @@ import {
 import {
   Viewer,
   User,
-  Input,
+  Resource,
   Group,
   Provision,
   getViewer,
   getUser,
-  getInput,
+  getResource,
   getGroup,
   getProvision,
   createUser,
+  createResource,
+  createGroup,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -42,8 +44,8 @@ var {nodeInterface, nodeField} = nodeDefinitions(
       return getViewer();
     } else if (type === 'User') {
       return getUser(id);
-    } else if (type === 'Input') {
-      return getInput(id);
+    } else if (type === 'Resource') {
+      return getResource(id);
     } else if (type === 'Group') {
       return getGroup(id);
     } else if (type === 'Provision') {
@@ -57,8 +59,8 @@ var {nodeInterface, nodeField} = nodeDefinitions(
       return GraphQLViewer;
     } else if (obj instanceof User) {
       return GraphQLUser;
-    } else if (obj instanceof Input) {
-      return GraphQLInput;
+    } else if (obj instanceof Resource) {
+      return GraphQLResource;
     } else if (obj instanceof Group) {
       return GraphQLGroup;
     } else if (obj instanceof Provision) {
@@ -99,11 +101,11 @@ var {
   nodeType: GraphQLUser,
 });
 
-var GraphQLInput = new GraphQLObjectType({
-  name: 'Input',
+var GraphQLResource = new GraphQLObjectType({
+  name: 'Resource',
   description: 'An economic resource.',
   fields: () => ({
-    id: globalIdField('Input'),
+    id: globalIdField('Resource'),
     name: {
       type: GraphQLString,
       description: 'An economic resource\'s name.',
@@ -122,11 +124,11 @@ var GraphQLInput = new GraphQLObjectType({
 });
 
 var {
-  connectionType: InputConnection,
-  edgeType: GraphQLInputEdge
+  connectionType: ResourceConnection,
+  edgeType: GraphQLResourceEdge
 } = connectionDefinitions({
-  name: 'Input',
-  nodeType: GraphQLInput,
+  name: 'Resource',
+  nodeType: GraphQLResource,
 });
 
 var GraphQLGroup = new GraphQLObjectType({
@@ -176,11 +178,11 @@ var GraphQLProvision = new GraphQLObjectType({
         args
       ),
     },
-    input: {
-      type: InputConnection,
+    resource: {
+      type: ResourceConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.input.map(id => getInput(id)),
+        _.resource.map(id => getResource(id)),
         args
       ),
     },
@@ -217,11 +219,11 @@ var GraphQLViewer = new GraphQLObjectType({
         args
       ),
     },
-    inputs: {
-      type: InputConnection,
+    resources: {
+      type: ResourceConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.inputs.map(id => getInput(id)),
+        _.resources.map(id => getResource(id)),
         args
       ),
     },
@@ -286,6 +288,72 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
   mutateAndGetPayload: ({userName}) => {
     var localUserId = createUser(userName);
     return {localUserId};
+  }
+});
+
+var GraphQLNewResourceMutation = mutationWithClientMutationId({
+  name: 'NewResource',
+  inputFields: {
+    resourceName: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  outputFields: {
+    resourceEdge: {
+      type: GraphQLResourceEdge,
+      resolve: ({localResourceId}) => {
+        var viewer = getViewer();
+        var resource = getResource(localResourceId);
+        return {
+          cursor: cursorForObjectInConnection(
+            viewer.resources.map(id => getResource(id)),
+            resource
+          ),
+          node: resource,
+        };
+      }
+    },
+    viewer: {
+      type: GraphQLViewer,
+      resolve: () => getViewer(),
+    }
+  },
+  mutateAndGetPayload: ({resourceName}) => {
+    var localResourceId = createResource(resourceName);
+    return {localResourceId};
+  }
+});
+
+var GraphQLNewGroupMutation = mutationWithClientMutationId({
+  name: 'NewGroup',
+  inputFields: {
+    groupName: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  outputFields: {
+    groupEdge: {
+      type: GraphQLGroupEdge,
+      resolve: ({localGroupId}) => {
+        var viewer = getViewer();
+        var group = getGroup(localGroupId);
+        return {
+          cursor: cursorForObjectInConnection(
+            viewer.groups.map(id => getGroup(id)),
+            group
+          ),
+          node: group,
+        };
+      }
+    },
+    viewer: {
+      type: GraphQLViewer,
+      resolve: () => getViewer(),
+    }
+  },
+  mutateAndGetPayload: ({groupName}) => {
+    var localGroupId = createGroup(groupName);
+    return {localGroupId};
   }
 });
 /*
@@ -385,6 +453,8 @@ var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     newUser: GraphQLNewUserMutation,
+    newResource: GraphQLNewResourceMutation,
+    newGroup: GraphQLNewGroupMutation,
     //addUserRole: GraphQLAddUserRoleMutation,
     //removeUserRole: GraphQLRemoveUserRoleMutation,
   })
