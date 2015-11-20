@@ -99,6 +99,9 @@ var data = {
   Group: {
     1: purple,
   },
+  // Surplus,
+  // Membership,
+  // Shortage,
   Provision: {
     1: warsaw,
     2: berlin,
@@ -167,6 +170,25 @@ export function createGroup (groupName) {
   viewer.groups.push(newGroup.id);
   data.Group[newGroup.id] = newGroup;
   return newGroup.id;
+}
+
+export function createProvision (provisionName, userId, resourceId, groupId) {
+  var newProvision = Object.assign(new Provision(), {
+    id: Object.keys(data.Group).length + 1,
+    name: provisionName,
+    user: [userId],
+    resource: [resourceId],
+    group: [groupId],
+  });
+  var user = getUser(userId);
+  var resource = getResource(resourceId);
+  var group = getGroup(groupId);
+
+  user.provisions.push(newProvision.id);
+  resource.provisions.push(newProvision.id);
+  group.provisions.push(newProvision.id);
+  data.Provision[newProvision.id] = newProvision;
+  return newProvision.id;
 }
 /*
 export function connectUserToResource (userId, resourceId, relationship) {

@@ -26,15 +26,25 @@ import {
   User,
   Resource,
   Group,
+  // Surplus,
+  // Membership,
+  // Shortage,
   Provision,
   getViewer,
   getUser,
   getResource,
   getGroup,
+  // getSurplus,
+  // getMembership,
+  // getShortage,
   getProvision,
   createUser,
   createResource,
   createGroup,
+  // createSurplus,
+  // createMembership,
+  // createShortage,
+  createProvision,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -356,6 +366,60 @@ var GraphQLNewGroupMutation = mutationWithClientMutationId({
     return {localGroupId};
   }
 });
+
+var GraphQLNewProvisionMutation = mutationWithClientMutationId({
+  name: 'NewProvision',
+  inputFields: {
+    provisionName: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    userId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    resourceId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    groupId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+  },
+  outputFields: {
+    provisionEdge: {
+      type: GraphQLProvisionEdge,
+      resolve: ({localProvisionId}) => {
+        var viewer = getViewer();
+        var provision = getProvision(localProvisionId);
+        return {
+          cursor: cursorForObjectInConnection(
+            viewer.provisions.map(id => getProvision(id)),
+            provision
+          ),
+          node: provision,
+        };
+      }
+    },
+    user: {
+      type: GraphQLUser,
+      resolve: ({localUserId}) => getUser(localUserId),
+    },
+    resource: {
+      type: GraphQLResource,
+      resolve: ({localResourceId}) => getResource(localResourceId),
+    },
+    group: {
+      type: GraphQLGroup,
+      resolve: ({localGroupId}) => getGroup(localGroupId),
+    },
+
+  },
+  mutateAndGetPayload: ({provisionName, userId, resourceId, groupId}) => {
+    var localProvisionId = createProvision(provisionName, userId, resourceId, groupId);
+    var localUserId = fromGlobalId(userId).id;
+    var localResourceId = fromGlobalId(resourceId).id;
+    var localGroupId = fromGlobalId(groupId).id;
+    return {localProvisionId, localUserId, localResourceId, localGroupId};
+  }
+});
 /*
 var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
   name: 'AddUserRole',
@@ -455,8 +519,7 @@ var Mutation = new GraphQLObjectType({
     newUser: GraphQLNewUserMutation,
     newResource: GraphQLNewResourceMutation,
     newGroup: GraphQLNewGroupMutation,
-    //addUserRole: GraphQLAddUserRoleMutation,
-    //removeUserRole: GraphQLRemoveUserRoleMutation,
+    // newProvision: GraphQLNewProvisionMutation,
   })
 });
 
