@@ -13,7 +13,6 @@ export default Relay.createContainer(ResourceDetail, {
   fragments: {
     resource: () => Relay.QL`
       fragment on Resource {
-        id,
         name,
       }
     `,

@@ -13,7 +13,6 @@ export default Relay.createContainer(GroupDetail, {
   fragments: {
     group: () => Relay.QL`
       fragment on Group {
-        id,
         name,
       }
     `,

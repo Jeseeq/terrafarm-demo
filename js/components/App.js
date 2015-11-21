@@ -3,16 +3,14 @@ import Relay from 'react-relay';
 import UserDetail from './UserDetail';
 import ResourceDetail from './ResourceDetail';
 import GroupDetail from './GroupDetail';
-import ProvisionDetail from './ProvisionDetail';
 import NewUser from './NewUser';
 import NewResource from './NewResource';
 import NewGroup from './NewGroup';
-import NewProvision from './NewProvision';
 
 class App extends React.Component {
   render () {
     var {viewer} = this.props;
-    var {users, resources, groups, provisions} = viewer;
+    var {users, resources, groups} = viewer;
 
     return <div>
       <h1>App</h1>
@@ -40,21 +38,6 @@ class App extends React.Component {
         </li>)}
         <li><NewGroup viewer={viewer}/></li>
       </ul>
-
-      <h2>Provisions</h2>
-      <ul>
-        {provisions.edges.map(edge => <li key={edge.node.id}>
-          <ProvisionDetail provision={edge.node} />
-        </li>)}
-        <li>
-          <NewProvision
-            viewer={viewer}
-            user={users.edges[1].node}
-            resource={resources.edges[0].node}
-            group={groups.edges[0].node}
-          />
-        </li>
-      </ul>
     </div>;
   }
 }
@@ -68,7 +51,6 @@ export default Relay.createContainer(App, {
             node {
               id,
               ${UserDetail.getFragment('user')},
-              ${NewProvision.getFragment('user')},
             },
           }
         },
@@ -77,7 +59,6 @@ export default Relay.createContainer(App, {
             node {
               id,
               ${ResourceDetail.getFragment('resource')},
-              ${NewProvision.getFragment('resource')},
             },
           }
         },
@@ -86,22 +67,12 @@ export default Relay.createContainer(App, {
             node {
               id,
               ${GroupDetail.getFragment('group')},
-              ${NewProvision.getFragment('group')},
-            },
-          }
-        },
-        provisions(first: 5) {
-          edges {
-            node {
-              id,
-              ${ProvisionDetail.getFragment('provision')},
             },
           }
         },
         ${NewUser.getFragment('viewer')},
         ${NewResource.getFragment('viewer')},
         ${NewGroup.getFragment('viewer')},
-        ${NewProvision.getFragment('viewer')},
       }
     `,
   },

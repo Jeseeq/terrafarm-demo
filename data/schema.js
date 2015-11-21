@@ -26,25 +26,13 @@ import {
   User,
   Resource,
   Group,
-  // Surplus,
-  // Membership,
-  // Shortage,
-  Provision,
   getViewer,
   getUser,
   getResource,
   getGroup,
-  // getSurplus,
-  // getMembership,
-  // getShortage,
-  getProvision,
   createUser,
   createResource,
   createGroup,
-  // createSurplus,
-  // createMembership,
-  // createShortage,
-  createProvision,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -58,8 +46,6 @@ var {nodeInterface, nodeField} = nodeDefinitions(
       return getResource(id);
     } else if (type === 'Group') {
       return getGroup(id);
-    } else if (type === 'Provision') {
-      return getProvision(id);
     } else {
       return null;
     }
@@ -73,8 +59,6 @@ var {nodeInterface, nodeField} = nodeDefinitions(
       return GraphQLResource;
     } else if (obj instanceof Group) {
       return GraphQLGroup;
-    } else if (obj instanceof Provision) {
-      return GraphQLProvision;
     } else {
       return null;
     }
@@ -90,12 +74,21 @@ var GraphQLUser = new GraphQLObjectType({
       type: GraphQLString,
       description: 'A person\'s name.',
     },
-    provisions: {
-      type: ProvisionConnection,
-      description: 'A person\'s list of commitments.',
+    resources: {
+      type: ResourceConnection,
+      description: 'A person\'s list of economic inputs.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.provisions.map(id => getProvision(id)),
+        _.resources.map(id => getResource(id)),
+        args
+      ),
+    },
+    groups: {
+      type: GroupConnection,
+      description: 'A person\'s list of group memberships.',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.groups.map(id => getGroup(id)),
         args
       ),
     },
@@ -113,19 +106,28 @@ var {
 
 var GraphQLResource = new GraphQLObjectType({
   name: 'Resource',
-  description: 'An economic resource.',
+  description: 'An economic input.',
   fields: () => ({
     id: globalIdField('Resource'),
     name: {
       type: GraphQLString,
       description: 'An economic resource\'s name.',
     },
-    provisions: {
-      type: ProvisionConnection,
-      description: 'An economic resource\'s list of commitments.',
+    users: {
+      type: UserConnection,
+      description: 'An economic input\'s list of owners.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.provisions.map(id => getProvision(id)),
+        _.users.map(id => getUser(id)),
+        args
+      ),
+    },
+    groups: {
+      type: GroupConnection,
+      description: 'An economic input\'s list of groups with access.',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.groups.map(id => getGroup(id)),
         args
       ),
     },
@@ -150,12 +152,21 @@ var GraphQLGroup = new GraphQLObjectType({
       type: GraphQLString,
       description: 'An organized community\'s name.',
     },
-    provisions: {
-      type: ProvisionConnection,
-      description: 'An organized community\'s list of commitments.',
+    users: {
+      type: UserConnection,
+      description: 'An organized community\'s list of members.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.provisions.map(id => getProvision(id)),
+        _.users.map(id => getUser(id)),
+        args
+      ),
+    },
+    resources: {
+      type: ResourceConnection,
+      description: 'An organized community\'s list of economic inputs.',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.resources.map(id => getResource(id)),
         args
       ),
     },
@@ -169,51 +180,6 @@ var {
 } = connectionDefinitions({
   name: 'Group',
   nodeType: GraphQLGroup,
-});
-
-var GraphQLProvision = new GraphQLObjectType({
-  name: 'Provision',
-  description: 'A commitment describing a person, economic resource, and community.',
-  fields: {
-    id: globalIdField('Provision'),
-    name: {
-      type: GraphQLString,
-      description: 'A commitment\'s name.',
-    },
-    user: {
-      type: UserConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.user.map(id => getUser(id)),
-        args
-      ),
-    },
-    resource: {
-      type: ResourceConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.resource.map(id => getResource(id)),
-        args
-      ),
-    },
-    group: {
-      type: GroupConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.group.map(id => getGroup(id)),
-        args
-      ),
-    },
-  },
-  interfaces: [nodeInterface],
-});
-
-var {
-  connectionType: ProvisionConnection,
-  edgeType: GraphQLProvisionEdge
-} = connectionDefinitions({
-  name: 'Provision',
-  nodeType: GraphQLProvision,
 });
 
 var GraphQLViewer = new GraphQLObjectType({
@@ -242,14 +208,6 @@ var GraphQLViewer = new GraphQLObjectType({
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
         _.groups.map(id => getGroup(id)),
-        args
-      ),
-    },
-    provisions: {
-      type: ProvisionConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.provisions.map(id => getProvision(id)),
         args
       ),
     },
@@ -367,212 +325,12 @@ var GraphQLNewGroupMutation = mutationWithClientMutationId({
   },
 });
 
-var GraphQLNewProvisionMutation = mutationWithClientMutationId({
-  name: 'NewProvision',
-  inputFields: {
-    provisionName: {
-      type: new GraphQLNonNull(GraphQLString)
-    },
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    resourceId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    groupId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-  },
-  outputFields: {
-    provisionEdge: {
-      type: GraphQLProvisionEdge,
-      resolve: ({localProvisionId}) => {
-        var viewer = getViewer();
-        var provision = getProvision(localProvisionId);
-        return {
-          cursor: cursorForObjectInConnection(
-            viewer.provisions.map(id => getProvision(id)),
-            provision
-          ),
-          node: provision,
-        };
-      }
-    },
-    userEdge: {
-      type: GraphQLUserEdge,
-      resolve: ({localUserId}) => {
-        var viewer = getViewer();
-        var user = getUser(localUserId);
-        return {
-          cursor: cursorForObjectInConnection(
-            viewer.users.map(id => getUser(id)),
-            user
-          ),
-          node: user,
-        };
-      }
-    },
-    resourceEdge: {
-      type: GraphQLResourceEdge,
-      resolve: ({localResourceId}) => {
-        var viewer = getViewer();
-        var resource = getResource(localResourceId);
-        return {
-          cursor: cursorForObjectInConnection(
-            viewer.resources.map(id => getResource(id)),
-            resource
-          ),
-          node: resource,
-        };
-      }
-    },
-    groupEdge: {
-      type: GraphQLGroupEdge,
-      resolve: ({localGroupId}) => {
-        var viewer = getViewer();
-        var group = getGroup(localGroupId);
-        return {
-          cursor: cursorForObjectInConnection(
-            viewer.groups.map(id => getGroup(id)),
-            group
-          ),
-          node: group,
-        };
-      }
-    },
-    user: {
-      type: GraphQLUser,
-      resolve: ({localUserId}) => {
-        return getUser(localUserId)
-      },
-    },
-    resource: {
-      type: GraphQLResource,
-      resolve: ({localResourceId}) => {
-        return getResource(localResourceId)
-      },
-    },
-    group: {
-      type: GraphQLGroup,
-      resolve: ({localGroupId}) => {
-        return getGroup(localGroupId)
-      },
-    },
-    viewer: {
-      type: GraphQLViewer,
-      resolve: () => {
-        return getViewer()
-      },
-    },
-  },
-  mutateAndGetPayload: ({provisionName, userId, resourceId, groupId}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localResourceId = fromGlobalId(resourceId).id;
-    var localGroupId = fromGlobalId(groupId).id;
-    var localProvisionId = createProvision(provisionName, localUserId, localResourceId, localGroupId);
-    return {localProvisionId, localUserId, localResourceId, localGroupId};
-  },
-});
-/*
-var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
-  name: 'AddUserRole',
-  inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    roleId: {
-      type: new GraphQLNonNull(GraphQLID)
-    }
-  },
-  outputFields: {
-    userEdge: {
-      type: GraphQLUserEdge,
-      resolve: ({localRoleId, localUserId}) => {
-        var role = getRole(localRoleId);
-        var user = getUser(localUserId);
-        return {
-          cursor: cursorForObjectInConnection(
-            role.users.map(id => getUser(id)),
-            user
-          ),
-          node: user,
-        };
-      }
-    },
-    roleEdge: {
-      type: GraphQLRoleEdge,
-      resolve: ({localRoleId, localUserId}) => {
-        var role = getRole(localRoleId);
-        var user = getUser(localUserId);
-        return {
-          cursor: cursorForObjectInConnection(
-            user.roles.map(id => getRole(id)), 
-            role
-          ),
-          node: role,
-        };
-      }
-    },
-    user: {
-      type: GraphQLUser,
-      resolve: ({localUserId}) => getUser(localUserId),
-    },
-    role: {
-      type: GraphQLRole,
-      resolve: ({localRoleId}) => getRole(localRoleId),
-    },
-  },
-  mutateAndGetPayload: ({userId, roleId}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localRoleId = fromGlobalId(roleId).id;
-    addUserRole(localUserId, localRoleId);
-    return { localUserId, localRoleId };
-  },
-});
-
-var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
-  name: 'RemoveUserRole',
-  inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    roleId: {
-      type: new GraphQLNonNull(GraphQLID)
-    }
-  },
-  outputFields: {
-    user: {
-      type: GraphQLUser,
-      resolve: ({localUserId}) => getUser(localUserId),
-    },
-    role: {
-      type: GraphQLRole,
-      resolve: ({localRoleId}) => getRole(localRoleId),
-    },
-    removedUserID: {
-      type: GraphQLID,
-      resolve: ({localUserId}) => localUserId,
-    },
-    removedRoleID: {
-      type: GraphQLID,
-      resolve: ({localRoleId}) => localRoleId,
-    },
-  },
-  mutateAndGetPayload: ({userId, roleId}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localRoleId = fromGlobalId(roleId).id;
-    removeUserRole(localUserId, localRoleId);
-    return { localUserId, localRoleId };
-  },
-});
-*/
 var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     newUser: GraphQLNewUserMutation,
     newResource: GraphQLNewResourceMutation,
     newGroup: GraphQLNewGroupMutation,
-    newProvision: GraphQLNewProvisionMutation,
   }),
 });
 
