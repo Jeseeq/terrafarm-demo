@@ -7,6 +7,7 @@ import ProvisionDetail from './ProvisionDetail';
 import NewUser from './NewUser';
 import NewResource from './NewResource';
 import NewGroup from './NewGroup';
+import NewProvision from './NewProvision';
 
 class App extends React.Component {
   render () {
@@ -45,6 +46,14 @@ class App extends React.Component {
         {provisions.edges.map(edge => <li key={edge.node.id}>
           <ProvisionDetail provision={edge.node} />
         </li>)}
+        <li>
+          <NewProvision
+            viewer={viewer}
+            user={users.edges[1].node}
+            resource={resources.edges[0].node}
+            group={groups.edges[0].node}
+          />
+        </li>
       </ul>
     </div>;
   }
@@ -59,6 +68,7 @@ export default Relay.createContainer(App, {
             node {
               id,
               ${UserDetail.getFragment('user')},
+              ${NewProvision.getFragment('user')},
             },
           }
         },
@@ -67,6 +77,7 @@ export default Relay.createContainer(App, {
             node {
               id,
               ${ResourceDetail.getFragment('resource')},
+              ${NewProvision.getFragment('resource')},
             },
           }
         },
@@ -75,6 +86,7 @@ export default Relay.createContainer(App, {
             node {
               id,
               ${GroupDetail.getFragment('group')},
+              ${NewProvision.getFragment('group')},
             },
           }
         },
@@ -89,6 +101,7 @@ export default Relay.createContainer(App, {
         ${NewUser.getFragment('viewer')},
         ${NewResource.getFragment('viewer')},
         ${NewGroup.getFragment('viewer')},
+        ${NewProvision.getFragment('viewer')},
       }
     `,
   },

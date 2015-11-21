@@ -298,7 +298,7 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
   mutateAndGetPayload: ({userName}) => {
     var localUserId = createUser(userName);
     return {localUserId};
-  }
+  },
 });
 
 var GraphQLNewResourceMutation = mutationWithClientMutationId({
@@ -331,7 +331,7 @@ var GraphQLNewResourceMutation = mutationWithClientMutationId({
   mutateAndGetPayload: ({resourceName}) => {
     var localResourceId = createResource(resourceName);
     return {localResourceId};
-  }
+  },
 });
 
 var GraphQLNewGroupMutation = mutationWithClientMutationId({
@@ -364,7 +364,7 @@ var GraphQLNewGroupMutation = mutationWithClientMutationId({
   mutateAndGetPayload: ({groupName}) => {
     var localGroupId = createGroup(groupName);
     return {localGroupId};
-  }
+  },
 });
 
 var GraphQLNewProvisionMutation = mutationWithClientMutationId({
@@ -398,27 +398,80 @@ var GraphQLNewProvisionMutation = mutationWithClientMutationId({
         };
       }
     },
+    userEdge: {
+      type: GraphQLUserEdge,
+      resolve: ({localUserId}) => {
+        var viewer = getViewer();
+        var user = getUser(localUserId);
+        return {
+          cursor: cursorForObjectInConnection(
+            viewer.users.map(id => getUser(id)),
+            user
+          ),
+          node: user,
+        };
+      }
+    },
+    resourceEdge: {
+      type: GraphQLResourceEdge,
+      resolve: ({localResourceId}) => {
+        var viewer = getViewer();
+        var resource = getResource(localResourceId);
+        return {
+          cursor: cursorForObjectInConnection(
+            viewer.resources.map(id => getResource(id)),
+            resource
+          ),
+          node: resource,
+        };
+      }
+    },
+    groupEdge: {
+      type: GraphQLGroupEdge,
+      resolve: ({localGroupId}) => {
+        var viewer = getViewer();
+        var group = getGroup(localGroupId);
+        return {
+          cursor: cursorForObjectInConnection(
+            viewer.groups.map(id => getGroup(id)),
+            group
+          ),
+          node: group,
+        };
+      }
+    },
     user: {
       type: GraphQLUser,
-      resolve: ({localUserId}) => getUser(localUserId),
+      resolve: ({localUserId}) => {
+        return getUser(localUserId)
+      },
     },
     resource: {
       type: GraphQLResource,
-      resolve: ({localResourceId}) => getResource(localResourceId),
+      resolve: ({localResourceId}) => {
+        return getResource(localResourceId)
+      },
     },
     group: {
       type: GraphQLGroup,
-      resolve: ({localGroupId}) => getGroup(localGroupId),
+      resolve: ({localGroupId}) => {
+        return getGroup(localGroupId)
+      },
     },
-
+    viewer: {
+      type: GraphQLViewer,
+      resolve: () => {
+        return getViewer()
+      },
+    },
   },
   mutateAndGetPayload: ({provisionName, userId, resourceId, groupId}) => {
-    var localProvisionId = createProvision(provisionName, userId, resourceId, groupId);
     var localUserId = fromGlobalId(userId).id;
     var localResourceId = fromGlobalId(resourceId).id;
     var localGroupId = fromGlobalId(groupId).id;
+    var localProvisionId = createProvision(provisionName, localUserId, localResourceId, localGroupId);
     return {localProvisionId, localUserId, localResourceId, localGroupId};
-  }
+  },
 });
 /*
 var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
@@ -474,7 +527,7 @@ var GraphQLAddUserRoleMutation = mutationWithClientMutationId({
     var localRoleId = fromGlobalId(roleId).id;
     addUserRole(localUserId, localRoleId);
     return { localUserId, localRoleId };
-  }
+  },
 });
 
 var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
@@ -510,7 +563,7 @@ var GraphQLRemoveUserRoleMutation = mutationWithClientMutationId({
     var localRoleId = fromGlobalId(roleId).id;
     removeUserRole(localUserId, localRoleId);
     return { localUserId, localRoleId };
-  }
+  },
 });
 */
 var Mutation = new GraphQLObjectType({
@@ -519,11 +572,11 @@ var Mutation = new GraphQLObjectType({
     newUser: GraphQLNewUserMutation,
     newResource: GraphQLNewResourceMutation,
     newGroup: GraphQLNewGroupMutation,
-    // newProvision: GraphQLNewProvisionMutation,
-  })
+    newProvision: GraphQLNewProvisionMutation,
+  }),
 });
 
 export var Schema = new GraphQLSchema({
   query: Root,
-  mutation: Mutation
+  mutation: Mutation,
 });

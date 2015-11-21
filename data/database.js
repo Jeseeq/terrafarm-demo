@@ -174,7 +174,7 @@ export function createGroup (groupName) {
 
 export function createProvision (provisionName, userId, resourceId, groupId) {
   var newProvision = Object.assign(new Provision(), {
-    id: Object.keys(data.Group).length + 1,
+    id: Object.keys(data.Provision).length + 1,
     name: provisionName,
     user: [userId],
     resource: [resourceId],
@@ -187,6 +187,7 @@ export function createProvision (provisionName, userId, resourceId, groupId) {
   user.provisions.push(newProvision.id);
   resource.provisions.push(newProvision.id);
   group.provisions.push(newProvision.id);
+  viewer.provisions.push(newProvision.id);
   data.Provision[newProvision.id] = newProvision;
   return newProvision.id;
 }
