@@ -211,6 +211,14 @@ var GraphQLViewer = new GraphQLObjectType({
         args
       ),
     },
+    /*
+    user: {
+      type: GraphQLUser,
+      args: {
+              },
+      resolve: (_, {userId}) => getUser(userId),
+    },
+    */
   },
   interfaces: [nodeInterface],
 });
