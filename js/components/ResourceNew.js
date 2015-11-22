@@ -1,12 +1,12 @@
-import NewGroupMutation from '../mutations/NewGroupMutation';
+import NewResourceMutation from '../mutations/NewResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import TextInput from './TextInput';
 
-class NewGroup extends React.Component {
+class ResourceNew extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewGroupMutation({groupName: text, viewer: this.props.viewer})
+      new NewResourceMutation({resourceName: text, viewer: this.props.viewer})
     );
   }
   render () {
@@ -20,18 +20,18 @@ class NewGroup extends React.Component {
   }
 }
 
-export default Relay.createContainer(NewGroup, {
+export default Relay.createContainer(ResourceNew, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        groups(first: 10) {
+        resources(first: 10) {
           edges {
             node {
               id,
             }
           }
         },
-        ${NewGroupMutation.getFragment('viewer')},
+        ${NewResourceMutation.getFragment('viewer')},
       }
     `,
   },
