@@ -9,7 +9,6 @@ class MasterList extends React.Component {
     var {viewer} = this.props;
 
     return <div>
-      <h1>App</h1>
       <UserList viewer={viewer} />
       <ResourceList viewer={viewer} />
       <GroupList viewer={viewer} />
