@@ -33,6 +33,9 @@ import {
   createUser,
   createResource,
   createGroup,
+  connectUserAndResource,
+  connectUserAndGroup,
+  connectionResourceAndGroup,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -360,7 +363,45 @@ var GraphQLNewGroupMutation = mutationWithClientMutationId({
     return {localGroupId};
   },
 });
+/*
+var GraphQLConnectUserAndResourceMutation = mutationWithClientMutationId({
+  name: 'NewUser',
+  inputFields: {
+    userName: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  outputFields: {
+    userEdge: {
+      type: GraphQLUserEdge,
+      resolve: ({localUserId}) => {
+        var viewer = getViewer();
+        var user = getUser(localUserId);
+        return {
+          cursor: cursorForObjectInConnection(
+            viewer.users.map(id => getUser(id)),
+            user
+          ),
+          node: user,
+        };
+      }
+    },
+    viewer: {
+      type: GraphQLViewer,
+      resolve: () => getViewer(),
+    }
+  },
+  mutateAndGetPayload: ({userName}) => {
+    var localUserId = createUser(userName);
+    return {localUserId};
+  },
+});
 
+var GraphQLConnectUserAndGroupMutation = mutationWithClientMutationId({
+
+var GraphQLConnectResourceAndGroupMutation = mutationWithClientMutationId({
+
+*/
 var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({

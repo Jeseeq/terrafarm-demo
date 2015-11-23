@@ -142,3 +142,55 @@ export function createGroup (groupName) {
   return newGroup.id;
 }
 
+export function connectUserAndResource (userId, resourceId) {
+  var user = getUser(userId);
+  var resource = getResource(resourceId);
+  var userIndex = resource.users.indexOf(userId);
+  var resourceIndex = user.resources.indexOf(resourceIndex);
+
+  if (userIndex > -1 || resourceIndex > -1) {
+   return console.error('Error: user', user.id, ' and resource', resource.id, 'connected.');
+  }
+
+  user.resources.push(resourceId);
+  resource.users.push(userId);
+
+  return {user.id, resource.id};
+}
+
+export function connectUserAndGroup (userId, groupId) {
+  var user = getUser(userId);
+  var group = getGroup(groupId);
+  var userIndex = group.users.indexOf(userId);
+  var groupIndex = user.groups.indexOf(groupIndex);
+
+  if (userIndex > -1 || groupIndex > -1) {
+   return console.error('Error: user', user.id, ' and group', group.id, 'connected.');
+  }
+
+  user.groups.push(groupId);
+  group.users.push(userId);
+
+  return {user.id, group.id};
+}
+
+export function connectResourceAndGroup (resourceId, groupId) {
+  var resource = getResource(resourceId);
+  var group = getGroup(groupId);
+  var resourceIndex = group.resources.indexOf(resourceId);
+  var groupIndex = resource.groups.indexOf(groupIndex);
+
+  if (resourceIndex > -1 || groupIndex > -1) {
+   return console.error('Error: resource', resource.id, ' and group', group.id, 'connected.');
+  }
+
+  resource.groups.push(groupId);
+  group.resources.push(resourceId);
+
+  return {resource.id, group.id};
+}
+
+// export function disconnectUserAndResource (userId, resourceId) {
+// export function disconnectUserAndGroup (userId, groupId) {
+// export function disconnectResourceAndGroup (resourceId, groupId) {
+
