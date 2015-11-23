@@ -5,8 +5,8 @@ import ResourceNew from './ResourceNew';
 
 class ResourceList extends React.Component {
   render () {
-    var {viewer} = this.props;
-    var {resources} = viewer;
+    var {master} = this.props;
+    var {resources} = master;
 
     return <div>
       <h2>Resources</h2>
@@ -14,7 +14,7 @@ class ResourceList extends React.Component {
         {resources.edges.map(edge => <li key={edge.node.id}>
           <ResourceDetail resource={edge.node} />
         </li>)}
-        <li><ResourceNew viewer={viewer}/></li>
+        <li><ResourceNew master={master}/></li>
       </ul>
     </div>;
   }
@@ -22,8 +22,8 @@ class ResourceList extends React.Component {
 
 export default Relay.createContainer(ResourceList, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         resources(first: 10) {
           edges {
             node {
@@ -32,7 +32,7 @@ export default Relay.createContainer(ResourceList, {
             },
           }
         },
-        ${ResourceNew.getFragment('viewer')},
+        ${ResourceNew.getFragment('master')},
       }
     `,
   },

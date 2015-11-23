@@ -6,7 +6,7 @@ import TextInput from './TextInput';
 class ResourceNew extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewResourceMutation({resourceName: text, viewer: this.props.viewer})
+      new NewResourceMutation({resourceName: text, master: this.props.master})
     );
   }
   render () {
@@ -22,8 +22,8 @@ class ResourceNew extends React.Component {
 
 export default Relay.createContainer(ResourceNew, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         resources(first: 10) {
           edges {
             node {
@@ -31,7 +31,7 @@ export default Relay.createContainer(ResourceNew, {
             }
           }
         },
-        ${NewResourceMutation.getFragment('viewer')},
+        ${NewResourceMutation.getFragment('master')},
       }
     `,
   },

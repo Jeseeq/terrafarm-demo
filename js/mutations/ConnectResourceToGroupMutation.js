@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-export default class DisconnectResourceAndGroupMutation extends Relay.Mutation {
+export default class ConnectResourceToGroup extends Relay.Mutation {
   static fragments = {
     resource: () => Relay.QL`
       fragment on Resource {
@@ -14,14 +14,13 @@ export default class DisconnectResourceAndGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{disconnectResourceAndGroup}`;
+    return Relay.QL`mutation{connectResourceToGroup}`;
   }
-  // TODO: getCollisionKey ()
   getFatQuery () {
     return Relay.QL`
-      fragment on RemoveResourceGroupPayload {
-        removedGroupID,
-        removedResourceID,
+      fragment on ConnectResourceToGroupPayload {
+        groupEdge,
+        resourceEdge,
         resource,
         group,
       }
@@ -30,19 +29,24 @@ export default class DisconnectResourceAndGroupMutation extends Relay.Mutation {
   getConfigs () {
     return [
       {
-        type: 'NODE_DELETE',
+        type: 'RANGE_ADD',
         parentName: 'resource',
         parentID: this.props.resource.id,
         connectionName: 'groups',
-        deletedIDFieldName: 'removedGroupID',
+        edgeName: 'groupEdge',
+        rangeBehaviors: {
+          '': 'append',
       },
       {
-        type: 'NODE_DELETE',
+        type: 'RANGE_ADD',
         parentName: 'group',
         parentID: this.props.group.id,
         connectionName: 'resources',
-        deletedIDFieldName: 'removedResourceID',
-      },
+        edgeName: 'resourceEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
+      }
     ];
   }
   getVariables () {
@@ -52,5 +56,4 @@ export default class DisconnectResourceAndGroupMutation extends Relay.Mutation {
     };
   }
 }
-
 

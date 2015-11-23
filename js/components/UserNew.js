@@ -6,7 +6,7 @@ import TextInput from './TextInput';
 class UserNew extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewUserMutation({userName: text, viewer: this.props.viewer})
+      new NewUserMutation({userName: text, master: this.props.master})
     );
   }
   render () {
@@ -22,8 +22,8 @@ class UserNew extends React.Component {
 
 export default Relay.createContainer(UserNew, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         users(first: 10) {
           edges {
             node {
@@ -31,7 +31,7 @@ export default Relay.createContainer(UserNew, {
             }
           }
         },
-        ${NewUserMutation.getFragment('viewer')},
+        ${NewUserMutation.getFragment('master')},
       }
     `,
   },

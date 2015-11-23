@@ -12,7 +12,7 @@ import GroupList from './components/GroupList';
 import UserPage from './components/UserPage';
 import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
-import ViewerQueries from './queries/ViewerQueries';
+import MasterQueries from './queries/MasterQueries';
 import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
 import GroupQueries from './queries/GroupQueries';
@@ -21,24 +21,24 @@ ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
     <Route
       path='/' component={App}
-      queries={ViewerQueries}
+      queries={MasterQueries}
     >
       <IndexRoute
         component={MasterList}
-        queries={ViewerQueries}
+        queries={MasterQueries}
         prepareParams={() => ({})}
       />
       <Route
         path='users' component={UserList}
-        queries={ViewerQueries}
+        queries={MasterQueries}
       />
       <Route
         path='resources' component={ResourceList}
-        queries={ViewerQueries}
+        queries={MasterQueries}
       />
       <Route
         path='groups' component={GroupList}
-        queries={ViewerQueries}
+        queries={MasterQueries}
       />
       <Route
         path='user/:userId' component={UserPage}

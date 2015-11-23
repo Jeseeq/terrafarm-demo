@@ -1,11 +1,11 @@
-import {Link} from 'react-router';
+import {IndexLink} from 'react-router';
 import React from 'react';
 import Relay from 'react-relay';
 
 class App extends React.Component {
   render () {
     return <div>
-      <h1><Link to={'/'}>App</Link></h1>
+      <h1><IndexLink to={'/'}>App</IndexLink></h1>
       {this.props.children}
     </div>;
   }
@@ -13,8 +13,8 @@ class App extends React.Component {
 
 export default Relay.createContainer(App, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         id,
       }
     `,

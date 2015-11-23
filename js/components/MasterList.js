@@ -6,23 +6,23 @@ import GroupList from './GroupList';
 
 class MasterList extends React.Component {
   render () {
-    var {viewer} = this.props;
+    var {master} = this.props;
 
     return <div>
-      <UserList viewer={viewer} />
-      <ResourceList viewer={viewer} />
-      <GroupList viewer={viewer} />
+      <UserList master={master} />
+      <ResourceList master={master} />
+      <GroupList master={master} />
     </div>;
   }
 }
 
 export default Relay.createContainer(MasterList, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        ${UserList.getFragment('viewer')},
-        ${ResourceList.getFragment('viewer')},
-        ${GroupList.getFragment('viewer')},
+    master: () => Relay.QL`
+      fragment on Master {
+        ${UserList.getFragment('master')},
+        ${ResourceList.getFragment('master')},
+        ${GroupList.getFragment('master')},
       }
     `,
   },

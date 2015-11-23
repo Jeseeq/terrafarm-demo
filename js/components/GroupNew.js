@@ -6,7 +6,7 @@ import TextInput from './TextInput';
 class GroupNew extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewGroupMutation({groupName: text, viewer: this.props.viewer})
+      new NewGroupMutation({groupName: text, master: this.props.master})
     );
   }
   render () {
@@ -22,8 +22,8 @@ class GroupNew extends React.Component {
 
 export default Relay.createContainer(GroupNew, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         groups(first: 10) {
           edges {
             node {
@@ -31,7 +31,7 @@ export default Relay.createContainer(GroupNew, {
             }
           }
         },
-        ${NewGroupMutation.getFragment('viewer')},
+        ${NewGroupMutation.getFragment('master')},
       }
     `,
   },

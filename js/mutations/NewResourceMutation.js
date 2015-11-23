@@ -2,8 +2,8 @@ import Relay from 'react-relay';
 
 export default class NewResourceMutation extends Relay.Mutation {
   static fragments = {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         id,
       }
     `,
@@ -15,7 +15,7 @@ export default class NewResourceMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on NewResourcePayload {
         resourceEdge,
-        viewer {
+        master {
           resources,
         },
       }
@@ -24,8 +24,8 @@ export default class NewResourceMutation extends Relay.Mutation {
   getConfigs () {
     return [{
       type: 'RANGE_ADD',
-      parentName: 'viewer',
-      parentID: this.props.viewer.id,
+      parentName: 'master',
+      parentID: this.props.master.id,
       connectionName: 'resources',
       edgeName: 'resourceEdge',
       rangeBehaviors: {

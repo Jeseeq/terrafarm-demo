@@ -1,7 +1,12 @@
 import Relay from 'react-relay';
 
-export default class DisconnectUserAndResourceMutation extends Relay.Mutation {
+export default class DisconnectResourceMutation extends Relay.Mutation {
   static fragments = {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        id,
+      }
+    `,
     user: () => Relay.QL`
       fragment on User {
         id,
@@ -14,14 +19,14 @@ export default class DisconnectUserAndResourceMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{disconnectUserAndResource}`;
+    return Relay.QL`mutation{disconnectResource}`;
   }
-  // TODO: getCollisionKey ()
   getFatQuery () {
     return Relay.QL`
-      fragment on RemoveUserResourcePayload {
+      fragment on DisconnectResourcePayload {
         removedResourceID,
         removedUserID,
+        viewer,
         user,
         resource,
       }
@@ -29,6 +34,13 @@ export default class DisconnectUserAndResourceMutation extends Relay.Mutation {
   }
   getConfigs () {
     return [
+      {
+        type: 'NODE_DELETE',
+        parentName: 'viewer',
+        parentID: this.props.viewer.id,
+        connectionName: 'resources',
+        deletedIDFieldName: 'removedResourceID',
+      },
       {
         type: 'NODE_DELETE',
         parentName: 'user',
@@ -47,7 +59,6 @@ export default class DisconnectUserAndResourceMutation extends Relay.Mutation {
   }
   getVariables () {
     return {
-      userId: this.props.user.id,
       resourceId: this.props.resource.id,
     };
   }

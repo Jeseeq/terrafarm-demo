@@ -1,9 +1,9 @@
 import Relay from 'react-relay';
 
-export default class DisconnectUserAndGroupMutation extends Relay.Mutation {
+export default class DisconnectResourceFromGroupMutation extends Relay.Mutation {
   static fragments = {
-    user: () => Relay.QL`
-      fragment on User {
+    resource: () => Relay.QL`
+      fragment on Resource {
         id,
       }
     `,
@@ -14,15 +14,14 @@ export default class DisconnectUserAndGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{disconnectUserAndGroup}`;
+    return Relay.QL`mutation{disconnectResourceFromGroup}`;
   }
-  // TODO: getCollisionKey ()
   getFatQuery () {
     return Relay.QL`
-      fragment on RemoveUserGroupPayload {
+      fragment on DisconnectResourceFromGroupPayload {
         removedGroupID,
-        removedUserID,
-        user,
+        removedResourceID,
+        resource,
         group,
       }
     `;
@@ -31,8 +30,8 @@ export default class DisconnectUserAndGroupMutation extends Relay.Mutation {
     return [
       {
         type: 'NODE_DELETE',
-        parentName: 'user',
-        parentID: this.props.user.id,
+        parentName: 'resource',
+        parentID: this.props.resource.id,
         connectionName: 'groups',
         deletedIDFieldName: 'removedGroupID',
       },
@@ -40,14 +39,14 @@ export default class DisconnectUserAndGroupMutation extends Relay.Mutation {
         type: 'NODE_DELETE',
         parentName: 'group',
         parentID: this.props.group.id,
-        connectionName: 'users',
-        deletedIDFieldName: 'removedUserID',
+        connectionName: 'resources',
+        deletedIDFieldName: 'removedResourceID',
       },
     ];
   }
   getVariables () {
     return {
-      userId: this.props.user.id,
+      resourceId: this.props.resource.id,
       groupId: this.props.group.id,
     };
   }

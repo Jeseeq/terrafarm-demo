@@ -5,8 +5,8 @@ import UserNew from './UserNew';
 
 class UserList extends React.Component {
   render () {
-    var {viewer} = this.props;
-    var {users} = viewer;
+    var {master} = this.props;
+    var {users} = master;
 
     return <div>
       <h2>Users</h2>
@@ -14,7 +14,7 @@ class UserList extends React.Component {
         {users.edges.map(edge => <li key={edge.node.id}>
           <UserDetail user={edge.node} />
         </li>)}
-        <li><UserNew viewer={viewer}/></li>
+        <li><UserNew master={master}/></li>
       </ul>
     </div>;
   }
@@ -22,8 +22,8 @@ class UserList extends React.Component {
 
 export default Relay.createContainer(UserList, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         users(first: 10) {
           edges {
             node {
@@ -32,7 +32,7 @@ export default Relay.createContainer(UserList, {
             },
           }
         },
-        ${UserNew.getFragment('viewer')},
+        ${UserNew.getFragment('master')},
       }
     `,
   },

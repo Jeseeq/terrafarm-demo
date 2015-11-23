@@ -5,8 +5,8 @@ import GroupNew from './GroupNew';
 
 class GroupList extends React.Component {
   render () {
-    var {viewer} = this.props;
-    var {groups} = viewer;
+    var {master} = this.props;
+    var {groups} = master;
 
     return <div>
       <h2>Groups</h2>
@@ -14,7 +14,7 @@ class GroupList extends React.Component {
         {groups.edges.map(edge => <li key={edge.node.id}>
           <GroupDetail group={edge.node} />
         </li>)}
-        <li><GroupNew viewer={viewer}/></li>
+        <li><GroupNew master={master}/></li>
       </ul>
     </div>;
   }
@@ -22,8 +22,8 @@ class GroupList extends React.Component {
 
 export default Relay.createContainer(GroupList, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
+    master: () => Relay.QL`
+      fragment on Master {
         groups(first: 10) {
           edges {
             node {
@@ -32,7 +32,7 @@ export default Relay.createContainer(GroupList, {
             },
           }
         },
-        ${GroupNew.getFragment('viewer')},
+        ${GroupNew.getFragment('master')},
       }
     `,
   },
