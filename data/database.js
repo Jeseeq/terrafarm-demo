@@ -190,7 +190,49 @@ export function connectResourceAndGroup (resourceId, groupId) {
   return {resource.id, group.id};
 }
 
-// export function disconnectUserAndResource (userId, resourceId) {
-// export function disconnectUserAndGroup (userId, groupId) {
-// export function disconnectResourceAndGroup (resourceId, groupId) {
+export function disconnectUserAndResource (userId, resourceId) {
+  var user = getUser(userId);
+  var resource = getResource(resourceId);
+  var userIndex = resource.users.indexOf(userId);
+  var resourceIndex = user.resources.indexOf(resourceIndex);
+
+  if (userIndex === -1 || resourceIndex === -1) {
+    return console.error('Error: user', user.id, ' and resource', resource.id, 'not connected.');
+  }
+
+  user.resources.slice(resourceIndex, 1);
+  resource.users.slice(userIndex, 1);
+
+  return {user.id, resource.id};
+}
+export function disconnectUserAndGroup (userId, groupId) {
+  var user = getUser(userId);
+  var group = getGroup(groupId);
+  var userIndex = group.users.indexOf(userId);
+  var groupIndex = user.groups.indexOf(groupIndex);
+
+  if (userIndex === -1 || groupIndex === -1) {
+    return console.error('Error: user', user.id, ' and group', group.id, 'not connected.');
+  }
+
+  user.groups.slice(groupIndex, 1);
+  group.users.slice(userIndex, 1);
+
+  return {user.id, group.id};
+}
+export function disconnectResourceAndGroup (resourceId, groupId) {
+  var resource = getResource(resourceId);
+  var group = getGroup(groupId);
+  var resourceIndex = group.resources.indexOf(resourceId);
+  var groupIndex = resource.groups.indexOf(groupIndex);
+
+  if (resourceIndex === -1 || groupIndex === -1) {
+    return console.error('Error: resource', resource.id, ' and group', group.id, 'not connected.');
+  }
+
+  resource.groups.slice(groupIndex, 1);
+  group.resources.slice(resourceIndex, 1);
+
+  return {resource.id, group.id};
+}
 

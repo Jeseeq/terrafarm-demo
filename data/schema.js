@@ -36,6 +36,9 @@ import {
   connectUserAndResource,
   connectUserAndGroup,
   connectionResourceAndGroup,
+  disconnectUserAndResource,
+  disconnectUserAndGroup,
+  disconnectionResourceAndGroup,
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
