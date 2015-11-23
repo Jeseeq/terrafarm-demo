@@ -31,17 +31,14 @@ ReactDOM.render(
       <Route
         path='users' component={UserList}
         queries={ViewerQueries}
-        prepareParams={() => ({})}
       />
       <Route
         path='resources' component={ResourceList}
         queries={ViewerQueries}
-        prepareParams={() => ({})}
       />
       <Route
         path='groups' component={GroupList}
         queries={ViewerQueries}
-        prepareParams={() => ({})}
       />
       <Route
         path='user/:userId' component={UserPage}
