@@ -9,8 +9,13 @@ import MasterList from './components/MasterList';
 import UserList from './components/UserList';
 import ResourceList from './components/ResourceList';
 import GroupList from './components/GroupList';
+import UserPage from './components/UserPage';
+import ResourcePage from './components/ResourcePage';
+import GroupPage from './components/GroupPage';
 import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
+import ResourceQueries from './queries/ResourceQueries';
+import GroupQueries from './queries/GroupQueries';
 
 ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
@@ -37,6 +42,18 @@ ReactDOM.render(
         path='groups' component={GroupList}
         queries={ViewerQueries}
         prepareParams={() => ({})}
+      />
+      <Route
+        path='user/:userId' component={UserPage}
+        queries={UserQueries}
+      />
+      <Route
+        path='resource/:resourceId' component={ResourcePage}
+        queries={ResourceQueries}
+      />
+      <Route
+        path='group/:groupId' component={GroupPage}
+        queries={GroupQueries}
       />
     </Route>
   </RelayRouter>,

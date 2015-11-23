@@ -211,14 +211,6 @@ var GraphQLViewer = new GraphQLObjectType({
         args
       ),
     },
-    /*
-    user: {
-      type: GraphQLUser,
-      args: {
-              },
-      resolve: (_, {userId}) => getUser(userId),
-    },
-    */
   },
   interfaces: [nodeInterface],
 });
@@ -228,7 +220,43 @@ var Root = new GraphQLObjectType({
   fields: {
     viewer: {
       type: GraphQLViewer,
-      resolve: () => getViewer(),
+      resolve: getViewer,
+    },
+    user: {
+      type: GraphQLUser,
+      args: {
+        userId: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, {userId}) => {
+        var id = fromGlobalId(userId).id;
+        return getUser(id);
+      },
+    },
+    resource: {
+      type: GraphQLResource,
+      args: {
+        resourceId: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, {resourceId}) => {
+        var id = fromGlobalId(resourceId).id;
+        return getResource(id);
+      },
+    },
+    group: {
+      type: GraphQLGroup,
+      args: {
+        groupId: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, {groupId}) => {
+        var id = fromGlobalId(groupId).id;
+        return getGroup(id);
+      },
     },
     node: nodeField,
   },
