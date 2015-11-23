@@ -39,5 +39,5 @@ npm start
 ## License
 
 Copyright (c) 2015, Ryan Blakeley  
-This project is [Creative Commons License](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
+This project is under a [Creative Commons License](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
 Parts from [Relay Starter Kit](https://github.com/relayjs/relay-starter-kit), which is [BSD licensed](./LICENSE) and provides an additional [patent grant](./PATENTS).  
