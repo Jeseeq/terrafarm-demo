@@ -155,7 +155,7 @@ export function connectUserAndResource (userId, resourceId) {
   user.resources.push(resourceId);
   resource.users.push(userId);
 
-  return {user.id, resource.id};
+  return {userId, resourceId};
 }
 
 export function connectUserAndGroup (userId, groupId) {
@@ -171,7 +171,7 @@ export function connectUserAndGroup (userId, groupId) {
   user.groups.push(groupId);
   group.users.push(userId);
 
-  return {user.id, group.id};
+  return {userId, groupId};
 }
 
 export function connectResourceAndGroup (resourceId, groupId) {
@@ -187,7 +187,7 @@ export function connectResourceAndGroup (resourceId, groupId) {
   resource.groups.push(groupId);
   group.resources.push(resourceId);
 
-  return {resource.id, group.id};
+  return {resourceId, groupId};
 }
 
 export function disconnectUserAndResource (userId, resourceId) {
@@ -203,7 +203,7 @@ export function disconnectUserAndResource (userId, resourceId) {
   user.resources.slice(resourceIndex, 1);
   resource.users.slice(userIndex, 1);
 
-  return {user.id, resource.id};
+  return {userId, resourceId};
 }
 export function disconnectUserAndGroup (userId, groupId) {
   var user = getUser(userId);
@@ -218,7 +218,7 @@ export function disconnectUserAndGroup (userId, groupId) {
   user.groups.slice(groupIndex, 1);
   group.users.slice(userIndex, 1);
 
-  return {user.id, group.id};
+  return {userId, groupId};
 }
 export function disconnectResourceAndGroup (resourceId, groupId) {
   var resource = getResource(resourceId);
@@ -233,6 +233,6 @@ export function disconnectResourceAndGroup (resourceId, groupId) {
   resource.groups.slice(groupIndex, 1);
   group.resources.slice(resourceIndex, 1);
 
-  return {resource.id, group.id};
+  return {resourceId, groupId};
 }
 

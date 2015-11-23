@@ -648,7 +648,7 @@ var GraphQLDisconnectUserAndGroupMutation = mutationWithClientMutationId({
 });
 
 var GraphQLDisconnectResourceAndGroupMutation = mutationWithClientMutationId({
-  name: 'ConnectResourceAndGroup',
+  name: 'DisconnectResourceAndGroup',
   inputFields: {
     resourceId: {
       type: new GraphQLNonNull(GraphQLID)
