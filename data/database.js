@@ -6,7 +6,7 @@ export class Group extends Object {}
 export class Shortage extends Object {}
 
 const MASTER_ID = 'earth';
-const VIEWER_ID = '1';
+const VIEWER_ID = 'me';
 
 // Mock data
 var jane = Object.assign(
@@ -31,6 +31,14 @@ var hank = Object.assign(
     name: 'Hank',
     resources: ['3'],
     groups: ['1'],
+  }
+);
+var guest = Object.assign(
+  new User(), {
+    id: '4',
+    name: 'Guest',
+    resources: [],
+    groups: [],
   }
 );
 var shovel = Object.assign(
@@ -71,6 +79,7 @@ var data = {
     1: jane,
     2: joe,
     3: hank,
+    4: guest,
   },
   Resource: {
     1: shovel,
@@ -94,19 +103,12 @@ var master = Object.assign(
 var viewer = Object.assign(
   new Viewer(), {
     id: VIEWER_ID,
-    name: '',
-    resources: [],
-    groups: [],
+    user: '4',
   }
 );
 
 export function authenticateViewer (userId) {
-  var user = getUser(userId);
-  // viewer = Object.assign(viewer, user);
-  viewer.id = userId;
-  viewer.name = user.name;
-  viewer.resources = user.resources;
-  viewer.groups = user.groups;
+  viewer.user = userId;
   return userId;
 }
 
@@ -167,7 +169,7 @@ export function createGroup (groupName) {
 }
 
 export function connectResource (resourceId) {
-  var userId = viewer.id;
+  var userId = viewer.user;
   var user = getUser(userId);
   var resource = getResource(resourceId);
   var userIndex = resource.users.indexOf(userId);
@@ -178,14 +180,13 @@ export function connectResource (resourceId) {
   }
 
   user.resources.push(resourceId);
-  viewer.resources.push(resourceId);
   resource.users.push(userId);
 
   return {userId, resourceId};
 }
 
 export function connectGroup (groupId) {
-  var userId = viewer.id;
+  var userId = viewer.user;
   var user = getUser(userId);
   var group = getGroup(groupId);
   var userIndex = group.users.indexOf(userId);
@@ -196,7 +197,6 @@ export function connectGroup (groupId) {
   }
 
   user.groups.push(groupId);
-  viewer.groups.push(groupId);
   group.users.push(userId);
 
   return {userId, groupId};
@@ -219,7 +219,7 @@ export function connectResourceToGroup (resourceId, groupId) {
 }
 
 export function disconnectResource (resourceId) {
-  var userId = viewer.id;
+  var userId = viewer.user;
   var user = getUser(userId);
   var resource = getResource(resourceId);
   var userIndex = resource.users.indexOf(userId);
@@ -230,13 +230,12 @@ export function disconnectResource (resourceId) {
   }
 
   user.resources.slice(resourceIndex, 1);
-  viewer.resources.slice(resourceIndex, 1);
   resource.users.slice(userIndex, 1);
 
   return {userId, resourceId};
 }
 export function disconnectGroup (groupId) {
-  var userId = viewer.id;
+  var userId = viewer.user;
   var user = getUser(userId);
   var group = getGroup(groupId);
   var userIndex = group.users.indexOf(userId);
@@ -247,7 +246,6 @@ export function disconnectGroup (groupId) {
   }
 
   user.groups.slice(groupIndex, 1);
-  viewer.groups.slice(groupIndex, 1);
   group.users.slice(userIndex, 1);
 
   return {userId, groupId};

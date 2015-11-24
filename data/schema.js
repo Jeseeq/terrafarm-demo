@@ -233,21 +233,11 @@ var GraphQLViewer = new GraphQLObjectType({
   description: 'The authenticated user or guest.',
   fields: {
     id: globalIdField('Viewer'),
-    resources: {
-      type: ResourceConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.resources.map(id => getResource(id)),
-        args
-      ),
-    },
-    groups: {
-      type: GroupConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups.map(id => getGroup(id)),
-        args
-      ),
+    user: {
+      type: GraphQLUser,
+      resolve: _ => {
+        return getUser(_.user);
+      },
     },
   },
   interfaces: [nodeInterface],
@@ -314,17 +304,11 @@ var GraphQLAuthenticateViewerMutation = mutationWithClientMutationId({
   outputFields: {
     user: {
       type: GraphQLUser,
-      resolve: ({localUserId}) => {
-        return getUser(localUserId);
-      },
+      resolve: ({localUserId}) => getUser(localUserId),
     },
     viewer: {
       type: GraphQLViewer,
-      resolve: () => {
-        var viewer = getViewer();
-        console.log('output viewer:', viewer);
-        return viewer;
-      },
+      resolve: () => getViewer(),
     }
   },
   mutateAndGetPayload: ({userId}) => {

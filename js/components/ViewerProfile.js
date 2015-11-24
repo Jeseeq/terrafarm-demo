@@ -5,17 +5,19 @@ import Relay from 'react-relay';
 class ViewerProfile extends React.Component {
   render () {
     var {viewer} = this.props;
+    var {user} = viewer;
+
     return <div>
-      <h2>{viewer.name}</h2>
+      <h2>Profile: {user.name}</h2>
       <h3>Resources</h3>
       <ul>
-        {viewer.resources.edges.map(edge => <li key={edge.node.id}>
+        {user.resources.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
         </li>)}
       </ul>
       <h3>Groups</h3>
       <ul>
-        {viewer.groups.edges.map(edge => <li key={edge.node.id}>
+        {user.groups.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
         </li>)}
       </ul>
@@ -28,22 +30,25 @@ export default Relay.createContainer(ViewerProfile, {
     viewer: () => Relay.QL`
       fragment on Viewer {
         id,
-        resources(first: 18) {
-          edges {
-            node {
-              id,
-              name,
+        user {
+          name,
+          resources(first: 18) {
+            edges {
+              node {
+                id,
+                name,
+              }
             }
-          }
+          },
+          groups(first: 18) {
+            edges {
+              node {
+                id,
+                name,
+              }
+            }
+          },
         },
-        groups(first: 18) {
-          edges {
-            node {
-              id,
-              name,
-            }
-          }
-        }
       }
     `,
   }

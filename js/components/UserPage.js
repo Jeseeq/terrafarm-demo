@@ -18,7 +18,8 @@ class UserPage extends React.Component {
   render () {
     var {user} = this.props;
     return <div>
-      <h2 onClick={this._handleLogin.bind(this)}>{user.name}</h2>
+      <h2>User: {user.name}</h2>
+      <button onClick={this._handleLogin.bind(this)}>set active profile</button>
       <h3>Resources</h3>
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
@@ -40,6 +41,7 @@ export default Relay.createContainer(UserPage, {
     viewer: () => Relay.QL`
       fragment on Viewer {
         id,
+        user,
         ${AuthenticateViewerMutation.getFragment('viewer')},
       }
     `,

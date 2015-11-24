@@ -5,25 +5,13 @@ export default class AuthenticateViewerMutation extends Relay.Mutation {
     viewer: () => Relay.QL`
       fragment on Viewer {
         id,
-        resources(first: 18) {
-          edges {
-            node {
-              id,
-            }
-          },
-        },
-        groups(first: 18) {
-          edges {
-            node {
-              id,
-            }
-          },
-        },
+        user,
       }
     `,
     user: () => Relay.QL`
       fragment on User {
         id,
+        name,
         resources(first: 18) {
           edges {
             node {
@@ -49,20 +37,7 @@ export default class AuthenticateViewerMutation extends Relay.Mutation {
       fragment on AuthenticateViewerPayload {
         viewer {
           id,
-          resources(first: 18) {
-            edges {
-              node {
-                id,
-              }
-            },
-          },
-          groups(first: 18) {
-            edges {
-              node {
-                id,
-              }
-            },
-          },
+          user,
         },
         user {
           id,
