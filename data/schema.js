@@ -304,6 +304,36 @@ var Root = new GraphQLObjectType({
   },
 });
 
+var GraphQLAuthenticateViewerMutation = mutationWithClientMutationId({
+  name: 'AuthenticateViewer',
+  inputFields: {
+    userId: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  outputFields: {
+    user: {
+      type: GraphQLUser,
+      resolve: ({localUserId}) => {
+        return getUser(localUserId);
+      },
+    },
+    viewer: {
+      type: GraphQLViewer,
+      resolve: () => {
+        var viewer = getViewer();
+        console.log('output viewer:', viewer);
+        return viewer;
+      },
+    }
+  },
+  mutateAndGetPayload: ({userId}) => {
+    var localUserId = fromGlobalId(userId).id;
+    authenticateViewer(localUserId);
+    return {localUserId};
+  },
+});
+
 var GraphQLNewUserMutation = mutationWithClientMutationId({
   name: 'NewUser',
   inputFields: {
@@ -742,6 +772,7 @@ var GraphQLDisconnectResourceFromGroupMutation = mutationWithClientMutationId({
 var Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
+    authenticateViewer: GraphQLAuthenticateViewerMutation,
     newUser: GraphQLNewUserMutation,
     newResource: GraphQLNewResourceMutation,
     newGroup: GraphQLNewGroupMutation,

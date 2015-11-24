@@ -6,7 +6,7 @@ export class Group extends Object {}
 export class Shortage extends Object {}
 
 const MASTER_ID = 'earth';
-const VIEWER_ID = 'guest';
+const VIEWER_ID = '1';
 
 // Mock data
 var jane = Object.assign(
@@ -94,6 +94,7 @@ var master = Object.assign(
 var viewer = Object.assign(
   new Viewer(), {
     id: VIEWER_ID,
+    name: '',
     resources: [],
     groups: [],
   }
@@ -101,7 +102,9 @@ var viewer = Object.assign(
 
 export function authenticateViewer (userId) {
   var user = getUser(userId);
+  // viewer = Object.assign(viewer, user);
   viewer.id = userId;
+  viewer.name = user.name;
   viewer.resources = user.resources;
   viewer.groups = user.groups;
   return userId;

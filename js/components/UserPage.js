@@ -1,12 +1,24 @@
-import {Link} from 'react-router';
+import AuthenticateViewerMutation from '../mutations/AuthenticateViewerMutation';
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 
 class UserPage extends React.Component {
+  _handleLogin () {
+    this._handleAuthenticate();
+  }
+  _handleAuthenticate () {
+    Relay.Store.update(
+      new AuthenticateViewerMutation({
+        user: this.props.user,
+        viewer: this.props.viewer,
+      })
+    );
+  }
   render () {
     var {user} = this.props;
     return <div>
-      <h2>{user.name}</h2>
+      <h2 onClick={this._handleLogin.bind(this)}>{user.name}</h2>
       <h3>Resources</h3>
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
@@ -24,12 +36,16 @@ class UserPage extends React.Component {
 }
 
 export default Relay.createContainer(UserPage, {
-  initialVariables: {
-    userId: null,
-  },
   fragments: {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        id,
+        ${AuthenticateViewerMutation.getFragment('viewer')},
+      }
+    `,
     user: () => Relay.QL`
       fragment on User {
+        id,
         name,
         resources(first: 18) {
           edges {
@@ -46,9 +62,10 @@ export default Relay.createContainer(UserPage, {
               name,
             }
           }
-        }
+        },
+        ${AuthenticateViewerMutation.getFragment('user')},
       }
-    `
+    `,
   }
 });
 

@@ -9,10 +9,12 @@ import MasterList from './components/MasterList';
 import UserList from './components/UserList';
 import ResourceList from './components/ResourceList';
 import GroupList from './components/GroupList';
+import ViewerProfile from './components/ViewerProfile';
 import UserPage from './components/UserPage';
 import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
 import MasterQueries from './queries/MasterQueries';
+import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
 import GroupQueries from './queries/GroupQueries';
@@ -27,6 +29,10 @@ ReactDOM.render(
         component={MasterList}
         queries={MasterQueries}
         prepareParams={() => ({})}
+      />
+      <Route
+        path='profile' component={ViewerProfile}
+        queries={ViewerQueries}
       />
       <Route
         path='users' component={UserList}
