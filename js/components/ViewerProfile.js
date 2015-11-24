@@ -33,7 +33,7 @@ class ViewerProfile extends React.Component {
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
           <button
             onClick={this._handleDisconnectResource.bind(this, edge.node)}>
-            remove
+            disconnect
           </button>
         </li>)}
       </ul>
@@ -43,7 +43,7 @@ class ViewerProfile extends React.Component {
           <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
           <button
             onClick={this._handleDisconnectGroup.bind(this, edge.node)}>
-            remove
+            disconnect
           </button>
         </li>)}
       </ul>

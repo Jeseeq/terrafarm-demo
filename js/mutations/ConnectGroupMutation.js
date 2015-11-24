@@ -2,11 +2,6 @@ import Relay from 'react-relay';
 
 export default class ConnectGroupMutation extends Relay.Mutation {
   static fragments = {
-    viewer: () => Relay.QL`
-      fragment on Group {
-        id,
-      }
-    `,
     user: () => Relay.QL`
       fragment on Group {
         id,
@@ -26,7 +21,6 @@ export default class ConnectGroupMutation extends Relay.Mutation {
       fragment on ConnectGroupPayload {
         groupEdge,
         userEdge,
-        viewer,
         user,
         group,
       }
@@ -34,16 +28,6 @@ export default class ConnectGroupMutation extends Relay.Mutation {
   }
   getConfigs () {
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: 'viewer',
-        parentID: this.props.viewer.id,
-        connectionName: 'groups',
-        edgeName: 'groupEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
-      },
       {
         type: 'RANGE_ADD',
         parentName: 'user',
@@ -68,6 +52,7 @@ export default class ConnectGroupMutation extends Relay.Mutation {
   }
   getVariables () {
     return {
+      userId: this.props.user.id,
       groupId: this.props.group.id,
     };
   }

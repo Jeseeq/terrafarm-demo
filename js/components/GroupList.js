@@ -1,9 +1,18 @@
+import ConnectGroupMutation from '../mutations/ConnectGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import GroupDetail from './GroupDetail';
+import {Link} from 'react-router';
 import GroupNew from './GroupNew';
 
 class GroupList extends React.Component {
+  _handleConnectGroup (group) {
+    Relay.Store.update(
+      new ConnectGroupMutation({
+        user: this.props.viewer.user,
+        group: group,
+      })
+    );
+  }
   render () {
     var {master} = this.props;
     var {groups} = master;
@@ -12,7 +21,11 @@ class GroupList extends React.Component {
       <h2>Groups</h2>
       <ul>
         {groups.edges.map(edge => <li key={edge.node.id}>
-          <GroupDetail group={edge.node} />
+          <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
+          <button
+            onClick={this._handleConnectGroup.bind(this, edge.node)}>
+            connect
+          </button>
         </li>)}
         <li><GroupNew master={master}/></li>
       </ul>
@@ -28,11 +41,20 @@ export default Relay.createContainer(GroupList, {
           edges {
             node {
               id,
-              ${GroupDetail.getFragment('group')},
+              name,
+              ${ConnectGroupMutation.getFragment('group')},
             },
           }
         },
         ${GroupNew.getFragment('master')},
+      }
+    `,
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        user {
+          id,
+          ${ConnectGroupMutation.getFragment('user')},
+        },
       }
     `,
   },

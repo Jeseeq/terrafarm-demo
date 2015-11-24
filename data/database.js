@@ -168,12 +168,11 @@ export function createGroup (groupName) {
   return newGroup.id;
 }
 
-export function connectResource (resourceId) {
-  var userId = viewer.user;
+export function connectResource (userId, resourceId) {
   var user = getUser(userId);
   var resource = getResource(resourceId);
   var userIndex = resource.users.indexOf(userId);
-  var resourceIndex = user.resources.indexOf(resourceIndex);
+  var resourceIndex = user.resources.indexOf(resourceId);
 
   if (userIndex > -1 || resourceIndex > -1) {
    return console.error('Error: user', user.id, ' and resource', resource.id, 'connected.');
@@ -181,16 +180,13 @@ export function connectResource (resourceId) {
 
   user.resources.push(resourceId);
   resource.users.push(userId);
-
-  return {userId, resourceId};
 }
 
-export function connectGroup (groupId) {
-  var userId = viewer.user;
+export function connectGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
   var userIndex = group.users.indexOf(userId);
-  var groupIndex = user.groups.indexOf(groupIndex);
+  var groupIndex = user.groups.indexOf(groupId);
 
   if (userIndex > -1 || groupIndex > -1) {
     return console.error('Error: user', user.id, ' and group', group.id, 'connected.');
@@ -198,15 +194,13 @@ export function connectGroup (groupId) {
 
   user.groups.push(groupId);
   group.users.push(userId);
-
-  return {userId, groupId};
 }
 
 export function connectResourceToGroup (resourceId, groupId) {
   var resource = getResource(resourceId);
   var group = getGroup(groupId);
   var resourceIndex = group.resources.indexOf(resourceId);
-  var groupIndex = resource.groups.indexOf(groupIndex);
+  var groupIndex = resource.groups.indexOf(groupId);
 
   if (resourceIndex > -1 || groupIndex > -1) {
     return console.error('Error: resource', resource.id, ' and group', group.id, 'connected.');
@@ -214,8 +208,6 @@ export function connectResourceToGroup (resourceId, groupId) {
 
   resource.groups.push(groupId);
   group.resources.push(resourceId);
-
-  return {resourceId, groupId};
 }
 
 export function disconnectResource (userId, resourceId) {

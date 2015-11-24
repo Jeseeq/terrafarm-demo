@@ -1,6 +1,6 @@
-import {Link, IndexLink} from 'react-router';
 import React from 'react';
 import Relay from 'react-relay';
+import {Link, IndexLink} from 'react-router';
 
 class App extends React.Component {
   render () {
@@ -16,6 +16,11 @@ export default Relay.createContainer(App, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {
+        id,
+      }
+    `,
+    viewer: () => Relay.QL`
+      fragment on Viewer {
         id,
       }
     `,
