@@ -218,50 +218,44 @@ export function connectResourceToGroup (resourceId, groupId) {
   return {resourceId, groupId};
 }
 
-export function disconnectResource (resourceId) {
-  var userId = viewer.user;
+export function disconnectResource (userId, resourceId) {
   var user = getUser(userId);
   var resource = getResource(resourceId);
   var userIndex = resource.users.indexOf(userId);
-  var resourceIndex = user.resources.indexOf(resourceIndex);
+  var resourceIndex = user.resources.indexOf(resourceId);
 
   if (userIndex === -1 || resourceIndex === -1) {
     return console.error('Error: user', user.id, ' and resource', resource.id, 'not connected.');
   }
 
-  user.resources.slice(resourceIndex, 1);
-  resource.users.slice(userIndex, 1);
-
-  return {userId, resourceId};
+  user.resources.splice(resourceIndex, 1);
+  resource.users.splice(userIndex, 1);
 }
-export function disconnectGroup (groupId) {
-  var userId = viewer.user;
+export function disconnectGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
   var userIndex = group.users.indexOf(userId);
-  var groupIndex = user.groups.indexOf(groupIndex);
+  var groupIndex = user.groups.indexOf(groupId);
 
   if (userIndex === -1 || groupIndex === -1) {
     return console.error('Error: user', user.id, ' and group', group.id, 'not connected.');
   }
 
-  user.groups.slice(groupIndex, 1);
-  group.users.slice(userIndex, 1);
-
-  return {userId, groupId};
+  user.groups.splice(groupIndex, 1);
+  group.users.splice(userIndex, 1);
 }
 export function disconnectResourceFromGroup (resourceId, groupId) {
   var resource = getResource(resourceId);
   var group = getGroup(groupId);
   var resourceIndex = group.resources.indexOf(resourceId);
-  var groupIndex = resource.groups.indexOf(groupIndex);
+  var groupIndex = resource.groups.indexOf(groupId);
 
   if (resourceIndex === -1 || groupIndex === -1) {
     return console.error('Error: resource', resource.id, ' and group', group.id, 'not connected.');
   }
 
-  resource.groups.slice(groupIndex, 1);
-  group.resources.slice(resourceIndex, 1);
+  resource.groups.splice(groupIndex, 1);
+  group.resources.splice(resourceIndex, 1);
 
   return {resourceId, groupId};
 }

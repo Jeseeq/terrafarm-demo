@@ -1,8 +1,26 @@
-import {Link} from 'react-router';
+import DisconnectResourceMutation from '../mutations/DisconnectResourceMutation';
+import DisconnectGroupMutation from '../mutations/DisconnectGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 
 class ViewerProfile extends React.Component {
+  _handleDisconnectResource (resource) {
+    Relay.Store.update(
+      new DisconnectResourceMutation({
+        user: this.props.viewer.user,
+        resource: resource,
+      })
+    );
+  }
+  _handleDisconnectGroup (group) {
+    Relay.Store.update(
+      new DisconnectGroupMutation({
+        user: this.props.viewer.user,
+        group: group,
+      })
+    );
+  }
   render () {
     var {viewer} = this.props;
     var {user} = viewer;
@@ -13,12 +31,20 @@ class ViewerProfile extends React.Component {
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
+          <button
+            onClick={this._handleDisconnectResource.bind(this, edge.node)}>
+            remove
+          </button>
         </li>)}
       </ul>
       <h3>Groups</h3>
       <ul>
         {user.groups.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
+          <button
+            onClick={this._handleDisconnectGroup.bind(this, edge.node)}>
+            remove
+          </button>
         </li>)}
       </ul>
     </div>;
@@ -37,6 +63,7 @@ export default Relay.createContainer(ViewerProfile, {
               node {
                 id,
                 name,
+                ${DisconnectResourceMutation.getFragment('resource')},
               }
             }
           },
@@ -45,9 +72,12 @@ export default Relay.createContainer(ViewerProfile, {
               node {
                 id,
                 name,
+                ${DisconnectGroupMutation.getFragment('group')},
               }
             }
           },
+          ${DisconnectResourceMutation.getFragment('user')},
+          ${DisconnectGroupMutation.getFragment('user')}
         },
       }
     `,

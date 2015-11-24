@@ -5,9 +5,6 @@ import {Link} from 'react-router';
 
 class UserPage extends React.Component {
   _handleLogin () {
-    this._handleAuthenticate();
-  }
-  _handleAuthenticate () {
     Relay.Store.update(
       new AuthenticateViewerMutation({
         user: this.props.user,
