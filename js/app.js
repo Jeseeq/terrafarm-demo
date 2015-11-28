@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
 
 import PluckYourselfApp from './components/PluckYourselfApp';
-// import BrowsePage from './BrowsePage';
+import BrowsePage from './BrowsePage';
 // import LoginPage from './LoginPage';
 // import ProfilePage from './ProfilePage';
 // import UserPage from './UserPage';
@@ -14,10 +14,6 @@ import PluckYourselfApp from './components/PluckYourselfApp';
 // import GroupPage from './GroupPage';
 // import NewResourcePage from './NewResourcePage';
 // import NewGroupPage from './NewGroupPage';
-import MasterList from './components/MasterList';
-import UserList from './components/UserList';
-import ResourceList from './components/ResourceList';
-import GroupList from './components/GroupList';
 import ViewerProfile from './components/ViewerProfile';
 import UserPage from './components/UserPage';
 import ResourcePage from './components/ResourcePage';
@@ -36,24 +32,12 @@ ReactDOM.render(
       queries={MasterQueries}
     >
       <IndexRoute
-        component={MasterList}
+        component={BrowsePage}
         queries={MasterQueries}
       />
       <Route
         path='profile' component={ViewerProfile}
         queries={ViewerQueries}
-      />
-      <Route
-        path='users' component={UserList}
-        queries={MasterQueries}
-      />
-      <Route
-        path='resources' component={ResourceList}
-        queries={MasterQueries}
-      />
-      <Route
-        path='groups' component={GroupList}
-        queries={MasterQueries}
       />
       <Route
         path='user/:userId' component={UserPage}

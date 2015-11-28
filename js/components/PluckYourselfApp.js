@@ -3,10 +3,12 @@ import Relay from 'react-relay';
 import {Link, IndexLink} from 'react-router';
 
 class PluckYourselfApp extends React.Component {
+  // if not logged in, show link to login
+  // else show username
   render () {
     return <div>
       <h1><IndexLink to={'/'}>Pluck Yourself App</IndexLink></h1>
-      <div><Link to={'/profile'}>Go to current profile</Link></div>
+      <div><Link to={'/login'}>Login</Link></div>
       {this.props.children}
     </div>;
   }
