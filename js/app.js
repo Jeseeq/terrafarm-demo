@@ -4,7 +4,16 @@ import {IndexRoute, Route} from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
-import App from './components/App';
+
+import PluckYourselfApp from './components/PluckYourselfApp';
+// import BrowsePage from './BrowsePage';
+// import LoginPage from './LoginPage';
+// import ProfilePage from './ProfilePage';
+// import UserPage from './UserPage';
+// import ResourcePage from './ResourcePage';
+// import GroupPage from './GroupPage';
+// import NewResourcePage from './NewResourcePage';
+// import NewGroupPage from './NewGroupPage';
 import MasterList from './components/MasterList';
 import UserList from './components/UserList';
 import ResourceList from './components/ResourceList';
@@ -13,6 +22,7 @@ import ViewerProfile from './components/ViewerProfile';
 import UserPage from './components/UserPage';
 import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
+
 import MasterQueries from './queries/MasterQueries';
 import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
@@ -22,13 +32,12 @@ import GroupQueries from './queries/GroupQueries';
 ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
     <Route
-      path='/' component={App}
+      path='/' component={PluckYourselfApp}
       queries={MasterQueries}
     >
       <IndexRoute
         component={MasterList}
         queries={MasterQueries}
-        prepareParams={() => ({})}
       />
       <Route
         path='profile' component={ViewerProfile}
