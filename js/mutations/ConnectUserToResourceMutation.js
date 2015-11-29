@@ -1,28 +1,29 @@
 import Relay from 'react-relay';
 
-export default class ConnectGroupMutation extends Relay.Mutation {
+export default class ConnectUserToResourceMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
-      fragment on Group {
+      fragment on Resource {
         id,
       }
     `,
-    group: () => Relay.QL`
-      fragment on Group {
+    resource: () => Relay.QL`
+      fragment on Resource {
         id,
       }
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{connectGroup}`;
+    return Relay.QL`mutation{connectUserToResource}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on ConnectGroupPayload {
-        groupEdge,
+      fragment on ConnectUserToResourcePayload {
+        resourceEdge,
         userEdge,
+        viewer,
         user,
-        group,
+        resource,
       }
     `;
   }
@@ -32,16 +33,16 @@ export default class ConnectGroupMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'user',
         parentID: this.props.user.id,
-        connectionName: 'groups',
-        edgeName: 'groupEdge',
+        connectionName: 'resources',
+        edgeName: 'resourceEdge',
         rangeBehaviors: {
           '': 'append',
         },
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'group',
-        parentID: this.props.group.id,
+        parentName: 'resource',
+        parentID: this.props.resource.id,
         connectionName: 'users',
         edgeName: 'userEdge',
         rangeBehaviors: {
@@ -53,8 +54,7 @@ export default class ConnectGroupMutation extends Relay.Mutation {
   getVariables () {
     return {
       userId: this.props.user.id,
-      groupId: this.props.group.id,
+      resourceId: this.props.resource.id,
     };
   }
 }
-

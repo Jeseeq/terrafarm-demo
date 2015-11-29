@@ -1,9 +1,9 @@
 import Relay from 'react-relay';
 
-export default class DisconnectGroupMutation extends Relay.Mutation {
+export default class ConnectUserToGroupMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
-      fragment on User {
+      fragment on Group {
         id,
       }
     `,
@@ -14,13 +14,13 @@ export default class DisconnectGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{disconnectGroup}`;
+    return Relay.QL`mutation{connectUserToGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on DisconnectGroupPayload {
-        removedGroupID,
-        removedUserID,
+      fragment on ConnectUserToGroupPayload {
+        groupEdge,
+        userEdge,
         user,
         group,
       }
@@ -29,19 +29,25 @@ export default class DisconnectGroupMutation extends Relay.Mutation {
   getConfigs () {
     return [
       {
-        type: 'NODE_DELETE',
+        type: 'RANGE_ADD',
         parentName: 'user',
         parentID: this.props.user.id,
         connectionName: 'groups',
-        deletedIDFieldName: 'removedGroupID',
+        edgeName: 'groupEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
       },
       {
-        type: 'NODE_DELETE',
+        type: 'RANGE_ADD',
         parentName: 'group',
         parentID: this.props.group.id,
         connectionName: 'users',
-        deletedIDFieldName: 'removedUserID',
-      },
+        edgeName: 'userEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
+      }
     ];
   }
   getVariables () {
@@ -51,5 +57,4 @@ export default class DisconnectGroupMutation extends Relay.Mutation {
     };
   }
 }
-
 

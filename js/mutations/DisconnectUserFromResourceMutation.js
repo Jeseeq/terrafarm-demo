@@ -1,9 +1,9 @@
 import Relay from 'react-relay';
 
-export default class ConnectResourceMutation extends Relay.Mutation {
+export default class DisconnectUserFromResourceMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
-      fragment on Resource {
+      fragment on User {
         id,
       }
     `,
@@ -14,14 +14,13 @@ export default class ConnectResourceMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{connectResource}`;
+    return Relay.QL`mutation{disconnectUserFromResource}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on ConnectResourcePayload {
-        resourceEdge,
-        userEdge,
-        viewer,
+      fragment on DisconnectUserFromResourcePayload {
+        removedResourceID,
+        removedUserID,
         user,
         resource,
       }
@@ -30,25 +29,19 @@ export default class ConnectResourceMutation extends Relay.Mutation {
   getConfigs () {
     return [
       {
-        type: 'RANGE_ADD',
+        type: 'NODE_DELETE',
         parentName: 'user',
         parentID: this.props.user.id,
         connectionName: 'resources',
-        edgeName: 'resourceEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
+        deletedIDFieldName: 'removedResourceID',
       },
       {
-        type: 'RANGE_ADD',
+        type: 'NODE_DELETE',
         parentName: 'resource',
         parentID: this.props.resource.id,
         connectionName: 'users',
-        edgeName: 'userEdge',
-        rangeBehaviors: {
-          '': 'append',
-        },
-      }
+        deletedIDFieldName: 'removedUserID',
+      },
     ];
   }
   getVariables () {
@@ -58,3 +51,4 @@ export default class ConnectResourceMutation extends Relay.Mutation {
     };
   }
 }
+

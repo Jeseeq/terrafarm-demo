@@ -168,7 +168,7 @@ export function createGroup (groupName) {
   return newGroup.id;
 }
 
-export function connectResource (userId, resourceId) {
+export function connectUserToResource (userId, resourceId) {
   var user = getUser(userId);
   var resource = getResource(resourceId);
   var userIndex = resource.users.indexOf(userId);
@@ -182,7 +182,7 @@ export function connectResource (userId, resourceId) {
   resource.users.push(userId);
 }
 
-export function connectGroup (userId, groupId) {
+export function connectUserToGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
   var userIndex = group.users.indexOf(userId);
@@ -210,7 +210,7 @@ export function connectResourceToGroup (resourceId, groupId) {
   group.resources.push(resourceId);
 }
 
-export function disconnectResource (userId, resourceId) {
+export function disconnectUserFromResource (userId, resourceId) {
   var user = getUser(userId);
   var resource = getResource(resourceId);
   var userIndex = resource.users.indexOf(userId);
@@ -223,7 +223,7 @@ export function disconnectResource (userId, resourceId) {
   user.resources.splice(resourceIndex, 1);
   resource.users.splice(userIndex, 1);
 }
-export function disconnectGroup (userId, groupId) {
+export function disconnectUserFromGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
   var userIndex = group.users.indexOf(userId);

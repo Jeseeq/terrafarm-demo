@@ -1,21 +1,21 @@
-import DisconnectResourceMutation from '../mutations/DisconnectResourceMutation';
-import DisconnectGroupMutation from '../mutations/DisconnectGroupMutation';
+import DisconnectUserFromResourceMutation from '../mutations/DisconnectUserFromResourceMutation';
+import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 
 class ViewerProfile extends React.Component {
-  _handleDisconnectResource (resource) {
+  _handleDisconnectUserFromResource (resource) {
     Relay.Store.update(
-      new DisconnectResourceMutation({
+      new DisconnectUserFromResourceMutation({
         user: this.props.viewer.user,
         resource: resource,
       })
     );
   }
-  _handleDisconnectGroup (group) {
+  _handleDisconnectUserFromGroup (group) {
     Relay.Store.update(
-      new DisconnectGroupMutation({
+      new DisconnectUserFromGroupMutation({
         user: this.props.viewer.user,
         group: group,
       })
@@ -32,7 +32,7 @@ class ViewerProfile extends React.Component {
         {user.resources.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
           <button
-            onClick={this._handleDisconnectResource.bind(this, edge.node)}>
+            onClick={this._handleDisconnectUserFromResource.bind(this, edge.node)}>
             disconnect
           </button>
         </li>)}
@@ -42,7 +42,7 @@ class ViewerProfile extends React.Component {
         {user.groups.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
           <button
-            onClick={this._handleDisconnectGroup.bind(this, edge.node)}>
+            onClick={this._handleDisconnectUserFromGroup.bind(this, edge.node)}>
             disconnect
           </button>
         </li>)}
@@ -63,7 +63,7 @@ export default Relay.createContainer(ViewerProfile, {
               node {
                 id,
                 name,
-                ${DisconnectResourceMutation.getFragment('resource')},
+                ${DisconnectUserFromResourceMutation.getFragment('resource')},
               }
             }
           },
@@ -72,12 +72,12 @@ export default Relay.createContainer(ViewerProfile, {
               node {
                 id,
                 name,
-                ${DisconnectGroupMutation.getFragment('group')},
+                ${DisconnectUserFromGroupMutation.getFragment('group')},
               }
             }
           },
-          ${DisconnectResourceMutation.getFragment('user')},
-          ${DisconnectGroupMutation.getFragment('user')}
+          ${DisconnectUserFromResourceMutation.getFragment('user')},
+          ${DisconnectUserFromGroupMutation.getFragment('user')}
         },
       }
     `,
