@@ -6,19 +6,17 @@ import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
 
 import PluckYourselfApp from './components/PluckYourselfApp';
-import BrowsePage from './BrowsePage';
-// import LoginPage from './LoginPage';
-// import ProfilePage from './ProfilePage';
-// import UserPage from './UserPage';
-// import ResourcePage from './ResourcePage';
-// import GroupPage from './GroupPage';
-// import NewResourcePage from './NewResourcePage';
-// import NewGroupPage from './NewGroupPage';
-import ViewerProfile from './components/ViewerProfile';
+import BrowsePage from './components/BrowsePage';
+import LoginPage from './components/LoginPage';
+import ProfilePage from './components/ProfilePage';
 import UserPage from './components/UserPage';
 import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
+import NewUserPage from './components/NewUserPage';
+import NewResourcePage from './components/NewResourcePage';
+import NewGroupPage from './components/NewGroupPage';
 
+import MasterAndViewerQueries from './queries/MasterAndViewerQueries';
 import MasterQueries from './queries/MasterQueries';
 import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
@@ -29,14 +27,18 @@ ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
     <Route
       path='/' component={PluckYourselfApp}
-      queries={MasterQueries}
+      queries={MasterAndViewerQueries}
     >
       <IndexRoute
         component={BrowsePage}
-        queries={MasterQueries}
+        queries={MasterAndViewerQueries}
       />
       <Route
-        path='profile' component={ViewerProfile}
+        path='login' component={LoginPage}
+        queries={MasterAndViewerQueries}
+      />
+      <Route
+        path='profile' component={ProfilePage}
         queries={ViewerQueries}
       />
       <Route
@@ -50,6 +52,18 @@ ReactDOM.render(
       <Route
         path='group/:groupId' component={GroupPage}
         queries={GroupQueries}
+      />
+      <Route
+        path='new-user' component={NewUserPage}
+        queries={MasterQueries}
+      />
+      <Route
+        path='new-resource' component={NewResourcePage}
+        queries={MasterQueries}
+      />
+      <Route
+        path='new-group' component={NewGroupPage}
+        queries={MasterQueries}
       />
     </Route>
   </RelayRouter>,

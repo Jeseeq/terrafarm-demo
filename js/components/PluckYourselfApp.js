@@ -9,6 +9,10 @@ class PluckYourselfApp extends React.Component {
     return <div>
       <h1><IndexLink to={'/'}>Pluck Yourself App</IndexLink></h1>
       <div><Link to={'/login'}>Login</Link></div>
+      <div><Link to={'/profile'}>Profile</Link></div>
+      <div><Link to={'/new-user'}>New User</Link></div>
+      <div><Link to={'/new-resource'}>New Resource</Link></div>
+      <div><Link to={'/new-group'}>New Group</Link></div>
       {this.props.children}
     </div>;
   }

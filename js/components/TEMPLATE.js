@@ -10,16 +10,14 @@ class TEMPLATE extends React.Component {
 export default Relay.createContainer(TEMPLATE, {
   fragments: {
     QUERY: () => Relay.QL`
-      fragment on OBJECT {
-        array {
-          edges {
-            node {
-              id,
-              name,
-            },
+      fragment on QUERY {
+        edges {
+          node {
+            id,
+            name,
           },
         },
-      }
+      },
     `,
   },
 });

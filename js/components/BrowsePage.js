@@ -1,9 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 
 class BrowsePage extends React.Component {
   render () {
-    var {viewer, master} = this.props;
+    var {master} = this.props;
     var {users, resources, groups} = master;
 
     return <div>
@@ -33,7 +34,7 @@ export default Relay.createContainer(BrowsePage, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        ${GroupList.getFragment('viewer')},
+        id,
       }
     `,
     master: () => Relay.QL`
