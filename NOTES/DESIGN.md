@@ -1,6 +1,8 @@
 # DESIGN
 
 ## Names
+- Work Towards a Better Future
+- GardenFuture
 - Gate
 - Pluck Yourself
 - Rojo Buffalo
@@ -15,6 +17,8 @@
 - Access
 - Farm
 - Garden
+- Future
+- Terrafarm
 
 ## Styles
 - css module loader
