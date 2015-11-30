@@ -1,10 +1,28 @@
+/*
+ * Life Savers
+ * Overlock
+ * Simonetta
+ * Patrick Hand SC
+ * Raleway Dots
+ */
 h1,
-h2,
-h3 {
-  font-family: 'Overlock', cursive;
+h2 {
+  font-family: 'Life Savers', serif;
+  font-weight: 400;
 }
+h3,
+h4 {
+  font-family: 'Patrick Hand SC', cursive;
+  font-weight: 400;
+}
+h4 {
+  margin: 0.33em 0;
+  font-size: 19px;
+  font-weight: 400;
+}
+h5,
 p,
-a,
+li,
 button {
   font-family: 'Simonetta', serif;
 }

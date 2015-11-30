@@ -1,0 +1,4 @@
+.heading:before,
+.heading:after {
+  content: '\2022';
+}

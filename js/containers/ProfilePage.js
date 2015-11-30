@@ -3,8 +3,9 @@ import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGrou
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
+import styles from './ProfilePage.css';
 
-class ViewerProfile extends React.Component {
+class ProfilePage extends React.Component {
   _handleDisconnectUserFromResource (resource) {
     Relay.Store.update(
       new DisconnectUserFromResourceMutation({
@@ -26,7 +27,7 @@ class ViewerProfile extends React.Component {
     var {user} = viewer;
 
     return <div>
-      <h2>Profile: {user.name}</h2>
+      <h2 className={styles.heading}>{user.name}</h2>
       <h3>Resources</h3>
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
@@ -51,7 +52,7 @@ class ViewerProfile extends React.Component {
   }
 }
 
-export default Relay.createContainer(ViewerProfile, {
+export default Relay.createContainer(ProfilePage, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {

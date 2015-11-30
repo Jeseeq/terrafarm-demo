@@ -8,19 +8,20 @@ class BrowsePage extends React.Component {
     var {users, resources, groups} = master;
 
     return <div>
-      <h2>Users</h2>
+      <h2>Browse</h2>
+      <h3>Users</h3>
       <ul>
         {users.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
         </li>)}
       </ul>
-      <h2>Resources</h2>
+      <h3>Resources</h3>
       <ul>
         {resources.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
         </li>)}
       </ul>
-      <h2>Groups</h2>
+      <h3>Groups</h3>
       <ul>
         {groups.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>

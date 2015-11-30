@@ -19,6 +19,7 @@ class LoginPage extends React.Component {
 
     return <div>
       <h2>Login</h2>
+      <h3>Username</h3>
       <ul>
         {users.edges.map(edge => <li key={edge.node.id}>
           <button onClick={this._handleLogin.bind(this, edge.node)}>

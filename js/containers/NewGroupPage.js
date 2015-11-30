@@ -3,7 +3,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import TextInput from '../components/TextInput';
 
-class GroupNew extends React.Component {
+class NewGroupPage extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
       new NewGroupMutation({groupName: text, master: this.props.master})
@@ -21,7 +21,7 @@ class GroupNew extends React.Component {
   }
 }
 
-export default Relay.createContainer(GroupNew, {
+export default Relay.createContainer(NewGroupPage, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {

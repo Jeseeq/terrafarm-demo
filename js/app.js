@@ -29,8 +29,8 @@ ReactDOM.render(
       path='/' component={PluckYourselfApp}
       queries={MasterAndViewerQueries}
     >
-      <IndexRoute
-        component={BrowsePage}
+      <Route
+        path='browse' component={BrowsePage}
         queries={MasterAndViewerQueries}
       />
       <Route

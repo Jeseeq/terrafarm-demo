@@ -3,7 +3,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import TextInput from '../components/TextInput';
 
-class ResourceNew extends React.Component {
+class NewResourcePage extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
       new NewResourceMutation({resourceName: text, master: this.props.master})
@@ -21,7 +21,7 @@ class ResourceNew extends React.Component {
   }
 }
 
-export default Relay.createContainer(ResourceNew, {
+export default Relay.createContainer(NewResourcePage, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {
