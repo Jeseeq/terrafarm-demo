@@ -29,7 +29,8 @@ var compiler = webpack({
         loader: 'babel',
         query: {stage: 0, plugins: ['./build/babelRelayPlugin']},
         test: /\.js$/,
-      }
+      },
+      { test: /\.css$/, loader: 'style-loader!css-loader?modules', },
     ]
   },
   output: {filename: 'app.js', path: '/'}

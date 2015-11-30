@@ -1,37 +1,38 @@
-import NewGroupMutation from '../mutations/NewGroupMutation';
+import NewUserMutation from '../mutations/NewUserMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import TextInput from './TextInput';
+import TextInput from '../components/TextInput';
 
-class GroupNew extends React.Component {
+class UserNew extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewGroupMutation({groupName: text, master: this.props.master})
+      new NewUserMutation({userName: text, master: this.props.master})
     );
   }
   render () {
-    return (
+    return <div>
+      <h2>New User</h2>
       <TextInput
         autoFocus={true}
         onSave={this._handleTextInputSave}
         placeholder='Name'
       />
-    );
+    </div>;
   }
 }
 
-export default Relay.createContainer(GroupNew, {
+export default Relay.createContainer(UserNew, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {
-        groups(first: 10) {
+        users(first: 10) {
           edges {
             node {
               id,
             }
           }
         },
-        ${NewGroupMutation.getFragment('master')},
+        ${NewUserMutation.getFragment('master')},
       }
     `,
   },

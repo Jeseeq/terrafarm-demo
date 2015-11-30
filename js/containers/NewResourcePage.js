@@ -1,7 +1,7 @@
 import NewResourceMutation from '../mutations/NewResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import TextInput from './TextInput';
+import TextInput from '../components/TextInput';
 
 class ResourceNew extends React.Component {
   _handleTextInputSave = (text) => {
@@ -10,13 +10,14 @@ class ResourceNew extends React.Component {
     );
   }
   render () {
-    return (
+    return <div>
+      <h2>New Resource</h2>
       <TextInput
         autoFocus={true}
         onSave={this._handleTextInputSave}
         placeholder='Name'
       />
-    );
+    </div>;
   }
 }
 

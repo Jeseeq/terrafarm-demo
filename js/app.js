@@ -5,16 +5,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
 
-import PluckYourselfApp from './components/PluckYourselfApp';
-import BrowsePage from './components/BrowsePage';
-import LoginPage from './components/LoginPage';
-import ProfilePage from './components/ProfilePage';
-import UserPage from './components/UserPage';
-import ResourcePage from './components/ResourcePage';
-import GroupPage from './components/GroupPage';
-import NewUserPage from './components/NewUserPage';
-import NewResourcePage from './components/NewResourcePage';
-import NewGroupPage from './components/NewGroupPage';
+import PluckYourselfApp from './containers/PluckYourselfApp';
+import BrowsePage from './containers/BrowsePage';
+import LoginPage from './containers/LoginPage';
+import ProfilePage from './containers/ProfilePage';
+import UserPage from './containers/UserPage';
+import ResourcePage from './containers/ResourcePage';
+import GroupPage from './containers/GroupPage';
+import NewUserPage from './containers/NewUserPage';
+import NewResourcePage from './containers/NewResourcePage';
+import NewGroupPage from './containers/NewGroupPage';
 
 import MasterAndViewerQueries from './queries/MasterAndViewerQueries';
 import MasterQueries from './queries/MasterQueries';

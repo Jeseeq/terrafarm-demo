@@ -1,5 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
+//import {Link} from 'react-router';
+//import COMPONENT from '../components/COMPONENT';
 
 class TEMPLATE extends React.Component {
   render () {
