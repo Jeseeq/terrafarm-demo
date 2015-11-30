@@ -1,6 +1,7 @@
 import AuthenticateViewerMutation from '../mutations/AuthenticateViewerMutation';
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 
 class LoginPage extends React.Component {
   _handleLogin (user) {
@@ -21,6 +22,7 @@ class LoginPage extends React.Component {
       <h2>Login</h2>
       <h3>Username</h3>
       <ul>
+        <li><h4><Link to='/new-user'>+</Link></h4></li>
         {users.edges.map(edge => <li key={edge.node.id}>
           <button onClick={this._handleLogin.bind(this, edge.node)}>
             {edge.node.name}

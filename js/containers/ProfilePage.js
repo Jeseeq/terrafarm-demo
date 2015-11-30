@@ -34,9 +34,10 @@ class ProfilePage extends React.Component {
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
           <button
             onClick={this._handleDisconnectUserFromResource.bind(this, edge.node)}>
-            disconnect
+            ~Edit~
           </button>
         </li>)}
+        <li><Link to='/new-resource'>~New~</Link></li>
       </ul>
       <h3>Groups</h3>
       <ul>
@@ -44,9 +45,10 @@ class ProfilePage extends React.Component {
           <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
           <button
             onClick={this._handleDisconnectUserFromGroup.bind(this, edge.node)}>
-            disconnect
+            ~Edit~
           </button>
         </li>)}
+        <li><Link to='/new-group'>~New~</Link></li>
       </ul>
     </div>;
   }
