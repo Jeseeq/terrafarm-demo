@@ -144,13 +144,15 @@ export function createUser (userName) {
   return newUser.id;
 }
 
-export function createResource (resourceName) {
+export function createResource (userId, resourceName) {
   var newResource = Object.assign(new Resource(), {
     id: Object.keys(data.Resource).length + 1,
     name: resourceName,
-    users: [],
+    users: [userId],
     groups: [],
   });
+  var user = getUser(userId);
+  user.resources.push(newResource.id);
   master.resources.push(newResource.id);
   data.Resource[newResource.id] = newResource;
   return newResource.id;

@@ -1,11 +1,5 @@
 # TODO
 
-- [x] Panel collapse/expand control
-  - [x] new user
-  - [x] new resource
-  - [x] new group
-  - [x] edit resource
-  - [x] edit group
 - [ ] Mutations on new resources/groups connect to viewer.user
 - [ ] EditPanel controls for remove, rename
 

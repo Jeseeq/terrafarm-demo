@@ -19,7 +19,7 @@ class ProfilePage extends React.Component {
         {user.resources.edges.map(edge => <li key={edge.node.id}>
           <EditResourcePanel user={user} resource={edge.node} />
         </li>)}
-        <li><NewResourcePanel master={master} /></li>
+        <li><NewResourcePanel user={user} master={master} /></li>
       </ul>
       <h3>Groups</h3>
       <ul>
@@ -59,6 +59,7 @@ export default Relay.createContainer(ProfilePage, {
           },
           ${EditResourcePanel.getFragment('user')},
           ${EditGroupPanel.getFragment('user')},
+          ${NewResourcePanel.getFragment('user')},
         },
       }
     `,

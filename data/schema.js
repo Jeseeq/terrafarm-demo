@@ -354,12 +354,15 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
 var GraphQLNewResourceMutation = mutationWithClientMutationId({
   name: 'NewResource',
   inputFields: {
+    userId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
     resourceName: {
       type: new GraphQLNonNull(GraphQLString)
     }
   },
   outputFields: {
-    resourceEdge: {
+    resourceEdgeOnMaster: {
       type: GraphQLResourceEdge,
       resolve: ({localResourceId}) => {
         var master = getMaster();
@@ -373,14 +376,33 @@ var GraphQLNewResourceMutation = mutationWithClientMutationId({
         };
       }
     },
+    resourceEdgeOnUser: {
+      type: GraphQLResourceEdge,
+      resolve: ({localUserId, localResourceId}) => {
+        var user = getUser(localUserId);
+        var resource = getResource(localResourceId);
+        return {
+          cursor: cursorForObjectInConnection(
+            user.resources.map(id => getResource(id)),
+            resource
+          ),
+          node: resource,
+        };
+      }
+    },
+    user: {
+      type: GraphQLUser,
+      resolve: ({localUserId}) => getUser(localUserId),
+    },
     master: {
       type: GraphQLMaster,
       resolve: () => getMaster(),
     }
   },
-  mutateAndGetPayload: ({resourceName}) => {
-    var localResourceId = createResource(resourceName);
-    return {localResourceId};
+  mutateAndGetPayload: ({userId, resourceName}) => {
+    var localUserId = fromGlobalId(userId).id;
+    var localResourceId = createResource(localUserId, resourceName);
+    return {localUserId, localResourceId};
   },
 });
 

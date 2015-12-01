@@ -17,7 +17,11 @@ class NewResourcePanel extends React.Component {
   }
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewResourceMutation({resourceName: text, master: this.props.master})
+      new NewResourceMutation({
+        resourceName: text,
+        user: this.props.user,
+        master: this.props.master
+      })
     );
   }
   render () {
@@ -41,6 +45,18 @@ class NewResourcePanel extends React.Component {
 
 export default Relay.createContainer(NewResourcePanel, {
   fragments: {
+    user: () => Relay.QL`
+      fragment on User {
+        resources(first: 18) {
+          edges {
+            node {
+              id,
+            }
+          }
+        }
+        ${NewResourceMutation.getFragment('user')},
+      }
+    `,
     master: () => Relay.QL`
       fragment on Master {
         resources(first: 18) {
