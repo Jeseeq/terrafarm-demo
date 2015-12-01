@@ -12,7 +12,8 @@ h2 {
 }
 h3,
 h4,
-h5 {
+h5,
+button {
   font-family: 'Patrick Hand SC', cursive;
   font-weight: 400;
 }
@@ -27,8 +28,7 @@ h5 {
   font-weight: 400;
 }
 p,
-li,
-button {
+li {
   font-family: 'Simonetta', serif;
 }
 h2,
