@@ -1832,6 +1832,20 @@
           "fields": null,
           "inputFields": [
             {
+              "name": "userId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
               "name": "groupName",
               "description": null,
               "type": {
@@ -1870,12 +1884,36 @@
           "description": null,
           "fields": [
             {
-              "name": "groupEdge",
+              "name": "groupEdgeOnMaster",
               "description": null,
               "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "GroupEdge",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "groupEdgeOnUser",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "GroupEdge",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "user",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,

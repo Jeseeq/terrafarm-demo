@@ -409,12 +409,15 @@ var GraphQLNewResourceMutation = mutationWithClientMutationId({
 var GraphQLNewGroupMutation = mutationWithClientMutationId({
   name: 'NewGroup',
   inputFields: {
+    userId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
     groupName: {
       type: new GraphQLNonNull(GraphQLString)
     }
   },
   outputFields: {
-    groupEdge: {
+    groupEdgeOnMaster: {
       type: GraphQLGroupEdge,
       resolve: ({localGroupId}) => {
         var master = getMaster();
@@ -428,14 +431,33 @@ var GraphQLNewGroupMutation = mutationWithClientMutationId({
         };
       }
     },
+    groupEdgeOnUser: {
+      type: GraphQLGroupEdge,
+      resolve: ({localUserId, localGroupId}) => {
+        var user = getUser(localUserId);
+        var group = getGroup(localGroupId);
+        return {
+          cursor: cursorForObjectInConnection(
+            user.groups.map(id => getGroup(id)),
+            group
+          ),
+          node: group,
+        };
+      }
+    },
+    user: {
+      type: GraphQLUser,
+      resolve: ({localUserId}) => getUser(localUserId),
+    },
     master: {
       type: GraphQLMaster,
       resolve: () => getMaster(),
     }
   },
-  mutateAndGetPayload: ({groupName}) => {
-    var localGroupId = createGroup(groupName);
-    return {localGroupId};
+  mutateAndGetPayload: ({userId, groupName}) => {
+    var localUserId = fromGlobalId(userId).id;
+    var localGroupId = createGroup(localUserId, groupName);
+    return {localUserId, localGroupId};
   },
 });
 

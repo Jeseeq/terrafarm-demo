@@ -158,13 +158,15 @@ export function createResource (userId, resourceName) {
   return newResource.id;
 }
 
-export function createGroup (groupName) {
+export function createGroup (userId, groupName) {
   var newGroup = Object.assign(new Group(), {
     id: Object.keys(data.Group).length + 1,
     name: groupName,
-    users: [],
+    users: [userId],
     resources: [],
   });
+  var user = getUser(userId);
+  user.groups.push(newGroup.id);
   master.groups.push(newGroup.id);
   data.Group[newGroup.id] = newGroup;
   return newGroup.id;

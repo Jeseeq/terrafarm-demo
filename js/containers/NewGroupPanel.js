@@ -17,7 +17,11 @@ class NewGroupPanel extends React.Component {
   }
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewGroupMutation({groupName: text, master: this.props.master})
+      new NewGroupMutation({
+        groupName: text,
+        user: this.props.user,
+        master: this.props.master
+      })
     );
   }
   render () {
@@ -41,6 +45,18 @@ class NewGroupPanel extends React.Component {
 
 export default Relay.createContainer(NewGroupPanel, {
   fragments: {
+    user: () => Relay.QL`
+      fragment on User {
+        groups(first: 18) {
+          edges {
+            node {
+              id,
+            }
+          }
+        }
+        ${NewGroupMutation.getFragment('user')},
+      }
+    `,
     master: () => Relay.QL`
       fragment on Master {
         groups(first: 18) {
