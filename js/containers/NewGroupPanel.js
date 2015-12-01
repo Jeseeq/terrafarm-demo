@@ -1,17 +1,18 @@
-import NewResourceMutation from '../mutations/NewResourceMutation';
+import NewGroupMutation from '../mutations/NewGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import TextInput from '../components/TextInput';
 
-class NewResourcePage extends React.Component {
+class NewGroupPanel extends React.Component {
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewResourceMutation({resourceName: text, master: this.props.master})
+      new NewGroupMutation({groupName: text, master: this.props.master})
     );
   }
   render () {
     return <div>
-      <h2>New Resource</h2>
+      <h4>New Group</h4>
+      <h5>Name</h5>
       <TextInput
         autoFocus={true}
         onSave={this._handleTextInputSave}
@@ -21,18 +22,18 @@ class NewResourcePage extends React.Component {
   }
 }
 
-export default Relay.createContainer(NewResourcePage, {
+export default Relay.createContainer(NewGroupPanel, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {
-        resources(first: 10) {
+        groups(first: 18) {
           edges {
             node {
               id,
             }
           }
         },
-        ${NewResourceMutation.getFragment('master')},
+        ${NewGroupMutation.getFragment('master')},
       }
     `,
   },

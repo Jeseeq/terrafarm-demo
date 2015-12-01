@@ -1,29 +1,15 @@
-import DisconnectUserFromResourceMutation from '../mutations/DisconnectUserFromResourceMutation';
-import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
+import EditResourcePanel from './EditResourcePanel';
+import EditGroupPanel from './EditGroupPanel';
+import NewResourcePanel from './NewResourcePanel';
+import NewGroupPanel from './NewGroupPanel';
 import styles from './ProfilePage.css';
 
 class ProfilePage extends React.Component {
-  _handleDisconnectUserFromResource (resource) {
-    Relay.Store.update(
-      new DisconnectUserFromResourceMutation({
-        user: this.props.viewer.user,
-        resource: resource,
-      })
-    );
-  }
-  _handleDisconnectUserFromGroup (group) {
-    Relay.Store.update(
-      new DisconnectUserFromGroupMutation({
-        user: this.props.viewer.user,
-        group: group,
-      })
-    );
-  }
   render () {
-    var {viewer} = this.props;
+    var {viewer, master} = this.props;
     var {user} = viewer;
 
     return <div>
@@ -31,24 +17,16 @@ class ProfilePage extends React.Component {
       <h3>Resources</h3>
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
-          <button
-            onClick={this._handleDisconnectUserFromResource.bind(this, edge.node)}>
-            ~Edit~
-          </button>
+          <EditResourcePanel user={user} resource={edge.node} />
         </li>)}
-        <li><Link to='/new-resource'>~New~</Link></li>
+        <NewResourcePanel master={master} />
       </ul>
       <h3>Groups</h3>
       <ul>
         {user.groups.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
-          <button
-            onClick={this._handleDisconnectUserFromGroup.bind(this, edge.node)}>
-            ~Edit~
-          </button>
+          <EditGroupPanel user={user} group={edge.node} />
         </li>)}
-        <li><Link to='/new-group'>~New~</Link></li>
+        <NewGroupPanel master={master} />
       </ul>
     </div>;
   }
@@ -66,7 +44,7 @@ export default Relay.createContainer(ProfilePage, {
               node {
                 id,
                 name,
-                ${DisconnectUserFromResourceMutation.getFragment('resource')},
+                ${EditResourcePanel.getFragment('resource')},
               }
             }
           },
@@ -75,16 +53,22 @@ export default Relay.createContainer(ProfilePage, {
               node {
                 id,
                 name,
-                ${DisconnectUserFromGroupMutation.getFragment('group')},
+                ${EditGroupPanel.getFragment('group')},
               }
             }
           },
-          ${DisconnectUserFromResourceMutation.getFragment('user')},
-          ${DisconnectUserFromGroupMutation.getFragment('user')}
+          ${EditResourcePanel.getFragment('user')},
+          ${EditGroupPanel.getFragment('user')},
         },
       }
     `,
-  }
+    master: () => Relay.QL`
+      fragment on Master {
+        ${NewResourcePanel.getFragment('master')},
+        ${NewGroupPanel.getFragment('master')},
+      }
+    `,
+  },
 });
 
 
