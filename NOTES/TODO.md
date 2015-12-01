@@ -2,11 +2,11 @@
 
 - [ ] Panel collapse/expand control
   - [x] new user
-  - [ ] new resource
-  - [ ] new group
+  - [x] new resource
+  - [x] new group
   - [ ] edit resource
   - [ ] edit group
-- [ ] Mutations on new resources and groups connect to viewer.user
+- [ ] Mutations on new resources/groups connect to viewer.user
 - [ ] EditPanel controls for remove, rename
 
 ## Name Ideas
