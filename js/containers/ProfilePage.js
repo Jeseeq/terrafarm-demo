@@ -19,14 +19,14 @@ class ProfilePage extends React.Component {
         {user.resources.edges.map(edge => <li key={edge.node.id}>
           <EditResourcePanel user={user} resource={edge.node} />
         </li>)}
-        <NewResourcePanel master={master} />
+        <li><NewResourcePanel master={master} /></li>
       </ul>
       <h3>Groups</h3>
       <ul>
         {user.groups.edges.map(edge => <li key={edge.node.id}>
           <EditGroupPanel user={user} group={edge.node} />
         </li>)}
-        <NewGroupPanel master={master} />
+        <li><NewGroupPanel master={master} /></li>
       </ul>
     </div>;
   }

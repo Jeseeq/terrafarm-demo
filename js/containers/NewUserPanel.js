@@ -28,7 +28,7 @@ class NewUserPanel extends React.Component {
       <div style={{
         display: this.state.showFields ? 'block' : 'none'
       }}>
-        <h4>Name</h4>
+        <h5>Name</h5>
         <TextInput
           autoFocus={true}
           onSave={this._handleTextInputSave}
