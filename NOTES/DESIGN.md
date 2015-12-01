@@ -1,6 +1,6 @@
 # DESIGN
 
-## Names
+## Name Ideas
 - Work Towards a Better Future
 - GardenFuture
 - Gate
@@ -20,5 +20,3 @@
 - Future
 - Terrafarm
 
-## Styles
-- css module loader
