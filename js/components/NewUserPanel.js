@@ -1,41 +1,42 @@
 import NewUserMutation from '../mutations/NewUserMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import TextInput from '../components/TextInput';
+import TextInput from '../elements/TextInput';
 
 class NewUserPanel extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      showFields: false,
+      editMode: false,
     };
   }
-  _handleToggle = () => {
+  _toggleEditMode = () => {
     this.setState({
-      showFields: !this.state.showFields,
+      editMode: !this.state.editMode,
     });
   }
   _handleTextInputSave = (text) => {
     Relay.Store.update(
       new NewUserMutation({userName: text, master: this.props.master})
     );
+    this.setState({
+      editMode: false,
+    });
   }
   render () {
-    return <div>
-      <button onClick={this._handleToggle}>
-        {this.state.showFields ? 'Cancel' : 'New User'}
-      </button>
-      <div style={{
-        display: this.state.showFields ? 'block' : 'none'
-      }}>
+    if (this.state.editMode) {
+      return <div>
         <h5>Name</h5>
         <TextInput
           autoFocus={true}
           onSave={this._handleTextInputSave}
           placeholder='Smith'
         />
-      </div>
-    </div>;
+        <button onClick={this._toggleEditMode}>Cancel</button>
+      </div>;
+    } else {
+      return <button onClick={this._toggleEditMode}>New User</button>;
+    }
   }
 }
 

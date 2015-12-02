@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {Link, IndexLink} from 'react-router';
-import Logo from '../components/Logo';
-import Menu from '../components/Menu';
+import Logo from '../elements/Logo';
+import Menu from '../elements/Menu';
 import typography from '../shared-styles/typography.css';
 import styles from './PluckYourselfApp.css';
 

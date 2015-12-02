@@ -2,18 +2,18 @@ import RenameGroupMutation from '../mutations/RenameGroupMutation';
 import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import TextInput from '../components/TextInput';
+import TextInput from '../elements/TextInput';
 
 class EditGroupPanel extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      showFields: false,
+      editMode: false,
     };
   }
-  _handleToggle = () => {
+  _toggleEditMode = () => {
     this.setState({
-      showFields: !this.state.showFields,
+      editMode: !this.state.editMode,
     });
   }
   _handleRename = (text) => {
@@ -23,6 +23,9 @@ class EditGroupPanel extends React.Component {
         name: text,
       })
     );
+    this.setState({
+      editMode: false,
+    });
   }
   _handleDisconnectUserFromGroup = () => {
     Relay.Store.update(
@@ -33,21 +36,21 @@ class EditGroupPanel extends React.Component {
     );
   }
   render () {
-    return <div>
-      <span>{this.props.group.name}</span>
-      <button onClick={this._handleToggle}>
-        {this.state.showFields ? 'Cancel' : 'Edit'}
-      </button>
-      <div style={{
-        display: this.state.showFields ? 'block' : 'none'
-      }}>
+    if (this.state.editMode) {
+      return <div>
         <TextInput
           initialValue={this.props.group.name}
           onSave={this._handleRename}
         />
-        <h5 onClick={this._handleDisconnectUserFromGroup}>Disconnect</h5>
-      </div>
-    </div>;
+        <button onClick={this._handleDisconnectUserFromGroup}>Disconnect</button>
+        <button onClick={this._toggleEditMode}>Cancel</button>
+      </div>;
+    } else {
+      return <div>
+        <span>{this.props.group.name}</span>
+        <button onClick={this._toggleEditMode}>Edit</button>
+      </div>;
+    }
   }
 }
 

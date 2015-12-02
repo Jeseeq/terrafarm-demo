@@ -1,72 +1,73 @@
-import NewGroupMutation from '../mutations/NewGroupMutation';
+import NewResourceMutation from '../mutations/NewResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import TextInput from '../components/TextInput';
+import TextInput from '../elements/TextInput';
 
-class NewGroupPanel extends React.Component {
+class NewResourcePanel extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      showFields: false,
+      editMode: false,
     };
   }
-  _handleToggle = () => {
+  _toggleEditMode = () => {
     this.setState({
-      showFields: !this.state.showFields,
+      editMode: !this.state.editMode,
     });
   }
   _handleTextInputSave = (text) => {
     Relay.Store.update(
-      new NewGroupMutation({
-        groupName: text,
+      new NewResourceMutation({
+        resourceName: text,
         user: this.props.user,
         master: this.props.master
       })
     );
+    this.setState({
+      editMode: false,
+    });
   }
   render () {
-    return <div>
-      <button onClick={this._handleToggle}>
-        {this.state.showFields ? 'Cancel' : 'New Group'}
-      </button>
-      <div style={{
-        display: this.state.showFields ? 'block' : 'none'
-      }}>
+    if (this.state.editMode) {
+      return <div>
         <h5>Name</h5>
         <TextInput
           autoFocus={true}
           onSave={this._handleTextInputSave}
           placeholder='Name'
         />
-      </div>
-    </div>;
+        <button onClick={this._toggleEditMode}>Cancel</button>
+      </div>;
+    } else {
+      return <button onClick={this._toggleEditMode}>New Resource</button>;
+    }
   }
 }
 
-export default Relay.createContainer(NewGroupPanel, {
+export default Relay.createContainer(NewResourcePanel, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        groups(first: 18) {
+        resources(first: 18) {
           edges {
             node {
               id,
             }
           }
         }
-        ${NewGroupMutation.getFragment('user')},
+        ${NewResourceMutation.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        groups(first: 18) {
+        resources(first: 18) {
           edges {
             node {
               id,
             }
           }
         },
-        ${NewGroupMutation.getFragment('master')},
+        ${NewResourceMutation.getFragment('master')},
       }
     `,
   },

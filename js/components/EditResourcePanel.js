@@ -2,27 +2,30 @@ import RenameResourceMutation from '../mutations/RenameResourceMutation';
 import DisconnectUserFromResourceMutation from '../mutations/DisconnectUserFromResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import TextInput from '../components/TextInput';
+import TextInput from '../elements/TextInput';
 
 class EditResourcePanel extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      showFields: false,
+      editMode: false,
     };
   }
-  _handleToggle = () => {
+  _toggleEditMode = () => {
     this.setState({
-      showFields: !this.state.showFields,
+      editMode: !this.state.editMode,
     });
   }
-  _handleRenameResource = (text) => {
+  _handleRename = (text) => {
     Relay.Store.update(
       new RenameResourceMutation({
         resource: this.props.resource,
         name: text,
       })
     );
+    this.setState({
+      editMode: false,
+    });
   }
   _handleDisconnectUserFromResource = () => {
     Relay.Store.update(
@@ -33,21 +36,21 @@ class EditResourcePanel extends React.Component {
     );
   }
   render () {
-    return <div>
-      <span>{this.props.resource.name}</span>
-      <button onClick={this._handleToggle}>
-        {this.state.showFields ? 'Cancel' : 'Edit'}
-      </button>
-      <div style={{
-        display: this.state.showFields ? 'block' : 'none'
-      }}>
+    if (this.state.editMode) {
+      return <div>
         <TextInput
           initialValue={this.props.resource.name}
-          onSave={this._handleRenameResource}
+          onSave={this._handleRename}
         />
-        <h5 onClick={this._handleDisconnectUserFromResource}>Disconnect</h5>
+        <button onClick={this._handleDisconnectUserFromResource}>Disconnect</button>
+        <button onClick={this._toggleEditMode}>Cancel</button>
       </div>
-    </div>;
+    } else {
+      return <div>
+        <span>{this.props.resource.name}</span>
+        <button onClick={this._toggleEditMode}>Edit</button>
+      </div>;
+    }
   }
 }
 

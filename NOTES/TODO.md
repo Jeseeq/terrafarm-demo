@@ -4,21 +4,11 @@
 - [ ] `components/` -> `elements/`
 - [ ] 'UserToResourceToGroup' -> 'ResourceToGroup'
 - [ ] 'UserFromResourceFromGroup -> 'ResourceFromGroup'
-- [ ] Mutations on new resources/groups connect to viewer.user
-- [ ] EditPanel controls for remove, rename
 
 ## Name Ideas
 - Pluck Yourself
-- Terrafarm
+- Terrafarma
 - Neighborfood
 - Rojo Buffalo
-- Work Towards a Better Future
-- Gate
-- Door
-- Eden
-- Grow
-- Ecology
-- Biodynamic
-- Access
-- Garden
+- gate, door, eden, grow, ecology, biodynamic, access, garden, harvest, local, crowd, karma
 
