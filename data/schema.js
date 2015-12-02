@@ -617,8 +617,8 @@ var GraphQLConnectUserToGroupMutation = mutationWithClientMutationId({
   },
 });
 
-var GraphQLConnectUserToResourceToGroupMutation = mutationWithClientMutationId({
-  name: 'ConnectUserToResourceToGroup',
+var GraphQLConnectResourceToGroupMutation = mutationWithClientMutationId({
+  name: 'ConnectResourceToGroup',
   inputFields: {
     resourceId: {
       type: new GraphQLNonNull(GraphQLID)
@@ -668,7 +668,7 @@ var GraphQLConnectUserToResourceToGroupMutation = mutationWithClientMutationId({
   mutateAndGetPayload: ({resourceId, groupId}) => {
     var localResourceId = fromGlobalId(resourceId).id;
     var localGroupId = fromGlobalId(groupId).id;
-    connectUserToResourceToGroup(localResourceId, localGroupId);
+    connectResourceToGroup(localResourceId, localGroupId);
     return { localResourceId, localGroupId };
   },
 });
@@ -745,8 +745,8 @@ var GraphQLDisconnectUserFromGroupMutation = mutationWithClientMutationId({
   },
 });
 
-var GraphQLDisconnectUserFromResourceFromGroupMutation = mutationWithClientMutationId({
-  name: 'DisconnectUserFromResourceFromGroup',
+var GraphQLDisconnectResourceFromGroupMutation = mutationWithClientMutationId({
+  name: 'DisconnectResourceFromGroup',
   inputFields: {
     resourceId: {
       type: new GraphQLNonNull(GraphQLID)
@@ -776,7 +776,7 @@ var GraphQLDisconnectUserFromResourceFromGroupMutation = mutationWithClientMutat
   mutateAndGetPayload: ({resourceId, groupId}) => {
     var localResourceId = fromGlobalId(resourceId).id;
     var localGroupId = fromGlobalId(groupId).id;
-    disconnectUserFromResourceFromGroup(localResourceId, localGroupId);
+    disconnectResourceFromGroup(localResourceId, localGroupId);
     return { localResourceId, localGroupId };
   },
 });
@@ -792,10 +792,10 @@ var Mutation = new GraphQLObjectType({
     renameGroup: GraphQLRenameGroupMutation,
     connectUserToResource: GraphQLConnectUserToResourceMutation,
     connectUserToGroup: GraphQLConnectUserToGroupMutation,
-    connectUserToResourceToGroup: GraphQLConnectUserToResourceToGroupMutation,
+    connectResourceToGroup: GraphQLConnectResourceToGroupMutation,
     disconnectUserFromResource: GraphQLDisconnectUserFromResourceMutation,
     disconnectUserFromGroup: GraphQLDisconnectUserFromGroupMutation,
-    disconnectUserFromResourceFromGroup: GraphQLDisconnectUserFromResourceFromGroupMutation,
+    disconnectResourceFromGroup: GraphQLDisconnectResourceFromGroupMutation,
   }),
 });
 

@@ -1,9 +1,7 @@
 # TODO
 
-- [ ] `containers/` -> `components/`
-- [ ] `components/` -> `elements/`
-- [ ] 'UserToResourceToGroup' -> 'ResourceToGroup'
-- [ ] 'UserFromResourceFromGroup -> 'ResourceFromGroup'
+- [x] 'UserToResourceToGroup' -> 'ResourceToGroup'
+- [x] 'UserFromResourceFromGroup -> 'ResourceFromGroup'
 
 ## Name Ideas
 - Pluck Yourself

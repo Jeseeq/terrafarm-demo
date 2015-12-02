@@ -236,6 +236,7 @@ export function disconnectUserFromResource (userId, resourceId) {
   user.resources.splice(resourceIndex, 1);
   resource.users.splice(userIndex, 1);
 }
+
 export function disconnectUserFromGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
@@ -249,6 +250,7 @@ export function disconnectUserFromGroup (userId, groupId) {
   user.groups.splice(groupIndex, 1);
   group.users.splice(userIndex, 1);
 }
+
 export function disconnectResourceFromGroup (resourceId, groupId) {
   var resource = getResource(resourceId);
   var group = getGroup(groupId);

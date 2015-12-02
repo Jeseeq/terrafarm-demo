@@ -1458,7 +1458,7 @@
               "deprecationReason": null
             },
             {
-              "name": "connectUserToResourceToGroup",
+              "name": "connectResourceToGroup",
               "description": null,
               "args": [
                 {
@@ -1469,7 +1469,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "ConnectUserToResourceToGroupInput",
+                      "name": "ConnectResourceToGroupInput",
                       "ofType": null
                     }
                   },
@@ -1478,7 +1478,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "ConnectUserToResourceToGroupPayload",
+                "name": "ConnectResourceToGroupPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1539,7 +1539,7 @@
               "deprecationReason": null
             },
             {
-              "name": "disconnectUserFromResourceFromGroup",
+              "name": "disconnectResourceFromGroup",
               "description": null,
               "args": [
                 {
@@ -1550,7 +1550,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "DisconnectUserFromResourceFromGroupInput",
+                      "name": "DisconnectResourceFromGroupInput",
                       "ofType": null
                     }
                   },
@@ -1559,7 +1559,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "DisconnectUserFromResourceFromGroupPayload",
+                "name": "DisconnectResourceFromGroupPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2461,7 +2461,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "ConnectUserToResourceToGroupInput",
+          "name": "ConnectResourceToGroupInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -2514,7 +2514,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "ConnectUserToResourceToGroupPayload",
+          "name": "ConnectResourceToGroupPayload",
           "description": null,
           "fields": [
             {
@@ -2845,7 +2845,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "DisconnectUserFromResourceFromGroupInput",
+          "name": "DisconnectResourceFromGroupInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -2898,7 +2898,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "DisconnectUserFromResourceFromGroupPayload",
+          "name": "DisconnectResourceFromGroupPayload",
           "description": null,
           "fields": [
             {
