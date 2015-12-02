@@ -37,6 +37,7 @@ import {
   createResource,
   createGroup,
   renameResource,
+  renameGroup,
   connectUserToResource,
   connectUserToGroup,
   connectionResourceToGroup,
@@ -481,6 +482,25 @@ var GraphQLRenameResourceMutation = mutationWithClientMutationId({
   },
 });
 
+var GraphQLRenameGroupMutation = mutationWithClientMutationId({
+  name: 'RenameGroup',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLID) },
+    name: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  outputFields: {
+    group: {
+      type: GraphQLGroup,
+      resolve: ({localGroupId}) => getGroup(localGroupId),
+    }
+  },
+  mutateAndGetPayload: ({id, name}) => {
+    var localGroupId = fromGlobalId(id).id;
+    renameGroup(localGroupId, name);
+    return {localGroupId};
+  },
+});
+
 var GraphQLConnectUserToResourceMutation = mutationWithClientMutationId({
   name: 'ConnectUserToResource',
   inputFields: {
@@ -769,6 +789,7 @@ var Mutation = new GraphQLObjectType({
     newResource: GraphQLNewResourceMutation,
     newGroup: GraphQLNewGroupMutation,
     renameResource: GraphQLRenameResourceMutation,
+    renameGroup: GraphQLRenameGroupMutation,
     connectUserToResource: GraphQLConnectUserToResourceMutation,
     connectUserToGroup: GraphQLConnectUserToGroupMutation,
     connectUserToResourceToGroup: GraphQLConnectUserToResourceToGroupMutation,

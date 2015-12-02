@@ -1,3 +1,4 @@
+import RenameGroupMutation from '../mutations/RenameGroupMutation';
 import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
@@ -14,6 +15,14 @@ class EditGroupPanel extends React.Component {
     this.setState({
       showFields: !this.state.showFields,
     });
+  }
+  _handleRename = (text) => {
+    Relay.Store.update(
+      new RenameGroupMutation({
+        group: this.props.group,
+        name: text,
+      })
+    );
   }
   _handleDisconnectUserFromGroup = () => {
     Relay.Store.update(
@@ -32,6 +41,10 @@ class EditGroupPanel extends React.Component {
       <div style={{
         display: this.state.showFields ? 'block' : 'none'
       }}>
+        <TextInput
+          initialValue={this.props.group.name}
+          onSave={this._handleRename}
+        />
         <h5 onClick={this._handleDisconnectUserFromGroup}>Disconnect</h5>
       </div>
     </div>;
@@ -51,6 +64,7 @@ export default Relay.createContainer(EditGroupPanel, {
       fragment on Group {
         id,
         name,
+        ${RenameGroupMutation.getFragment('group')},
         ${DisconnectUserFromGroupMutation.getFragment('group')},
       }
     `,

@@ -176,6 +176,11 @@ export function renameResource (id, name) {
   resource.name = name;
 }
 
+export function renameGroup (id, name) {
+  var group = getGroup(id);
+  group.name = name;
+}
+
 export function connectUserToResource (userId, resourceId) {
   var user = getUser(userId);
   var resource = getResource(resourceId);
