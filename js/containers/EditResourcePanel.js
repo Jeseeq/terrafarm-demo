@@ -1,3 +1,4 @@
+import RenameResourceMutation from '../mutations/RenameResourceMutation';
 import DisconnectUserFromResourceMutation from '../mutations/DisconnectUserFromResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
@@ -14,6 +15,14 @@ class EditResourcePanel extends React.Component {
     this.setState({
       showFields: !this.state.showFields,
     });
+  }
+  _handleRenameResource = (text) => {
+    Relay.Store.update(
+      new RenameResourceMutation({
+        resource: this.props.resource,
+        name: text,
+      })
+    );
   }
   _handleDisconnectUserFromResource = () => {
     Relay.Store.update(
@@ -32,6 +41,10 @@ class EditResourcePanel extends React.Component {
       <div style={{
         display: this.state.showFields ? 'block' : 'none'
       }}>
+        <TextInput
+          initialValue={this.props.resource.name}
+          onSave={this._handleRenameResource}
+        />
         <h5 onClick={this._handleDisconnectUserFromResource}>Disconnect</h5>
       </div>
     </div>;
@@ -51,6 +64,7 @@ export default Relay.createContainer(EditResourcePanel, {
       fragment on Resource {
         id,
         name,
+        ${RenameResourceMutation.getFragment('resource')},
         ${DisconnectUserFromResourceMutation.getFragment('resource')},
       }
     `,

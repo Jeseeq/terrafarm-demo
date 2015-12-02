@@ -1,5 +1,9 @@
 # TODO
 
+- [ ] `containers/` -> `components/`
+- [ ] `components/` -> `elements/`
+- [ ] 'UserToResourceToGroup' -> 'ResourceToGroup'
+- [ ] 'UserFromResourceFromGroup -> 'ResourceFromGroup'
 - [ ] Mutations on new resources/groups connect to viewer.user
 - [ ] EditPanel controls for remove, rename
 

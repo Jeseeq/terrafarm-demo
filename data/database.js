@@ -3,7 +3,6 @@ export class Viewer extends Object {}
 export class User extends Object {}
 export class Resource extends Object {}
 export class Group extends Object {}
-export class Shortage extends Object {}
 
 const MASTER_ID = 'earth';
 const VIEWER_ID = 'me';
@@ -170,6 +169,11 @@ export function createGroup (userId, groupName) {
   master.groups.push(newGroup.id);
   data.Group[newGroup.id] = newGroup;
   return newGroup.id;
+}
+
+export function renameResource (id, name) {
+  var resource = getResource(id);
+  resource.name = name;
 }
 
 export function connectUserToResource (userId, resourceId) {
