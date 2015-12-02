@@ -181,20 +181,6 @@ export function renameGroup (id, name) {
   group.name = name;
 }
 
-export function connectUserToResource (userId, resourceId) {
-  var user = getUser(userId);
-  var resource = getResource(resourceId);
-  var userIndex = resource.users.indexOf(userId);
-  var resourceIndex = user.resources.indexOf(resourceId);
-
-  if (userIndex > -1 || resourceIndex > -1) {
-   return console.error('Error: user', user.id, ' and resource', resource.id, 'connected.');
-  }
-
-  user.resources.push(resourceId);
-  resource.users.push(userId);
-}
-
 export function connectUserToGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
@@ -221,20 +207,6 @@ export function connectResourceToGroup (resourceId, groupId) {
 
   resource.groups.push(groupId);
   group.resources.push(resourceId);
-}
-
-export function disconnectUserFromResource (userId, resourceId) {
-  var user = getUser(userId);
-  var resource = getResource(resourceId);
-  var userIndex = resource.users.indexOf(userId);
-  var resourceIndex = user.resources.indexOf(resourceId);
-
-  if (userIndex === -1 || resourceIndex === -1) {
-    return console.error('Error: user', user.id, ' and resource', resource.id, 'not connected.');
-  }
-
-  user.resources.splice(resourceIndex, 1);
-  resource.users.splice(userIndex, 1);
 }
 
 export function disconnectUserFromGroup (userId, groupId) {

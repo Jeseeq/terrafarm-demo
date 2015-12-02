@@ -38,10 +38,8 @@ import {
   createGroup,
   renameResource,
   renameGroup,
-  connectUserToResource,
   connectUserToGroup,
   connectionResourceToGroup,
-  disconnectUserFromResource,
   disconnectUserFromGroup,
   disconnectionResourceFromGroup,
 } from './database';
@@ -79,6 +77,12 @@ var {nodeInterface, nodeField} = nodeDefinitions(
     }
   }
 );
+
+
+/* ****************************************************************************
+ * ****************************************************************************
+ * Object Types
+ * ***************************************************************************/
 
 var GraphQLUser = new GraphQLObjectType({
   name: 'User',
@@ -296,6 +300,12 @@ var Root = new GraphQLObjectType({
   },
 });
 
+
+/* ****************************************************************************
+ * ****************************************************************************
+ * Mutations
+ * ***************************************************************************/
+
 var GraphQLAuthenticateViewerMutation = mutationWithClientMutationId({
   name: 'AuthenticateViewer',
   inputFields: {
@@ -501,66 +511,6 @@ var GraphQLRenameGroupMutation = mutationWithClientMutationId({
   },
 });
 
-var GraphQLConnectUserToResourceMutation = mutationWithClientMutationId({
-  name: 'ConnectUserToResource',
-  inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    resourceId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-  },
-  outputFields: {
-    resourceEdge: {
-      type: GraphQLResourceEdge,
-      resolve: ({localResourceId}) => {
-        var user = getUser(localUserId);
-        var resource = getResource(localResourceId);
-        return {
-          cursor: cursorForObjectInConnection(
-            user.resources.map(id => getResource(id)), 
-            resource
-          ),
-          node: resource,
-        }
-      },
-    },
-    userEdge: {
-      type: GraphQLUserEdge,
-      resolve: ({localUserId}) => {
-        var resource = getResource(localResourceId);
-        var user = getUser(localUserId);
-        return {
-          cursor: cursorForObjectInConnection(
-            resource.users.map(id => getUser(id)),
-            user
-          ),
-          node: user,
-        };
-      }
-    },
-    viewer: {
-      type: GraphQLViewer,
-      resolve: getViewer,
-    },
-    user: {
-      type: GraphQLUser,
-      resolve: ({localUserId}) => getUser(localUserId),
-    },
-    resource: {
-      type: GraphQLResource,
-      resolve: ({localResourceId}) => getResource(localResourceId),
-    },
-  },
-  mutateAndGetPayload: ({userId, resourceId}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localResourceId = fromGlobalId(resourceId).id;
-    connectUserToResource(localUserId, localResourceId);
-    return { localUserId, localResourceId };
-  },
-});
-
 var GraphQLConnectUserToGroupMutation = mutationWithClientMutationId({
   name: 'ConnectUserToGroup',
   inputFields: {
@@ -673,42 +623,6 @@ var GraphQLConnectResourceToGroupMutation = mutationWithClientMutationId({
   },
 });
 
-var GraphQLDisconnectUserFromResourceMutation = mutationWithClientMutationId({
-  name: 'DisconnectUserFromResource',
-  inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    resourceId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-  },
-  outputFields: {
-    removedUserID: {
-      type: GraphQLID,
-      resolve: ({localUserId}) => localUserId,
-    },
-    removedResourceID: {
-      type: GraphQLID,
-      resolve: ({localResourceId}) => localResourceId,
-    },
-    user: {
-      type: GraphQLUser,
-      resolve: ({localUserId}) => getUser(localUserId),
-    },
-    resource: {
-      type: GraphQLResource,
-      resolve: ({localResourceId}) => getResource(localResourceId),
-    },
-  },
-  mutateAndGetPayload: ({userId, resourceId}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localResourceId = fromGlobalId(resourceId).id;
-    disconnectUserFromResource(localUserId, localResourceId);
-    return { localUserId, localResourceId };
-  },
-});
-
 var GraphQLDisconnectUserFromGroupMutation = mutationWithClientMutationId({
   name: 'DisconnectUserFromGroup',
   inputFields: {
@@ -790,10 +704,8 @@ var Mutation = new GraphQLObjectType({
     newGroup: GraphQLNewGroupMutation,
     renameResource: GraphQLRenameResourceMutation,
     renameGroup: GraphQLRenameGroupMutation,
-    connectUserToResource: GraphQLConnectUserToResourceMutation,
     connectUserToGroup: GraphQLConnectUserToGroupMutation,
     connectResourceToGroup: GraphQLConnectResourceToGroupMutation,
-    disconnectUserFromResource: GraphQLDisconnectUserFromResourceMutation,
     disconnectUserFromGroup: GraphQLDisconnectUserFromGroupMutation,
     disconnectResourceFromGroup: GraphQLDisconnectResourceFromGroupMutation,
   }),
