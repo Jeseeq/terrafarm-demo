@@ -1,7 +1,4 @@
-# TODO
-
-- [x] 'UserToResourceToGroup' -> 'ResourceToGroup'
-- [x] 'UserFromResourceFromGroup -> 'ResourceFromGroup'
+# Design
 
 ## Name Ideas
 - Pluck Yourself
