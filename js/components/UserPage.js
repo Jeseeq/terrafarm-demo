@@ -25,12 +25,6 @@ class UserPage extends React.Component {
 
 export default Relay.createContainer(UserPage, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        id,
-        user,
-      }
-    `,
     user: () => Relay.QL`
       fragment on User {
         id,

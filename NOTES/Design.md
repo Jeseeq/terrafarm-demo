@@ -1,5 +1,7 @@
 # Design
 
+- [ ] cancel pending membership
+
 ## Name Ideas
 - Pluck Yourself
 - Terrafarma

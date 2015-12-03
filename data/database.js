@@ -14,6 +14,7 @@ var jane = Object.assign(
     name: 'Jane',
     resources: ['1'],
     groups: ['1'],
+    groupsPending: [],
   }
 );
 var joe = Object.assign(
@@ -22,6 +23,7 @@ var joe = Object.assign(
     name: 'Joe',
     resources: ['2'],
     groups: ['1'],
+    groupsPending: []
   }
 );
 var hank = Object.assign(
@@ -30,6 +32,7 @@ var hank = Object.assign(
     name: 'Hank',
     resources: ['3'],
     groups: ['1'],
+    groupsPending: [],
   }
 );
 var guest = Object.assign(
@@ -38,6 +41,7 @@ var guest = Object.assign(
     name: 'Guest',
     resources: [],
     groups: [],
+    groupsPending: [],
   }
 );
 var shovel = Object.assign(
@@ -69,6 +73,7 @@ var purple = Object.assign(
     id: '1',
     name: 'Purple',
     users: ['1','2','3'],
+    usersPending: [],
     resources: ['1','2','3'],
   },
 );
@@ -137,6 +142,7 @@ export function createUser (userName) {
     name: userName,
     resources: [],
     groups: [],
+    groupsPending: [],
   });
   master.users.push(newUser.id);
   data.User[newUser.id] = newUser;
@@ -162,6 +168,7 @@ export function createGroup (userId, groupName) {
     id: Object.keys(data.Group).length + 1,
     name: groupName,
     users: [userId],
+    usersPending: [],
     resources: [],
   });
   var user = getUser(userId);
@@ -181,6 +188,25 @@ export function renameGroup (id, name) {
   group.name = name;
 }
 
+export function pendingUserToGroup (userId, groupId) {
+  var user = getUser(userId);
+  var group = getGroup(groupId);
+  var userIndex = group.users.indexOf(userId);
+  var groupIndex = user.groups.indexOf(groupId);
+  var userPendingIndex = group.usersPending.indexOf(userId);
+  var groupPendingIndex = user.groupsPending.indexOf(groupId);
+
+  if (userIndex > -1
+      || groupIndex > -1
+      || userPendingIndex > -1
+      || groupPendingIndex > -1) {
+    return console.error('Error: user', user.id, ' and group', group.id, 'already pending or connected.');
+  }
+
+  user.groupsPending.push(groupId);
+  group.usersPending.push(userId);
+}
+
 export function connectUserToGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
@@ -188,7 +214,7 @@ export function connectUserToGroup (userId, groupId) {
   var groupIndex = user.groups.indexOf(groupId);
 
   if (userIndex > -1 || groupIndex > -1) {
-    return console.error('Error: user', user.id, ' and group', group.id, 'connected.');
+    return console.error('Error: user', user.id, ' and group', group.id, 'already connected.');
   }
 
   user.groups.push(groupId);
@@ -202,7 +228,7 @@ export function connectResourceToGroup (resourceId, groupId) {
   var groupIndex = resource.groups.indexOf(groupId);
 
   if (resourceIndex > -1 || groupIndex > -1) {
-    return console.error('Error: resource', resource.id, ' and group', group.id, 'connected.');
+    return console.error('Error: resource', resource.id, ' and group', group.id, 'already connected.');
   }
 
   resource.groups.push(groupId);
@@ -216,7 +242,7 @@ export function disconnectUserFromGroup (userId, groupId) {
   var groupIndex = user.groups.indexOf(groupId);
 
   if (userIndex === -1 || groupIndex === -1) {
-    return console.error('Error: user', user.id, ' and group', group.id, 'not connected.');
+    return console.error('Error: user', user.id, ' and group', group.id, 'already not connected.');
   }
 
   user.groups.splice(groupIndex, 1);
@@ -230,7 +256,7 @@ export function disconnectResourceFromGroup (resourceId, groupId) {
   var groupIndex = resource.groups.indexOf(groupId);
 
   if (resourceIndex === -1 || groupIndex === -1) {
-    return console.error('Error: resource', resource.id, ' and group', group.id, 'not connected.');
+    return console.error('Error: resource', resource.id, ' and group', group.id, 'already not connected.');
   }
 
   resource.groups.splice(groupIndex, 1);

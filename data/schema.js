@@ -38,6 +38,7 @@ import {
   createGroup,
   renameResource,
   renameGroup,
+  pendingUserToGroup,
   connectUserToGroup,
   connectionResourceToGroup,
   disconnectUserFromGroup,
@@ -111,6 +112,15 @@ var GraphQLUser = new GraphQLObjectType({
         args
       ),
     },
+    groupsPending: {
+      type: GroupConnection,
+      description: 'A person\'s list of pending group memberships.',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.groupsPending.map(id => getGroup(id)),
+        args
+      ),
+    },
   }),
   interfaces: [nodeInterface],
 });
@@ -177,6 +187,15 @@ var GraphQLGroup = new GraphQLObjectType({
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
         _.users.map(id => getUser(id)),
+        args
+      ),
+    },
+    usersPending: {
+      type: UserConnection,
+      description: 'An organized community\'s list of pending members.',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(
+        _.usersPending.map(id => getUser(id)),
         args
       ),
     },
@@ -511,6 +530,62 @@ var GraphQLRenameGroupMutation = mutationWithClientMutationId({
   },
 });
 
+var GraphQLPendingUserToGroupMutation = mutationWithClientMutationId({
+  name: 'PendingUserToGroup',
+  inputFields: {
+    userId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    groupId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+  },
+  outputFields: {
+    groupEdge: {
+      type: GraphQLGroupEdge,
+      resolve: ({localGroupId}) => {
+        var user = getUser(localUserId);
+        var group = getGroup(localGroupId);
+        return {
+          cursor: cursorForObjectInConnection(
+            user.groupsPending.map(id => getGroup(id)), 
+            group
+          ),
+          node: group,
+        }
+      },
+    },
+    userEdge: {
+      type: GraphQLUserEdge,
+      resolve: ({localUserId}) => {
+        var group = getGroup(localGroupId);
+        var user = getUser(localUserId);
+        return {
+          cursor: cursorForObjectInConnection(
+            group.usersPending.map(id => getUser(id)),
+            user
+          ),
+          node: user,
+        };
+      }
+    },
+    user: {
+      type: GraphQLUser,
+      resolve: ({localUserId}) => getUser(localUserId),
+    },
+    group: {
+      type: GraphQLGroup,
+      resolve: ({localGroupId}) => getGroup(localGroupId),
+    },
+  },
+  mutateAndGetPayload: ({userId, groupId}) => {
+    var localUserId = fromGlobalId(userId).id;
+    var localGroupId = fromGlobalId(groupId).id;
+    pendingUserToGroup(localUserId, localGroupId);
+    return { localUserId, localGroupId };
+  },
+});
+
 var GraphQLConnectUserToGroupMutation = mutationWithClientMutationId({
   name: 'ConnectUserToGroup',
   inputFields: {
@@ -704,6 +779,7 @@ var Mutation = new GraphQLObjectType({
     newGroup: GraphQLNewGroupMutation,
     renameResource: GraphQLRenameResourceMutation,
     renameGroup: GraphQLRenameGroupMutation,
+    pendingUserToGroup: GraphQLPendingUserToGroupMutation,
     connectUserToGroup: GraphQLConnectUserToGroupMutation,
     connectResourceToGroup: GraphQLConnectResourceToGroupMutation,
     disconnectUserFromGroup: GraphQLDisconnectUserFromGroupMutation,

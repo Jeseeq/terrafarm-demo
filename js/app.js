@@ -18,6 +18,7 @@ import MasterQueries from './queries/MasterQueries';
 import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
+import GroupAndViewerQueries from './queries/GroupAndViewerQueries';
 import GroupQueries from './queries/GroupQueries';
 
 ReactDOM.render(
@@ -48,7 +49,7 @@ ReactDOM.render(
       />
       <Route
         path='group/:groupId' component={GroupPage}
-        queries={GroupQueries}
+        queries={GroupAndViewerQueries}
       />
     </Route>
   </RelayRouter>,

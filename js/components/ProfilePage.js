@@ -28,6 +28,12 @@ class ProfilePage extends React.Component {
         </li>)}
         <li><NewGroupPanel user={user} master={master} /></li>
       </ul>
+      <h3>Pending Groups</h3>
+      <ul>
+        {user.groupsPending.edges.map(edge => <li key={edge.node.id}>
+          <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
+        </li>)}
+      </ul>
     </div>;
   }
 }
@@ -54,6 +60,14 @@ export default Relay.createContainer(ProfilePage, {
                 id,
                 name,
                 ${EditGroupPanel.getFragment('group')},
+              }
+            }
+          },
+          groupsPending(first: 18) {
+            edges {
+              node {
+                id,
+                name,
               }
             }
           },
