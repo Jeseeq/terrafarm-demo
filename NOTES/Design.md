@@ -1,5 +1,6 @@
 # Design
 
+- [ ] fix fat query on pending membership
 - [ ] cancel pending membership
 
 ## Name Ideas

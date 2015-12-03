@@ -543,7 +543,7 @@ var GraphQLPendingUserToGroupMutation = mutationWithClientMutationId({
   outputFields: {
     groupEdge: {
       type: GraphQLGroupEdge,
-      resolve: ({localGroupId}) => {
+      resolve: ({localUserId, localGroupId}) => {
         var user = getUser(localUserId);
         var group = getGroup(localGroupId);
         return {
@@ -557,7 +557,7 @@ var GraphQLPendingUserToGroupMutation = mutationWithClientMutationId({
     },
     userEdge: {
       type: GraphQLUserEdge,
-      resolve: ({localUserId}) => {
+      resolve: ({localUserId, localGroupId}) => {
         var group = getGroup(localGroupId);
         var user = getUser(localUserId);
         return {
