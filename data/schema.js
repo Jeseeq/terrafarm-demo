@@ -39,6 +39,7 @@ import {
   renameResource,
   renameGroup,
   pendingUserToGroup,
+  cancelPendingUserToGroup,
   connectUserToGroup,
   connectionResourceToGroup,
   disconnectUserFromGroup,
@@ -328,9 +329,7 @@ var Root = new GraphQLObjectType({
 var GraphQLAuthenticateViewerMutation = mutationWithClientMutationId({
   name: 'AuthenticateViewer',
   inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
+    userId: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
     user: {
@@ -352,9 +351,7 @@ var GraphQLAuthenticateViewerMutation = mutationWithClientMutationId({
 var GraphQLNewUserMutation = mutationWithClientMutationId({
   name: 'NewUser',
   inputFields: {
-    userName: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
+    userName: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
     userEdge: {
@@ -385,12 +382,8 @@ var GraphQLNewUserMutation = mutationWithClientMutationId({
 var GraphQLNewResourceMutation = mutationWithClientMutationId({
   name: 'NewResource',
   inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    resourceName: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
+    userId: { type: new GraphQLNonNull(GraphQLID) },
+    resourceName: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
     resourceEdgeOnMaster: {
@@ -440,12 +433,8 @@ var GraphQLNewResourceMutation = mutationWithClientMutationId({
 var GraphQLNewGroupMutation = mutationWithClientMutationId({
   name: 'NewGroup',
   inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    groupName: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
+    userId: { type: new GraphQLNonNull(GraphQLID) },
+    groupName: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
     groupEdgeOnMaster: {
@@ -533,12 +522,8 @@ var GraphQLRenameGroupMutation = mutationWithClientMutationId({
 var GraphQLPendingUserToGroupMutation = mutationWithClientMutationId({
   name: 'PendingUserToGroup',
   inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    groupId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
+    userId: { type: new GraphQLNonNull(GraphQLID) },
+    groupId: { type: new GraphQLNonNull(GraphQLID) },
   },
   outputFields: {
     groupEdge: {
@@ -586,15 +571,43 @@ var GraphQLPendingUserToGroupMutation = mutationWithClientMutationId({
   },
 });
 
+var GraphQLCancelPendingUserToGroupMutation = mutationWithClientMutationId({
+  name: 'CancelPendingUserToGroup',
+  inputFields: {
+    userId: { type: new GraphQLNonNull(GraphQLID) },
+    groupId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  outputFields: {
+    removedUserID: {
+      type: GraphQLID,
+      resolve: ({localUserId}) => localUserId,
+    },
+    removedGroupID: {
+      type: GraphQLID,
+      resolve: ({localGroupId}) => localGroupId,
+    },
+    user: {
+      type: GraphQLUser,
+      resolve: ({localUserId}) => getUser(localUserId),
+    },
+    group: {
+      type: GraphQLGroup,
+      resolve: ({localGroupId}) => getGroup(localGroupId),
+    },
+  },
+  mutateAndGetPayload: ({userId, groupId}) => {
+    var localUserId = fromGlobalId(userId).id;
+    var localGroupId = fromGlobalId(groupId).id;
+    cancelPendingUserToGroup(localUserId, localGroupId);
+    return { localUserId, localGroupId };
+  },
+});
+
 var GraphQLConnectUserToGroupMutation = mutationWithClientMutationId({
   name: 'ConnectUserToGroup',
   inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    groupId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
+    userId: { type: new GraphQLNonNull(GraphQLID) },
+    groupId: { type: new GraphQLNonNull(GraphQLID) },
   },
   outputFields: {
     groupEdge: {
@@ -645,12 +658,8 @@ var GraphQLConnectUserToGroupMutation = mutationWithClientMutationId({
 var GraphQLConnectResourceToGroupMutation = mutationWithClientMutationId({
   name: 'ConnectResourceToGroup',
   inputFields: {
-    resourceId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    groupId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
+    resourceId: { type: new GraphQLNonNull(GraphQLID) },
+    groupId: { type: new GraphQLNonNull(GraphQLID) },
   },
   outputFields: {
     groupEdge: {
@@ -701,12 +710,8 @@ var GraphQLConnectResourceToGroupMutation = mutationWithClientMutationId({
 var GraphQLDisconnectUserFromGroupMutation = mutationWithClientMutationId({
   name: 'DisconnectUserFromGroup',
   inputFields: {
-    userId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    groupId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
+    userId: { type: new GraphQLNonNull(GraphQLID) },
+    groupId: { type: new GraphQLNonNull(GraphQLID) },
   },
   outputFields: {
     removedUserID: {
@@ -737,12 +742,8 @@ var GraphQLDisconnectUserFromGroupMutation = mutationWithClientMutationId({
 var GraphQLDisconnectResourceFromGroupMutation = mutationWithClientMutationId({
   name: 'DisconnectResourceFromGroup',
   inputFields: {
-    resourceId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    groupId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
+    resourceId: { type: new GraphQLNonNull(GraphQLID) },
+    groupId: { type: new GraphQLNonNull(GraphQLID) },
   },
   outputFields: {
     removedGroupID: {
@@ -780,6 +781,7 @@ var Mutation = new GraphQLObjectType({
     renameResource: GraphQLRenameResourceMutation,
     renameGroup: GraphQLRenameGroupMutation,
     pendingUserToGroup: GraphQLPendingUserToGroupMutation,
+    cancelPendingUserToGroup: GraphQLCancelPendingUserToGroupMutation,
     connectUserToGroup: GraphQLConnectUserToGroupMutation,
     connectResourceToGroup: GraphQLConnectResourceToGroupMutation,
     disconnectUserFromGroup: GraphQLDisconnectUserFromGroupMutation,

@@ -12,8 +12,33 @@ class GroupPage extends React.Component {
       })
     );
   }
+  _getMemberControls () {
+    var {group, viewer} = this.props;
+    var {groups, groupsPending} = viewer.user;
+    var isMember = groups.edges.find(node => node.id === group.id);
+    var isPendingMember = groupsPending.edges.find(node => node.id === group.id);
+
+    if (isMember) {
+      // TODO: add 'accept' button
+      return <div>
+        <h3>Pending Users</h3>
+        <ul>
+          {group.usersPending.edges.map(edge => <li key={edge.node.id}>
+            <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
+          </li>)}
+        </ul>
+      </div>;
+    } else if (isPendingMember) {
+      // TODO: add 'cancel' button
+      return <button>Cancel</button>
+    } else {
+      return <button onClick={this._handleRequestMembership}>Request Membership</button>;
+    }
+  }
   render () {
-    var {group} = this.props;
+    var {group, viewer} = this.props;
+    var memberControls = this._getMemberControls();
+
     return <div>
       <h2>{group.name}</h2>
       <h3>Users</h3>
@@ -22,13 +47,7 @@ class GroupPage extends React.Component {
           <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
         </li>)}
       </ul>
-      <button onClick={this._handleRequestMembership}>Request Membership</button>
-      <h3>Pending Users</h3>
-      <ul>
-        {group.usersPending.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
-        </li>)}
-      </ul>
+      {memberControls}
       <h3>Resources</h3>
       <ul>
         {group.resources.edges.map(edge => <li key={edge.node.id}>
@@ -77,8 +96,22 @@ export default Relay.createContainer(GroupPage, {
     viewer: () => Relay.QL`
       fragment on Viewer {
         user {
-         id,
-         ${PendingUserToGroupMutation.getFragment('user')},
+          id,
+          groups(first: 18) {
+            edges {
+              node {
+                id,
+              }
+            }
+          },
+          groupsPending(first: 18) {
+            edges {
+              node {
+                id,
+              }
+            }
+          },
+          ${PendingUserToGroupMutation.getFragment('user')},
         }
       }
     `,

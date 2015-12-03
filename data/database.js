@@ -207,6 +207,20 @@ export function pendingUserToGroup (userId, groupId) {
   group.usersPending.push(userId);
 }
 
+export function cancelPendingUserToGroup (userId, groupId) {
+  var user = getUser(userId);
+  var group = getGroup(groupId);
+  var userIndex = group.usersPending.indexOf(userId);
+  var groupIndex = user.groupsPending.indexOf(groupId);
+
+  if (userIndex === -1 || groupIndex > -1) {
+    return console.error('Error: user', user.id, ' and group', group.id, 'already not pending.');
+  }
+
+  user.groupsPending.splice(groupIndex, 1);
+  group.usersPending.splice(userIndex, 1);
+}
+
 export function connectUserToGroup (userId, groupId) {
   var user = getUser(userId);
   var group = getGroup(groupId);
