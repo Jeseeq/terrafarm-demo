@@ -1,3 +1,4 @@
+import CancelPendingUserToGroupMutation from '../mutations/CancelPendingUserToGroupMutation';
 import PendingUserToGroupMutation from '../mutations/PendingUserToGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
@@ -7,6 +8,14 @@ class GroupPage extends React.Component {
   _handleRequestMembership = () => {
     Relay.Store.update(
       new PendingUserToGroupMutation({
+        user: this.props.viewer.user,
+        group: this.props.group,
+      })
+    );
+  }
+  _handleCancelMembershipRequest = () => {
+     Relay.Store.update(
+      new CancelPendingUserToGroupMutation({
         user: this.props.viewer.user,
         group: this.props.group,
       })
@@ -29,8 +38,7 @@ class GroupPage extends React.Component {
         </ul>
       </div>;
     } else if (isPendingMember) {
-      // TODO: add 'cancel' button
-      return <button>Cancel</button>
+      return <button onClick={this._handleCancelMembershipRequest}>Cancel Membership Request</button>
     } else {
       return <button onClick={this._handleRequestMembership}>Request Membership</button>;
     }
@@ -91,6 +99,7 @@ export default Relay.createContainer(GroupPage, {
           }
         },
         ${PendingUserToGroupMutation.getFragment('group')},
+        ${CancelPendingUserToGroupMutation.getFragment('group')},
       }
     `,
     viewer: () => Relay.QL`
@@ -112,6 +121,7 @@ export default Relay.createContainer(GroupPage, {
             }
           },
           ${PendingUserToGroupMutation.getFragment('user')},
+          ${CancelPendingUserToGroupMutation.getFragment('user')},
         }
       }
     `,

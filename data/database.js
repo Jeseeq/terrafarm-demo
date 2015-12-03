@@ -213,7 +213,7 @@ export function cancelPendingUserToGroup (userId, groupId) {
   var userIndex = group.usersPending.indexOf(userId);
   var groupIndex = user.groupsPending.indexOf(groupId);
 
-  if (userIndex === -1 || groupIndex > -1) {
+  if (userIndex === -1 || groupIndex === -1) {
     return console.error('Error: user', user.id, ' and group', group.id, 'already not pending.');
   }
 
