@@ -6,14 +6,16 @@
 - [x] new group
 - [x] user request group membership
 - [x] user cancel group membership request
-- [ ] group member approve/decline user membership request
-  - [ ] split GroupPage into modules so that CancelMembershipRequestMutation is scoped
+- [x] group member approve/decline user membership request
+- [ ] update relay
+- [ ] modular schema
+- [ ] unit tests
+
 - [ ] user offer resource to group
 - [ ] group request resource from user
 - [ ] group member approve/decline resource offer
 - [ ] user approve/decline resource request
-- [ ] modular schema
-- [ ] unit tests
+
 - [ ] app name
 - [ ] press-release
 - [x] define alpha release objectives
