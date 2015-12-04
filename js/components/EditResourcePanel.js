@@ -1,6 +1,7 @@
 import RenameResourceMutation from '../mutations/RenameResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 import TextInput from '../elements/TextInput';
 
 class EditResourcePanel extends React.Component {
@@ -27,17 +28,18 @@ class EditResourcePanel extends React.Component {
     });
   }
   render () {
+    var {resource} = this.props;
     if (this.state.editMode) {
       return <div>
         <TextInput
-          initialValue={this.props.resource.name}
+          initialValue={resource.name}
           onSave={this._handleRename}
         />
         <button onClick={this._toggleEditMode}>Cancel</button>
       </div>
     } else {
       return <div>
-        <span>{this.props.resource.name}</span>
+        <Link to={`/resource/${resource.id}`}>{resource.name}</Link>
         <button onClick={this._toggleEditMode}>Edit</button>
       </div>;
     }

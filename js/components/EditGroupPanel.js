@@ -2,6 +2,7 @@ import RenameGroupMutation from '../mutations/RenameGroupMutation';
 import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
+import {Link} from 'react-router';
 import TextInput from '../elements/TextInput';
 
 class EditGroupPanel extends React.Component {
@@ -36,10 +37,11 @@ class EditGroupPanel extends React.Component {
     );
   }
   render () {
+    var {group} = this.props;
     if (this.state.editMode) {
       return <div>
         <TextInput
-          initialValue={this.props.group.name}
+          initialValue={group.name}
           onSave={this._handleRename}
         />
         <button onClick={this._handleDisconnectUserFromGroup}>Disconnect</button>
@@ -47,7 +49,7 @@ class EditGroupPanel extends React.Component {
       </div>;
     } else {
       return <div>
-        <span>{this.props.group.name}</span>
+        <Link to={`/group/${group.id}`}>{group.name}</Link>
         <button onClick={this._toggleEditMode}>Edit</button>
       </div>;
     }

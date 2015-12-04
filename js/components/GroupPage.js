@@ -28,7 +28,7 @@ class GroupPage extends React.Component {
     var isPendingMember = groupsPending.edges.find(node => node.id === group.id);
 
     if (isMember) {
-      // TODO: add 'accept' button
+      // TODO: add 'accept' and 'reject' buttons
       return <div>
         <h3>Pending Users</h3>
         <ul>

@@ -1,7 +1,5 @@
 # Design
 
-- [ ] add 'cancel pending membership' button
-- [ ] add 'accept pending membership' button
 - [ ] update profile items to be links
 
 ## Name Ideas
