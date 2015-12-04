@@ -107,12 +107,12 @@ var master = Object.assign(
 var viewer = Object.assign(
   new Viewer(), {
     id: VIEWER_ID,
-    user: '4',
+    userId: '4',
   }
 );
 
 export function authenticateViewer (userId) {
-  viewer.user = userId;
+  viewer.userId = userId;
   return userId;
 }
 

@@ -86,188 +86,26 @@ var {nodeInterface, nodeField} = nodeDefinitions(
  * Object Types
  * ***************************************************************************/
 
-var GraphQLUser = new GraphQLObjectType({
-  name: 'User',
-  description: 'A person who uses our app.',
-  fields: () => ({
-    id: globalIdField('User'),
-    name: {
-      type: GraphQLString,
-      description: 'A person\'s name.',
-    },
-    resources: {
-      type: ResourceConnection,
-      description: 'A person\'s list of economic inputs.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.resources.map(id => getResource(id)),
-        args
-      ),
-    },
-    groups: {
-      type: GroupConnection,
-      description: 'A person\'s list of group memberships.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups.map(id => getGroup(id)),
-        args
-      ),
-    },
-    groupsPending: {
-      type: GroupConnection,
-      description: 'A person\'s list of pending group memberships.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groupsPending.map(id => getGroup(id)),
-        args
-      ),
-    },
-  }),
-  interfaces: [nodeInterface],
-});
+import {
+  GraphQLUser,
+  UserConnection,
+  GraphQLUserEdge,
+} from './objects/GraphQLUser';
 
-var {
-  connectionType: UserConnection,
-  edgeType: GraphQLUserEdge
-} = connectionDefinitions({
-  name: 'User',
-  nodeType: GraphQLUser,
-});
+import {
+  GraphQLResource,
+  ResourceConnection,
+  GraphQLResourceEdge,
+} from './objects/GraphQLResource';
 
-var GraphQLResource = new GraphQLObjectType({
-  name: 'Resource',
-  description: 'An economic input.',
-  fields: () => ({
-    id: globalIdField('Resource'),
-    name: {
-      type: GraphQLString,
-      description: 'An economic resource\'s name.',
-    },
-    users: {
-      type: UserConnection,
-      description: 'An economic input\'s list of owners.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.users.map(id => getUser(id)),
-        args
-      ),
-    },
-    groups: {
-      type: GroupConnection,
-      description: 'An economic input\'s list of groups with access.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups.map(id => getGroup(id)),
-        args
-      ),
-    },
-  }),
-  interfaces: [nodeInterface],
-});
+import {
+  GraphQLGroup,
+  GroupConnection,
+  GraphQLGroupEdge,
+} from './objects/GraphQLGroup';
 
-var {
-  connectionType: ResourceConnection,
-  edgeType: GraphQLResourceEdge
-} = connectionDefinitions({
-  name: 'Resource',
-  nodeType: GraphQLResource,
-});
-
-var GraphQLGroup = new GraphQLObjectType({
-  name: 'Group',
-  description: 'An organized community.',
-  fields: () => ({
-    id: globalIdField('Group'),
-    name: {
-      type: GraphQLString,
-      description: 'An organized community\'s name.',
-    },
-    users: {
-      type: UserConnection,
-      description: 'An organized community\'s list of members.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.users.map(id => getUser(id)),
-        args
-      ),
-    },
-    usersPending: {
-      type: UserConnection,
-      description: 'An organized community\'s list of pending members.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.usersPending.map(id => getUser(id)),
-        args
-      ),
-    },
-    resources: {
-      type: ResourceConnection,
-      description: 'An organized community\'s list of economic inputs.',
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.resources.map(id => getResource(id)),
-        args
-      ),
-    },
-  }),
-  interfaces: [nodeInterface],
-});
-
-var {
-  connectionType: GroupConnection,
-  edgeType: GraphQLGroupEdge
-} = connectionDefinitions({
-  name: 'Group',
-  nodeType: GraphQLGroup,
-});
-
-var GraphQLMaster = new GraphQLObjectType({
-  name: 'Master',
-  description: 'A root-level client wrapper.',
-  fields: {
-    id: globalIdField('Master'),
-    users: {
-      type: UserConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.users.map(id => getUser(id)),
-        args
-      ),
-    },
-    resources: {
-      type: ResourceConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.resources.map(id => getResource(id)),
-        args
-      ),
-    },
-    groups: {
-      type: GroupConnection,
-      args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups.map(id => getGroup(id)),
-        args
-      ),
-    },
-  },
-  interfaces: [nodeInterface],
-});
-
-var GraphQLViewer = new GraphQLObjectType({
-  name: 'Viewer',
-  description: 'The authenticated user or guest.',
-  fields: {
-    id: globalIdField('Viewer'),
-    user: {
-      type: GraphQLUser,
-      resolve: _ => {
-        return getUser(_.user);
-      },
-    },
-  },
-  interfaces: [nodeInterface],
-});
+import {GraphQLMaster} from './objects/GraphQLMaster';
+import {GraphQLViewer} from './objects/GraphQLViewer';
 
 var Root = new GraphQLObjectType({
   name: 'Root',
@@ -787,3 +625,5 @@ export var Schema = new GraphQLSchema({
   query: Root,
   mutation: Mutation,
 });
+
+
