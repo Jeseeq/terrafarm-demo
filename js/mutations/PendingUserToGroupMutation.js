@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 export default class PendingUserToGroupMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
-      fragment on Group {
+      fragment on User {
         id,
       }
     `,

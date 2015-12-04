@@ -3,6 +3,7 @@ import PendingUserToGroupMutation from '../mutations/PendingUserToGroupMutation'
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
+import MembershipRequests from './MembershipRequests';
 
 class GroupPage extends React.Component {
   _handleRequestMembership = () => {
@@ -24,19 +25,11 @@ class GroupPage extends React.Component {
   _getMemberControls () {
     var {group, viewer} = this.props;
     var {groups, groupsPending} = viewer.user;
-    var isMember = groups.edges.find(node => node.id === group.id);
-    var isPendingMember = groupsPending.edges.find(node => node.id === group.id);
+    var isMember = groups && groups.edges.find(edge => edge.node.id === group.id);
+    var isPendingMember = groupsPending && groupsPending.edges.find(edge => edge.node.id === group.id);
 
     if (isMember) {
-      // TODO: add 'accept' and 'reject' buttons
-      return <div>
-        <h3>Pending Users</h3>
-        <ul>
-          {group.usersPending.edges.map(edge => <li key={edge.node.id}>
-            <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
-          </li>)}
-        </ul>
-      </div>;
+      return <MembershipRequests group={group} />;
     } else if (isPendingMember) {
       return <button onClick={this._handleCancelMembershipRequest}>Cancel Membership Request</button>
     } else {
@@ -44,9 +37,8 @@ class GroupPage extends React.Component {
     }
   }
   render () {
-    var {group, viewer} = this.props;
+    var {group} = this.props;
     var memberControls = this._getMemberControls();
-
     return <div>
       <h2>{group.name}</h2>
       <h3>Users</h3>
@@ -73,6 +65,7 @@ export default Relay.createContainer(GroupPage, {
   fragments: {
     group: () => Relay.QL`
       fragment on Group {
+        id,
         name,
         users(first: 18) {
           edges {
@@ -100,12 +93,13 @@ export default Relay.createContainer(GroupPage, {
         },
         ${PendingUserToGroupMutation.getFragment('group')},
         ${CancelPendingUserToGroupMutation.getFragment('group')},
+        ${MembershipRequests.getFragment('group')},
       }
     `,
     viewer: () => Relay.QL`
       fragment on Viewer {
         user {
-          id,
+          name,
           groups(first: 18) {
             edges {
               node {
@@ -120,9 +114,9 @@ export default Relay.createContainer(GroupPage, {
               }
             }
           },
-          ${PendingUserToGroupMutation.getFragment('user')},
           ${CancelPendingUserToGroupMutation.getFragment('user')},
-        }
+          ${PendingUserToGroupMutation.getFragment('user')},
+        },
       }
     `,
   },

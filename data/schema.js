@@ -283,9 +283,7 @@ var Root = new GraphQLObjectType({
     user: {
       type: GraphQLUser,
       args: {
-        userId: {
-          type: GraphQLString,
-        },
+        userId: { type: GraphQLString, },
       },
       resolve: (_, {userId}) => {
         var id = fromGlobalId(userId).id;
@@ -295,9 +293,7 @@ var Root = new GraphQLObjectType({
     resource: {
       type: GraphQLResource,
       args: {
-        resourceId: {
-          type: GraphQLString,
-        },
+        resourceId: { type: GraphQLString, },
       },
       resolve: (_, {resourceId}) => {
         var id = fromGlobalId(resourceId).id;
@@ -307,9 +303,7 @@ var Root = new GraphQLObjectType({
     group: {
       type: GraphQLGroup,
       args: {
-        groupId: {
-          type: GraphQLString,
-        },
+        groupId: { type: GraphQLString, },
       },
       resolve: (_, {groupId}) => {
         var id = fromGlobalId(groupId).id;
@@ -612,7 +606,7 @@ var GraphQLConnectUserToGroupMutation = mutationWithClientMutationId({
   outputFields: {
     groupEdge: {
       type: GraphQLGroupEdge,
-      resolve: ({localGroupId}) => {
+      resolve: ({localUserId, localGroupId}) => {
         var user = getUser(localUserId);
         var group = getGroup(localGroupId);
         return {
@@ -626,7 +620,7 @@ var GraphQLConnectUserToGroupMutation = mutationWithClientMutationId({
     },
     userEdge: {
       type: GraphQLUserEdge,
-      resolve: ({localUserId}) => {
+      resolve: ({localGroupId, localUserId}) => {
         var group = getGroup(localGroupId);
         var user = getUser(localUserId);
         return {
@@ -664,7 +658,7 @@ var GraphQLConnectResourceToGroupMutation = mutationWithClientMutationId({
   outputFields: {
     groupEdge: {
       type: GraphQLGroupEdge,
-      resolve: ({localGroupId}) => {
+      resolve: ({localResourceId, localGroupId}) => {
         var resource = getResource(localResourceId);
         var group = getGroup(localGroupId);
         return {
@@ -678,7 +672,7 @@ var GraphQLConnectResourceToGroupMutation = mutationWithClientMutationId({
     },
     resourceEdge: {
       type: GraphQLResourceEdge,
-      resolve: ({localResourceId}) => {
+      resolve: ({localGroupId, localResourceId}) => {
         var group = getGroup(localGroupId);
         var resource = getResource(localResourceId);
         return {
