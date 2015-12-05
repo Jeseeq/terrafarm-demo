@@ -8,7 +8,8 @@
 - [x] user cancel group membership request
 - [x] group member approve/decline user membership request
 - [ ] update relay
-- [ ] modular schema
+- [ ] split up schema
+  - [ ] add dependency imports to mutation files
 - [ ] unit tests
 
 - [ ] user offer resource to group
