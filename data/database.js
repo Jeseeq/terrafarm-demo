@@ -138,7 +138,7 @@ export function authenticateViewer (userId) {
 
 export function createUser (userName) {
   var newUser = Object.assign(new User(), {
-    id: Object.keys(data.User).length + 1,
+    id: String(Object.keys(data.User).length + 1),
     name: userName,
     resources: [],
     groups: [],
@@ -151,7 +151,7 @@ export function createUser (userName) {
 
 export function createResource (userId, resourceName) {
   var newResource = Object.assign(new Resource(), {
-    id: Object.keys(data.Resource).length + 1,
+    id: String(Object.keys(data.Resource).length + 1),
     name: resourceName,
     users: [userId],
     groups: [],
@@ -165,7 +165,7 @@ export function createResource (userId, resourceName) {
 
 export function createGroup (userId, groupName) {
   var newGroup = Object.assign(new Group(), {
-    id: Object.keys(data.Group).length + 1,
+    id: String(Object.keys(data.Group).length + 1),
     name: groupName,
     users: [userId],
     usersPending: [],

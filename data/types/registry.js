@@ -46,16 +46,15 @@ export async function idFetcher (globalId, info) {
     if (type === 'Master') {
       item = getMaster();
     } else if (type === 'Viewer') {
-      item = getViewer();
+      item = await getViewer();
     } else if (type === 'User') {
-      item = getUser(id);
+      item = await getUser(id);
     } else if (type === 'Resource') {
-      item = getResource(id);
+      item = await getResource(id);
     } else if (type === 'Group') {
-      item = getGroup(id);
+      item = await getGroup(id);
     } else {
-      console.log('potential problem');
-      console.log('type:', type);
+      console.warn('Warning: type not handled', type);
       item = null;
     }
     // item = await getItem(getEndpoint(type), id, info);

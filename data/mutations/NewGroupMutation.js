@@ -11,7 +11,7 @@ import {
 } from 'graphql-relay';
 
 import {
-  getResource,
+  getUser,
   getGroup,
   getMaster,
   createGroup,

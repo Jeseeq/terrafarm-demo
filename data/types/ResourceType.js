@@ -59,3 +59,4 @@ export const {
   name: 'Resource',
   nodeType: ResourceType,
 });
+

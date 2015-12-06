@@ -12,7 +12,7 @@ import {
 
 import {
   getUser,
-  getGroup,
+  getResource,
   getMaster,
   createResource,
 } from '../database';
