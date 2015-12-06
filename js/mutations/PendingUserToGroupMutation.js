@@ -19,8 +19,8 @@ export default class PendingUserToGroupMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on PendingUserToGroupPayload {
-        groupEdge,
         userEdge,
+        groupEdge,
         user,
         group,
       }
@@ -47,7 +47,7 @@ export default class PendingUserToGroupMutation extends Relay.Mutation {
         rangeBehaviors: {
           '': 'append',
         },
-      }
+      },
     ];
   }
   getVariables () {

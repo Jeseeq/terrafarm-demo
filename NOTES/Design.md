@@ -3,9 +3,10 @@
 ## Demo release
 - [x] new user
 - [x] new resource
-  - [ ] fix issue when adding new resource after login
 - [x] new group
 - [x] user request group membership
+  - [ ] fix issue: new group -> login someone else -> request
+    - [ ] try splitting up GroupPage
 - [x] user cancel group membership request
 - [x] group member approve/decline user membership request
 - [ ] update relay
