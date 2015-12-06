@@ -28,6 +28,7 @@ export default mutationWithClientMutationId({
     groupEdge: {
       type: GroupEdge,
       resolve: ({localUserId, localGroupId}) => {
+        console.log('hello group edge');
         var user = getUser(localUserId);
         var group = getGroup(localGroupId);
         return {

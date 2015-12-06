@@ -19,8 +19,8 @@ export default class PendingUserToGroupMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on PendingUserToGroupPayload {
-        userEdge,
         groupEdge,
+        userEdge,
         user,
         group,
       }

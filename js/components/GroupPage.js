@@ -24,9 +24,10 @@ class GroupPage extends React.Component {
   }
   _getMemberControls () {
     var {group, viewer} = this.props;
-    var {groups, groupsPending} = viewer.user;
-    var isMember = groups && groups.edges.find(edge => edge.node.id === group.id);
-    var isPendingMember = groupsPending && groupsPending.edges.find(edge => edge.node.id === group.id);
+    var {users, usersPending} = group;
+    var {user} = viewer;
+    var isMember = users.edges.find(edge => edge.node.id === user.id);
+    var isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
 
     if (isMember) {
       return <MembershipRequests group={group} />;
@@ -79,7 +80,6 @@ export default Relay.createContainer(GroupPage, {
           edges {
             node {
               id,
-              name,
             }
           }
         },
@@ -99,21 +99,7 @@ export default Relay.createContainer(GroupPage, {
     viewer: () => Relay.QL`
       fragment on Viewer {
         user {
-          name,
-          groups(first: 18) {
-            edges {
-              node {
-                id,
-              }
-            }
-          },
-          groupsPending(first: 18) {
-            edges {
-              node {
-                id,
-              }
-            }
-          },
+          id,
           ${CancelPendingUserToGroupMutation.getFragment('user')},
           ${PendingUserToGroupMutation.getFragment('user')},
         },
