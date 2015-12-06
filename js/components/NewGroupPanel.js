@@ -48,25 +48,11 @@ export default Relay.createContainer(NewGroupPanel, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        groups(first: 18) {
-          edges {
-            node {
-              id,
-            }
-          }
-        }
         ${NewGroupMutation.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        groups(first: 18) {
-          edges {
-            node {
-              id,
-            }
-          }
-        },
         ${NewGroupMutation.getFragment('master')},
       }
     `,
