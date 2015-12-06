@@ -7,27 +7,20 @@ import {
 import {fromGlobalId} from 'graphql-relay';
 
 import {
-  Master,
-  Viewer,
-  User,
-  Resource,
-  Group,
-  getMaster,
-  getViewer,
   getUser,
   getResource,
   getGroup,
+  getMaster,
+  getViewer,
 } from './database';
 
 import {nodeField} from './types/node';
-import UserType from './types/UserType';
-import ResourceType from './types/ResourceType';
-import GroupType from './types/GroupType';
+import {UserType, UserConnection, UserEdge} from './types/UserType';
+import {ResourceType, ResourceConnection, ResourceEdge} from './types/ResourceType';
+import {GroupType, GroupConnection, GroupEdge} from './types/GroupType';
 import MasterType from './types/MasterType';
 import ViewerType from './types/ViewerType';
-import {UserConnection, UserEdge} from './types/UserConnection';
-import {ResourceConnection, ResourceEdge} from './types/ResourceConnection';
-import {GroupConnection, GroupEdge} from './types/GroupConnection';
+
 import AuthenticateViewerMutation from './mutations/AuthenticateViewerMutation';
 import NewUserMutation from './mutations/NewUserMutation';
 import NewResourceMutation from './mutations/NewResourceMutation';

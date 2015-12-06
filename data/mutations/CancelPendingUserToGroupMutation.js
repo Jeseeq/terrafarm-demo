@@ -14,8 +14,8 @@ import {
   cancelPendingUserToGroup,
 } from '../database';
 
-import UserType from '../types/UserType';
-import GroupType from '../types/GroupType';
+import {UserType} from '../types/UserType';
+import {GroupType} from '../types/GroupType';
 
 export default mutationWithClientMutationId({
   name: 'CancelPendingUserToGroup',

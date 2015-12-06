@@ -14,7 +14,7 @@ import {
   authenticateViewer,
 } from '../database';
 
-import UserType from '../types/UserType';
+import {UserType} from '../types/UserType';
 import ViewerType from '../types/ViewerType';
 
 export default mutationWithClientMutationId({

@@ -17,10 +17,9 @@ import {
   createGroup,
 } from '../database';
 
-import UserType from '../types/UserType';
-import GroupType from '../types/GroupType';
+import {UserType} from '../types/UserType';
+import {GroupEdge} from '../types/GroupType';
 import MasterType from '../types/MasterType';
-import {GroupEdge} from '../types/GroupConnection';
 
 export default mutationWithClientMutationId({
   name: 'NewGroup',

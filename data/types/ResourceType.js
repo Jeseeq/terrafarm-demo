@@ -6,6 +6,7 @@ import {
 import {
   connectionArgs,
   connectionFromArray,
+  connectionDefinitions,
   globalIdField,
 } from 'graphql-relay';
 
@@ -17,10 +18,10 @@ import {
   getGroup,
 } from '../database';
 
-import {UserConnection} from './UserConnection';
-import {GroupConnection} from './GroupConnection';
+import {UserConnection} from './UserType';
+import {GroupConnection} from './GroupType';
 
-export default registerType(new GraphQLObjectType({
+export const ResourceType = registerType(new GraphQLObjectType({
   name: 'Resource',
   description: 'An economic input.',
   fields: () => ({
@@ -50,3 +51,11 @@ export default registerType(new GraphQLObjectType({
   }),
   interfaces: [nodeInterface],
 }));
+
+export const {
+  connectionType: ResourceConnection,
+  edgeType: ResourceEdge
+} = connectionDefinitions({
+  name: 'Resource',
+  nodeType: ResourceType,
+});

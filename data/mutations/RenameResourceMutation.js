@@ -15,7 +15,7 @@ import {
   renameResource,
 } from '../database';
 
-import ResourceType from '../types/ResourceType';
+import {ResourceType} from '../types/ResourceType';
 
 export default mutationWithClientMutationId({
   name: 'RenameResource',

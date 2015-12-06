@@ -14,8 +14,8 @@ import {
   disconnectResourceFromGroup,
 } from '../database';
 
-import ResourceType from '../types/ResourceType';
-import GroupType from '../types/GroupType';
+import {ResourceType} from '../types/ResourceType';
+import {GroupType} from '../types/GroupType';
 
 export default mutationWithClientMutationId({
   name: 'DisconnectResourceFromGroup',

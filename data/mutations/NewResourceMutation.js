@@ -17,10 +17,9 @@ import {
   createResource,
 } from '../database';
 
-import UserType from '../types/UserType';
-import GroupType from '../types/GroupType';
+import {UserType} from '../types/UserType';
+import {ResourceEdge} from '../types/ResourceType';
 import MasterType from '../types/MasterType';
-import {ResourceEdge} from '../types/ResourceConnection';
 
 export default mutationWithClientMutationId({
   name: 'NewResource',

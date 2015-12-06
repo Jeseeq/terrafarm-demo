@@ -15,7 +15,7 @@ import {
   renameGroup,
 } from '../database';
 
-import GroupType from '../types/GroupType';
+import {GroupType} from '../types/GroupType';
 
 export default mutationWithClientMutationId({
   name: 'RenameGroup',

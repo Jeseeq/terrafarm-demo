@@ -6,6 +6,7 @@ import {
 import {
   connectionArgs,
   connectionFromArray,
+  connectionDefinitions,
   globalIdField,
 } from 'graphql-relay';
 
@@ -17,10 +18,10 @@ import {
   getGroup,
 } from '../database';
 
-import {ResourceConnection} from './ResourceConnection';
-import {GroupConnection} from './GroupConnection';
+import {ResourceConnection} from './ResourceType';
+import {GroupConnection} from './GroupType';
 
-export default registerType(new GraphQLObjectType({
+export const UserType = registerType(new GraphQLObjectType({
   name: 'User',
   description: 'A person who uses our app.',
   fields: () => ({
@@ -59,3 +60,11 @@ export default registerType(new GraphQLObjectType({
   }),
   interfaces: [nodeInterface],
 }));
+
+export const {
+  connectionType: UserConnection,
+  edgeType: UserEdge,
+} = connectionDefinitions({
+  name: 'User',
+  nodeType: UserType,
+});

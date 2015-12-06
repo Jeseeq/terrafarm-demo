@@ -1,8 +1,8 @@
-export class Master extends Object {}
-export class Viewer extends Object {}
-export class User extends Object {}
-export class Resource extends Object {}
-export class Group extends Object {}
+class Master extends Object {}
+class Viewer extends Object {}
+class User extends Object {}
+class Resource extends Object {}
+class Group extends Object {}
 
 const MASTER_ID = 'earth';
 const VIEWER_ID = 'me';
@@ -111,11 +111,6 @@ var viewer = Object.assign(
   }
 );
 
-export function authenticateViewer (userId) {
-  viewer.userId = userId;
-  return userId;
-}
-
 export function getMaster () {
   return master;
 }
@@ -134,6 +129,11 @@ export function getResource (id) {
 
 export function getGroup (id) {
   return data.Group[id];
+}
+
+export function authenticateViewer (userId) {
+  viewer.userId = userId;
+  return userId;
 }
 
 export function createUser (userName) {

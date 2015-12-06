@@ -3,8 +3,8 @@ import { idFetcher, typeResolver } from './registry';
 
 export const {
   nodeInterface,
-  nodeField
+  nodeField,
 } = nodeDefinitions(
   idFetcher,
-  typeResolver
+  typeResolver,
 );

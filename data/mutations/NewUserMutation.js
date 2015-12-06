@@ -17,7 +17,7 @@ import {
 } from '../database';
 
 import MasterType from '../types/MasterType';
-import {UserEdge} from '../types/UserConnection';
+import {UserEdge} from '../types/UserType';
 
 export default mutationWithClientMutationId({
   name: 'NewUser',

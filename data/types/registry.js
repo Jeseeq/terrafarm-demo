@@ -1,8 +1,8 @@
 // https://gist.github.com/taion/d161a58b9f7381d8fa9c
 
-import decamelize from 'decamelize';
+// import decamelize from 'decamelize';
+// import pluralize from 'pluralize';
 import { fromGlobalId } from 'graphql-relay';
-import pluralize from 'pluralize';
 
 import {
   getMaster,
@@ -21,8 +21,9 @@ export function getEndpoint (type) {
 }
 
 function getDefaultEndpoint (type) {
-  const endpoint = pluralize(decamelize(type.name));
-  return id => id ? `${endpoint}/${id}` : endpoint;
+  // const endpoint = pluralize(decamelize(type.name));
+  // return id => id ? `${endpoint}/${id}` : endpoint;
+  return type.name;
 }
 
 export function registerType (type, endpoint, getItemOverride) {
@@ -36,25 +37,28 @@ export function registerType (type, endpoint, getItemOverride) {
 
 export async function idFetcher (globalId, info) {
   const { type, id } = fromGlobalId(globalId);
-
   const getItemOverride = getItemOverrides[type];
+
   let item;
   if (getItemOverride) {
     item = await getItemOverride(id, info);
   } else {
     if (type === 'Master') {
-      item = await getMaster();
+      item = getMaster();
     } else if (type === 'Viewer') {
-      item = await getViewer();
+      item = getViewer();
     } else if (type === 'User') {
-      item = await getUser(id);
+      item = getUser(id);
     } else if (type === 'Resource') {
-      item = await getResource(id);
+      item = getResource(id);
     } else if (type === 'Group') {
-      item = await getGroup(id);
+      item = getGroup(id);
     } else {
+      console.log('potential problem');
+      console.log('type:', type);
       item = null;
     }
+    // item = await getItem(getEndpoint(type), id, info);
   }
 
   return { type, ...item };
@@ -63,3 +67,4 @@ export async function idFetcher (globalId, info) {
 export function typeResolver (obj) {
   return types[obj.type];
 }
+

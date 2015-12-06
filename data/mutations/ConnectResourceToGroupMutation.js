@@ -15,10 +15,8 @@ import {
   connectResourceToGroup,
 } from '../database';
 
-import ResourceType from '../types/ResourceType';
-import GroupType from '../types/GroupType';
-import {ResourceEdge} from '../types/ResourceConnection';
-import {GroupEdge} from '../types/GroupConnection';
+import {ResourceType, ResourceEdge} from '../types/ResourceType';
+import {GroupType, GroupEdge} from '../types/GroupType';
 
 export default mutationWithClientMutationId({
   name: 'ConnectResourceToGroup',

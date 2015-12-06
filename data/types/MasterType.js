@@ -18,9 +18,9 @@ import {
   getGroup,
 } from '../database';
 
-import {UserConnection} from './UserConnection';
-import {ResourceConnection} from './ResourceConnection';
-import {GroupConnection} from './GroupConnection';
+import {UserConnection} from './UserType';
+import {ResourceConnection} from './ResourceType';
+import {GroupConnection} from './GroupType';
 
 export default registerType(new GraphQLObjectType({
   name: 'Master',
