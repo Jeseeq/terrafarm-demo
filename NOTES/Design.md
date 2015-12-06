@@ -1,21 +1,13 @@
 # Design
 
 ## Demo release
-- [x] new user
-- [x] new resource
-- [x] new group
-- [x] user request group membership
-  - [ ] fix issue: new group -> login someone else -> request
-    - [ ] try splitting up GroupPage
-- [x] user cancel group membership request
-- [x] group member approve/decline user membership request
-- [ ] update relay
-- [ ] unit tests
-
 - [ ] user offer resource to group
 - [ ] group request resource from user
 - [ ] group member approve/decline resource offer
 - [ ] user approve/decline resource request
+
+- [ ] bump react-relay and babel-relay-plugin
+- [ ] unit tests
 
 - [ ] app name
 - [ ] press-release
