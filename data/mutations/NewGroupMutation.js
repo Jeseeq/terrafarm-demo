@@ -28,7 +28,7 @@ export default mutationWithClientMutationId({
     groupName: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
-    groupEdgeOnMaster: {
+    groupEdge: {
       type: GroupEdge,
       resolve: ({localGroupId}) => {
         var master = getMaster();
@@ -36,20 +36,6 @@ export default mutationWithClientMutationId({
         return {
           cursor: cursorForObjectInConnection(
             master.groups.map(id => getGroup(id)),
-            group
-          ),
-          node: group,
-        };
-      }
-    },
-    groupEdgeOnUser: {
-      type: GroupEdge,
-      resolve: ({localUserId, localGroupId}) => {
-        var user = getUser(localUserId);
-        var group = getGroup(localGroupId);
-        return {
-          cursor: cursorForObjectInConnection(
-            user.groups.map(id => getGroup(id)),
             group
           ),
           node: group,

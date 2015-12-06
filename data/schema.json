@@ -1916,19 +1916,7 @@
           "description": null,
           "fields": [
             {
-              "name": "resourceEdgeOnMaster",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ResourceEdge",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "resourceEdgeOnUser",
+              "name": "resourceEdge",
               "description": null,
               "args": [],
               "type": {
@@ -2044,19 +2032,7 @@
           "description": null,
           "fields": [
             {
-              "name": "groupEdgeOnMaster",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "GroupEdge",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "groupEdgeOnUser",
+              "name": "groupEdge",
               "description": null,
               "args": [],
               "type": {

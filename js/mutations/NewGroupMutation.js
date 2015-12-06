@@ -19,8 +19,7 @@ export default class NewGroupMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on NewGroupPayload {
-        groupEdgeOnMaster,
-        groupEdgeOnUser
+        groupEdge,
         master {
           groups,
         },
@@ -37,7 +36,7 @@ export default class NewGroupMutation extends Relay.Mutation {
         parentName: 'master',
         parentID: this.props.master.id,
         connectionName: 'groups',
-        edgeName: 'groupEdgeOnMaster',
+        edgeName: 'groupEdge',
         rangeBehaviors: {
           '': 'append',
         },
@@ -47,7 +46,7 @@ export default class NewGroupMutation extends Relay.Mutation {
         parentName: 'user',
         parentID: this.props.user.id,
         connectionName: 'groups',
-        edgeName: 'groupEdgeOnUser',
+        edgeName: 'groupEdge',
         rangeBehaviors: {
           '': 'append',
         },

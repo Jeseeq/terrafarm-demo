@@ -42,7 +42,7 @@ export default mutationWithClientMutationId({
     master: {
       type: MasterType,
       resolve: () => getMaster(),
-    }
+    },
   },
   mutateAndGetPayload: ({userName}) => {
     var localUserId = createUser(userName);

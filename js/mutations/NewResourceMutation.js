@@ -19,8 +19,7 @@ export default class NewResourceMutation extends Relay.Mutation {
   getFatQuery () {
     return Relay.QL`
       fragment on NewResourcePayload {
-        resourceEdgeOnMaster,
-        resourceEdgeOnUser,
+        resourceEdge,
         master {
           resources,
         },
@@ -37,7 +36,7 @@ export default class NewResourceMutation extends Relay.Mutation {
         parentName: 'master',
         parentID: this.props.master.id,
         connectionName: 'resources',
-        edgeName: 'resourceEdgeOnMaster',
+        edgeName: 'resourceEdge',
         rangeBehaviors: {
           '': 'append',
         },
@@ -47,7 +46,7 @@ export default class NewResourceMutation extends Relay.Mutation {
         parentName: 'user',
         parentID: this.props.user.id,
         connectionName: 'resources',
-        edgeName: 'resourceEdgeOnUser',
+        edgeName: 'resourceEdge',
         rangeBehaviors: {
           '': 'append',
         },

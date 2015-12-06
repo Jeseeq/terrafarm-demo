@@ -3,13 +3,12 @@
 ## Demo release
 - [x] new user
 - [x] new resource
+  - [ ] fix issue when adding new resource after login
 - [x] new group
 - [x] user request group membership
 - [x] user cancel group membership request
 - [x] group member approve/decline user membership request
 - [ ] update relay
-- [ ] split up schema
-  - [ ] add dependency imports to mutation files
 - [ ] unit tests
 
 - [ ] user offer resource to group

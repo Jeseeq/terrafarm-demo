@@ -28,7 +28,7 @@ export default mutationWithClientMutationId({
     resourceName: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
-    resourceEdgeOnMaster: {
+    resourceEdge: {
       type: ResourceEdge,
       resolve: ({localResourceId}) => {
         var master = getMaster();
@@ -36,20 +36,6 @@ export default mutationWithClientMutationId({
         return {
           cursor: cursorForObjectInConnection(
             master.resources.map(id => getResource(id)),
-            resource
-          ),
-          node: resource,
-        };
-      }
-    },
-    resourceEdgeOnUser: {
-      type: ResourceEdge,
-      resolve: ({localUserId, localResourceId}) => {
-        var user = getUser(localUserId);
-        var resource = getResource(localResourceId);
-        return {
-          cursor: cursorForObjectInConnection(
-            user.resources.map(id => getResource(id)),
             resource
           ),
           node: resource,
