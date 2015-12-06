@@ -52,6 +52,8 @@ export default Relay.createContainer(MembershipRequests, {
             node {
               id,
               name,
+              ${CancelPendingUserToGroupMutation.getFragment('user')},
+              ${ConnectUserToGroupMutation.getFragment('user')},
             }
           }
         },
