@@ -13,7 +13,7 @@ import {
 import {
   getUser,
   getMaster,
-  connectResourceToGroup,
+  createUser,
 } from '../database';
 
 import MasterType from '../types/MasterType';
