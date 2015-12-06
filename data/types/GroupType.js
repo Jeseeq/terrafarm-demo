@@ -63,7 +63,7 @@ export const GroupType = registerType(new GraphQLObjectType({
 
 export const {
   connectionType: GroupConnection,
-  edgeType: GroupEdge
+  edgeType: GroupEdge,
 } = connectionDefinitions({
   name: 'Group',
   nodeType: GroupType,

@@ -48,6 +48,14 @@ export default class PendingUserToGroupMutation extends Relay.Mutation {
           '': 'append',
         },
       },
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on PendingUserToGroupPayload {
+            groupEdge,
+          }
+        `],
+      },
     ];
   }
   getVariables () {

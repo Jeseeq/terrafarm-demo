@@ -28,17 +28,16 @@ export default mutationWithClientMutationId({
     groupEdge: {
       type: GroupEdge,
       resolve: ({localUserId, localGroupId}) => {
-        console.log('hello group edge');
-        var user = getUser(localUserId);
         var group = getGroup(localGroupId);
+        var user = getUser(localUserId);
         return {
           cursor: cursorForObjectInConnection(
-            user.groupsPending.map(id => getGroup(id)), 
+            user.groupsPending.map(id => getGroup(id)),
             group
           ),
           node: group,
-        }
-      },
+        };
+      }
     },
     userEdge: {
       type: UserEdge,
