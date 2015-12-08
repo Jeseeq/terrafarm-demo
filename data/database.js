@@ -50,6 +50,7 @@ var shovel = Object.assign(
     name: 'Shovel',
     users: ['1'],
     groups: ['1'],
+    // groupsPending: [],
   }
 );
 var muscle = Object.assign(
@@ -58,6 +59,7 @@ var muscle = Object.assign(
     name: 'Muscle',
     users: ['2'],
     groups: ['1'],
+    // groupsPending: [],
   }
 );
 var land = Object.assign(
@@ -66,6 +68,7 @@ var land = Object.assign(
     name: 'Land',
     users: ['3'],
     groups: ['1'],
+    // groupsPending: [],
   }
 );
 var purple = Object.assign(
@@ -75,6 +78,7 @@ var purple = Object.assign(
     users: ['1','2','3'],
     usersPending: [],
     resources: ['1','2','3'],
+    // resourcesPending: [],
   },
 );
 

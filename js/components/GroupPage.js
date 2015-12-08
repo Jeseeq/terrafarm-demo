@@ -4,6 +4,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import MembershipRequests from './MembershipRequests';
+import CommitResourcesPanel from './CommitResourcesPanel';
 
 class GroupPage extends React.Component {
   _handleRequestMembership = () => {
@@ -30,7 +31,10 @@ class GroupPage extends React.Component {
     var isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
 
     if (isMember) {
-      return <MembershipRequests group={group} />;
+      return <div>
+        <MembershipRequests group={group} />
+        <CommitResourcesPanel group={group} viewer={viewer} />
+      </div>;
     } else if (isPendingMember) {
       return <button onClick={this._handleCancelMembershipRequest}>Cancel Membership Request</button>
     } else {
@@ -94,6 +98,7 @@ export default Relay.createContainer(GroupPage, {
         ${PendingUserToGroupMutation.getFragment('group')},
         ${CancelPendingUserToGroupMutation.getFragment('group')},
         ${MembershipRequests.getFragment('group')},
+        ${CommitResourcesPanel.getFragment('group')},
       }
     `,
     viewer: () => Relay.QL`
@@ -103,6 +108,7 @@ export default Relay.createContainer(GroupPage, {
           ${CancelPendingUserToGroupMutation.getFragment('user')},
           ${PendingUserToGroupMutation.getFragment('user')},
         },
+        ${CommitResourcesPanel.getFragment('viewer')},
       }
     `,
   },

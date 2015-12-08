@@ -36,6 +36,7 @@ export default class ConnectResourceToGroup extends Relay.Mutation {
         edgeName: 'groupEdge',
         rangeBehaviors: {
           '': 'append',
+        },
       },
       {
         type: 'RANGE_ADD',
@@ -46,7 +47,15 @@ export default class ConnectResourceToGroup extends Relay.Mutation {
         rangeBehaviors: {
           '': 'append',
         },
-      }
+      },
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on ConnectResourceToGroupPayload {
+            groupEdge,
+          }
+        `],
+      },
     ];
   }
   getVariables () {
