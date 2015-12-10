@@ -1,6 +1,8 @@
-# Pluck Yourself App
+# Terrafarm
 
-Work-in-progress
+Work-in-progress.
+
+An app for connecting people and resources to start and manage small farms.
 
 ## Features
 
