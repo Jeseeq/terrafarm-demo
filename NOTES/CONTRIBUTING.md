@@ -22,11 +22,7 @@ restrictions:
 * Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others.
 
-* Please **do not** open issues or pull requests regarding the code in
-  [`.htaccess`](https://github.com/h5bp/server-configs-apache),
-  [`jQuery`](https://github.com/jquery/jquery/),
-  [`Modernizr`](https://github.com/Modernizr/Modernizr) or
-  [`Normalize.css`](https://github.com/necolas/normalize.css) (open them in
+* Please **do not** open issues or pull requests regarding the code in dependencies (open them in
   their respective repositories).
 
 

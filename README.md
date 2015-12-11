@@ -4,15 +4,19 @@
 
 ## Purpose
 
-The goal for this app is to encourage people living in all types of communities to get involved in farming. We are testing the hypothesis that there are people interested in hobby or full-time farming who lack space and a variety of resources. Conversely, there are people who own unused spaces and resources. Many vacant lots, yards, rooms, and semi-rural properties could be improved by letting interested farmers cultivate those spaces. The benefits of rich ecologies, connecting with nature, better-tasting healthy food, community projects, and less dependence on destructive industrial farms would create mutual wealth.
+The goal for this app is to encourage people living in all types of communities to get involved in farming.
+
+We are testing the hypothesis that there are people interested in hobby or full-time farming who lack space and a variety of resources; while conversely, there are people who own unused spaces and resources who would be willing to provide access.
+
+Many vacant lots, yards, rooms, and semi-rural properties could be improved by letting interested farmers cultivate those spaces. The benefits of rich ecologies, connecting with nature, better-tasting healthy food, community projects, and less dependence on destructive industrial farms would create mutual wealth.
 
 ## Contributing
 
 Anyone and everyone is welcome to [contribute](./NOTES/CONTRIBUTING.md), however, if you decide to get involved, please take a moment to review the [guidelines](./NOTES/CONTRIBUTING.md):
 
-[Bug reports](./NOTES/CONTRIBUTING.md#bugs)
-[Feature requests](./NOTES/CONTRIBUTING.md#features)
-[Pull requests](./NOTES/CONTRIBUTING.md#pull-requests)
+[Bug reports](./NOTES/CONTRIBUTING.md#bugs)  
+[Feature requests](./NOTES/CONTRIBUTING.md#features)  
+[Pull requests](./NOTES/CONTRIBUTING.md#pull-requests)  
 
 ## Features
 
