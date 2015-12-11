@@ -10,11 +10,10 @@ export default class Menu extends React.Component {
       'login',
       'profile',
       'browse',
-    ].map((item, i) => <li key={i}>
-      <h4><Link to={'/'+item}>{item.replace('-', ' ')}</Link></h4>
-    </li>);
+    ].map((item, i) => <Link to={'/'+item} key={i}>{item.replace('-', ' ')}</Link>);
+    // <ul><li><h4>
 
-    return <ul>{menuItems}</ul>;
+    return <div>{menuItems}</div>;
   }
 }
 

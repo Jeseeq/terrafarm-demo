@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
 
-import PluckYourselfApp from './components/PluckYourselfApp';
+import TerrafarmApp from './components/TerrafarmApp';
 import BrowsePage from './components/BrowsePage';
 import LoginPage from './components/LoginPage';
 import ProfilePage from './components/ProfilePage';
@@ -24,7 +24,7 @@ import GroupQueries from './queries/GroupQueries';
 ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
     <Route
-      path='/' component={PluckYourselfApp}
+      path='/' component={TerrafarmApp}
       queries={MasterAndViewerQueries}
     >
       <Route
