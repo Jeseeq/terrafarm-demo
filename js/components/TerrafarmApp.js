@@ -114,7 +114,11 @@ class TerrafarmApp extends React.Component {
             {this.props.children}
           </div>
         </div>
-        <nav className={cx({'outer-nav': true})}>
+        <nav
+          className={cx({'outer-nav': true})}
+          onClick={this._handleHideMenu}
+          onTouchTap={this._handleHideMenu}
+        >
           <Menu loggedIn={loggedIn} />
         </nav>
       </div>
