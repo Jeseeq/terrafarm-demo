@@ -8,7 +8,7 @@ Demo version which runs locally.
 
 ### Documentation
 
-Define the core practices and standards.
+Define the core [practices](https://github.com/linuxfoundation/cii-best-practices-badge) and standards.
 
 - [x] app description
 - [x] installation
