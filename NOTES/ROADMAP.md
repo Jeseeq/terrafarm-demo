@@ -14,6 +14,7 @@ Define the core practices and standards.
 - [x] installation
 - [x] running
 - [ ] developing
+  - [ ] add directory-specific READMEs and TEMPLATEs
 - [x] contributing
 - [x] license
 - [ ] roadmap
@@ -118,10 +119,11 @@ Add full test coverage.
 
 #### Other
 - [ ] css feature detection and fallbacks
+- [ ] route transitions
 
 ### Database Design
 
-Update single javascript file mock database into a real database.
+Replace mock database with a real database.
 
 #### Tech and Architecture
 Research and choose a proper database technology and architecture which gives 
