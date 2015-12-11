@@ -1,14 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import classNames from 'classnames/bind';
 import {Link, IndexLink} from 'react-router';
 import Menu from '../elements/Menu';
 import Logo from '../elements/Logo';
+
+import classNames from 'classnames/bind';
 import typography from '../shared-styles/typography.css';
 import styles from './TerrafarmApp.css';
-
-injectTapEventPlugin();
 
 let cx = classNames.bind(styles);
 
@@ -24,15 +22,18 @@ class TerrafarmApp extends React.Component {
     };
   }
   _scrollY () {
-    return window.pageYOffset || window.document.documentElement;
+    return window.pageYOffset || window.document.documentElement.scrollTop;
   }
   _handleShowMenu = (event) => {
     event.stopPropagation();
     event.preventDefault();
+
     document.body.scrollTop = document.documentElement.scrollTop = 0;
+    let scrollY = this._scrollY();
+
     this.setState({
-      docScroll: this._scrollY(),
-      contentScroll: this._scrollY() * -1,
+      docScroll: scrollY,
+      contentScroll: scrollY * -1,
       modalview: true,
     });
     setTimeout(() => {
@@ -42,21 +43,18 @@ class TerrafarmApp extends React.Component {
     }, 25);
   }
   _handleHideMenu = (event) => {
-    console.log('hide menu');
-    var {transEndEventNames} = this.props;
-    var {perspectiveWrapper, contentWrapper} = this.refs;
-    this.setState({
-      transform: true,
-    });
+    let {transEndEventNames} = this.props;
+    let {perspectiveWrapper, container, contentWrapper} = this.refs;
+
+    this.setState({transform: true});
     if (this.state.animate) {
-      var onEndTransFn = (event) => {
-        if (event.target.className !== 'container'
-            || event.propertyName.indexOf('transform') === -1) {
-          return;
-        }
+      let onEndTransFn = (event) => {
+        if (event.target !== container || event.propertyName.indexOf('transform') === -1) return;
+
         for (let i = 0; i < transEndEventNames.length; i += 1) {
-          perspectiveWrapper.removeEventListener(transEndEventNames[i], onEndTransFn );
+          perspectiveWrapper.removeEventListener(transEndEventNames[i], onEndTransFn);
         }
+
         this.setState({
           contentScroll: 0,
           modalview: false,
@@ -69,15 +67,11 @@ class TerrafarmApp extends React.Component {
       for (let i = 0; i < transEndEventNames.length; i += 1) {
         perspectiveWrapper.addEventListener(transEndEventNames[i], onEndTransFn);
       }
-      onEndTransFn.call();
 
-      this.setState({
-        animate: false,
-      });
+      this.setState({animate: false});
     }
   }
   _handleFalseTap = () => {
-    console.log('false tap');
     return false;
   }
   render () {
@@ -103,6 +97,7 @@ class TerrafarmApp extends React.Component {
         onTouchTap={this._handleFalseTap}
       >
         <div
+          ref='container'
           className={containerClass}
           onClick={this._handleHideMenu}
           onTouchTap={this._handleHideMenu}
@@ -112,12 +107,10 @@ class TerrafarmApp extends React.Component {
             className={cx({wrapper: true})}
             style={{top: this.state.contentScroll}}
           >
-            <div
+            <Logo
               onClick={this._handleShowMenu}
               onTouchTap={this._handleShowMenu}
-            >
-              Show menu
-            </div>
+            />
             {this.props.children}
           </div>
         </div>
@@ -130,13 +123,13 @@ class TerrafarmApp extends React.Component {
 }
 
 TerrafarmApp.defaultProps = {
-  transEndEventNames: {
-    'WebkitTransition': 'webkitTransitionEnd',
-    'MozTransition': 'transitionend',
-    'OTransition': 'oTransitionEnd',
-    'msTransition': 'MSTransitionEnd',
-    'transition': 'transitionend'
-  },
+  transEndEventNames: [
+    'webkitTransitionEnd',
+    'transitionend',
+    'oTransitionEnd',
+    'MSTransitionEnd',
+    'transitionend'
+  ],
 }
 
 export default Relay.createContainer(TerrafarmApp, {

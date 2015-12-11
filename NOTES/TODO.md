@@ -12,4 +12,5 @@
 - [ ] replace mock database
 - [ ] heroku deployment
 - [ ] end-to-end tests
-- [ ] Modernizr config with `script-loader`
+- [ ] css feature tests and fallbacks
+- [ ] css typography module import into root styles

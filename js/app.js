@@ -4,6 +4,7 @@ import {IndexRoute, Route} from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import TerrafarmApp from './components/TerrafarmApp';
 import BrowsePage from './components/BrowsePage';
@@ -20,6 +21,8 @@ import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
 import GroupAndViewerQueries from './queries/GroupAndViewerQueries';
 import GroupQueries from './queries/GroupQueries';
+
+injectTapEventPlugin();
 
 ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>

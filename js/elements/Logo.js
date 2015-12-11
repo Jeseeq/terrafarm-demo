@@ -4,9 +4,15 @@ import {IndexLink} from 'react-router';
 
 export default class Logo extends React.Component {
   render () {
-    return <div>
-      <h1>Menu</h1>
+    var {onClick, onTouchTap} = this.props;
+    return <div onClick={onClick} onTouchTap={onTouchTap}>
+      <h1>Show menu</h1>
     </div>;
   }
 }
+
+Logo.propTypes = {
+  onClick: React.PropTypes.func,
+  onTouchTap: React.PropTypes.func,
+};
 
