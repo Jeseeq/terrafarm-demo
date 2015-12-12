@@ -1,0 +1,7 @@
+.this {
+  /* position: fixed; top: 10px; left: 50%; margin-left: -100px;*/
+  width: 200px;
+  text-align: center;
+  background-color: rgba(255,255,255,0.7);
+  border: 2px solid #ccc;
+}

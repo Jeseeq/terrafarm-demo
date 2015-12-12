@@ -50,7 +50,10 @@ Establish the frontend technology stack and architecture patterns.
 #### Menu
 A menu which combines the effects in these demos:
 - [x] [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).
+  - [ ] fix content wrapper scroll position
 - [ ] [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
+- [ ] if not logged in, show login, else show logout
+
 
 #### Other
 - [x] normalize styles

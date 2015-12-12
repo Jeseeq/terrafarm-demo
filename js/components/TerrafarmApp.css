@@ -65,6 +65,7 @@ body,
   position: absolute;
   height: auto;
   font-size: 2em;
+  z-index: 20;
 }
 
 .outer-nav.horizontal {

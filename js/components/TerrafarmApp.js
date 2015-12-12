@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link, IndexLink} from 'react-router';
 import Menu from '../elements/Menu';
-import Logo from '../elements/Logo';
+import Lorem from 'react-lorem-component';
 
 import classNames from 'classnames/bind';
 import styles from './TerrafarmApp.css';
@@ -69,7 +69,7 @@ class TerrafarmApp extends React.Component {
       this.setState({animate: false});
     }
   }
-  _handleFalseTap = () => {
+  _handleNullTap = () => {
     return false;
   }
   render () {
@@ -91,8 +91,8 @@ class TerrafarmApp extends React.Component {
       <div
         ref='perspectiveWrapper'
         className={perspectiveClass}
-        onClick={this._handleFalseTap}
-        onTouchTap={this._handleFalseTap}
+        onClick={this._handleNullTap}
+        onTouchTap={this._handleNullTap}
       >
         <div
           ref='container'
@@ -105,10 +105,7 @@ class TerrafarmApp extends React.Component {
             className={cx({wrapper: true})}
             style={{top: this.state.contentScroll}}
           >
-            <Logo
-              onClick={this._handleShowMenu}
-              onTouchTap={this._handleShowMenu}
-            />
+            <Lorem />
             {this.props.children}
           </div>
         </div>
@@ -121,7 +118,10 @@ class TerrafarmApp extends React.Component {
           onClick={this._handleHideMenu}
           onTouchTap={this._handleHideMenu}
         >
-          <Menu loggedIn={loggedIn} />
+          <Menu
+            loggedIn={loggedIn}
+            onShow={this._handleShowMenu}
+          />
         </nav>
       </div>
     );

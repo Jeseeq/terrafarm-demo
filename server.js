@@ -31,8 +31,10 @@ var compiler = webpack({
         test: /\.js$/,
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader?modules',
+        test: /\.css$/, loader: 'style-loader!css-loader?modules',
+      },
+      {
+        test: /\.svg$/, loader: 'url-loader?limit=10000',
       },
     ]
   },
