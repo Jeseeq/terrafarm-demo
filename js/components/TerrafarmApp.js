@@ -5,9 +5,7 @@ import Menu from '../elements/Menu';
 import Logo from '../elements/Logo';
 
 import classNames from 'classnames/bind';
-import typography from '../shared-styles/typography.css';
 import styles from './TerrafarmApp.css';
-
 let cx = classNames.bind(styles);
 
 class TerrafarmApp extends React.Component {
@@ -115,7 +113,11 @@ class TerrafarmApp extends React.Component {
           </div>
         </div>
         <nav
-          className={cx({'outer-nav': true})}
+          className={cx({
+            'outer-nav': true,
+            top: true,
+            horizontal: true,
+          })}
           onClick={this._handleHideMenu}
           onTouchTap={this._handleHideMenu}
         >

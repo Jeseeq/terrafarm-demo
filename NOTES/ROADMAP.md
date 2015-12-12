@@ -18,6 +18,7 @@ Define the core [practices](https://github.com/linuxfoundation/cii-best-practice
 - [x] contributing
 - [x] license
 - [ ] roadmap
+- [ ] project website
 
 ### UI Design
 
@@ -52,9 +53,9 @@ A menu which combines the effects in these demos:
 - [ ] [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
 
 #### Other
-- [ ] normalize styles
+- [x] normalize styles
 - [ ] simple page layouts
-- [ ] typography
+- [x] typography
 
 ### Database Design
 
