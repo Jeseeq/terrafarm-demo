@@ -24,6 +24,7 @@
     "raw-loader": "^0.5.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-gsap-enhancer": "^0.2.0",
     "react-lorem-component": "^0.10.0",
     "react-relay": "^0.6.0",
     "react-router": "^1.0.0",

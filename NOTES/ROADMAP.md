@@ -56,7 +56,7 @@ A menu which combines the effects in these demos:
 
 
 #### Other
-- [x] normalize styles
+- [ ] styles normalize or sanitize
 - [ ] simple page layouts
 - [x] typography
 
