@@ -1,5 +1,6 @@
 import React from 'react';
 // import {Link} from 'react-router';
+import TweenMax from 'gsap';
 import GSAP from 'react-gsap-enhancer';
 
 import classNames from 'classnames/bind';
@@ -22,9 +23,11 @@ class Menu extends React.Component {
     };
   }
   componentWillMount () {
+    /*
     this.addAnimation(({target, options}) => {
       return TweenMax.globalTimeScale(0.8);
     });
+    */
   }
   _handleIconScaleDown = (event) => {
     event.preventDefault();
@@ -32,33 +35,33 @@ class Menu extends React.Component {
 
     this.addAnimation(({target, options}) => {
       return TweenMax.to(options.toggleIcon, 0.1, {scale: 0.65});
-    }, {toggleIcon: this.refs['toggle-icon']});
+    }, {toggleIcon: this['toggle-icon']});
   }
   _handleIconScaleUp = (event) => {
     this.addAnimation(({target, options}) => {
       return TweenMax.to(options.toggleIcon, 0.1, {scale: 1,});
-    }, {toggleIcon: this.refs['toggle-icon']});
+    }, {toggleIcon: this['toggle-icon']});
 
-    this._handlePress();
+    this._handlePress(event);
   }
-  _handlePress () {
-    var on = this.state.on;
+  _handlePress (event) {
+    var on = !this.state.on;
 
-    this.setState({on: !on});
+    this.setState({on: on});
     this.addAnimation(({target, options}) => {
       return TweenMax.to(options.toggleIcon, 0.4, {
         rotation: on ? 45 : 0,
         ease: Quint.easeInOut,
         force3D: true,
       });
-    }, {toggleIcon: this.refs['toggle-icon']});
+    }, {toggleIcon: this['toggle-icon']});
 
-    on ? this._openMenu() : this._closeMenu();
+    on ? this._openMenu(event) : this._closeMenu(event);
   }
-  _openMenu () {
-    this.props.onShow();
+  _openMenu (event) {
+    this.props.onShow(event);
 
-    var menuItems = this.state.menuItems.map((menuItem, i) => this.refs['menu-item-'+i]);
+    var menuItems = this.state.menuItems.map((menuItem, i) => this['menu-item-'+i]);
 
     menuItems.map((menuItem, i) => {
       var delay = i * 0.08;
@@ -73,13 +76,13 @@ class Menu extends React.Component {
           force3D: true,
           ease: Quad.easeInOut,
           onComplete: () => {
-            TweenMax.to(bounce, 0.15, {
+            TweenMax.to(options.bounce, 0.15, {
               // scaleX: 1.2,
               scaleY: 0.7,
               force3D: true,
               ease: Quad.easeInOut,
               onComplete: () => {
-                TweenMax.to(bounce, 3, {
+                TweenMax.to(options.bounce, 3, {
                   // scaleX: 1,
                   scaleY: 0.8,
                   force3D: true,
@@ -90,79 +93,80 @@ class Menu extends React.Component {
             })
           },
         });
-      }, {bounce: this.refs['menu-item-bounce-'+i], delay: delay});
+      }, {bounce: this['menu-item-bounce-'+i], delay: delay});
 
-      this.addAnimation({target, options}) => {
+      this.addAnimation(({target, options}) => {
         return TweenMax.to(options.button, 0.5, {
           delay: options.delay,
           y: options.distance,
           force3D: true,
           ease: Quint.easeInOut,
         });
-      }, {button: this.refs['menu-item-button-'+i], delay: delay, distance: this.state.distance});
+      }, {button: this['menu-item-button-'+i], delay: delay, distance: this.state.distance});
 
     });
   }
   // todo
   _closeMenu () {
-    console.log('close');
-    var menuItems = this.state.menuItems.map((menuItem, i) => this.refs['menu-item-'+i]);
+    console.log('close menu');
+    var menuItems = this.state.menuItems.map((menuItem, i) => this['menu-item-'+i]);
 
     menuItems.map((menuItem, i) => {
       var delay= i * 0.08;
 
-      var bounce = this.refs['menu-item-bounce-'+i];
+      this.addAnimation(({target, options}) => {
+        return TweenMax.fromTo(options.bounce, 0.2, {
+          transformOrigin: '50% 50%',
+        }, {
+          delay: options.delay,
+          scaleX: 1,
+          scaleY: 0.8,
+          force3D: true,
+          ease: Quad.easeInOut,
+          onComplete: () => {
+            TweenMax.to(options.bounce, 0.15, {
+              // scaleX: 1.2,
+              scaleY: 1.2,
+              force3D: true,
+              ease: Quad.easeInOut,
+              onComplete: () => {
+                TweenMax.to(options.bounce, 3, {
+                  // scaleX: 1,
+                  scaleY: 1,
+                  force3D: true,
+                  ease: Elastic.easeOut,
+                  easeParams: [1.1,0.12],
+                })
+              },
+            })
+          },
+        });
+      }, {bounce: this['menu-item-bounce-'+i], delay: delay});
 
-      TweenMax.fromTo(bounce, 0.2, {
-        transformOrigin: '50% 50%',
-      }, {
-        delay: delay,
-        scaleX: 1,
-        scaleY: 0.8,
-        force3D: true,
-        ease: Quad.easeInOut,
-        onComplete: () => {
-          TweenMax.to(bounce, 0.15, {
-            // scaleX: 1.2,
-            scaleY: 1.2,
-            force3D: true,
-            ease: Quad.easeInOut,
-            onComplete: () => {
-              TweenMax.to(bounce, 3, {
-                // scaleX: 1,
-                scaleY: 1,
-                force3D: true,
-                ease: Elastic.easeOut,
-                easeParams: [1.1,0.12],
-              })
-            },
-          })
-        },
-      });
 
-
-      TweenMax.to(this.refs['menu-item-button-'+i], 0.3, {
-        delay: delay,
-        y: 0,
-        force3D: true,
-        ease: Quint.easeIn,
-      });
-    })
+      this.addAnimation(({target, options}) => {
+        return TweenMax.to(options.button, 0.3, {
+          delay: options.delay,
+          y: 0,
+          force3D: true,
+          ease: Quint.easeIn,
+        });
+      }, {button: this['menu-item-button-'+i], delay: delay});
+    });
   }
   render () {
-    var goo = require('!!raw-loader!../images/goo.svg'); // fix css filter (All browsers bug)
-    var menuItemRefs = [];
+    var goo = require('!!raw-loader!../images/goo.svg'); // fixes css filter (All browsers bug)
     var menuItems = this.state.menuItems.map((item, i) => {
       var angle = this.state.startingAngle + (this.state.slice * i);
       return (
         <li
           key={i}
-          ref={'menu-item-'+i}
+          ref={c => this['menu-item-'+i] = c}
           className={styles['menu-item']}
           style={{transform:'rotate('+(angle)+'deg)'}}
         >
           <button
-            ref={'menu-item-button-'+i}
+            ref={c => this['menu-item-button-'+i] = c}
             className={styles['menu-item-button']}>
             <i
               className={cx({'menu-item-icon': true, icon: true })}
@@ -172,7 +176,7 @@ class Menu extends React.Component {
             </i>
           </button>
           <div
-            ref={'menu-item-bounce-'+i}
+            ref={c => this['menu-item-bounce-'+i] = c}
             className={styles['menu-item-bounce']}
           />
         </li>
@@ -191,12 +195,10 @@ class Menu extends React.Component {
             {menuItems}
           </ul>
           <button
-            ref='toggle-icon'
+            ref={c => this['toggle-icon'] = c}
             className={styles['menu-toggle-button']}
             onMouseDown={this._handleIconScaleDown}
             onTouchStart={this._handleIconScaleDown}
-            onClick={this.props.onShow}
-            onTouchTap={this.props.onShow}
           >
             <i className={cx({
               fa: true,
