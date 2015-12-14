@@ -23,9 +23,7 @@ class TerrafarmApp extends React.Component {
     return window.pageYOffset || window.document.documentElement.scrollTop;
   }
   _handleShowMenu = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-
+    return;
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     let scrollY = this._scrollY();
 
@@ -41,6 +39,7 @@ class TerrafarmApp extends React.Component {
     }, 25);
   }
   _handleHideMenu = (event) => {
+    return;
     let {transEndEventNames} = this.props;
     let {perspectiveWrapper, container, contentWrapper} = this.refs;
 
@@ -91,13 +90,11 @@ class TerrafarmApp extends React.Component {
       <div
         ref='perspectiveWrapper'
         className={perspectiveClass}
-        onClick={this._handleNullTap}
         onTouchTap={this._handleNullTap}
       >
         <div
           ref='container'
           className={containerClass}
-          onClick={this._handleHideMenu}
           onTouchTap={this._handleHideMenu}
         >
           <div
@@ -115,12 +112,11 @@ class TerrafarmApp extends React.Component {
             top: true,
             horizontal: true,
           })}
-          onClick={this._handleHideMenu}
-          onTouchTap={this._handleHideMenu}
         >
           <Menu
             loggedIn={loggedIn}
             onShow={this._handleShowMenu}
+            onHide={this._handleHideMenu}
           />
         </nav>
       </div>
