@@ -10,7 +10,11 @@ let cx = classNames.bind(styles);
 TweenMax.globalTimeScale(0.8);
 
 function createScaleDown ({target, options}) {
-  return TweenMax.to(options.toggleIcon, 0.1, {scale: 0.65});
+  return TweenMax.to(options.toggleIcon, 0.1, {
+    scale: 0.65,
+    onComplete: () => {
+      console.log('complete - scale down')}
+  });
 }
 
 function createScaleUp ({target, options}) {
@@ -113,7 +117,8 @@ class Menu extends React.Component {
     };
   }
   _handleScaleDown = (event) => {
-    this.addAnimation(createScaleDown, {toggleIcon: this['toggle-icon']})
+    console.log('add - scale down');
+    this.addAnimation(createScaleDown, {toggleIcon: this['toggle-icon']});
     this._handlePress(event)
     event.preventDefault();
     event.stopPropagation();
