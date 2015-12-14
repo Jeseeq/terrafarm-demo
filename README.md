@@ -14,8 +14,8 @@ Many vacant lots, yards, rooms, and semi-rural properties could be improved by l
 
 Anyone and everyone is welcome to [contribute](./NOTES/CONTRIBUTING.md), however, if you decide to get involved, please take a moment to review the [guidelines](./NOTES/CONTRIBUTING.md):
 
-[Bug reports](./NOTES/CONTRIBUTING.md#bugs)
-[Feature requests](./NOTES/CONTRIBUTING.md#features)
+[Bug reports](./NOTES/CONTRIBUTING.md#bugs)  
+[Feature requests](./NOTES/CONTRIBUTING.md#features)  
 [Pull requests](./NOTES/CONTRIBUTING.md#pull-requests)
 
 ## Roadmap
