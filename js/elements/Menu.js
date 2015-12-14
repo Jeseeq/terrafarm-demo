@@ -26,10 +26,9 @@ function createRotateIcon ({target, options}) {
 }
 
 function createOpenBounce ({target, options}) {
-  return TweenMax.fromTo(options.bounce, 0.2, {
+  return new TimelineMax().staggerFromTo(options.bounce, 0.2, {
     transformOrigin: '50% 50%'
   }, {
-    delay: options.delay,
     scaleX: 0.8,
     scaleY: 1.2,
     force3D: true,
@@ -51,24 +50,21 @@ function createOpenBounce ({target, options}) {
         },
       })
     },
-  });
+  }, options.delay);
 }
 
 function createOpenButton ({target, options}) {
-  console.log(options.button);
-  return TweenMax.to(options.button, 0.5, {
-    delay: options.delay,
+  return new TimelineMax().staggerTo(options.button, 0.5, {
     y: options.distance,
     force3D: true,
     ease: Quint.easeInOut,
-  });
+  }, options.delay);
 }
 
 function createCloseBounce ({target, options}) {
-  return TweenMax.fromTo(options.bounce, 0.2, {
+  return new TimelineMax().staggerFromTo(options.bounce, 0.2, {
     transformOrigin: '50% 50%',
   }, {
-    delay: options.delay,
     scaleX: 1,
     scaleY: 0.8,
     force3D: true,
@@ -90,16 +86,15 @@ function createCloseBounce ({target, options}) {
         },
       })
     },
-  });
+  }, options.delay);
 }
 
 function createCloseButton ({target, options}) {
-  return TweenMax.to(options.button, 0.3, {
-    delay: options.delay,
+  return new TimelineMax().staggerTo(options.button, 0.3, {
     y: 0,
     force3D: true,
     ease: Quint.easeIn,
-  });
+  }, options.delay);
 }
 
 class Menu extends React.Component {
@@ -137,37 +132,33 @@ class Menu extends React.Component {
   }
   _openMenu (event) {
     this.props.onShow(event);
+    var menuBounce = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-'+i]);
+    var menuButton = this.state.menuItems.map((menuItem, i) => this['menu-item-button-'+i]);
+    var delay = 0.08;
 
-    var menuItems = this.state.menuItems.map((menuItem, i) => this['menu-item-'+i]);
-
-    menuItems.map((menuItem, i) => {
-      var delay = i * 0.08;
-
-      this.addAnimation(createOpenBounce, {
-        bounce: this['menu-item-bounce-'+i],
-        delay: delay,
-      });
-      this.addAnimation(createOpenButton, {
-        button: this['menu-item-button-'+i],
-        delay: delay,
-        distance: this.state.distance,
-      });
+    this.addAnimation(createOpenBounce, {
+      bounce: menuBounce,
+      delay: delay,
+    });
+    this.addAnimation(createOpenButton, {
+      button: menuButton,
+      delay: delay,
+      distance: this.state.distance,
     });
   }
   _closeMenu () {
-    var menuItems = this.state.menuItems.map((menuItem, i) => this['menu-item-'+i]);
+    var menuBounce = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-'+i]);
+    var menuButton = this.state.menuItems.map((menuItem, i) => this['menu-item-button-'+i]);
+    var delay = 0.08;
 
-    menuItems.map((menuItem, i) => {
-      var delay = i * 0.08;
-
-      this.addAnimation(createCloseBounce, {
-        bounce: this['menu-item-bounce-'+i],
-        delay: delay,
-      });
-      this.addAnimation(createCloseButton, {
-        button: this['menu-item-button-'+i],
-        delay: delay,
-      });
+    this.addAnimation(createCloseBounce, {
+      bounce: menuBounce,
+      delay: delay,
+    });
+    this.addAnimation(createCloseButton, {
+      button: menuButton,
+      delay: delay,
+      distance: this.state.distance,
     });
   }
   render () {
