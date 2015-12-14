@@ -14,7 +14,7 @@ function createScaleDown ({target, options}) {
 }
 
 function createScaleUp ({target, options}) {
-  return TweenMax.to(options.toggleIcon, 0.1, {scale: 1,});
+  return TweenMax.to(options.toggleIcon, 0.1, {scale: 1});
 }
 
 function createRotateIcon ({target, options}) {
@@ -34,21 +34,21 @@ function createOpenBounce ({target, options}) {
     force3D: true,
     ease: Quad.easeInOut,
     onComplete: () => {
-      TweenMax.to(options.bounce, 0.15, {
+      TweenMax.staggerTo(options.bounce, 0.15, {
         // scaleX: 1.2,
         scaleY: 0.7,
         force3D: true,
         ease: Quad.easeInOut,
         onComplete: () => {
-          TweenMax.to(options.bounce, 3, {
+          TweenMax.staggerTo(options.bounce, 3, {
             // scaleX: 1,
             scaleY: 0.8,
             force3D: true,
             ease: Elastic.easeOut,
-            easeParams: [1.1, 0.12],
-          })
+            easeParams:[1.1, 0.12],
+          }, options.delay);
         },
-      })
+      }, options.delay);
     },
   }, options.delay);
 }
@@ -70,21 +70,21 @@ function createCloseBounce ({target, options}) {
     force3D: true,
     ease: Quad.easeInOut,
     onComplete: () => {
-      TweenMax.to(options.bounce, 0.15, {
+      TweenMax.staggerTo(options.bounce, 0.15, {
         // scaleX: 1.2,
         scaleY: 1.2,
         force3D: true,
         ease: Quad.easeInOut,
         onComplete: () => {
-          TweenMax.to(options.bounce, 3, {
+          TweenMax.staggerTo(options.bounce, 3, {
             // scaleX: 1,
             scaleY: 1,
             force3D: true,
             ease: Elastic.easeOut,
             easeParams: [1.1,0.12],
-          })
+          }, options.delay);
         },
-      })
+      }, options.delay);
     },
   }, options.delay);
 }
