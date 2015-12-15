@@ -1,6 +1,6 @@
 import React from 'react';
-// import {Link} from 'react-router';
-import GSAPLibrary from 'gsap';
+import {Link} from 'react-router';
+import GSAP from 'gsap';
 
 import classNames from 'classnames/bind';
 import styles from './Menu.css';
@@ -35,9 +35,9 @@ export default class Menu extends React.Component {
   _handleIconScaleUp = (event) => {
     var t = new TimelineMax();
     t.to(this['toggle-icon'], 0.1, {scale: 1});
-
   }
-  _handlePress (event) {
+  _handlePress = (event) => {
+    console.log('press');
     var on = !this.state.on;
     var t = new TimelineMax();
 
@@ -142,16 +142,21 @@ export default class Menu extends React.Component {
           className={styles['menu-item']}
           style={{transform:'rotate('+(angle)+'deg)'}}
         >
-          <button
-            ref={c => this['menu-item-button-'+i] = c}
-            className={styles['menu-item-button']}>
-            <i
-              className={cx({'menu-item-icon': true, icon: true })}
-              style={{transform:'rotate('+(-angle)+'deg)'}}
+          <Link to={'/'+item}>
+            <button
+              ref={c => this['menu-item-button-'+i] = c}
+              className={styles['menu-item-button']}
+              onMouseUp={this._handlePress}
+              onTouchEnd={this._handlePress}
             >
-              {item}
-            </i>
-          </button>
+              <i
+                className={cx({'menu-item-icon': true, icon: true })}
+                style={{transform:'rotate('+(-angle)+'deg)'}}
+              >
+                {item.replace('-', ' ')}
+              </i>
+            </button>
+          </Link>
           <div
             ref={c => this['menu-item-bounce-'+i] = c}
             className={styles['menu-item-bounce']}

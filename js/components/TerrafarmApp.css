@@ -70,8 +70,6 @@ body,
 
 .outer-nav.horizontal {
   left: 50%;
-  width: 75%;
-  max-width: 1000px;
   text-align: center;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);

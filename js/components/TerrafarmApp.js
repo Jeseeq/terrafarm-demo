@@ -100,7 +100,6 @@ class TerrafarmApp extends React.Component {
             className={cx({wrapper: true})}
             style={{top: this.state.contentScroll}}
           >
-            <Lorem />
             {this.props.children}
           </div>
         </div>
