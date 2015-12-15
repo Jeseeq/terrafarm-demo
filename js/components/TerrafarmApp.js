@@ -39,7 +39,8 @@ class TerrafarmApp extends React.Component {
     }, 25);
   }
   _handleHideMenu = (event) => {
-    return;
+    // block this while debugging Menu
+    return false;
     let {transEndEventNames} = this.props;
     let {perspectiveWrapper, container, contentWrapper} = this.refs;
 
