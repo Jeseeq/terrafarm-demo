@@ -9,6 +9,94 @@ let cx = classNames.bind(styles);
 
 TweenMax.globalTimeScale(0.8);
 
+function createScaleDown ({target, options}) {
+  return new TimelineMax().to(options.toggleIcon, 0.1, {scale: 0.65});
+}
+
+function createScaleUp ({target, options}) {
+  return new TimelineMax().to(options.toggleIcon, 0.1, {scale: 1});
+}
+
+function createRotateIcon ({target, options}) {
+  return new TimelineMax().to(options.toggleIcon, 0.4, {
+    rotation: options.on ? 45 : 0,
+    ease: Quint.easeInOut,
+    force3D: true,
+  });
+}
+
+function createOpenBounce ({target, options}) {
+  return new TimelineMax().staggerFromTo(options.bounce, 0.2, {
+    transformOrigin: '50% 50%',
+  }, {
+    scaleX: 0.8,
+    scaleY: 1.2,
+    force3D: true,
+    ease: Quad.easeInOut,
+    onComplete: () => {
+      TweenMax.staggerTo(options.bounce, 0.15, {
+        // scaleX: 1.2,
+        scaleY: 0.7,
+        force3D: true,
+        ease: Quad.easeInOut,
+        onComplete: () => {
+          TweenMax.staggerTo(options.bounce, 3, {
+            // scaleX: 1,
+            scaleY: 0.8,
+            force3D: true,
+            ease: Elastic.easeOut,
+            easeParams:[1.1, 0.12],
+          }, options.delay);
+        },
+      }, options.delay);
+    },
+  }, options.delay);
+}
+
+function createOpenButton ({target, options}) {
+  return new TimelineMax().staggerTo(options.button, 0.5, {
+    y: options.distance,
+    force3D: true,
+    ease: Quint.easeInOut,
+  }, options.delay);
+}
+
+function createCloseBounce ({target, options}) {
+  return new TimelineMax().staggerFromTo(options.bounce, 0.2, {
+    transformOrigin: '50% 50%',
+  }, {
+    scaleX: 1,
+    scaleY: 0.8,
+    force3D: true,
+    ease: Quad.easeInOut,
+    onComplete: () => {
+      TweenMax.staggerTo(options.bounce, 0.15, {
+        // scaleX: 1.2,
+        scaleY: 1.2,
+        force3D: true,
+        ease: Quad.easeInOut,
+        onComplete: () => {
+          TweenMax.staggerTo(options.bounce, 3, {
+            // scaleX: 1,
+            scaleY: 1,
+            force3D: true,
+            ease: Elastic.easeOut,
+            easeParams: [1.1, 0.12],
+          }, options.delay);
+        },
+      }, options.delay);
+    },
+  }, options.delay);
+}
+
+function createCloseButton ({target, options}) {
+  return new TimelineMax().staggerTo(options.button, 0.3, {
+    y: 0,
+    force3D: true,
+    ease: Quint.easeIn,
+  }, options.delay);
+}
+
 class Menu extends React.Component {
   constructor (props) {
     super(props);
@@ -134,98 +222,6 @@ class Menu extends React.Component {
 Menu.propTypes = {
   loggedIn: React.PropTypes.bool,
 };
-
-
-function createScaleDown ({target, options}) {
-  return TweenMax.to(options.toggleIcon, 0.1, {scale: 0.65});
-}
-
-function createScaleUp ({target, options}) {
-  return TweenMax.to(options.toggleIcon, 0.1, {scale: 1});
-}
-
-function createRotateIcon ({target, options}) {
-  return new TimelineMax().to(options.toggleIcon, 0.4, {
-    rotation: options.on ? 45 : 0,
-    ease: Quint.easeInOut,
-    force3D: true,
-    onComplete: () => { console.log('complete - rotate') },
-  });
-}
-
-function createOpenBounce ({target, options}) {
-  return new TimelineMax().staggerFromTo(options.bounce, 0.2, {
-    transformOrigin: '50% 50%',
-  }, {
-    scaleX: 0.8,
-    scaleY: 1.2,
-    force3D: true,
-    ease: Quad.easeInOut,
-    onComplete: () => {
-      TweenMax.staggerTo(options.bounce, 0.15, {
-        // scaleX: 1.2,
-        scaleY: 0.7,
-        force3D: true,
-        ease: Quad.easeInOut,
-        onComplete: () => {
-          TweenMax.staggerTo(options.bounce, 3, {
-            // scaleX: 1,
-            scaleY: 0.8,
-            force3D: true,
-            ease: Elastic.easeOut,
-            easeParams:[1.1, 0.12],
-          }, options.delay);
-        },
-      }, options.delay);
-    },
-  }, options.delay);
-}
-
-function createOpenButton ({target, options}) {
-  return new TimelineMax().staggerTo(options.button, 0.5, {
-    y: options.distance,
-    force3D: true,
-    ease: Quint.easeInOut,
-  }, options.delay);
-}
-
-function createCloseBounce ({target, options}) {
-  return new TimelineMax().staggerFromTo(options.bounce, 0.2, {
-    transformOrigin: '50% 50%',
-  }, {
-    scaleX: 1,
-    scaleY: 0.8,
-    force3D: true,
-    ease: Quad.easeInOut,
-    onComplete: () => {
-      TweenMax.staggerTo(options.bounce, 0.15, {
-        // scaleX: 1.2,
-        scaleY: 1.2,
-        force3D: true,
-        ease: Quad.easeInOut,
-        onComplete: () => {
-          TweenMax.staggerTo(options.bounce, 3, {
-            // scaleX: 1,
-            scaleY: 1,
-            force3D: true,
-            ease: Elastic.easeOut,
-            easeParams: [1.1,0.12],
-          }, options.delay);
-        },
-      }, options.delay);
-    },
-  }, options.delay);
-}
-
-function createCloseButton ({target, options}) {
-  return new TimelineMax().staggerTo(options.button, 0.3, {
-    y: 0,
-    force3D: true,
-    ease: Quint.easeIn,
-  }, options.delay);
-}
-
-var animationSourceMap = {};
 
 export default GSAP()(Menu);
 

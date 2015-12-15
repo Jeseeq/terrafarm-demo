@@ -23,7 +23,6 @@ class TerrafarmApp extends React.Component {
     return window.pageYOffset || window.document.documentElement.scrollTop;
   }
   _handleShowMenu = (event) => {
-    return;
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     let scrollY = this._scrollY();
 
@@ -39,8 +38,6 @@ class TerrafarmApp extends React.Component {
     }, 25);
   }
   _handleHideMenu = (event) => {
-    // block this while debugging Menu
-    return false;
     let {transEndEventNames} = this.props;
     let {perspectiveWrapper, container, contentWrapper} = this.refs;
 
