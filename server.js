@@ -9,7 +9,7 @@ const APP_PORT = 3000;
 const GRAPHQL_PORT = 8080;
 
 // Expose a GraphQL endpoint
-var graphQLServer = express();
+const graphQLServer = express();
 graphQLServer.use('/', graphQLHTTP({
   graphiql: true,
   pretty: true,
@@ -20,7 +20,7 @@ graphQLServer.listen(GRAPHQL_PORT, () => console.log(
 ));
 
 // Serve the Relay app
-var compiler = webpack({
+const compiler = webpack({
   entry: path.resolve(__dirname, 'js', 'app.js'),
   module: {
     loaders: [
@@ -36,15 +36,15 @@ var compiler = webpack({
       {
         test: /\.svg$/, loader: 'url-loader?limit=10000',
       },
-    ]
+    ],
   },
-  output: {filename: 'app.js', path: '/'}
+  output: {filename: 'app.js', path: '/'},
 });
-var app = new WebpackDevServer(compiler, {
+const app = new WebpackDevServer(compiler, {
   contentBase: '/public/',
   proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
   publicPath: '/js/',
-  stats: {colors: true, chunks: false}
+  stats: {colors: true, chunks: false},
 });
 // Serve static resources
 app.use('/', express.static(path.resolve(__dirname, 'public')));

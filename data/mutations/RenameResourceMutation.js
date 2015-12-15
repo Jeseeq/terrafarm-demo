@@ -6,7 +6,6 @@ import {
 
 import {
   fromGlobalId,
-  cursorForObjectInConnection,
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
@@ -27,10 +26,10 @@ export default mutationWithClientMutationId({
     resource: {
       type: ResourceType,
       resolve: ({localResourceId}) => getResource(localResourceId),
-    }
+    },
   },
   mutateAndGetPayload: ({id, name}) => {
-    var localResourceId = fromGlobalId(id).id;
+    const localResourceId = fromGlobalId(id).id;
     renameResource(localResourceId, name);
     return {localResourceId};
   },

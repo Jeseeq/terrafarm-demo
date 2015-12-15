@@ -28,15 +28,14 @@ class NewUserPanel extends React.Component {
       return <div>
         <h5>Name</h5>
         <TextInput
-          autoFocus={true}
+          autoFocus
           onSave={this._handleTextInputSave}
-          placeholder='Smith'
+          placeholder={'Smith'}
         />
         <button onClick={this._toggleEditMode}>Cancel</button>
       </div>;
-    } else {
-      return <button onClick={this._toggleEditMode}>New User</button>;
     }
+    return <button onClick={this._toggleEditMode}>New User</button>;
   }
 }
 

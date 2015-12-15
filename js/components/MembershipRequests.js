@@ -20,7 +20,7 @@ class MembershipRequests extends React.Component {
     );
   }
   _handleDeclineMembershipRequest = (user) => {
-     Relay.Store.update(
+    Relay.Store.update(
       new CancelPendingUserToGroupMutation({
         user: user,
         group: this.props.group,
@@ -28,7 +28,7 @@ class MembershipRequests extends React.Component {
     );
   }
   render () {
-    var {group} = this.props;
+    const {group} = this.props;
     return <div>
       <h3>Pending Users</h3>
       <ul>
@@ -63,6 +63,5 @@ export default Relay.createContainer(MembershipRequests, {
     `,
   },
 });
-
 
 

@@ -1,6 +1,5 @@
 import {
   GraphQLObjectType,
-  GraphQLString,
 } from 'graphql';
 
 import {

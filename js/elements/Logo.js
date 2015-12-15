@@ -4,7 +4,7 @@ import styles from './Logo.css';
 
 export default class Logo extends React.Component {
   render () {
-    var {onClick, onTouchTap} = this.props;
+    const {onClick, onTouchTap} = this.props;
 
     return <div className={styles.this} onClick={onClick} onTouchTap={onTouchTap}>
       <h1>Show menu</h1>

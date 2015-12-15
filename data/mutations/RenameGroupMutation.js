@@ -6,7 +6,6 @@ import {
 
 import {
   fromGlobalId,
-  cursorForObjectInConnection,
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
@@ -27,10 +26,10 @@ export default mutationWithClientMutationId({
     group: {
       type: GroupType,
       resolve: ({localGroupId}) => getGroup(localGroupId),
-    }
+    },
   },
   mutateAndGetPayload: ({id, name}) => {
-    var localGroupId = fromGlobalId(id).id;
+    const localGroupId = fromGlobalId(id).id;
     renameGroup(localGroupId, name);
     return {localGroupId};
   },

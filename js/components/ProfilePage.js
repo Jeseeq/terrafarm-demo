@@ -9,8 +9,8 @@ import styles from './ProfilePage.css';
 
 class ProfilePage extends React.Component {
   render () {
-    var {viewer, master} = this.props;
-    var {user} = viewer;
+    const {viewer, master} = this.props;
+    const {user} = viewer;
 
     return <div>
       <h2 className={styles.heading}>{user.name}</h2>
@@ -85,6 +85,4 @@ export default Relay.createContainer(ProfilePage, {
     `,
   },
 });
-
-
 

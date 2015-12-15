@@ -42,8 +42,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ({resourceId, groupId}) => {
-    var localResourceId = fromGlobalId(resourceId).id;
-    var localGroupId = fromGlobalId(groupId).id;
+    const localResourceId = fromGlobalId(resourceId).id;
+    const localGroupId = fromGlobalId(groupId).id;
     disconnectResourceFromGroup(localResourceId, localGroupId);
     return { localResourceId, localGroupId };
   },

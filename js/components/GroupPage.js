@@ -16,7 +16,7 @@ class GroupPage extends React.Component {
     );
   }
   _handleCancelMembershipRequest = () => {
-     Relay.Store.update(
+    Relay.Store.update(
       new CancelPendingUserToGroupMutation({
         user: this.props.viewer.user,
         group: this.props.group,
@@ -24,11 +24,11 @@ class GroupPage extends React.Component {
     );
   }
   _getMemberControls () {
-    var {group, viewer} = this.props;
-    var {users, usersPending} = group;
-    var {user} = viewer;
-    var isMember = users.edges.find(edge => edge.node.id === user.id);
-    var isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
+    const {group, viewer} = this.props;
+    const {users, usersPending} = group;
+    const {user} = viewer;
+    const isMember = users.edges.find(edge => edge.node.id === user.id);
+    const isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
 
     if (isMember) {
       return <div>
@@ -36,14 +36,13 @@ class GroupPage extends React.Component {
         <CommitResourcesPanel group={group} viewer={viewer} />
       </div>;
     } else if (isPendingMember) {
-      return <button onClick={this._handleCancelMembershipRequest}>Cancel Membership Request</button>
-    } else {
-      return <button onClick={this._handleRequestMembership}>Request Membership</button>;
+      return <button onClick={this._handleCancelMembershipRequest}>Cancel Membership Request</button>;
     }
+    return <button onClick={this._handleRequestMembership}>Request Membership</button>;
   }
   render () {
-    var {group} = this.props;
-    var memberControls = this._getMemberControls();
+    const {group} = this.props;
+    const memberControls = this._getMemberControls();
     return <div>
       <h2>{group.name}</h2>
       <h3>Users</h3>

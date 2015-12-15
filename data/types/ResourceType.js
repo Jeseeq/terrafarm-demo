@@ -54,7 +54,7 @@ export const ResourceType = registerType(new GraphQLObjectType({
 
 export const {
   connectionType: ResourceConnection,
-  edgeType: ResourceEdge
+  edgeType: ResourceEdge,
 } = connectionDefinitions({
   name: 'Resource',
   nodeType: ResourceType,

@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 
 class UserPage extends React.Component {
   render () {
-    var {user} = this.props;
+    const {user} = this.props;
     return <div>
       <h2>{user.name}</h2>
       <h3>Resources</h3>
@@ -47,7 +47,7 @@ export default Relay.createContainer(UserPage, {
         },
       }
     `,
-  }
+  },
 });
 
 

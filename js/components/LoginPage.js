@@ -1,12 +1,11 @@
 import AuthenticateViewerMutation from '../mutations/AuthenticateViewerMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import {Link} from 'react-router';
 import NewUserPanel from './NewUserPanel';
 
 class LoginPage extends React.Component {
   _handleLogin (user) {
-    var {viewer} = this.props;
+    const {viewer} = this.props;
     Relay.Store.update(
       new AuthenticateViewerMutation({
         viewer: viewer,
@@ -16,8 +15,8 @@ class LoginPage extends React.Component {
   }
   render () {
     // if viewer is authenticated show log out button
-    var {master} = this.props;
-    var {users} = master;
+    const {master} = this.props;
+    const {users} = master;
 
     return <div>
       <h2>Login</h2>

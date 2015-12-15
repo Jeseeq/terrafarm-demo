@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 
 class ResourcePage extends React.Component {
   render () {
-    var {resource} = this.props;
+    const {resource} = this.props;
     return <div>
       <h2>{resource.name}</h2>
       <h3>Users</h3>
@@ -48,8 +48,8 @@ export default Relay.createContainer(ResourcePage, {
           }
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 

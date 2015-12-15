@@ -30,10 +30,10 @@ export default mutationWithClientMutationId({
     viewer: {
       type: ViewerType,
       resolve: () => getViewer(),
-    }
+    },
   },
   mutateAndGetPayload: ({userId}) => {
-    var localUserId = fromGlobalId(userId).id;
+    const localUserId = fromGlobalId(userId).id;
     authenticateViewer(localUserId);
     return {localUserId};
   },

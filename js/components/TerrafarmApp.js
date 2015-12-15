@@ -1,12 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {Link, IndexLink} from 'react-router';
 import Menu from '../elements/Menu';
-import Lorem from 'react-lorem-component';
+// import Lorem from 'react-lorem-component';
 
 import classNames from 'classnames/bind';
 import styles from './TerrafarmApp.css';
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 class TerrafarmApp extends React.Component {
   constructor (props) {
@@ -22,9 +21,9 @@ class TerrafarmApp extends React.Component {
   _scrollY () {
     return window.pageYOffset || window.document.documentElement.scrollTop;
   }
-  _handleShowMenu = (event) => {
+  _handleShowMenu = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-    let scrollY = this._scrollY();
+    const scrollY = this._scrollY();
 
     this.setState({
       docScroll: scrollY,
@@ -37,13 +36,13 @@ class TerrafarmApp extends React.Component {
       });
     }, 25);
   }
-  _handleHideMenu = (event) => {
-    let {transEndEventNames} = this.props;
-    let {perspectiveWrapper, container, contentWrapper} = this.refs;
+  _handleHideMenu = () => {
+    const {transEndEventNames} = this.props;
+    const {perspectiveWrapper, container} = this.refs;
 
     this.setState({transform: true});
     if (this.state.animate) {
-      let onEndTransFn = (event) => {
+      const onEndTransFn = (event) => {
         if (event.target !== container || event.propertyName.indexOf('transform') === -1) return;
 
         for (let i = 0; i < transEndEventNames.length; i += 1) {
@@ -70,33 +69,33 @@ class TerrafarmApp extends React.Component {
     return false;
   }
   render () {
-    var {viewer} = this.props;
-    var {user} = viewer;
-    var loggedIn = user && user.name !== 'Guest';
-    var perspectiveClass = cx({
+    const {viewer} = this.props;
+    const {user} = viewer;
+    const loggedIn = user && user.name !== 'Guest';
+    const perspectiveClass = cx({
       perspective: true,
       'effect-movedown': true,
       modalview: this.state.modalview,
       animate: this.state.animate,
     });
-    var containerClass = cx({
+    const containerClass = cx({
       container: true,
       transform: this.state.transform,
     });
 
     return (
       <div
-        ref='perspectiveWrapper'
+        ref={'perspectiveWrapper'}
         className={perspectiveClass}
         onTouchTap={this._handleNullTap}
       >
         <div
-          ref='container'
+          ref={'container'}
           className={containerClass}
           onTouchTap={this._handleHideMenu}
         >
           <div
-            ref='contentWrapper'
+            ref={'contentWrapper'}
             className={cx({wrapper: true})}
             style={{top: this.state.contentScroll}}
           >
@@ -127,9 +126,9 @@ TerrafarmApp.defaultProps = {
     'transitionend',
     'oTransitionEnd',
     'MSTransitionEnd',
-    'transitionend'
+    'transitionend',
   ],
-}
+};
 
 export default Relay.createContainer(TerrafarmApp, {
   fragments: {

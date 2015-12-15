@@ -28,22 +28,22 @@ export default mutationWithClientMutationId({
     groupEdge: {
       type: GroupEdge,
       resolve: ({localResourceId, localGroupId}) => {
-        var resource = getResource(localResourceId);
-        var group = getGroup(localGroupId);
+        const resource = getResource(localResourceId);
+        const group = getGroup(localGroupId);
         return {
           cursor: cursorForObjectInConnection(
-            resource.groups.map(id => getGroup(id)), 
+            resource.groups.map(id => getGroup(id)),
             group
           ),
           node: group,
-        }
+        };
       },
     },
     resourceEdge: {
       type: ResourceEdge,
       resolve: ({localGroupId, localResourceId}) => {
-        var group = getGroup(localGroupId);
-        var resource = getResource(localResourceId);
+        const group = getGroup(localGroupId);
+        const resource = getResource(localResourceId);
         return {
           cursor: cursorForObjectInConnection(
             group.resources.map(id => getResource(id)),
@@ -51,7 +51,7 @@ export default mutationWithClientMutationId({
           ),
           node: resource,
         };
-      }
+      },
     },
     resource: {
       type: ResourceType,
@@ -63,8 +63,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ({resourceId, groupId}) => {
-    var localResourceId = fromGlobalId(resourceId).id;
-    var localGroupId = fromGlobalId(groupId).id;
+    const localResourceId = fromGlobalId(resourceId).id;
+    const localGroupId = fromGlobalId(groupId).id;
     connectResourceToGroup(localResourceId, localGroupId);
     return { localResourceId, localGroupId };
   },

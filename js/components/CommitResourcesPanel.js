@@ -13,8 +13,8 @@ class CommitResourcesPanel extends React.Component {
     );
   }
   render () {
-    var {viewer} = this.props;
-    var {user} = viewer;
+    const {viewer} = this.props;
+    const {user} = viewer;
 
     return <div>
       <h3>My Resources</h3>

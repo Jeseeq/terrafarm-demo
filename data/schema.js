@@ -15,9 +15,9 @@ import {
 } from './database';
 
 import {nodeField} from './types/node';
-import {UserType, UserConnection, UserEdge} from './types/UserType';
-import {ResourceType, ResourceConnection, ResourceEdge} from './types/ResourceType';
-import {GroupType, GroupConnection, GroupEdge} from './types/GroupType';
+import {UserType} from './types/UserType';
+import {ResourceType} from './types/ResourceType';
+import {GroupType} from './types/GroupType';
 import MasterType from './types/MasterType';
 import ViewerType from './types/ViewerType';
 
@@ -34,7 +34,7 @@ import ConnectResourceToGroupMutation from './mutations/ConnectResourceToGroupMu
 import DisconnectUserFromGroupMutation from './mutations/DisconnectUserFromGroupMutation';
 import DisconnectResourceFromGroupMutation from './mutations/DisconnectResourceFromGroupMutation';
 
-var Root = new GraphQLObjectType({
+const Root = new GraphQLObjectType({
   name: 'Root',
   fields: {
     master: {
@@ -48,30 +48,30 @@ var Root = new GraphQLObjectType({
     user: {
       type: UserType,
       args: {
-        userId: { type: GraphQLString, },
+        userId: { type: GraphQLString },
       },
       resolve: (_, {userId}) => {
-        var id = fromGlobalId(userId).id;
+        const id = fromGlobalId(userId).id;
         return getUser(id);
       },
     },
     resource: {
       type: ResourceType,
       args: {
-        resourceId: { type: GraphQLString, },
+        resourceId: { type: GraphQLString },
       },
       resolve: (_, {resourceId}) => {
-        var id = fromGlobalId(resourceId).id;
+        const id = fromGlobalId(resourceId).id;
         return getResource(id);
       },
     },
     group: {
       type: GroupType,
       args: {
-        groupId: { type: GraphQLString, },
+        groupId: { type: GraphQLString },
       },
       resolve: (_, {groupId}) => {
-        var id = fromGlobalId(groupId).id;
+        const id = fromGlobalId(groupId).id;
         return getGroup(id);
       },
     },
@@ -79,7 +79,7 @@ var Root = new GraphQLObjectType({
   },
 });
 
-var Mutation = new GraphQLObjectType({
+const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     authenticateViewer: AuthenticateViewerMutation,
@@ -97,7 +97,7 @@ var Mutation = new GraphQLObjectType({
   }),
 });
 
-export var Schema = new GraphQLSchema({
+export const Schema = new GraphQLSchema({
   query: Root,
   mutation: Mutation,
 });

@@ -1,0 +1,28 @@
+{
+    extends: defaults/configurations/airbnb,
+    ecmaFeatures: {
+        modules: true,
+    },
+    rules: {
+        space-before-function-paren: [2, always],
+        no-unused-expressions: [2, { allowTernary: true }],
+        no-console: 0,
+        react/wrap-multilines: 0,
+        react/prop-types: 0,
+        react/sort-comp: [1, {
+            order: [
+                lifecycle,
+                /^on.+$/,
+                everything-else,
+                rendering,
+            ],
+            groups: {
+                rendering: [
+                    /^render.+$/,
+                    render,
+                ],
+            },
+        }],
+    },
+}
+

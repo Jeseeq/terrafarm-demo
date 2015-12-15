@@ -47,7 +47,7 @@ export default class ConnectUserToGroupMutation extends Relay.Mutation {
         rangeBehaviors: {
           '': 'append',
         },
-      }
+      },
     ];
   }
   getVariables () {

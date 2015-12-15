@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var {PropTypes} = React;
+const {PropTypes} = React;
 
-var ENTER_KEY_CODE = 13;
-var ESC_KEY_CODE = 27;
+const ENTER_KEY_CODE = 13;
+const ESC_KEY_CODE = 27;
 
 export default class TextInput extends React.Component {
-  static defaultProps = {
-    commitOnBlur: false,
-  }
   static propTypes = {
     style: PropTypes.object,
     commitOnBlur: PropTypes.bool.isRequired,
@@ -19,15 +16,18 @@ export default class TextInput extends React.Component {
     onSave: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
   }
+  static defaultProps = {
+    commitOnBlur: false,
+  }
   state = {
     isEditing: false,
     text: this.props.initialValue || '',
   };
-  componentDidMount() {
+  componentDidMount () {
     ReactDOM.findDOMNode(this).focus();
   }
   _commitChanges = () => {
-    var newText = this.state.text.trim();
+    const newText = this.state.text.trim();
     if (this.props.onDelete && newText === '') {
       this.props.onDelete();
     } else if (this.props.onCancel && newText === this.props.initialValue) {
@@ -52,7 +52,7 @@ export default class TextInput extends React.Component {
       this._commitChanges();
     }
   }
-  render() {
+  render () {
     return (
       <input
         style={this.props.style}

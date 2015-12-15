@@ -42,8 +42,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ({userId, groupId}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localGroupId = fromGlobalId(groupId).id;
+    const localUserId = fromGlobalId(userId).id;
+    const localGroupId = fromGlobalId(groupId).id;
     cancelPendingUserToGroup(localUserId, localGroupId);
     return { localUserId, localGroupId };
   },

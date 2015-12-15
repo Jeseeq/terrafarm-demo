@@ -31,8 +31,8 @@ export default mutationWithClientMutationId({
     resourceEdge: {
       type: ResourceEdge,
       resolve: ({localResourceId}) => {
-        var master = getMaster();
-        var resource = getResource(localResourceId);
+        const master = getMaster();
+        const resource = getResource(localResourceId);
         return {
           cursor: cursorForObjectInConnection(
             master.resources.map(id => getResource(id)),
@@ -40,7 +40,7 @@ export default mutationWithClientMutationId({
           ),
           node: resource,
         };
-      }
+      },
     },
     user: {
       type: UserType,
@@ -49,11 +49,11 @@ export default mutationWithClientMutationId({
     master: {
       type: MasterType,
       resolve: () => getMaster(),
-    }
+    },
   },
   mutateAndGetPayload: ({userId, resourceName}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localResourceId = createResource(localUserId, resourceName);
+    const localUserId = fromGlobalId(userId).id;
+    const localResourceId = createResource(localUserId, resourceName);
     return {localUserId, localResourceId};
   },
 });

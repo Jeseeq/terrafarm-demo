@@ -28,7 +28,7 @@ class EditResourcePanel extends React.Component {
     });
   }
   render () {
-    var {resource} = this.props;
+    const {resource} = this.props;
     if (this.state.editMode) {
       return <div>
         <TextInput
@@ -36,13 +36,12 @@ class EditResourcePanel extends React.Component {
           onSave={this._handleRename}
         />
         <button onClick={this._toggleEditMode}>Cancel</button>
-      </div>
-    } else {
-      return <div>
-        <Link to={`/resource/${resource.id}`}>{resource.name}</Link>
-        <button onClick={this._toggleEditMode}>Edit</button>
       </div>;
     }
+    return <div>
+      <Link to={`/resource/${resource.id}`}>{resource.name}</Link>
+      <button onClick={this._toggleEditMode}>Edit</button>
+    </div>;
   }
 }
 

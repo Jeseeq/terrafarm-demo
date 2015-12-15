@@ -15,9 +15,10 @@ Define the core [practices](https://github.com/linuxfoundation/cii-best-practice
 - [x] running
 - [ ] developing
   - [ ] add directory-specific READMEs and TEMPLATEs
+  - [ ] add `npm restart`
 - [x] contributing
 - [x] license
-- [ ] roadmap
+- [x] roadmap
 - [ ] project website
 
 ### UI Design
@@ -92,10 +93,6 @@ Use a javascript file as a mock database.
   - [x] new edge on resource
   - [x] new edge on group
 
-### Tooling
-
-- [ ] ESLint
-- [ ] `npm restart`
 
 ## 0.2
 

@@ -37,7 +37,7 @@ class EditGroupPanel extends React.Component {
     );
   }
   render () {
-    var {group} = this.props;
+    const {group} = this.props;
     if (this.state.editMode) {
       return <div>
         <TextInput
@@ -47,12 +47,11 @@ class EditGroupPanel extends React.Component {
         <button onClick={this._handleDisconnectUserFromGroup}>Disconnect</button>
         <button onClick={this._toggleEditMode}>Cancel</button>
       </div>;
-    } else {
-      return <div>
-        <Link to={`/group/${group.id}`}>{group.name}</Link>
-        <button onClick={this._toggleEditMode}>Edit</button>
-      </div>;
     }
+    return <div>
+      <Link to={`/group/${group.id}`}>{group.name}</Link>
+      <button onClick={this._toggleEditMode}>Edit</button>
+    </div>;
   }
 }
 

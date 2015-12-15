@@ -8,7 +8,7 @@ const MASTER_ID = 'earth';
 const VIEWER_ID = 'me';
 
 // Mock data
-var jane = Object.assign(
+const jane = Object.assign(
   new User(), {
     id: '1',
     name: 'Jane',
@@ -17,16 +17,16 @@ var jane = Object.assign(
     groupsPending: [],
   }
 );
-var joe = Object.assign(
+const joe = Object.assign(
   new User(), {
     id: '2',
     name: 'Joe',
     resources: ['2'],
     groups: ['1'],
-    groupsPending: []
+    groupsPending: [],
   }
 );
-var hank = Object.assign(
+const hank = Object.assign(
   new User(), {
     id: '3',
     name: 'Hank',
@@ -35,7 +35,7 @@ var hank = Object.assign(
     groupsPending: [],
   }
 );
-var guest = Object.assign(
+const guest = Object.assign(
   new User(), {
     id: '4',
     name: 'Guest',
@@ -44,7 +44,7 @@ var guest = Object.assign(
     groupsPending: [],
   }
 );
-var shovel = Object.assign(
+const shovel = Object.assign(
   new Resource(), {
     id: '1',
     name: 'Shovel',
@@ -53,7 +53,7 @@ var shovel = Object.assign(
     // groupsPending: [],
   }
 );
-var muscle = Object.assign(
+const muscle = Object.assign(
   new Resource(), {
     id: '2',
     name: 'Muscle',
@@ -62,7 +62,7 @@ var muscle = Object.assign(
     // groupsPending: [],
   }
 );
-var land = Object.assign(
+const land = Object.assign(
   new Resource(), {
     id: '3',
     name: 'Land',
@@ -71,18 +71,18 @@ var land = Object.assign(
     // groupsPending: [],
   }
 );
-var purple = Object.assign(
+const purple = Object.assign(
   new Group(), {
     id: '1',
     name: 'Purple',
-    users: ['1','2','3'],
+    users: ['1', '2', '3'],
     usersPending: [],
-    resources: ['1','2','3'],
+    resources: ['1', '2', '3'],
     // resourcesPending: [],
   },
 );
 
-var data = {
+const data = {
   User: {
     1: jane,
     2: joe,
@@ -99,7 +99,7 @@ var data = {
   },
 };
 
-var master = Object.assign(
+const master = Object.assign(
   new Master(), {
     id: MASTER_ID,
     users: Object.keys(data.User),
@@ -108,7 +108,7 @@ var master = Object.assign(
   }
 );
 
-var viewer = Object.assign(
+const viewer = Object.assign(
   new Viewer(), {
     id: VIEWER_ID,
     userId: '4',
@@ -141,7 +141,7 @@ export function authenticateViewer (userId) {
 }
 
 export function createUser (userName) {
-  var newUser = Object.assign(new User(), {
+  const newUser = Object.assign(new User(), {
     id: String(Object.keys(data.User).length + 1),
     name: userName,
     resources: [],
@@ -154,13 +154,13 @@ export function createUser (userName) {
 }
 
 export function createResource (userId, resourceName) {
-  var newResource = Object.assign(new Resource(), {
+  const newResource = Object.assign(new Resource(), {
     id: String(Object.keys(data.Resource).length + 1),
     name: resourceName,
     users: [userId],
     groups: [],
   });
-  var user = getUser(userId);
+  const user = getUser(userId);
   user.resources.push(newResource.id);
   master.resources.push(newResource.id);
   data.Resource[newResource.id] = newResource;
@@ -168,14 +168,14 @@ export function createResource (userId, resourceName) {
 }
 
 export function createGroup (userId, groupName) {
-  var newGroup = Object.assign(new Group(), {
+  const newGroup = Object.assign(new Group(), {
     id: String(Object.keys(data.Group).length + 1),
     name: groupName,
     users: [userId],
     usersPending: [],
     resources: [],
   });
-  var user = getUser(userId);
+  const user = getUser(userId);
   user.groups.push(newGroup.id);
   master.groups.push(newGroup.id);
   data.Group[newGroup.id] = newGroup;
@@ -183,28 +183,29 @@ export function createGroup (userId, groupName) {
 }
 
 export function renameResource (id, name) {
-  var resource = getResource(id);
+  const resource = getResource(id);
   resource.name = name;
 }
 
 export function renameGroup (id, name) {
-  var group = getGroup(id);
+  const group = getGroup(id);
   group.name = name;
 }
 
 export function pendingUserToGroup (userId, groupId) {
-  var user = getUser(userId);
-  var group = getGroup(groupId);
-  var userIndex = group.users.indexOf(userId);
-  var groupIndex = user.groups.indexOf(groupId);
-  var userPendingIndex = group.usersPending.indexOf(userId);
-  var groupPendingIndex = user.groupsPending.indexOf(groupId);
+  const user = getUser(userId);
+  const group = getGroup(groupId);
+  const userIndex = group.users.indexOf(userId);
+  const groupIndex = user.groups.indexOf(groupId);
+  const userPendingIndex = group.usersPending.indexOf(userId);
+  const groupPendingIndex = user.groupsPending.indexOf(groupId);
 
   if (userIndex > -1
       || groupIndex > -1
       || userPendingIndex > -1
       || groupPendingIndex > -1) {
-    return console.error('Error: user', user.id, ' and group', group.id, 'already pending or connected.');
+    console.error('Error: user', user.id, ' and group', group.id, 'already pending or connected.');
+    return;
   }
 
   user.groupsPending.push(groupId);
@@ -212,10 +213,10 @@ export function pendingUserToGroup (userId, groupId) {
 }
 
 export function cancelPendingUserToGroup (userId, groupId) {
-  var user = getUser(userId);
-  var group = getGroup(groupId);
-  var userIndex = group.usersPending.indexOf(userId);
-  var groupIndex = user.groupsPending.indexOf(groupId);
+  const user = getUser(userId);
+  const group = getGroup(groupId);
+  const userIndex = group.usersPending.indexOf(userId);
+  const groupIndex = user.groupsPending.indexOf(groupId);
 
   if (userIndex === -1 || groupIndex === -1) {
     return console.error('Error: user', user.id, ' and group', group.id, 'already not pending.');
@@ -226,10 +227,10 @@ export function cancelPendingUserToGroup (userId, groupId) {
 }
 
 export function connectUserToGroup (userId, groupId) {
-  var user = getUser(userId);
-  var group = getGroup(groupId);
-  var userIndex = group.users.indexOf(userId);
-  var groupIndex = user.groups.indexOf(groupId);
+  const user = getUser(userId);
+  const group = getGroup(groupId);
+  const userIndex = group.users.indexOf(userId);
+  const groupIndex = user.groups.indexOf(groupId);
 
   if (userIndex > -1 || groupIndex > -1) {
     return console.error('Error: user', user.id, ' and group', group.id, 'already connected.');
@@ -240,10 +241,10 @@ export function connectUserToGroup (userId, groupId) {
 }
 
 export function connectResourceToGroup (resourceId, groupId) {
-  var resource = getResource(resourceId);
-  var group = getGroup(groupId);
-  var resourceIndex = group.resources.indexOf(resourceId);
-  var groupIndex = resource.groups.indexOf(groupId);
+  const resource = getResource(resourceId);
+  const group = getGroup(groupId);
+  const resourceIndex = group.resources.indexOf(resourceId);
+  const groupIndex = resource.groups.indexOf(groupId);
 
   if (resourceIndex > -1 || groupIndex > -1) {
     return console.error('Error: resource', resource.id, ' and group', group.id, 'already connected.');
@@ -254,10 +255,10 @@ export function connectResourceToGroup (resourceId, groupId) {
 }
 
 export function disconnectUserFromGroup (userId, groupId) {
-  var user = getUser(userId);
-  var group = getGroup(groupId);
-  var userIndex = group.users.indexOf(userId);
-  var groupIndex = user.groups.indexOf(groupId);
+  const user = getUser(userId);
+  const group = getGroup(groupId);
+  const userIndex = group.users.indexOf(userId);
+  const groupIndex = user.groups.indexOf(groupId);
 
   if (userIndex === -1 || groupIndex === -1) {
     return console.error('Error: user', user.id, ' and group', group.id, 'already not connected.');
@@ -268,10 +269,10 @@ export function disconnectUserFromGroup (userId, groupId) {
 }
 
 export function disconnectResourceFromGroup (resourceId, groupId) {
-  var resource = getResource(resourceId);
-  var group = getGroup(groupId);
-  var resourceIndex = group.resources.indexOf(resourceId);
-  var groupIndex = resource.groups.indexOf(groupId);
+  const resource = getResource(resourceId);
+  const group = getGroup(groupId);
+  const resourceIndex = group.resources.indexOf(resourceId);
+  const groupIndex = resource.groups.indexOf(groupId);
 
   if (resourceIndex === -1 || groupIndex === -1) {
     return console.error('Error: resource', resource.id, ' and group', group.id, 'already not connected.');

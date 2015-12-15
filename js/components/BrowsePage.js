@@ -4,8 +4,8 @@ import {Link} from 'react-router';
 
 class BrowsePage extends React.Component {
   render () {
-    var {master} = this.props;
-    var {users, resources, groups} = master;
+    const {master} = this.props;
+    const {users, resources, groups} = master;
 
     return <div>
       <h2>Browse</h2>

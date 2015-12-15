@@ -28,22 +28,22 @@ export default mutationWithClientMutationId({
     groupEdge: {
       type: GroupEdge,
       resolve: ({localUserId, localGroupId}) => {
-        var user = getUser(localUserId);
-        var group = getGroup(localGroupId);
+        const user = getUser(localUserId);
+        const group = getGroup(localGroupId);
         return {
           cursor: cursorForObjectInConnection(
-            user.groups.map(id => getGroup(id)), 
+            user.groups.map(id => getGroup(id)),
             group
           ),
           node: group,
-        }
+        };
       },
     },
     userEdge: {
       type: UserEdge,
       resolve: ({localGroupId, localUserId}) => {
-        var group = getGroup(localGroupId);
-        var user = getUser(localUserId);
+        const group = getGroup(localGroupId);
+        const user = getUser(localUserId);
         return {
           cursor: cursorForObjectInConnection(
             group.users.map(id => getUser(id)),
@@ -51,7 +51,7 @@ export default mutationWithClientMutationId({
           ),
           node: user,
         };
-      }
+      },
     },
     user: {
       type: UserType,
@@ -63,8 +63,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ({userId, groupId}) => {
-    var localUserId = fromGlobalId(userId).id;
-    var localGroupId = fromGlobalId(groupId).id;
+    const localUserId = fromGlobalId(userId).id;
+    const localGroupId = fromGlobalId(groupId).id;
     connectUserToGroup(localUserId, localGroupId);
     return { localUserId, localGroupId };
   },

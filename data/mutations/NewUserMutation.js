@@ -1,11 +1,9 @@
 import {
   GraphQLNonNull,
-  GraphQLID,
   GraphQLString,
 } from 'graphql';
 
 import {
-  fromGlobalId,
   cursorForObjectInConnection,
   mutationWithClientMutationId,
 } from 'graphql-relay';
@@ -28,8 +26,8 @@ export default mutationWithClientMutationId({
     userEdge: {
       type: UserEdge,
       resolve: ({localUserId}) => {
-        var master = getMaster();
-        var user = getUser(localUserId);
+        const master = getMaster();
+        const user = getUser(localUserId);
         return {
           cursor: cursorForObjectInConnection(
             master.users.map(id => getUser(id)),
@@ -37,7 +35,7 @@ export default mutationWithClientMutationId({
           ),
           node: user,
         };
-      }
+      },
     },
     master: {
       type: MasterType,
@@ -45,7 +43,7 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ({userName}) => {
-    var localUserId = createUser(userName);
+    const localUserId = createUser(userName);
     return {localUserId};
   },
 });

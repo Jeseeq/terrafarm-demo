@@ -1,18 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router';
-import GSAP from 'gsap';
+import {TweenMax, TimelineMax, Quint, Quad, Elastic} from 'gsap';
 
 import classNames from 'classnames/bind';
 import styles from './Menu.css';
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 TweenMax.globalTimeScale(0.8);
 
 export default class Menu extends React.Component {
   constructor (props) {
     super(props);
-    var angle = 120;
-    var menuItems = ['login', 'profile', 'browse'];
+    const angle = 120;
+    const menuItems = ['login', 'profile', 'browse'];
 
     this.state = {
       angle: angle,
@@ -27,19 +27,18 @@ export default class Menu extends React.Component {
     event.preventDefault();
     event.stopPropagation();
 
-    var t = new TimelineMax();
+    const t = new TimelineMax();
     t.to(this['toggle-icon'], 0.1, {scale: 0.65});
 
     this._handlePress(event);
   }
-  _handleIconScaleUp = (event) => {
-    var t = new TimelineMax();
+  _handleIconScaleUp = () => {
+    const t = new TimelineMax();
     t.to(this['toggle-icon'], 0.1, {scale: 1});
   }
   _handlePress = (event) => {
-    console.log('press');
-    var on = !this.state.on;
-    var t = new TimelineMax();
+    const on = !this.state.on;
+    const t = new TimelineMax();
 
     this.setState({on: on});
 
@@ -53,11 +52,11 @@ export default class Menu extends React.Component {
   }
   _openMenu (event) {
     this.props.onShow(event);
-    var menuButtons = this.state.menuItems.map((menuItem, i) => this['menu-item-button-'+i]);
-    var menuBounces = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-'+i]);
-    var delay = 0.08;
-    var t1 = new TimelineMax();
-    var t2 = new TimelineMax();
+    const menuButtons = this.state.menuItems.map((menuItem, i) => this['menu-item-button-' + i]);
+    const menuBounces = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-' + i]);
+    const delay = 0.08;
+    const t1 = new TimelineMax();
+    const t2 = new TimelineMax();
 
     t1.staggerTo(menuButtons, 0.5, {
       y: this.state.distance,
@@ -84,7 +83,7 @@ export default class Menu extends React.Component {
               scaleY: 0.8,
               force3D: true,
               ease: Elastic.easeOut,
-              easeParams:[1.1, 0.12],
+              easeParams: [1.1, 0.12],
             }, delay);
           },
         }, delay);
@@ -93,11 +92,11 @@ export default class Menu extends React.Component {
   }
   _closeMenu (event) {
     this.props.onHide(event);
-    var menuBounces = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-'+i]);
-    var menuButtons = this.state.menuItems.map((menuItem, i) => this['menu-item-button-'+i]);
-    var delay = 0.08;
-    var t1 = new TimelineMax();
-    var t2 = new TimelineMax();
+    const menuBounces = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-' + i]);
+    const menuButtons = this.state.menuItems.map((menuItem, i) => this['menu-item-button-' + i]);
+    const delay = 0.08;
+    const t1 = new TimelineMax();
+    const t2 = new TimelineMax();
 
     t1.staggerTo(menuButtons, 0.3, {
       y: 0,
@@ -132,33 +131,33 @@ export default class Menu extends React.Component {
     }, delay);
   }
   render () {
-    var goo = require('!!raw-loader!../images/goo.svg'); // fixes css filter (All browsers bug)
-    var menuItems = this.state.menuItems.map((item, i) => {
-      var angle = this.state.startingAngle + (this.state.slice * i);
+    const goo = require('!!raw-loader!../images/goo.svg'); // fixes css filter (All browsers bug)
+    const menuItems = this.state.menuItems.map((item, i) => {
+      const angle = this.state.startingAngle + (this.state.slice * i);
       return (
         <li
           key={i}
-          ref={c => this['menu-item-'+i] = c}
+          ref={c => this['menu-item-' + i] = c}
           className={styles['menu-item']}
-          style={{transform:'rotate('+(angle)+'deg)'}}
+          style={{transform: 'rotate(' + (angle) + 'deg)'}}
         >
-          <Link to={'/'+item}>
+          <Link to={'/' + item}>
             <button
-              ref={c => this['menu-item-button-'+i] = c}
+              ref={c => this['menu-item-button-' + i] = c}
               className={styles['menu-item-button']}
               onMouseUp={this._handlePress}
               onTouchEnd={this._handlePress}
             >
               <i
                 className={cx({'menu-item-icon': true, icon: true })}
-                style={{transform:'rotate('+(-angle)+'deg)'}}
+                style={{transform: 'rotate(' + (-angle) + 'deg)'}}
               >
                 {item.replace('-', ' ')}
               </i>
             </button>
           </Link>
           <div
-            ref={c => this['menu-item-bounce-'+i] = c}
+            ref={c => this['menu-item-bounce-' + i] = c}
             className={styles['menu-item-bounce']}
           />
         </li>

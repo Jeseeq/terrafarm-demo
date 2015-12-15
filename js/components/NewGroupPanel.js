@@ -20,7 +20,7 @@ class NewGroupPanel extends React.Component {
       new NewGroupMutation({
         groupName: text,
         user: this.props.user,
-        master: this.props.master
+        master: this.props.master,
       })
     );
     this.setState({
@@ -32,15 +32,14 @@ class NewGroupPanel extends React.Component {
       return <div>
         <h5>Name</h5>
         <TextInput
-          autoFocus={true}
+          autoFocus
           onSave={this._handleTextInputSave}
-          placeholder='Name'
+          placeholder={'Name'}
         />
         <button onClick={this._toggleEditMode}>Cancel</button>
       </div>;
-    } else {
-      return <button onClick={this._toggleEditMode}>New Group</button>;
     }
+    return <button onClick={this._toggleEditMode}>New Group</button>;
   }
 }
 
