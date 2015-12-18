@@ -16,6 +16,7 @@ class TerrafarmApp extends React.Component {
       modalview: false,
       animate: false,
       transform: false,
+      menuShouldClose: true,
     };
   }
   _scrollY () {
@@ -29,6 +30,7 @@ class TerrafarmApp extends React.Component {
       docScroll: scrollY,
       contentScroll: scrollY * -1,
       modalview: true,
+      menuShouldClose: false,
     });
     setTimeout(() => {
       this.setState({
@@ -40,7 +42,7 @@ class TerrafarmApp extends React.Component {
     const {transEndEventNames} = this.props;
     const {perspectiveWrapper, container} = this.refs;
 
-    this.setState({transform: true});
+    this.setState({transform: true, menuShouldClose: true});
     if (this.state.animate) {
       const onEndTransFn = (event) => {
         if (event.target !== container || event.propertyName.indexOf('transform') === -1) return;
@@ -110,6 +112,7 @@ class TerrafarmApp extends React.Component {
           })}
         >
           <MainMenu
+            shouldClose={this.state.menuShouldClose}
             loggedIn={loggedIn}
             onShow={this._handleShowMainMenu}
             onHide={this._handleHideMainMenu}

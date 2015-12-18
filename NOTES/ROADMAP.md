@@ -14,8 +14,7 @@ Demo version which runs locally.
   - [ ] position
   - [ ] color
   - [ ] icons
-  - [ ] collapse when user clicks content wrapper
-- [ ] style normalize or sanitize
+  - [x] collapse when user clicks content wrapper
 
 #### Profile Page and User Page
 - [ ] show/hide buttons on Groups and Resources

@@ -22,6 +22,11 @@ export default class MainMenu extends React.Component {
       on: false,
     };
   }
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.shouldClose && this.state.on) {
+      this._handlePress();
+    }
+  }
   _handleScaleDown = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -168,6 +173,7 @@ export default class MainMenu extends React.Component {
         className={styles.menu}
         onMouseUp={this._handleIconScaleUp}
         onTouchEnd={this._handleIconScaleUp}
+        onMouseLeave={this._handleIconScaleUp}
       >
         <div dangerouslySetInnerHTML={{__html: goo}} />
         <div className={styles['menu-wrapper']}>
@@ -193,6 +199,9 @@ export default class MainMenu extends React.Component {
 }
 
 MainMenu.propTypes = {
+  forceClose: React.PropTypes.bool,
   loggedIn: React.PropTypes.bool,
+  onShow: React.PropTypes.func,
+  onHide: React.PropTypes.func,
 };
 
