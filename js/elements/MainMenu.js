@@ -1,14 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {TweenMax, TimelineMax, Quint, Quad, Elastic} from 'gsap';
-
+import 'gsap'; /* global TweenMax TimelineMax Quint Quad Elastic*/
 import classNames from 'classnames/bind';
-import styles from './Menu.css';
+import styles from './MainMenu.css';
 const cx = classNames.bind(styles);
 
 TweenMax.globalTimeScale(0.8);
 
-export default class Menu extends React.Component {
+export default class MainMenu extends React.Component {
   constructor (props) {
     super(props);
     const angle = 120;
@@ -193,7 +192,7 @@ export default class Menu extends React.Component {
   }
 }
 
-Menu.propTypes = {
+MainMenu.propTypes = {
   loggedIn: React.PropTypes.bool,
 };
 

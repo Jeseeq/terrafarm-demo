@@ -34,7 +34,7 @@ class NewGroupPanel extends React.Component {
         <TextInput
           autoFocus
           onSave={this._handleTextInputSave}
-          placeholder={'Name'}
+          placeholder={'Some Name'}
         />
         <button onClick={this._toggleEditMode}>Cancel</button>
       </div>;

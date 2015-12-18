@@ -9,11 +9,10 @@ body,
 .perspective { position: relative; }
 
 .container {
-  background: #fff;
-  min-height: 100%;
-  position: relative;
+  position: relative; z-index: 10;
+  padding: 0 4%; min-height: 100%;
+  background: rgba(255,255,255,0.91);
   outline: 1px solid rgba(0,0,0,0);
-  z-index: 10;
 }
 .container.transform {
   -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */

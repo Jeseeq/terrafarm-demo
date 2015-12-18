@@ -3,6 +3,12 @@ import React from 'react';
 import Relay from 'react-relay';
 import NewUserPanel from './NewUserPanel';
 
+const styles = {
+  userName: {
+    cursor: 'pointer',
+  },
+};
+
 class LoginPage extends React.Component {
   _handleLogin (user) {
     const {viewer} = this.props;
@@ -23,7 +29,10 @@ class LoginPage extends React.Component {
       <h3>Username</h3>
       <ul>
         {users.edges.map(edge => <li key={edge.node.id}>
-          <span onClick={this._handleLogin.bind(this, edge.node)}>
+          <span
+            style={styles.userName}
+            onClick={this._handleLogin.bind(this, edge.node)}
+          >
             {edge.node.name}
           </span>
         </li>)}

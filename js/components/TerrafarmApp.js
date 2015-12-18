@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import Menu from '../elements/Menu';
+import MainMenu from '../elements/MainMenu';
 // import Lorem from 'react-lorem-component';
 
 import classNames from 'classnames/bind';
@@ -21,7 +21,7 @@ class TerrafarmApp extends React.Component {
   _scrollY () {
     return window.pageYOffset || window.document.documentElement.scrollTop;
   }
-  _handleShowMenu = () => {
+  _handleShowMainMenu = () => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     const scrollY = this._scrollY();
 
@@ -36,7 +36,7 @@ class TerrafarmApp extends React.Component {
       });
     }, 25);
   }
-  _handleHideMenu = () => {
+  _handleHideMainMenu = () => {
     const {transEndEventNames} = this.props;
     const {perspectiveWrapper, container} = this.refs;
 
@@ -92,7 +92,7 @@ class TerrafarmApp extends React.Component {
         <div
           ref={'container'}
           className={containerClass}
-          onTouchTap={this._handleHideMenu}
+          onTouchTap={this._handleHideMainMenu}
         >
           <div
             ref={'contentWrapper'}
@@ -109,10 +109,10 @@ class TerrafarmApp extends React.Component {
             horizontal: true,
           })}
         >
-          <Menu
+          <MainMenu
             loggedIn={loggedIn}
-            onShow={this._handleShowMenu}
-            onHide={this._handleHideMenu}
+            onShow={this._handleShowMainMenu}
+            onHide={this._handleHideMainMenu}
           />
         </nav>
       </div>
