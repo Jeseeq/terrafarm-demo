@@ -11,12 +11,36 @@ Demo version which runs locally.
 - [ ] chaos monkey
 
 ### UI Design
-- [x] [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).
+- [x] implement [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).
   - [ ] fix content wrapper scroll position
-- [x] [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
-- [ ] if not logged in, show login, else show logout
+- [x] implement [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
+  - [ ] if not logged in, show login, else show logout
+  - [ ] position
+  - [ ] color
+  - [ ] icons
+  - [ ] collapse when user clicks content wrapper
 - [ ] style normalize or sanitize
-- [ ] simple page layouts
+
+#### Profile Page and User Page
+- [ ] show/hide buttons on Groups and Resources
+- [ ] color bar next to group name
+- [ ] color dot next to resources to indicate group commitments
+
+#### Resource Page
+- [ ] resource description
+- [ ] new layout/style for user name
+
+#### Group Page
+- [ ] color bar next to user name
+- [ ] color dot next to resources to indicate user ownership
+
+#### New Resource Page
+- [ ] field for name
+- [ ] field for description
+
+#### New Group Page
+- [ ] field for name
+- [ ] field for description
 
 
 ## 0.2
@@ -25,21 +49,25 @@ First public release.
 
 ### UI Design
 
-Expand and enhance the user experience.
+More detail on basic user experience patterns.
 
 #### User Stories
 - [ ] group member creates membership invitation
 - [ ] user offers resource to group
   - [ ] auto-create membership request
   - [ ] group member approves/declines resource offer
+    - [ ] show alert next to group on profile page
+    - [ ] show pending resource on group page with approve/decline button
 - [ ] group requests resource from user
   - [ ] auto-create membership invitation
   - [ ] user approves/declines resource request
+    - [ ] show alert next to resource on profile page
+    - [ ] show pending group on resource page with approve/decline buttons
 - [ ] about page
   - [ ] recommended reading
 
 #### Testing
-Add (almost) full test coverage.
+Attempt full test coverage.
 - [ ] unit tests
 - [ ] end-to-end test
 
@@ -59,5 +87,26 @@ Add (almost) full test coverage.
 
 ### UI Design
 
+Expand the user experience.
+
+#### User Stories
+- [ ] add message to membership and resource requests
+- [ ] group defines resource needs
+- [ ] user defines resource availability
+
+#### New Resource Page
+- [ ] pre-populated list of common resources with filter menu
+
 #### Routes
 - [ ] URL parameter values (query keys) should be descriptive
+
+
+## 0.4
+
+### UI Design
+
+Enhance the user experience.
+
+#### New Resource Page
+- [ ] predictive text field for naming resource
+- [ ] category field
