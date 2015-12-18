@@ -1,8 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay';
 // import {Link} from 'react-router';
-// import COMPONENT from './COMPONENT';
-// import styles from './COMPONENT.css';
+// import Lorem from 'react-lorem-component';
+
+// import classNames from 'classnames/bind';
+// import styles from './TEMPLATE.css';
+// const cx = classNames.bind(styles);
 
 class TEMPLATE extends React.Component {
   render () {

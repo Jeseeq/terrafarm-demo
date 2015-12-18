@@ -14,12 +14,14 @@ Define the core [practices](https://github.com/linuxfoundation/cii-best-practice
 - [x] installation
 - [x] running
 - [ ] developing
-  - [ ] add directory-specific READMEs and TEMPLATEs
-  - [ ] add `npm restart`
+  - [x] add directory-specific READMEs and TEMPLATEs
 - [x] contributing
 - [x] license
 - [x] roadmap
+- [ ] change log
 - [ ] project website
+- [ ] semver
+- [ ] chaos monkey
 
 ### UI Design
 
@@ -52,12 +54,12 @@ Establish the frontend technology stack and architecture patterns.
 A menu which combines the effects in these demos:
 - [x] [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).
   - [ ] fix content wrapper scroll position
-- [ ] [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
+- [x] [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
 - [ ] if not logged in, show login, else show logout
 
 
 #### Other
-- [ ] styles normalize or sanitize
+- [ ] style normalize or sanitize
 - [ ] simple page layouts
 - [x] typography
 
@@ -114,7 +116,7 @@ Expand and enhance the user experience.
   - [ ] recommended reading
 
 #### Testing
-Add full test coverage.
+Add (almost) full test coverage.
 - [ ] unit tests
 - [ ] end-to-end test
 
@@ -137,3 +139,11 @@ us a simple `getItem(type, id)` API. Consider postgresql, mongoose, and flask.
 ### Tooling
 
 - [ ] heroku deployment
+
+
+## 0.3
+
+### UI Design
+
+#### Routes
+- [ ] URL parameter values (query keys) should be descriptive
