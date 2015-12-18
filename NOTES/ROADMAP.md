@@ -6,10 +6,6 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 Demo version which runs locally.
 
-### Documentation
-- [ ] project website
-- [ ] chaos monkey
-
 ### UI Design
 - [x] implement [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).
   - [ ] fix content wrapper scroll position
@@ -47,6 +43,9 @@ Demo version which runs locally.
 
 First public release.
 
+### Documentation
+- [ ] project website
+
 ### UI Design
 
 More detail on basic user experience patterns.
@@ -70,6 +69,7 @@ More detail on basic user experience patterns.
 Attempt full test coverage.
 - [ ] unit tests
 - [ ] end-to-end test
+- [ ] chaos monkey (and add documentation)
 
 #### Other
 - [ ] css feature detection and fallbacks
