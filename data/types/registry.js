@@ -1,8 +1,9 @@
 // https://gist.github.com/taion/d161a58b9f7381d8fa9c
-
 // import decamelize from 'decamelize';
-// import pluralize from 'pluralize';
 import { fromGlobalId } from 'graphql-relay';
+// import pluralize from 'pluralize';
+
+// import getItem from '../api/getItem';
 
 import {
   getMaster,
@@ -37,12 +38,14 @@ export function registerType (type, endpoint, getItemOverride) {
 
 export async function idFetcher (globalId, info) {
   const { type, id } = fromGlobalId(globalId);
-  const getItemOverride = getItemOverrides[type];
 
+  const getItemOverride = getItemOverrides[type];
   let item;
   if (getItemOverride) {
     item = await getItemOverride(id, info);
   } else {
+    // item = await getItem(getEndpoint(type), id, info);
+
     if (type === 'Master') {
       item = getMaster();
     } else if (type === 'Viewer') {
@@ -57,7 +60,6 @@ export async function idFetcher (globalId, info) {
       console.warn('Warning: type not handled', type);
       item = null;
     }
-    // item = await getItem(getEndpoint(type), id, info);
   }
 
   return { type, ...item };
@@ -66,4 +68,3 @@ export async function idFetcher (globalId, info) {
 export function typeResolver (obj) {
   return types[obj.type];
 }
-
