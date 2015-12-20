@@ -8,12 +8,12 @@ const MASTER_ID = 'earth';
 const VIEWER_ID = 'me';
 
 // Mock data
-const jane = Object.assign(
+const guest = Object.assign(
   new User(), {
     id: '1',
-    name: 'Jane',
-    resources: ['1'],
-    groups: ['1'],
+    name: 'Guest',
+    resources: [],
+    groups: [],
     groupsPending: [],
   }
 );
@@ -35,12 +35,12 @@ const hank = Object.assign(
     groupsPending: [],
   }
 );
-const guest = Object.assign(
+const jane = Object.assign(
   new User(), {
     id: '4',
-    name: 'Guest',
-    resources: [],
-    groups: [],
+    name: 'Jane',
+    resources: ['1'],
+    groups: ['1'],
     groupsPending: [],
   }
 );
@@ -84,10 +84,10 @@ const purple = Object.assign(
 
 const data = {
   User: {
-    1: jane,
+    1: guest,
     2: joe,
     3: hank,
-    4: guest,
+    4: jane,
   },
   Resource: {
     1: shovel,
@@ -111,7 +111,7 @@ const master = Object.assign(
 const viewer = Object.assign(
   new Viewer(), {
     id: VIEWER_ID,
-    userId: '4',
+    userId: '1',
   }
 );
 

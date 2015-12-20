@@ -7,13 +7,13 @@ Below is a roadmap of potential Terrafarm features and releases.
 Demo version which runs locally.
 
 ### UI Design
-- [x] implement [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).
-  - [x] fix content wrapper scroll position
 - [x] implement [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
-  - [ ] if not logged in, show login, else show logout
   - [ ] position
   - [ ] color
   - [ ] icons
+
+#### Home page
+- [x] if not logged in, show login, else show logout
 
 #### Profile Page and User Page
 - [ ] show/hide buttons on Groups and Resources

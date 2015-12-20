@@ -71,9 +71,6 @@ class TerrafarmApp extends React.Component {
     return false;
   }
   render () {
-    const {viewer} = this.props;
-    const {user} = viewer;
-    const loggedIn = user && user.name !== 'Guest';
     const perspectiveClass = cx({
       perspective: true,
       'effect-movedown': true,
@@ -113,7 +110,6 @@ class TerrafarmApp extends React.Component {
         >
           <MainMenu
             shouldClose={this.state.menuShouldClose}
-            loggedIn={loggedIn}
             onShow={this._handleShowMainMenu}
             onHide={this._handleHideMainMenu}
           />
@@ -135,15 +131,6 @@ TerrafarmApp.defaultProps = {
 
 export default Relay.createContainer(TerrafarmApp, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        id,
-        user {
-          id,
-          name,
-        },
-      }
-    `,
     master: () => Relay.QL`
       fragment on Master {
         id,

@@ -19,16 +19,16 @@ class LoginPage extends React.Component {
       })
     );
   }
-  render () {
-    // if viewer is authenticated show log out button
+  renderLogin () {
     const {master} = this.props;
     const {users} = master;
+    const usersList = users.edges.slice(1);
 
     return <div>
       <h2>Login</h2>
       <h3>Username</h3>
       <ul>
-        {users.edges.map(edge => <li key={edge.node.id}>
+        {usersList.map(edge => <li key={edge.node.id}>
           <span
             style={styles.userName}
             onClick={this._handleLogin.bind(this, edge.node)}
@@ -40,12 +40,38 @@ class LoginPage extends React.Component {
       </ul>
     </div>;
   }
+  renderLogout () {
+    const {master} = this.props;
+    const {users} = master;
+
+    return <div>
+      <h2
+        style={styles.userName}
+        onClick={this._handleLogin.bind(this, users.edges[0].node)}
+      >
+        Logout
+      </h2>
+    </div>;
+  }
+  render () {
+    const {viewer} = this.props;
+    const {user} = viewer;
+    const isLoggedIn = user && user.name !== 'Guest';
+    const content = isLoggedIn ? this.renderLogout() : this.renderLogin();
+
+    return <div>{content}</div>;
+  }
 }
 
 export default Relay.createContainer(LoginPage, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
+        id,
+        user {
+          id,
+          name,
+        },
         ${AuthenticateViewerMutation.getFragment('viewer')},
       }
     `,

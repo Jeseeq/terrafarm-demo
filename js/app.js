@@ -15,7 +15,7 @@ import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
 
 import MasterAndViewerQueries from './queries/MasterAndViewerQueries';
-// import MasterQueries from './queries/MasterQueries';
+import MasterQueries from './queries/MasterQueries';
 // import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
@@ -28,14 +28,14 @@ ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
     <Route
       path={'/'} component={TerrafarmApp}
-      queries={MasterAndViewerQueries}
+      queries={MasterQueries}
     >
       <Route
         path={'browse'} component={BrowsePage}
         queries={MasterAndViewerQueries}
       />
       <Route
-        path={'login'} component={LoginPage}
+        path={'home'} component={LoginPage}
         queries={MasterAndViewerQueries}
       />
       <Route

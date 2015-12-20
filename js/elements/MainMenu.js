@@ -11,7 +11,7 @@ export default class MainMenu extends React.Component {
   constructor (props) {
     super(props);
     const angle = 120;
-    const menuItems = ['login', 'profile', 'browse'];
+    const menuItems = ['home', 'profile', 'browse'];
 
     this.state = {
       angle: angle,
@@ -200,7 +200,6 @@ export default class MainMenu extends React.Component {
 
 MainMenu.propTypes = {
   forceClose: React.PropTypes.bool,
-  loggedIn: React.PropTypes.bool,
   onShow: React.PropTypes.func,
   onHide: React.PropTypes.func,
 };
