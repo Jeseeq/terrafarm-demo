@@ -8,7 +8,7 @@ Demo version which runs locally.
 
 ### UI Design
 - [x] implement [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).
-  - [ ] fix content wrapper scroll position
+  - [x] fix content wrapper scroll position
 - [x] implement [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
   - [ ] if not logged in, show login, else show logout
   - [ ] position

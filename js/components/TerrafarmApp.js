@@ -23,8 +23,8 @@ class TerrafarmApp extends React.Component {
     return window.pageYOffset || window.document.documentElement.scrollTop;
   }
   _handleShowMainMenu = () => {
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
     const scrollY = this._scrollY();
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
 
     this.setState({
       docScroll: scrollY,
