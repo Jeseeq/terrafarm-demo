@@ -18,14 +18,15 @@
 .menu-toggle-button,
 .menu-item-bounce,
 .menu-item-button {
-  background: #f59393;
+  background: #A5D6A7;
   border-radius: 50%;
   width: 80px;
   height: 80px;
   margin-left: -40px;
   margin-top: -40px;
+  padding: 0;
   height: 80px;
-  color: #fff;
+  color: #ECEFF1;
   border: none;
   outline: none;
   position: relative;
@@ -79,10 +80,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  color: #AD4C4C;
+  color: #1B5E20;
 }
 
 .menu-item-button:hover {
-  color: #fff;
+  color: #ECEFF1;
 }
 

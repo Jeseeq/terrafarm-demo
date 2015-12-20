@@ -6,12 +6,12 @@ html,
 body,
 .perspective { width: 100%; height: 100%; }
 
-.perspective { position: relative; background: #34495e; }
+.perspective { position: relative; background: #37474F; }
 
 .container {
   position: relative; z-index: 10;
   padding: 0 4%; min-height: 100%;
-  background: #fff;
+  background: #ECEFF1;
   outline: 1px solid rgba(0,0,0,0);
   -webkit-transition: -webkit-transform 0.4s;
   transition: transform 0.4s;

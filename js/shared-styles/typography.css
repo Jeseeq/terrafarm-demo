@@ -5,6 +5,9 @@
  * Patrick Hand SC
  * Raleway Dots
  */
+
+h1, h2, h3, h4, h5, p, li { color: #263238; }
+
 h1,
 h2 {
   font-family: 'Life Savers', serif;
@@ -51,9 +54,11 @@ a,
 }
 button {
   -webkit-appearance: none;
-  background: none;
-  border: none;
-  outline: none;
+  padding: 0 0.67em;
   font-size: 18px;
+  color: #1B5E20; 
+  background: #A5D6A7;
+  border: none; border-radius: 3px;
+  outline: none;
   cursor: pointer;
 }

@@ -22,6 +22,7 @@
     "graphql-relay": "^0.3.5",
     "gsap": "^1.18.0",
     "history": "^1.13.1",
+    "material-ui": "^0.13.4",
     "pluralize": "^1.2.1",
     "raw-loader": "^0.5.1",
     "react": "^0.14.3",
