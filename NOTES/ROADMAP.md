@@ -8,12 +8,9 @@ Demo version which runs locally.
 
 ### UI Design
 - [x] implement [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
-  - [ ] position
+  - [x] position
   - [ ] color
   - [ ] icons
-
-#### Home page
-- [x] if not logged in, show login, else show logout
 
 #### Profile Page and User Page
 - [ ] show/hide buttons on Groups and Resources

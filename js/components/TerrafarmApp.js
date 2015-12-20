@@ -71,26 +71,23 @@ class TerrafarmApp extends React.Component {
     return false;
   }
   render () {
-    const perspectiveClass = cx({
-      perspective: true,
-      'effect-movedown': true,
-      modalview: this.state.modalview,
-      animate: this.state.animate,
-    });
-    const containerClass = cx({
-      container: true,
-      transform: this.state.transform,
-    });
-
     return (
       <div
         ref={'perspectiveWrapper'}
-        className={perspectiveClass}
+        className={cx({
+          perspective: true,
+          'effect-movedown': true,
+          modalview: this.state.modalview,
+          animate: this.state.animate,
+        })}
         onTouchTap={this._handleNullTap}
       >
         <div
           ref={'container'}
-          className={containerClass}
+          className={cx({
+            container: true,
+            transform: this.state.transform,
+          })}
           onTouchTap={this._handleHideMainMenu}
         >
           <div
@@ -104,8 +101,7 @@ class TerrafarmApp extends React.Component {
         <nav
           className={cx({
             'outer-nav': true,
-            top: true,
-            horizontal: true,
+            transform: this.state.transform,
           })}
         >
           <MainMenu

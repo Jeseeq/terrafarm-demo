@@ -6,13 +6,17 @@ html,
 body,
 .perspective { width: 100%; height: 100%; }
 
-.perspective { position: relative; }
+.perspective { position: relative; background: #34495e; }
 
 .container {
   position: relative; z-index: 10;
   padding: 0 4%; min-height: 100%;
   background: #fff;
   outline: 1px solid rgba(0,0,0,0);
+  -webkit-transition: -webkit-transform 0.4s;
+  transition: transform 0.4s;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
 }
 .container.transform {
   -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
@@ -24,13 +28,24 @@ body,
   top: 0; left: 0;
   width: 100%; height: 0px;
   opacity: 0;
-  background: rgba(0,0,0,0.2);
+  background: rgba(52, 73, 94, 0.5);
   /* the transition delay of the height needs to be synced with the container transition time */
   -webkit-transition: opacity 0.4s, height 0s 0.4s;
   transition: opacity 0.4s, height 0s 0.4s;
 }
 
 .wrapper { position: relative; overflow: hidden; }
+
+.outer-nav {
+  position: fixed;
+  top: -180px; left: 50%;
+  height: auto;
+  font-size: 2em;
+  z-index: 20;
+  transform: translateX(-50%);
+  -webkit-transition: top 0.4s;
+  transition: top 0.4s;
+}
 
 /* Modal view */
 .perspective.modalview {
@@ -52,6 +67,13 @@ body,
   -webkit-transform: translateZ(-1px); /* solves a rendering bug in Chrome on Windows */
 }
 
+.animate .container {
+  -webkit-transform: translateY(100%) translateZ(-1500px);
+  transform: translateY(100%) translateZ(-1500px);
+}
+
+.no-csstransforms3d .animate .container { top: 75%; }
+
 .animate .container::after {
   opacity: 1;
   height: 101%;
@@ -59,49 +81,14 @@ body,
   transition: opacity 0.3s;
 }
 
-/* Outer Nav */
-.outer-nav {
-  position: fixed;
-  height: auto;
-  font-size: 2em;
-  z-index: 20;
-}
+.modalview .outer-nav { top: 25%; }
 
-.outer-nav.horizontal {
-  left: 50%;
-  text-align: center;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.outer-nav.top { top: 25%; }
-
-/* Effect Move Down */
-.effect-movedown { background: #34495e; }
-
-.effect-movedown .container {
-  -webkit-transition: -webkit-transform 0.4s;
-  transition: transform 0.4s;
-  -webkit-transform-origin: 50% 50%;
-  transform-origin: 50% 50%;
-}
-
-.effect-movedown .container::after {
-  background: rgba(52, 73, 94, 0.5);
-}
-
-.effect-movedown.animate .container {
-  -webkit-transform: translateY(100%) translateZ(-1500px);
-  transform: translateY(100%) translateZ(-1500px);
-}
-
-.no-csstransforms3d .effect-movedown.animate .container { top: 75%; }
 
 /* Media Queries */
 @media screen and (max-width: 77em) {
-  .outer-nav.top { top: 15%; }
+  .modalview .outer-nav { top: 15%; }
 }
 
 @media screen and (max-width: 36.625em), screen and (max-height: 41.75em) {
-  .outer-nav.top { top: 5%; }
+  .modalview .outer-nav { top: 5%; }
 }

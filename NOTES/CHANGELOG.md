@@ -15,6 +15,7 @@
 - tech and architecture
 - basic user stories
 - typography
+- home page with logged in status
 
 ### Database Design
 - mock database
