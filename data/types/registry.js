@@ -20,11 +20,10 @@ const getItemOverrides = {};
 export function getEndpoint (type) {
   return endpoints[type];
 }
-/* eslint no-unused-vars:0 */
+
 function getDefaultEndpoint (type) {
   const endpoint = pluralize(decamelize(type.name));
-  // return id => id ? `${endpoint}/${id}` : endpoint;
-  return type.name;
+  return id => id ? `${endpoint}/${id}` : endpoint;
 }
 
 export function registerType (type, endpoint, getItemOverride) {
@@ -38,7 +37,6 @@ export function registerType (type, endpoint, getItemOverride) {
 
 export async function idFetcher (globalId, info) {
   const { type, id } = fromGlobalId(globalId);
-  console.log('info -', info);
 
   const getItemOverride = getItemOverrides[type];
   let item;

@@ -31,6 +31,7 @@
     "react-router": "^1.0.0",
     "react-router-relay": "^0.8.0",
     "react-tap-event-plugin": "^0.2.1",
+    "requestify": "^0.1.17",
     "sanitize.css": "^3.0.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
