@@ -26,11 +26,11 @@ class NewUserPanel extends React.Component {
   render () {
     if (this.state.editMode) {
       return <div>
-        <h5>Name</h5>
         <TextInput
           autoFocus
+          label={'User Name'}
+          placeholder={'Your Handle'}
           onSave={this._handleTextInputSave}
-          placeholder={'Some Name'}
         />
         <button onClick={this._toggleEditMode}>Cancel</button>
       </div>;

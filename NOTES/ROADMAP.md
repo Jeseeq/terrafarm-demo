@@ -8,6 +8,15 @@ Demo version which runs locally.
 
 ### UI Design
 
+#### Menu
+- [ ] material ui paper
+
+#### New User Page
+- [ ] material ui text field for New User
+
+#### Browse Page
+- [ ] material ui tabs
+
 #### Profile Page and User Page
 - [ ] show/hide buttons on Groups and Resources
 - [ ] color bar next to group name
@@ -24,10 +33,12 @@ Demo version which runs locally.
 #### New Resource Page
 - [ ] field for name
 - [ ] field for description
+- [ ] material ui text field
 
 #### New Group Page
 - [ ] field for name
 - [ ] field for description
+- [ ] material ui text field
 
 
 ## 0.2

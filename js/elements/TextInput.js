@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TextField from 'material-ui/lib/text-field';
+import Colors from 'material-ui/lib/styles/colors';
 
 const {PropTypes} = React;
 
@@ -9,12 +11,13 @@ const ESC_KEY_CODE = 27;
 export default class TextInput extends React.Component {
   static propTypes = {
     style: PropTypes.object,
+    placeholder: PropTypes.string,
+    label: PropTypes.string,
     commitOnBlur: PropTypes.bool.isRequired,
     initialValue: PropTypes.string,
     onCancel: PropTypes.func,
     onDelete: PropTypes.func,
     onSave: PropTypes.func.isRequired,
-    placeholder: PropTypes.string,
   }
   static defaultProps = {
     commitOnBlur: false,
@@ -52,14 +55,20 @@ export default class TextInput extends React.Component {
       this._commitChanges();
     }
   }
+  _handleEnterKeyDown = () => {
+    this._commitChanges();
+  }
   render () {
     return (
-      <input
+      <TextField
         style={this.props.style}
+        floatingLabelStyle={{color: Colors.blueGrey900}}
+        underlineFocusStyle={{borderColor: Colors.blueGrey900}}
+        hintText={this.props.placeholder}
+        floatingLabelText={this.props.label}
         onBlur={this._handleBlur}
         onChange={this._handleChange}
-        onKeyDown={this._handleKeyDown}
-        placeholder={this.props.placeholder}
+        onEnterKeyDown={this._handleEnterKeyDown}
         value={this.state.text}
       />
     );

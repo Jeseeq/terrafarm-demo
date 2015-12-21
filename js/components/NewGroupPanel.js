@@ -30,11 +30,11 @@ class NewGroupPanel extends React.Component {
   render () {
     if (this.state.editMode) {
       return <div>
-        <h5>Name</h5>
         <TextInput
           autoFocus
+          label={'Group Name'}
+          placeholder={'Cool People'}
           onSave={this._handleTextInputSave}
-          placeholder={'Some Name'}
         />
         <button onClick={this._toggleEditMode}>Cancel</button>
       </div>;
