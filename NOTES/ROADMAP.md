@@ -7,8 +7,6 @@ Below is a roadmap of potential Terrafarm features and releases.
 Demo version which runs locally.
 
 ### UI Design
-- [x] implement [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
-  - [ ] icons
 
 #### Profile Page and User Page
 - [ ] show/hide buttons on Groups and Resources

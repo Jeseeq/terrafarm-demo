@@ -15,7 +15,8 @@
 - tech and architecture
 - basic user stories
 - typography
-- home page with logged in status
+- index page with stateful login component
+- icons
 
 ### Database Design
 - mock database
