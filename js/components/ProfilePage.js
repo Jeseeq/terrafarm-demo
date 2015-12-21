@@ -15,18 +15,18 @@ class ProfilePage extends React.Component {
     return <div>
       <h2 className={styles.heading}>{user.name}</h2>
       <h3>Resources</h3>
+      <NewResourcePanel user={user} master={master} />
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
           <EditResourcePanel resource={edge.node} />
         </li>)}
-        <li><NewResourcePanel user={user} master={master} /></li>
       </ul>
       <h3>Groups</h3>
+      <NewGroupPanel user={user} master={master} />
       <ul>
         {user.groups.edges.map(edge => <li key={edge.node.id}>
           <EditGroupPanel user={user} group={edge.node} />
         </li>)}
-        <li><NewGroupPanel user={user} master={master} /></li>
       </ul>
       <h3>Pending Groups</h3>
       <ul>

@@ -7,15 +7,7 @@ Below is a roadmap of potential Terrafarm features and releases.
 Demo version which runs locally.
 
 ### UI Design
-
-#### Menu
-- [ ] material ui paper
-
-#### New User Page
-- [ ] material ui text field for New User
-
-#### Browse Page
-- [ ] material ui tabs
+- [ ] material ui theme colors and fonts
 
 #### Profile Page and User Page
 - [ ] show/hide buttons on Groups and Resources
@@ -33,12 +25,10 @@ Demo version which runs locally.
 #### New Resource Page
 - [ ] field for name
 - [ ] field for description
-- [ ] material ui text field
 
 #### New Group Page
 - [ ] field for name
 - [ ] field for description
-- [ ] material ui text field
 
 
 ## 0.2

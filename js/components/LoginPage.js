@@ -27,6 +27,7 @@ class LoginPage extends React.Component {
     return <div>
       <h2>Login</h2>
       <h3>Username</h3>
+      <NewUserPanel master={master} />
       <ul>
         {usersList.map(edge => <li key={edge.node.id}>
           <span
@@ -36,12 +37,12 @@ class LoginPage extends React.Component {
             {edge.node.name}
           </span>
         </li>)}
-        <li><NewUserPanel master={master} /></li>
       </ul>
     </div>;
   }
   renderLogout () {
-    const {master} = this.props;
+    const {viewer, master} = this.props;
+    const {user} = viewer;
     const {users} = master;
 
     return <div>
@@ -49,7 +50,7 @@ class LoginPage extends React.Component {
         style={styles.userName}
         onClick={this._handleLogin.bind(this, users.edges[0].node)}
       >
-        Logout
+        Logout {user.name}
       </h2>
     </div>;
   }

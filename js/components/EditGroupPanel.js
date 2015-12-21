@@ -44,13 +44,13 @@ class EditGroupPanel extends React.Component {
           initialValue={group.name}
           onSave={this._handleRename}
         />
-        <button onClick={this._handleDisconnectUserFromGroup}>Disconnect</button>
-        <button onClick={this._toggleEditMode}>Cancel</button>
+        <button style={{marginLeft: 10}} onClick={this._handleDisconnectUserFromGroup}>Disconnect</button>
+        <button style={{marginLeft: 10}} onClick={this._toggleEditMode}>Cancel</button>
       </div>;
     }
     return <div>
       <Link to={`/group/${group.id}`}>{group.name}</Link>
-      <button onClick={this._toggleEditMode}>Edit</button>
+      <button style={{marginLeft: 10}} onClick={this._toggleEditMode}>Edit</button>
     </div>;
   }
 }

@@ -35,12 +35,12 @@ class EditResourcePanel extends React.Component {
           initialValue={resource.name}
           onSave={this._handleRename}
         />
-        <button onClick={this._toggleEditMode}>Cancel</button>
+        <button style={{marginLeft: 10}} onClick={this._toggleEditMode}>Cancel</button>
       </div>;
     }
     return <div>
       <Link to={`/resource/${resource.id}`}>{resource.name}</Link>
-      <button onClick={this._toggleEditMode}>Edit</button>
+      <button style={{marginLeft: 10}} onClick={this._toggleEditMode}>Edit</button>
     </div>;
   }
 }

@@ -38,7 +38,7 @@ body,
 
 .outer-nav {
   position: fixed;
-  top: -180px; left: 50%;
+  top: -150px; left: 50%;
   height: auto;
   font-size: 2em;
   z-index: 20;
