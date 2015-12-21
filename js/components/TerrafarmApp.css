@@ -10,7 +10,7 @@ body,
 
 .container {
   position: relative; z-index: 10;
-  padding: 0 4%; min-height: 100%;
+  min-height: 100%;
   background: #ECEFF1;
   outline: 1px solid rgba(0,0,0,0);
   -webkit-transition: -webkit-transform 0.4s;
@@ -34,7 +34,7 @@ body,
   transition: opacity 0.4s, height 0s 0.4s;
 }
 
-.wrapper { position: relative; overflow: hidden; }
+.wrapper { position: relative; overflow: hidden; margin: 0 4%; }
 
 .outer-nav {
   position: fixed;

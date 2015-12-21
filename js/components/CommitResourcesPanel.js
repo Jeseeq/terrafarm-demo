@@ -2,6 +2,7 @@ import ConnectResourceToGroupMutation from '../mutations/ConnectResourceToGroupM
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class CommitResourcesPanel extends React.Component {
   _handleCommitResource = (resource) => {
@@ -21,9 +22,7 @@ class CommitResourcesPanel extends React.Component {
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
-          <button onClick={this._handleCommitResource.bind(this, edge.node)}>
-            Commit
-          </button>
+          <FlatButton label={'Commit'} onClick={this._handleCommitResource.bind(this, edge.node)} />
         </li>)}
       </ul>
     </div>;

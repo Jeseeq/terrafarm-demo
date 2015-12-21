@@ -6,9 +6,6 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 Demo version which runs locally.
 
-### UI Design
-- [ ] material ui theme colors and fonts
-
 #### Profile Page and User Page
 - [ ] show/hide buttons on Groups and Resources
 - [ ] color bar next to group name

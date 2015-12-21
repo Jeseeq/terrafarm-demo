@@ -18,7 +18,7 @@
 .menu-toggle-button,
 .menu-item-bounce,
 .menu-item-button {
-  background: #A5D6A7;
+  background-color: #A5D6A7;
   border-radius: 50%;
   width: 80px;
   height: 80px;
@@ -30,6 +30,7 @@
   border: none;
   outline: none;
   position: relative;
+  transition: background-color 0.4s;
 }
 
 .menu-toggle-button {

@@ -3,6 +3,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import TextInput from '../elements/TextInput';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class EditResourcePanel extends React.Component {
   constructor (props) {
@@ -35,7 +36,7 @@ class EditResourcePanel extends React.Component {
           initialValue={resource.name}
           onSave={this._handleRename}
         />
-        <button style={{marginLeft: 10}} onClick={this._toggleEditMode}>Cancel</button>
+        <FlatButton label={'Cancel'} onClick={this._toggleEditMode} />
       </div>;
     }
     return <div>

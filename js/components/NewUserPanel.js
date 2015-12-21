@@ -2,6 +2,7 @@ import NewUserMutation from '../mutations/NewUserMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import TextInput from '../elements/TextInput';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class NewUserPanel extends React.Component {
   constructor (props) {
@@ -28,14 +29,15 @@ class NewUserPanel extends React.Component {
       return <div>
         <TextInput
           autoFocus
+          commitOnBlur={false}
           label={'User Name'}
           placeholder={'Your Handle'}
           onSave={this._handleTextInputSave}
         />
-        <button onClick={this._toggleEditMode}>Cancel</button>
+        <FlatButton label={'Cancel'} onClick={this._toggleEditMode} />
       </div>;
     }
-    return <button onClick={this._toggleEditMode}>New User</button>;
+    return <FlatButton label={'New User'} onClick={this._toggleEditMode} />;
   }
 }
 

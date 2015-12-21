@@ -4,6 +4,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import TextInput from '../elements/TextInput';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class EditGroupPanel extends React.Component {
   constructor (props) {
@@ -44,8 +45,13 @@ class EditGroupPanel extends React.Component {
           initialValue={group.name}
           onSave={this._handleRename}
         />
-        <button style={{marginLeft: 10}} onClick={this._handleDisconnectUserFromGroup}>Disconnect</button>
-        <button style={{marginLeft: 10}} onClick={this._toggleEditMode}>Cancel</button>
+        <FlatButton
+          label={'Disconnect'}
+          onClick={this._handleDisconnectUserFromGroup}
+        />
+        <FlatButton
+          label={'Cancel'}
+          onClick={this._toggleEditMode} />
       </div>;
     }
     return <div>

@@ -1,12 +1,16 @@
 import React from 'react';
 import Relay from 'react-relay';
 import MainMenu from '../elements/MainMenu';
-// import Lorem from 'react-lorem-component';
+import TerrafarmRawTheme from '../shared-styles/terrafarm-raw-theme';
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 
 import classNames from 'classnames/bind';
 import styles from './TerrafarmApp.css';
 const cx = classNames.bind(styles);
 
+/* eslint new-cap: 0 */
+@ThemeDecorator(ThemeManager.getMuiTheme(TerrafarmRawTheme))
 class TerrafarmApp extends React.Component {
   constructor (props) {
     super(props);

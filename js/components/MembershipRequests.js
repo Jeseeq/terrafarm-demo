@@ -3,6 +3,7 @@ import ConnectUserToGroupMutation from '../mutations/ConnectUserToGroupMutation'
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class MembershipRequests extends React.Component {
   _handleApproveMembershipRequest = (user) => {
@@ -34,8 +35,8 @@ class MembershipRequests extends React.Component {
       <ul>
         {group.usersPending.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
-          <button onClick={this._handleApproveMembershipRequest.bind(this, edge.node)}>Approve</button>
-          <button onClick={this._handleDeclineMembershipRequest.bind(this, edge.node)}>Decline</button>
+          <FlatButton label={'Approve'} onClick={this._handleApproveMembershipRequest.bind(this, edge.node)} />
+          <FlatButton label={'Decline'} onClick={this._handleDeclineMembershipRequest.bind(this, edge.node)} />
         </li>)}
       </ul>
     </div>;

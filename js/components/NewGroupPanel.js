@@ -2,6 +2,7 @@ import NewGroupMutation from '../mutations/NewGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import TextInput from '../elements/TextInput';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class NewGroupPanel extends React.Component {
   constructor (props) {
@@ -32,14 +33,15 @@ class NewGroupPanel extends React.Component {
       return <div>
         <TextInput
           autoFocus
+          commitOnBlur={false}
           label={'Group Name'}
           placeholder={'Cool People'}
           onSave={this._handleTextInputSave}
         />
-        <button onClick={this._toggleEditMode}>Cancel</button>
+        <FlatButton label={'Cancel'} onClick={this._toggleEditMode} />
       </div>;
     }
-    return <button onClick={this._toggleEditMode}>New Group</button>;
+    return <FlatButton label={'New Group'} onClick={this._toggleEditMode} />;
   }
 }
 

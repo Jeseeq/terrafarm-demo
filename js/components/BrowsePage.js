@@ -3,7 +3,13 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
-import Colors from 'material-ui/lib/styles/colors';
+
+const styles = {
+  tab: {
+    fontSize: 17,
+    letterSpacing: 0.3,
+  },
+};
 
 class BrowsePage extends React.Component {
   render () {
@@ -12,25 +18,22 @@ class BrowsePage extends React.Component {
 
     return <div>
       <h2>Browse</h2>
-      <Tabs
-        inkBarStyle={{backgroundColor: Colors.green200}}
-        tabItemContainerStyle={{backgroundColor: Colors.blueGrey300}}
-      >
-        <Tab label={'Users'}>
+      <Tabs>
+        <Tab label={'Users'} style={styles.tab}>
           <ul>
             {users.edges.map(edge => <li key={edge.node.id}>
               <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
             </li>)}
           </ul>
         </Tab>
-        <Tab label={'Resources'}>
+        <Tab label={'Resources'} style={styles.tab}>
           <ul>
             {resources.edges.map(edge => <li key={edge.node.id}>
               <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
             </li>)}
           </ul>
         </Tab>
-        <Tab label={'Groups'}>
+        <Tab label={'Groups'} style={styles.tab}>
           <ul>
             {groups.edges.map(edge => <li key={edge.node.id}>
               <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>

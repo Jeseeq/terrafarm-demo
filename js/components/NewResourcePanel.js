@@ -2,6 +2,7 @@ import NewResourceMutation from '../mutations/NewResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import TextInput from '../elements/TextInput';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class NewResourcePanel extends React.Component {
   constructor (props) {
@@ -32,14 +33,15 @@ class NewResourcePanel extends React.Component {
       return <div>
         <TextInput
           autoFocus
+          commitOnBlur={false}
           label={'Resource Name'}
           placeholder={'Something'}
           onSave={this._handleTextInputSave}
         />
-        <button onClick={this._toggleEditMode}>Cancel</button>
+        <FlatButton label={'Cancel'} onClick={this._toggleEditMode} />
       </div>;
     }
-    return <button onClick={this._toggleEditMode}>New Resource</button>;
+    return <FlatButton label={'New Resource'} onClick={this._toggleEditMode} />;
   }
 }
 

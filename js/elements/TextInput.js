@@ -75,3 +75,8 @@ export default class TextInput extends React.Component {
   }
 }
 
+TextInput.defaultProps = {
+  style: {
+    fontFamily: 'Simonetta, serif',
+  },
+};

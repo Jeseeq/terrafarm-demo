@@ -5,6 +5,7 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 import MembershipRequests from './MembershipRequests';
 import CommitResourcesPanel from './CommitResourcesPanel';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class GroupPage extends React.Component {
   _handleRequestMembership = () => {
@@ -36,9 +37,9 @@ class GroupPage extends React.Component {
         <CommitResourcesPanel group={group} viewer={viewer} />
       </div>;
     } else if (isPendingMember) {
-      return <button onClick={this._handleCancelMembershipRequest}>Cancel Membership Request</button>;
+      return <FlatButton label={'Cancel Membership Request'} onClick={this._handleCancelMembershipRequest} />;
     }
-    return <button onClick={this._handleRequestMembership}>Request Membership</button>;
+    return <FlatButton label={'Request Membership'} onClick={this._handleRequestMembership} />;
   }
   render () {
     const {group} = this.props;
