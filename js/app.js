@@ -1,6 +1,6 @@
 import 'babel/polyfill';
 import {createHashHistory} from 'history';
-import {Route} from 'react-router';
+import {IndexRoute, Route} from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
@@ -30,12 +30,12 @@ ReactDOM.render(
       path={'/'} component={TerrafarmApp}
       queries={MasterQueries}
     >
-      <Route
-        path={'browse'} component={BrowsePage}
+      <IndexRoute
+        component={LoginPage}
         queries={MasterAndViewerQueries}
       />
       <Route
-        path={'home'} component={LoginPage}
+        path={'browse'} component={BrowsePage}
         queries={MasterAndViewerQueries}
       />
       <Route

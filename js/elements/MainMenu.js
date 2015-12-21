@@ -1,9 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router';
 import 'gsap'; /* global TweenMax TimelineMax Quint Quad Elastic*/
-import classNames from 'classnames/bind';
+import TiPlus from 'react-icons/lib/ti/plus';
+import TiHome from 'react-icons/lib/ti/home';
+import FaUser from 'react-icons/lib/fa/user';
+import MdSearch from 'react-icons/lib/md/search';
+
+// import classNames from 'classnames/bind';
 import styles from './MainMenu.css';
-const cx = classNames.bind(styles);
+// const cx = classNames.bind(styles);
 
 TweenMax.globalTimeScale(0.8);
 
@@ -11,7 +16,11 @@ export default class MainMenu extends React.Component {
   constructor (props) {
     super(props);
     const angle = 120;
-    const menuItems = ['home', 'profile', 'browse'];
+    const menuItems = [
+      { path: '', icon: <TiHome /> },
+      { path: 'profile', icon: <FaUser /> },
+      { path: 'browse', icon: <MdSearch /> },
+    ];
 
     this.state = {
       angle: angle,
@@ -145,19 +154,19 @@ export default class MainMenu extends React.Component {
           className={styles['menu-item']}
           style={{transform: 'rotate(' + (angle) + 'deg)'}}
         >
-          <Link to={'/' + item}>
+          <Link to={'/' + item.path}>
             <button
               ref={c => this['menu-item-button-' + i] = c}
               className={styles['menu-item-button']}
               onMouseUp={this._handlePress}
               onTouchEnd={this._handlePress}
             >
-              <i
-                className={cx({'menu-item-icon': true, icon: true })}
+              <div
+                className={styles['menu-item-icon']}
                 style={{transform: 'rotate(' + (-angle) + 'deg)'}}
               >
-                {item.replace('-', ' ')}
-              </i>
+                {item.icon}
+              </div>
             </button>
           </Link>
           <div
@@ -186,11 +195,7 @@ export default class MainMenu extends React.Component {
             onMouseDown={this._handleScaleDown}
             onTouchStart={this._handleScaleDown}
           >
-            <i className={cx({
-              fa: true,
-              'fa-plus': true,
-              'menu-toggle-icon': true,
-            })}>+</i>
+            <div className={styles['menu-toggle-icon']}><TiPlus /></div>
           </button>
         </div>
       </div>

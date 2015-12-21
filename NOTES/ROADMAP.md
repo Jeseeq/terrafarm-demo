@@ -8,7 +8,6 @@ Demo version which runs locally.
 
 ### UI Design
 - [x] implement [codrops/CreativeGooeyEffects](https://github.com/codrops/CreativeGooeyEffects).
-  - [x] color
   - [ ] icons
 
 #### Profile Page and User Page

@@ -39,15 +39,14 @@
   left: 0;
 }
 
+.menu-item-icon,
 .menu-toggle-icon {
-  font-size: 30px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 80px;
-  height: 80px;
-  line-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.menu-toggle-icon { font-size: 30px; }
 
 .menu-items {
   list-style-type: none;
