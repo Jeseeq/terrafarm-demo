@@ -6,12 +6,9 @@ import TextInput from '../elements/TextInput';
 import FlatButton from 'material-ui/lib/flat-button';
 
 class EditResourcePanel extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      editMode: false,
-    };
-  }
+  state = {
+    editMode: false,
+  };
   _toggleEditMode = () => {
     this.setState({
       editMode: !this.state.editMode,
@@ -41,7 +38,7 @@ class EditResourcePanel extends React.Component {
     }
     return <div>
       <Link to={`/resource/${resource.id}`}>{resource.name}</Link>
-      <button style={{marginLeft: 10}} onClick={this._toggleEditMode}>Edit</button>
+      <FlatButton label={'Edit'} onClick={this._toggleEditMode} />
     </div>;
   }
 }

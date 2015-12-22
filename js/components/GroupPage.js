@@ -6,8 +6,19 @@ import {Link} from 'react-router';
 import MembershipRequests from './MembershipRequests';
 import CommitResourcesPanel from './CommitResourcesPanel';
 import FlatButton from 'material-ui/lib/flat-button';
+import createColorChart from '../shared-styles/create-color-chart';
 
 class GroupPage extends React.Component {
+  state = {
+    colorChart: {},
+  };
+  componentWillMount () {
+    const {group} = this.props;
+    const {users} = group;
+    const userIds = users.edges.map(edge => edge.node.id);
+    const colorChart = createColorChart(userIds);
+    this.setState({colorChart});
+  }
   _handleRequestMembership = () => {
     Relay.Store.update(
       new PendingUserToGroupMutation({
@@ -50,6 +61,14 @@ class GroupPage extends React.Component {
       <ul>
         {group.users.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
+          <div
+            style={{
+              display: 'inline-block', width: 25, height: 8,
+              marginLeft: 10,
+              borderRadius: 3,
+              backgroundColor: this.state.colorChart[edge.node.id],
+            }}
+          />
         </li>)}
       </ul>
       {memberControls}
@@ -57,6 +76,14 @@ class GroupPage extends React.Component {
       <ul>
         {group.resources.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
+          {edge.node.users.edges.map(userEdge => <div key={userEdge.node.id}
+            style={{
+              display: 'inline-block', width: 10, height: 10,
+              marginLeft: 10,
+              borderRadius: '50%',
+              backgroundColor: this.state.colorChart[userEdge.node.id],
+            }}
+          />)}
         </li>)}
       </ul>
     </div>;
@@ -92,6 +119,13 @@ export default Relay.createContainer(GroupPage, {
             node {
               id,
               name,
+              users(first: 18) {
+                edges {
+                  node {
+                    id,
+                  }
+                }
+              }
             }
           }
         },
