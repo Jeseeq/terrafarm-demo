@@ -7,13 +7,8 @@ Below is a roadmap of potential Terrafarm features and releases.
 Demo version which runs locally.
 
 #### Profile Page and User Page
-- [ ] show/hide buttons on Groups and Resources
 - [ ] color bar next to group name
 - [ ] color dot next to resources to indicate group commitments
-
-#### Resource Page
-- [ ] resource description
-- [ ] new layout/style for user name
 
 #### Group Page
 - [ ] color bar next to user name
@@ -26,6 +21,13 @@ Demo version which runs locally.
 #### New Group Page
 - [ ] field for name
 - [ ] field for description
+
+#### Resource Page
+- [ ] resource description
+- [ ] new layout/style for user name
+
+#### Group Page
+- [ ] group description
 
 
 ## 0.2
