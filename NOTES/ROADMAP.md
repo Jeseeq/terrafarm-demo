@@ -6,13 +6,8 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 Demo version which runs locally.
 
-#### Profile Page
-- [ ] color bar next to group name
-- [ ] color dot next to resources to indicate group commitments
-
-#### Group Page
-- [ ] color bar next to user name
-- [ ] color dot next to resources to indicate user ownership
+### UI Design
+- [ ] layout sanity
 
 #### New Resource Page
 - [ ] field for name
@@ -63,7 +58,7 @@ Attempt full test coverage.
 - [ ] chaos monkey (and add documentation)
 
 #### Other
-- [ ] css feature detection and fallbacks
+- [ ] css feature detection, fallbacks, and browser warnings
 - [ ] route transitions
 
 ### Database Design
