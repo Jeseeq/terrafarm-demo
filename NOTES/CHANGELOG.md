@@ -17,6 +17,7 @@
 - typography
 - index page with stateful login component
 - icons
+- color coded relationships between users, groups, and resources
 
 ### Database Design
 - mock database

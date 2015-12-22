@@ -6,7 +6,7 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 Demo version which runs locally.
 
-#### Profile Page and User Page
+#### Profile Page
 - [ ] color bar next to group name
 - [ ] color dot next to resources to indicate group commitments
 
