@@ -8,18 +8,14 @@ import {
   globalIdField,
 } from 'graphql-relay';
 
-import {registerType} from './registry';
+import {registerType, getEndpoint} from './registry';
 import {nodeInterface} from './node';
 
-import {
-  getUser,
-  getResource,
-  getGroup,
-} from '../database';
+import getItem from '../api/getItem';
 
-import {UserConnection} from './UserType';
-import {ResourceConnection} from './ResourceType';
-import {GroupConnection} from './GroupType';
+import {UserType, UserConnection} from './UserType';
+import {ResourceType, ResourceConnection} from './ResourceType';
+import {GroupType, GroupConnection} from './GroupType';
 
 export default registerType(new GraphQLObjectType({
   name: 'Master',
@@ -30,7 +26,7 @@ export default registerType(new GraphQLObjectType({
       type: UserConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.users.map(id => getUser(id)),
+        _[0].users.map(user => getItem(getEndpoint(UserType), user.id)),
         args
       ),
     },
@@ -38,7 +34,7 @@ export default registerType(new GraphQLObjectType({
       type: ResourceConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.resources.map(id => getResource(id)),
+        _[0].resources.map(resource => getItem(getEndpoint(ResourceType), resource.id)),
         args
       ),
     },
@@ -46,7 +42,7 @@ export default registerType(new GraphQLObjectType({
       type: GroupConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.groups.map(id => getGroup(id)),
+        _[0].groups.map(group => getItem(getEndpoint(GroupType), group.id)),
         args
       ),
     },

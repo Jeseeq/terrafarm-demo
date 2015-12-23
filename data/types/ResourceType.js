@@ -10,16 +10,13 @@ import {
   globalIdField,
 } from 'graphql-relay';
 
-import {registerType} from './registry';
+import {registerType, getEndpoint} from './registry';
 import {nodeInterface} from './node';
 
-import {
-  getUser,
-  getGroup,
-} from '../database';
+import getItem from '../api/getItem';
 
-import {UserConnection} from './UserType';
-import {GroupConnection} from './GroupType';
+import {UserType, UserConnection} from './UserType';
+import {GroupType, GroupConnection} from './GroupType';
 
 export const ResourceType = registerType(new GraphQLObjectType({
   name: 'Resource',
@@ -35,7 +32,7 @@ export const ResourceType = registerType(new GraphQLObjectType({
       description: 'An economic input\'s list of owners.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.users.map(id => getUser(id)),
+        _.users.map(user => getItem(getEndpoint(UserType), user.id)),
         args
       ),
     },
@@ -44,7 +41,7 @@ export const ResourceType = registerType(new GraphQLObjectType({
       description: 'An economic input\'s list of groups with access.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.groups.map(id => getGroup(id)),
+        _.groups.map(group => getItem(getEndpoint(GroupType), group.id)),
         args
       ),
     },

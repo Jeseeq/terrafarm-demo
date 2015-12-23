@@ -3,8 +3,8 @@ import decamelize from 'decamelize';
 import { fromGlobalId } from 'graphql-relay';
 import pluralize from 'pluralize';
 
-// import getItem from '../api/getItem';
-
+import getItem from '../api/getItem';
+/*
 import {
   getMaster,
   getViewer,
@@ -12,13 +12,13 @@ import {
   getResource,
   getGroup,
 } from '../database';
-
+*/
 const types = {};
 const endpoints = {};
 const getItemOverrides = {};
 
 export function getEndpoint (type) {
-  return endpoints[type];
+  return endpoints[type.name];
 }
 
 function getDefaultEndpoint (type) {
@@ -28,8 +28,8 @@ function getDefaultEndpoint (type) {
 
 export function registerType (type, endpoint, getItemOverride) {
   types[type.name] = type;
-  endpoints[type] = endpoint || getDefaultEndpoint(type);
-  getItemOverrides[type] = getItemOverride;
+  endpoints[type.name] = endpoint || getDefaultEndpoint(type);
+  getItemOverrides[type.name] = getItemOverride;
 
   // Allow e.g. `export default registerType(MyType);`.
   return type;
@@ -43,8 +43,8 @@ export async function idFetcher (globalId, info) {
   if (getItemOverride) {
     item = await getItemOverride(id, info);
   } else {
-    // item = await getItem(getEndpoint(type), id, info);
-
+    item = await getItem(getEndpoint(type), id, info);
+/*
     if (type === 'Master') {
       item = getMaster();
     } else if (type === 'Viewer') {
@@ -59,6 +59,7 @@ export async function idFetcher (globalId, info) {
       console.warn('Warning: type not handled', type);
       item = null;
     }
+*/
   }
 
   return { type, ...item };

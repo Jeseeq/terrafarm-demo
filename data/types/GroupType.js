@@ -10,16 +10,13 @@ import {
   globalIdField,
 } from 'graphql-relay';
 
-import {registerType} from './registry';
+import {registerType, getEndpoint} from './registry';
 import {nodeInterface} from './node';
 
-import {
-  getUser,
-  getResource,
-} from '../database';
+import getItem from '../api/getItem';
 
-import {UserConnection} from './UserType';
-import {ResourceConnection} from './ResourceType';
+import {UserType, UserConnection} from './UserType';
+import {ResourceType, ResourceConnection} from './ResourceType';
 
 export const GroupType = registerType(new GraphQLObjectType({
   name: 'Group',
@@ -35,16 +32,17 @@ export const GroupType = registerType(new GraphQLObjectType({
       description: 'An organized community\'s list of members.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.users.map(id => getUser(id)),
+        _.users.map(user => getItem(getEndpoint(UserType), user.id)),
         args
       ),
     },
+    /* eslint camelcase: 0 */
     usersPending: {
       type: UserConnection,
       description: 'An organized community\'s list of pending members.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.usersPending.map(id => getUser(id)),
+        _.users_pending.map(user_pending => getItem(getEndpoint(UserType), user_pending.id)),
         args
       ),
     },
@@ -53,7 +51,7 @@ export const GroupType = registerType(new GraphQLObjectType({
       description: 'An organized community\'s list of economic inputs.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.resources.map(id => getResource(id)),
+        _.resources.map(resource => getItem(getEndpoint(ResourceType), resource.id)),
         args
       ),
     },

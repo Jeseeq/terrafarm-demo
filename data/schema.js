@@ -6,6 +6,10 @@ import {
 
 import {fromGlobalId} from 'graphql-relay';
 
+import {getEndpoint} from './types/registry';
+
+import getItem from './api/getItem';
+/*
 import {
   getUser,
   getResource,
@@ -13,7 +17,7 @@ import {
   getMaster,
   getViewer,
 } from './database';
-
+*/
 import {nodeField} from './types/node';
 import {UserType} from './types/UserType';
 import {ResourceType} from './types/ResourceType';
@@ -39,11 +43,11 @@ const Root = new GraphQLObjectType({
   fields: {
     master: {
       type: MasterType,
-      resolve: getMaster,
+      resolve: () => getItem(getEndpoint(MasterType)),
     },
     viewer: {
       type: ViewerType,
-      resolve: getViewer,
+      resolve: () => getItem(getEndpoint(ViewerType)),
     },
     user: {
       type: UserType,
@@ -52,7 +56,7 @@ const Root = new GraphQLObjectType({
       },
       resolve: (_, {userId}) => {
         const id = fromGlobalId(userId).id;
-        return getUser(id);
+        return getItem(getEndpoint(UserType), id);
       },
     },
     resource: {
@@ -62,7 +66,7 @@ const Root = new GraphQLObjectType({
       },
       resolve: (_, {resourceId}) => {
         const id = fromGlobalId(resourceId).id;
-        return getResource(id);
+        return getItem(getEndpoint(ResourceType), id);
       },
     },
     group: {
@@ -72,7 +76,7 @@ const Root = new GraphQLObjectType({
       },
       resolve: (_, {groupId}) => {
         const id = fromGlobalId(groupId).id;
-        return getGroup(id);
+        return getItem(getEndpoint(GroupType), id);
       },
     },
     node: nodeField,

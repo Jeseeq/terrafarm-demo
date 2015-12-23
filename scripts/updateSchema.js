@@ -6,6 +6,7 @@ import { Schema } from '../data/schema';
 import { graphql } from 'graphql';
 import { introspectionQuery, printSchema } from 'graphql/utilities';
 
+
 // Save JSON of full schema introspection for Babel Relay Plugin to use
 async () => {
   const result = await (graphql(Schema, introspectionQuery));

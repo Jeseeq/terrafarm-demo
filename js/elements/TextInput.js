@@ -18,10 +18,13 @@ export default class TextInput extends React.Component {
     onCancel: PropTypes.func,
     onDelete: PropTypes.func,
     onSave: PropTypes.func.isRequired,
-  }
+  };
   static defaultProps = {
     commitOnBlur: false,
-  }
+    style: {
+      fontFamily: 'Simonetta, serif',
+    },
+  };
   state = {
     isEditing: false,
     text: this.props.initialValue || '',
@@ -74,9 +77,3 @@ export default class TextInput extends React.Component {
     );
   }
 }
-
-TextInput.defaultProps = {
-  style: {
-    fontFamily: 'Simonetta, serif',
-  },
-};

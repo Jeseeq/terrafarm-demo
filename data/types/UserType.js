@@ -10,16 +10,13 @@ import {
   globalIdField,
 } from 'graphql-relay';
 
-import {registerType} from './registry';
+import {registerType, getEndpoint} from './registry';
 import {nodeInterface} from './node';
 
-import {
-  getResource,
-  getGroup,
-} from '../database';
+import getItem from '../api/getItem';
 
-import {ResourceConnection} from './ResourceType';
-import {GroupConnection} from './GroupType';
+import {ResourceType, ResourceConnection} from './ResourceType';
+import {GroupType, GroupConnection} from './GroupType';
 
 export const UserType = registerType(new GraphQLObjectType({
   name: 'User',
@@ -35,7 +32,7 @@ export const UserType = registerType(new GraphQLObjectType({
       description: 'A person\'s list of economic inputs.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.resources.map(id => getResource(id)),
+        _.resources.map(resource => getItem(getEndpoint(ResourceType), resource.id)),
         args
       ),
     },
@@ -44,16 +41,17 @@ export const UserType = registerType(new GraphQLObjectType({
       description: 'A person\'s list of group memberships.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.groups.map(id => getGroup(id)),
+        _.groups.map(group => getItem(getEndpoint(GroupType), group.id)),
         args
       ),
     },
+    /* eslint camelcase: 0 */
     groupsPending: {
       type: GroupConnection,
       description: 'A person\'s list of pending group memberships.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.groupsPending.map(id => getGroup(id)),
+        _.groups_pending.map(group_pending => getItem(getEndpoint(GroupType), group_pending.id)),
         args
       ),
     },
