@@ -5,8 +5,8 @@
   "repository": "rblakeley/terrafarm",
   "version": "0.1.0",
   "scripts": {
-    "start": "babel-node ./server.js",
-    "update-schema": "babel-node ./scripts/updateSchema.js"
+    "start": "node -r dotenv/config -r babel/register ./server.js",
+    "update-schema": "node -r dotenv/config -r babel/register ./scripts/updateSchema.js"
   },
   "dependencies": {
     "babel": "5.8.21",
@@ -15,6 +15,7 @@
     "classnames": "^2.2.1",
     "css-loader": "^0.23.0",
     "decamelize": "^1.1.1",
+    "dotenv": "^1.2.0",
     "express": "^4.13.3",
     "express-graphql": "^0.4.5",
     "file-loader": "^0.8.5",
