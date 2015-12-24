@@ -8,14 +8,13 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import {
-  getUser,
-  getMaster,
-  createUser,
-} from '../database';
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+import createItem from '../api/createItem';
 
 import MasterType from '../types/MasterType';
-import {UserEdge} from '../types/UserType';
+import {UserType, UserEdge} from '../types/UserType';
 
 export default mutationWithClientMutationId({
   name: 'NewUser',
@@ -25,12 +24,12 @@ export default mutationWithClientMutationId({
   outputFields: {
     userEdge: {
       type: UserEdge,
-      resolve: ({localUserId}) => {
-        const master = getMaster();
-        const user = getUser(localUserId);
+      resolve: async ({localUserId}) => {
+        const master = await getItem(getEndpoint(MasterType), 1);
+        const user = await getItem(getEndpoint(UserType), localUserId);
         return {
           cursor: cursorForObjectInConnection(
-            master.users.map(id => getUser(id)),
+            master.users.map(async u => await getItem(getEndpoint(UserType), u.id)),
             user
           ),
           node: user,
@@ -39,12 +38,20 @@ export default mutationWithClientMutationId({
     },
     master: {
       type: MasterType,
-      resolve: () => getMaster(),
+      resolve: async () => await getItem(getEndpoint(MasterType), 1),
     },
   },
-  mutateAndGetPayload: ({userName}) => {
-    const localUserId = createUser(userName);
-    return {localUserId};
+  mutateAndGetPayload: async ({userName}) => {
+    return await createItem(getEndpoint(UserType), {
+      name: userName,
+      resources: [],
+      groups: [],
+      groups_pending: [],
+      viewers: [],
+      masters: [{id: 1}],
+    }).then((newUser) => {
+      return {localUserId: newUser.id};
+    });
   },
 });
 

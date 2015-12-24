@@ -10,15 +10,17 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
+import {getEndpoint} from '../types/registry';
+/*
 import {
   getUser,
   getGroup,
   getMaster,
   createGroup,
 } from '../database';
-
+*/
 import {UserType} from '../types/UserType';
-import {GroupEdge} from '../types/GroupType';
+import {GroupType, GroupEdge} from '../types/GroupType';
 import MasterType from '../types/MasterType';
 
 export default mutationWithClientMutationId({
@@ -31,8 +33,9 @@ export default mutationWithClientMutationId({
     groupEdge: {
       type: GroupEdge,
       resolve: ({localGroupId}) => {
-        const master = getMaster();
-        const group = getGroup(localGroupId);
+        const master = getItem(getEndpoint(MasterType));
+        const group = getItem(getEndpoint(GroupType), localGroupId);
+        // ...
         return {
           cursor: cursorForObjectInConnection(
             master.groups.map(id => getGroup(id)),

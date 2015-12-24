@@ -10,6 +10,12 @@ const styles = {
 };
 
 class LoginPage extends React.Component {
+  static defaultProps = {
+    params: {
+      masterId: 1,
+      viewerId: 1,
+    },
+  };
   _handleLogin (user) {
     const {viewer} = this.props;
     Relay.Store.update(
@@ -22,7 +28,7 @@ class LoginPage extends React.Component {
   renderLogin () {
     const {master} = this.props;
     const {users} = master;
-    const usersList = users.edges.slice(1);
+    const usersList = users.edges.filter(edge => edge.node.name !== 'Guest');
 
     return <div>
       <h2>Login</h2>

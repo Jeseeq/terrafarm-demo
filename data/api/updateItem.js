@@ -2,14 +2,11 @@ import requestify from 'requestify';
 import {baseUrl, options} from './config';
 
 /* eslint no-unused-vars:0 */
-export default async function updateItem (endpoint, id, info) {
-  const url = baseUrl + '/' + endpoint;
+export default async function updateItem (endpoint, id, body) {
+  const url = baseUrl + '/' + endpoint(id);
 
   options.method = 'PATCH';
-  options.body = {
-    // Set attributes to update here.
-    // Omitted keys are untouched
-  };
+  options.body = body;
 
   const response = await requestify.request(url, options);
 

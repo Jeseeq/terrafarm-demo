@@ -4,15 +4,7 @@ import { fromGlobalId } from 'graphql-relay';
 import pluralize from 'pluralize';
 
 import getItem from '../api/getItem';
-/*
-import {
-  getMaster,
-  getViewer,
-  getUser,
-  getResource,
-  getGroup,
-} from '../database';
-*/
+
 const types = {};
 const endpoints = {};
 const getItemOverrides = {};
@@ -44,22 +36,6 @@ export async function idFetcher (globalId, info) {
     item = await getItemOverride(id, info);
   } else {
     item = await getItem(getEndpoint(type), id, info);
-/*
-    if (type === 'Master') {
-      item = getMaster();
-    } else if (type === 'Viewer') {
-      item = await getViewer();
-    } else if (type === 'User') {
-      item = await getUser(id);
-    } else if (type === 'Resource') {
-      item = await getResource(id);
-    } else if (type === 'Group') {
-      item = await getGroup(id);
-    } else {
-      console.warn('Warning: type not handled', type);
-      item = null;
-    }
-*/
   }
 
   return { type, ...item };

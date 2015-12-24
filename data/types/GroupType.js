@@ -32,7 +32,7 @@ export const GroupType = registerType(new GraphQLObjectType({
       description: 'An organized community\'s list of members.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.users.map(user => getItem(getEndpoint(UserType), user.id)),
+        _.users.map(async user => await getItem(getEndpoint(UserType), user.id)),
         args
       ),
     },
@@ -42,7 +42,7 @@ export const GroupType = registerType(new GraphQLObjectType({
       description: 'An organized community\'s list of pending members.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.users_pending.map(user_pending => getItem(getEndpoint(UserType), user_pending.id)),
+        _.users_pending.map(async user_pending => await getItem(getEndpoint(UserType), user_pending.id)),
         args
       ),
     },
@@ -51,7 +51,7 @@ export const GroupType = registerType(new GraphQLObjectType({
       description: 'An organized community\'s list of economic inputs.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.resources.map(resource => getItem(getEndpoint(ResourceType), resource.id)),
+        _.resources.map(async resource => await getItem(getEndpoint(ResourceType), resource.id)),
         args
       ),
     },

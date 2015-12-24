@@ -24,6 +24,11 @@ Demo version which runs locally.
 #### Group Page
 - [ ] group description
 
+### Database Design
+- [ ] replace mock database with a real db API [Fieldbook](https://fieldbook.com/books)
+  - [ ] consolidate `data/api/` into one module
+  - [ ] in type files, `const` endpoints at top
+
 
 ## 0.2
 
@@ -62,7 +67,6 @@ Attempt full test coverage.
 - [ ] route transitions
 
 ### Database Design
-- [ ] replace mock database with a real db API [Fieldbook](https://fieldbook.com/books)
 - [ ] Authentication with Auth0 JWT
 
 ### Tooling

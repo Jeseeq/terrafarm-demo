@@ -26,7 +26,7 @@ export default registerType(new GraphQLObjectType({
       type: UserConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _[0].users.map(user => getItem(getEndpoint(UserType), user.id)),
+        _.users.map(async user => await getItem(getEndpoint(UserType), user.id)),
         args
       ),
     },
@@ -34,7 +34,7 @@ export default registerType(new GraphQLObjectType({
       type: ResourceConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _[0].resources.map(resource => getItem(getEndpoint(ResourceType), resource.id)),
+        _.resources.map(async resource => await getItem(getEndpoint(ResourceType), resource.id)),
         args
       ),
     },
@@ -42,7 +42,7 @@ export default registerType(new GraphQLObjectType({
       type: GroupConnection,
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _[0].groups.map(group => getItem(getEndpoint(GroupType), group.id)),
+        _.groups.map(async group => await getItem(getEndpoint(GroupType), group.id)),
         args
       ),
     },

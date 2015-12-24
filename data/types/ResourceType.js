@@ -32,7 +32,7 @@ export const ResourceType = registerType(new GraphQLObjectType({
       description: 'An economic input\'s list of owners.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.users.map(user => getItem(getEndpoint(UserType), user.id)),
+        _.users.map(async user => await getItem(getEndpoint(UserType), user.id)),
         args
       ),
     },
@@ -41,7 +41,7 @@ export const ResourceType = registerType(new GraphQLObjectType({
       description: 'An economic input\'s list of groups with access.',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(
-        _.groups.map(group => getItem(getEndpoint(GroupType), group.id)),
+        _.groups.map(async group => await getItem(getEndpoint(GroupType), group.id)),
         args
       ),
     },

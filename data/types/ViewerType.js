@@ -12,7 +12,7 @@ export default registerType(new GraphQLObjectType({
     id: globalIdField('Viewer'),
     user: {
       type: UserType,
-      resolve: _ => getItem(getEndpoint(UserType), _[0].users[0].id),
+      resolve: async _ => await getItem(getEndpoint(UserType), _.users[0].id),
     },
   },
   interfaces: [nodeInterface],

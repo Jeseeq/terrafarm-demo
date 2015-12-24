@@ -10,16 +10,24 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+import createItem from '../api/createItem';
+/*
 import {
   getUser,
   getResource,
   getMaster,
   createResource,
 } from '../database';
-
+*/
 import {UserType} from '../types/UserType';
-import {ResourceEdge} from '../types/ResourceType';
+import {ResourceType, ResourceEdge} from '../types/ResourceType';
 import MasterType from '../types/MasterType';
+
+const resourceEndpoint = getEndpoint(ResourceType);
+const masterEndpoint = getEndpoint(MasterType);
 
 export default mutationWithClientMutationId({
   name: 'NewResource',
@@ -31,11 +39,11 @@ export default mutationWithClientMutationId({
     resourceEdge: {
       type: ResourceEdge,
       resolve: ({localResourceId}) => {
-        const master = getMaster();
-        const resource = getResource(localResourceId);
+        const masters = getItem(masterEndpoint);
+        const resource = getItem(resourceEndpoint, localResourceId);
         return {
           cursor: cursorForObjectInConnection(
-            master.resources.map(id => getResource(id)),
+            masters[0].resources.map(r => getItem(resourceEndpoint, r.id)),
             resource
           ),
           node: resource,
@@ -44,16 +52,18 @@ export default mutationWithClientMutationId({
     },
     user: {
       type: UserType,
-      resolve: ({localUserId}) => getUser(localUserId),
+      resolve: ({localUserId}) => getItem(getEndpoint(UserType), localUserId),
     },
     master: {
       type: MasterType,
-      resolve: () => getMaster(),
+      resolve: () => getItem(masterEndpoint),
     },
   },
   mutateAndGetPayload: ({userId, resourceName}) => {
     const localUserId = fromGlobalId(userId).id;
-    const localResourceId = createResource(localUserId, resourceName);
+    // createItem
+
+    // const localResourceId = createResource(localUserId, resourceName);
     return {localUserId, localResourceId};
   },
 });

@@ -9,15 +9,7 @@ import {fromGlobalId} from 'graphql-relay';
 import {getEndpoint} from './types/registry';
 
 import getItem from './api/getItem';
-/*
-import {
-  getUser,
-  getResource,
-  getGroup,
-  getMaster,
-  getViewer,
-} from './database';
-*/
+
 import {nodeField} from './types/node';
 import {UserType} from './types/UserType';
 import {ResourceType} from './types/ResourceType';
@@ -43,20 +35,20 @@ const Root = new GraphQLObjectType({
   fields: {
     master: {
       type: MasterType,
-      resolve: () => getItem(getEndpoint(MasterType)),
+      resolve: async () => await getItem(getEndpoint(MasterType), 1),
     },
     viewer: {
       type: ViewerType,
-      resolve: () => getItem(getEndpoint(ViewerType)),
+      resolve: async () => await getItem(getEndpoint(ViewerType), 1),
     },
     user: {
       type: UserType,
       args: {
         userId: { type: GraphQLString },
       },
-      resolve: (_, {userId}) => {
+      resolve: async (_, {userId}) => {
         const id = fromGlobalId(userId).id;
-        return getItem(getEndpoint(UserType), id);
+        return await getItem(getEndpoint(UserType), id);
       },
     },
     resource: {
@@ -64,9 +56,9 @@ const Root = new GraphQLObjectType({
       args: {
         resourceId: { type: GraphQLString },
       },
-      resolve: (_, {resourceId}) => {
+      resolve: async (_, {resourceId}) => {
         const id = fromGlobalId(resourceId).id;
-        return getItem(getEndpoint(ResourceType), id);
+        return await getItem(getEndpoint(ResourceType), id);
       },
     },
     group: {
@@ -74,9 +66,9 @@ const Root = new GraphQLObjectType({
       args: {
         groupId: { type: GraphQLString },
       },
-      resolve: (_, {groupId}) => {
+      resolve: async (_, {groupId}) => {
         const id = fromGlobalId(groupId).id;
-        return getItem(getEndpoint(GroupType), id);
+        return await getItem(getEndpoint(GroupType), id);
       },
     },
     node: nodeField,

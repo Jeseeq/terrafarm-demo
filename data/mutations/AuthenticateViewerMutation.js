@@ -8,11 +8,10 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import {
-  getUser,
-  getViewer,
-  authenticateViewer,
-} from '../database';
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+// import authenticateViewer from '../api/authenticateViewer';
 
 import {UserType} from '../types/UserType';
 import ViewerType from '../types/ViewerType';
@@ -25,16 +24,16 @@ export default mutationWithClientMutationId({
   outputFields: {
     user: {
       type: UserType,
-      resolve: ({localUserId}) => getUser(localUserId),
+      resolve: ({localUserId}) => getItem(getEndpoint(UserType), localUserId),
     },
     viewer: {
       type: ViewerType,
-      resolve: () => getViewer(),
+      resolve: () => getItem(getEndpoint(ViewerType)),
     },
   },
   mutateAndGetPayload: ({userId}) => {
     const localUserId = fromGlobalId(userId).id;
-    authenticateViewer(localUserId);
+    // authenticateViewer(localUserId);
     return {localUserId};
   },
 });
