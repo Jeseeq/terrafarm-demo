@@ -4,7 +4,7 @@ import {
 } from 'graphql';
 
 import {
-  cursorForObjectInConnection,
+  offsetToCursor,
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
@@ -26,13 +26,13 @@ export default mutationWithClientMutationId({
       type: UserEdge,
       resolve: async ({localUserId}) => {
         const master = await getItem(getEndpoint(MasterType), 1);
-        const user = await getItem(getEndpoint(UserType), localUserId);
+        const userPromises = master.users.map(u => getItem(getEndpoint(UserType), u.id));
+        const userResults = await* userPromises;
+        const offset = userResults.findIndex(u => u.id === localUserId);
+        const cursor = offsetToCursor(offset);
         return {
-          cursor: cursorForObjectInConnection(
-            master.users.map(async u => await getItem(getEndpoint(UserType), u.id)),
-            user
-          ),
-          node: user,
+          cursor: cursor,
+          node: userResults[offset],
         };
       },
     },
