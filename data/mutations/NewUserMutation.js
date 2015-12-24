@@ -16,6 +16,9 @@ import createItem from '../api/createItem';
 import MasterType from '../types/MasterType';
 import {UserType, UserEdge} from '../types/UserType';
 
+const userEndpoint = getEndpoint(UserType);
+const masterEndpoint = getEndpoint(MasterType);
+
 export default mutationWithClientMutationId({
   name: 'NewUser',
   inputFields: {
@@ -25,8 +28,8 @@ export default mutationWithClientMutationId({
     userEdge: {
       type: UserEdge,
       resolve: async ({localUserId}) => {
-        const master = await getItem(getEndpoint(MasterType), 1);
-        const userPromises = master.users.map(u => getItem(getEndpoint(UserType), u.id));
+        const master = await getItem(masterEndpoint, 1);
+        const userPromises = master.users.map(u => getItem(userEndpoint, u.id));
         const userResults = await* userPromises;
         const offset = userResults.findIndex(u => u.id === localUserId);
         const cursor = offsetToCursor(offset);
@@ -38,11 +41,11 @@ export default mutationWithClientMutationId({
     },
     master: {
       type: MasterType,
-      resolve: async () => await getItem(getEndpoint(MasterType), 1),
+      resolve: async () => await getItem(masterEndpoint, 1),
     },
   },
   mutateAndGetPayload: async ({userName}) => {
-    return await createItem(getEndpoint(UserType), {
+    return await createItem(userEndpoint, {
       name: userName,
       resources: [],
       groups: [],

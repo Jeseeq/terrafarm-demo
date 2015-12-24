@@ -6,22 +6,22 @@ import {
 
 import {
   fromGlobalId,
-  cursorForObjectInConnection,
+  offsetToCursor,
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
 import {getEndpoint} from '../types/registry';
-/*
-import {
-  getUser,
-  getGroup,
-  getMaster,
-  createGroup,
-} from '../database';
-*/
+
+import getItem from '../api/getItem';
+import createItem from '../api/createItem';
+
 import {UserType} from '../types/UserType';
 import {GroupType, GroupEdge} from '../types/GroupType';
 import MasterType from '../types/MasterType';
+
+const groupEndpoint = getEndpoint(GroupType);
+const masterEndpoint = getEndpoint(MasterType);
+const userEndpoint = getEndpoint(UserType);
 
 export default mutationWithClientMutationId({
   name: 'NewGroup',
@@ -32,32 +32,41 @@ export default mutationWithClientMutationId({
   outputFields: {
     groupEdge: {
       type: GroupEdge,
-      resolve: ({localGroupId}) => {
-        const master = getItem(getEndpoint(MasterType));
-        const group = getItem(getEndpoint(GroupType), localGroupId);
-        // ...
+      resolve: async ({localGroupId}) => {
+        const master = await getItem(masterEndpoint, 1);
+        const groupPromises = master.groups.map(r => getItem(groupEndpoint, r.id));
+        const groupResults = await* groupPromises;
+        const offset = groupResults.findIndex(g => g.id === localGroupId);
+        const cursor = offsetToCursor(offset);
         return {
-          cursor: cursorForObjectInConnection(
-            master.groups.map(id => getGroup(id)),
-            group
-          ),
-          node: group,
+          cursor: cursor,
+          node: groupResults[offset],
         };
       },
     },
     user: {
       type: UserType,
-      resolve: ({localUserId}) => getUser(localUserId),
+      resolve: async ({localUserId}) => await getItem(userEndpoint, localUserId),
     },
     master: {
       type: MasterType,
-      resolve: () => getMaster(),
+      resolve: async () => await getItem(masterEndpoint, 1),
     },
   },
-  mutateAndGetPayload: ({userId, groupName}) => {
+  mutateAndGetPayload: async ({userId, groupName}) => {
     const localUserId = fromGlobalId(userId).id;
-    const localGroupId = createGroup(localUserId, groupName);
-    return {localUserId, localGroupId};
+
+    return await createItem(groupEndpoint, {
+      name: groupName,
+      users: [{id: localUserId}],
+      resources: [],
+      masters: [{id: 1}],
+    }).then((newGroup) => {
+      return {
+        localGroupId: newGroup.id,
+        localUserId,
+      };
+    });
   },
 });
 

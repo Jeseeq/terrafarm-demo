@@ -6,7 +6,7 @@ import {
 
 import {
   fromGlobalId,
-  cursorForObjectInConnection,
+  offsetToCursor,
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
@@ -14,20 +14,14 @@ import {getEndpoint} from '../types/registry';
 
 import getItem from '../api/getItem';
 import createItem from '../api/createItem';
-/*
-import {
-  getUser,
-  getResource,
-  getMaster,
-  createResource,
-} from '../database';
-*/
+
 import {UserType} from '../types/UserType';
 import {ResourceType, ResourceEdge} from '../types/ResourceType';
 import MasterType from '../types/MasterType';
 
 const resourceEndpoint = getEndpoint(ResourceType);
 const masterEndpoint = getEndpoint(MasterType);
+const userEndpoint = getEndpoint(UserType);
 
 export default mutationWithClientMutationId({
   name: 'NewResource',
@@ -38,33 +32,41 @@ export default mutationWithClientMutationId({
   outputFields: {
     resourceEdge: {
       type: ResourceEdge,
-      resolve: ({localResourceId}) => {
-        const masters = getItem(masterEndpoint);
-        const resource = getItem(resourceEndpoint, localResourceId);
+      resolve: async ({localResourceId}) => {
+        const master = await getItem(masterEndpoint, 1);
+        const resourcePromises = master.resources.map(r => getItem(resourceEndpoint, r.id));
+        const resourceResults = await* resourcePromises;
+        const offset = resourceResults.findIndex(r => r.id === localResourceId);
+        const cursor = offsetToCursor(offset);
         return {
-          cursor: cursorForObjectInConnection(
-            masters[0].resources.map(r => getItem(resourceEndpoint, r.id)),
-            resource
-          ),
-          node: resource,
+          cursor: cursor,
+          node: resourceResults[offset],
         };
       },
     },
     user: {
       type: UserType,
-      resolve: ({localUserId}) => getItem(getEndpoint(UserType), localUserId),
+      resolve: async ({localUserId}) => await getItem(userEndpoint, localUserId),
     },
     master: {
       type: MasterType,
-      resolve: () => getItem(masterEndpoint),
+      resolve: async () => await getItem(masterEndpoint, 1),
     },
   },
-  mutateAndGetPayload: ({userId, resourceName}) => {
+  mutateAndGetPayload: async ({userId, resourceName}) => {
     const localUserId = fromGlobalId(userId).id;
-    // createItem
 
-    // const localResourceId = createResource(localUserId, resourceName);
-    return {localUserId, localResourceId};
+    return await createItem(resourceEndpoint, {
+      name: resourceName,
+      users: [{id: localUserId}],
+      groups: [],
+      masters: [{id: 1}],
+    }).then((newResource) => {
+      return {
+        localResourceId: newResource.id,
+        localUserId,
+      };
+    });
   },
 });
 
