@@ -1,14 +1,20 @@
 import requestify from 'requestify';
 import {baseUrl, options} from './config';
 
-/* eslint no-unused-vars:0 */
+/* eslint no-unused-vars: 0 */
 export default async function updateItem (endpoint, id, body) {
   const url = baseUrl + '/' + endpoint(id);
 
   options.method = 'PATCH';
   options.body = body;
 
-  const response = await requestify.request(url, options);
+  let response;
+  try {
+    response = await requestify.request(url, options);
+  } catch (err) {
+    console.error('Error:', 'update item', err);
+  }
+
 
   return JSON.parse(response.body);
 }

@@ -9,12 +9,14 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import {
-  getResource,
-  renameResource,
-} from '../database';
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+import updateItem from '../api/updateItem';
 
 import {ResourceType} from '../types/ResourceType';
+
+const resourceEndpoint = getEndpoint(ResourceType);
 
 export default mutationWithClientMutationId({
   name: 'RenameResource',
@@ -25,13 +27,17 @@ export default mutationWithClientMutationId({
   outputFields: {
     resource: {
       type: ResourceType,
-      resolve: ({localResourceId}) => getResource(localResourceId),
+      resolve: async ({localResourceId}) => await getItem(resourceEndpoint, localResourceId),
     },
   },
-  mutateAndGetPayload: ({id, name}) => {
+  mutateAndGetPayload: async ({id, name}) => {
     const localResourceId = fromGlobalId(id).id;
-    renameResource(localResourceId, name);
-    return {localResourceId};
+
+    return await updateItem(resourceEndpoint, localResourceId, {
+      name,
+    }).then((result) => {
+      return {localResourceId: result.id};
+    });
   },
 });
 

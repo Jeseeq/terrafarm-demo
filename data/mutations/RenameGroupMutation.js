@@ -9,12 +9,14 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import {
-  getGroup,
-  renameGroup,
-} from '../database';
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+import updateItem from '../api/updateItem';
 
 import {GroupType} from '../types/GroupType';
+
+const groupEndpoint = getEndpoint(GroupType);
 
 export default mutationWithClientMutationId({
   name: 'RenameGroup',
@@ -25,13 +27,17 @@ export default mutationWithClientMutationId({
   outputFields: {
     group: {
       type: GroupType,
-      resolve: ({localGroupId}) => getGroup(localGroupId),
+      resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
-  mutateAndGetPayload: ({id, name}) => {
+  mutateAndGetPayload: async ({id, name}) => {
     const localGroupId = fromGlobalId(id).id;
-    renameGroup(localGroupId, name);
-    return {localGroupId};
+
+    return await updateItem(groupEndpoint, localGroupId, {
+      name,
+    }).then((result) => {
+      return {localGroupId: result.id};
+    });
   },
 });
 
