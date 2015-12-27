@@ -8,6 +8,7 @@ Demo version which runs locally.
 
 ### UI Design
 - [ ] layout sanity
+- [ ] code sanity
 
 #### New Resource Page
 - [ ] field for name
