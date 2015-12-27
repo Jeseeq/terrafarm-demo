@@ -8,14 +8,16 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import {
-  getResource,
-  getGroup,
-  disconnectResourceFromGroup,
-} from '../database';
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+import updateItem from '../api/updateItem';
 
 import {ResourceType} from '../types/ResourceType';
 import {GroupType} from '../types/GroupType';
+
+const resourceEndpoint = getEndpoint(ResourceType);
+const groupEndpoint = getEndpoint(GroupType);
 
 export default mutationWithClientMutationId({
   name: 'DisconnectResourceFromGroup',
@@ -34,13 +36,14 @@ export default mutationWithClientMutationId({
     },
     resource: {
       type: ResourceType,
-      resolve: ({localResourceId}) => getResource(localResourceId),
+      resolve: async ({localResourceId}) => await getItem(resourceEndpoint, localResourceId),
     },
     group: {
       type: GroupType,
-      resolve: ({localGroupId}) => getGroup(localGroupId),
+      resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
+  // ...
   mutateAndGetPayload: ({resourceId, groupId}) => {
     const localResourceId = fromGlobalId(resourceId).id;
     const localGroupId = fromGlobalId(groupId).id;

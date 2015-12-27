@@ -5,18 +5,20 @@ import {
 
 import {
   fromGlobalId,
-  cursorForObjectInConnection,
+  offsetToCursor,
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import {
-  getResource,
-  getGroup,
-  connectResourceToGroup,
-} from '../database';
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+import updateItem from '../api/updateItem';
 
 import {ResourceType, ResourceEdge} from '../types/ResourceType';
 import {GroupType, GroupEdge} from '../types/GroupType';
+
+const resourceEndpoint = getEndpoint(ResourceType);
+const groupEndpoint = getEndpoint(GroupType);
 
 export default mutationWithClientMutationId({
   name: 'ConnectResourceToGroup',
@@ -27,41 +29,42 @@ export default mutationWithClientMutationId({
   outputFields: {
     groupEdge: {
       type: GroupEdge,
-      resolve: ({localResourceId, localGroupId}) => {
-        const resource = getResource(localResourceId);
-        const group = getGroup(localGroupId);
+      resolve: async ({localResourceId, localGroupId}) => {
+        const resource = await getItem(resourceEndpoint, localResourceId);
+        const groupPromises = resource.groups.map(g => getItem(groupEndpoint, g.id));
+        const groupResults = await* groupPromises;
+        const offset = groupResults.findIndex(g => g.id === localGroupId);
+        const cursor = offsetToCursor(offset);
         return {
-          cursor: cursorForObjectInConnection(
-            resource.groups.map(id => getGroup(id)),
-            group
-          ),
-          node: group,
+          cursor: cursor,
+          node: groupResults[offset],
         };
       },
     },
     resourceEdge: {
       type: ResourceEdge,
-      resolve: ({localGroupId, localResourceId}) => {
-        const group = getGroup(localGroupId);
-        const resource = getResource(localResourceId);
+      resolve: async ({localGroupId, localResourceId}) => {
+        const group = await getItem(groupEndpoint, localGroupId);
+        const resourcePromises = group.resources.map(r => getItem(resourceEndpoint, r.id));
+        const resourceResults = await* resourcePromises;
+        const offset = resourceResults.findIndex(r => r.id === localResourceId);
+        const cursor = offsetToCursor(offset);
         return {
-          cursor: cursorForObjectInConnection(
-            group.resources.map(id => getResource(id)),
-            resource
-          ),
-          node: resource,
+          cursor: cursor,
+          node: resourceResults[offset],
         };
       },
     },
     resource: {
       type: ResourceType,
-      resolve: ({localResourceId}) => getResource(localResourceId),
+      resolve: async ({localResourceId}) => await getItem(resourceEndpoint, localResourceId),
     },
     group: {
       type: GroupType,
-      resolve: ({localGroupId}) => getGroup(localGroupId),
+      resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
+  // ...
   mutateAndGetPayload: ({resourceId, groupId}) => {
     const localResourceId = fromGlobalId(resourceId).id;
     const localGroupId = fromGlobalId(groupId).id;

@@ -5,18 +5,20 @@ import {
 
 import {
   fromGlobalId,
-  cursorForObjectInConnection,
+  offsetToCursor,
   mutationWithClientMutationId,
 } from 'graphql-relay';
 
-import {
-  getUser,
-  getGroup,
-  pendingUserToGroup,
-} from '../database';
+import {getEndpoint} from '../types/registry';
+
+import getItem from '../api/getItem';
+import updateItem from '../api/updateItem';
 
 import {UserType, UserEdge} from '../types/UserType';
 import {GroupType, GroupEdge} from '../types/GroupType';
+
+const userEndpoint = getEndpoint(UserType);
+const groupEndpoint = getEndpoint(GroupType);
 
 export default mutationWithClientMutationId({
   name: 'PendingUserToGroup',
@@ -27,41 +29,42 @@ export default mutationWithClientMutationId({
   outputFields: {
     groupEdge: {
       type: GroupEdge,
-      resolve: ({localUserId, localGroupId}) => {
-        const group = getGroup(localGroupId);
-        const user = getUser(localUserId);
+      resolve: async ({localUserId, localGroupId}) => {
+        const user = await getItem(userEndpoint, localUserId);
+        const groupPromises = user.groups_pending.map(g => getItem(groupEndpoint, g.id));
+        const groupResults = await* groupPromises;
+        const offset = groupResults.findIndex(g => g.id === localGroupId);
+        const cursor = offsetToCursor(offset);
         return {
-          cursor: cursorForObjectInConnection(
-            user.groupsPending.map(id => getGroup(id)),
-            group
-          ),
-          node: group,
+          cursor: cursor,
+          node: groupResults[offset],
         };
       },
     },
     userEdge: {
       type: UserEdge,
-      resolve: ({localUserId, localGroupId}) => {
-        const group = getGroup(localGroupId);
-        const user = getUser(localUserId);
+      resolve: async ({localUserId, localGroupId}) => {
+        const group = await getItem(groupEndpoint, localGroupId);
+        const userPromises = group.users_pending.map(r => getItem(userEndpoint, r.id));
+        const userResults = await* userPromises;
+        const offset = userResults.findIndex(r => r.id === localUserId);
+        const cursor = offsetToCursor(offset);
         return {
-          cursor: cursorForObjectInConnection(
-            group.usersPending.map(id => getUser(id)),
-            user
-          ),
-          node: user,
+          cursor: cursor,
+          node: userResults[offset],
         };
       },
     },
     user: {
       type: UserType,
-      resolve: ({localUserId}) => getUser(localUserId),
+      resolve: async ({localUserId}) => await getItem(userEndpoint, localUserId),
     },
     group: {
       type: GroupType,
-      resolve: ({localGroupId}) => getGroup(localGroupId),
+      resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
+  // ...
   mutateAndGetPayload: ({userId, groupId}) => {
     const localUserId = fromGlobalId(userId).id;
     const localGroupId = fromGlobalId(groupId).id;
