@@ -63,6 +63,9 @@ More detail on basic user experience patterns.
 - [ ] about page
   - [ ] recommended reading
 
+#### User Profile
+- [ ] location
+
 #### Testing
 Attempt full test coverage.
 - [ ] unit tests
