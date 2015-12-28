@@ -12,7 +12,7 @@ export default async function updateItem (endpoint, id, body) {
   try {
     response = await requestify.request(url, options);
   } catch (err) {
-    console.error('Error:', 'update item', err);
+    console.error('Error updating item:', err);
   }
 
 

@@ -34,11 +34,14 @@ export default mutationWithClientMutationId({
       resolve: async () => await getItem(viewerEndpoint, 1),
     },
   },
-  // ...
-  mutateAndGetPayload: ({userId}) => {
+  mutateAndGetPayload: async ({userId}) => {
     const localUserId = fromGlobalId(userId).id;
-    // authenticateViewer(localUserId);
-    return {localUserId};
+
+    return await updateItem(viewerEndpoint, 1, {
+      users: [{id: localUserId}],
+    }).then(() => {
+      return {localUserId};
+    });
   },
 });
 

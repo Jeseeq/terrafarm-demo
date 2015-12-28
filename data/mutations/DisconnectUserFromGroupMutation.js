@@ -43,12 +43,19 @@ export default mutationWithClientMutationId({
       resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
-  // ...
-  mutateAndGetPayload: ({userId, groupId}) => {
+  mutateAndGetPayload: async ({userId, groupId}) => {
     const localUserId = fromGlobalId(userId).id;
     const localGroupId = fromGlobalId(groupId).id;
-    disconnectUserFromGroup(localUserId, localGroupId);
-    return { localUserId, localGroupId };
+    const user = await getItem(userEndpoint, localUserId);
+    const groupIndex = user.groups.findIndex(g => g.id === localGroupId);
+
+    user.groups.splice(groupIndex, 1);
+
+    return await updateItem(userEndpoint, localUserId, {
+      groups: user.groups,
+    }).then(() => {
+      return { localUserId, localGroupId };
+    });
   },
 });
 

@@ -35,7 +35,7 @@ export default mutationWithClientMutationId({
 
     return await updateItem(resourceEndpoint, localResourceId, {
       name,
-    }).then((result) => {
+    }).then(result => {
       return {localResourceId: result.id};
     });
   },

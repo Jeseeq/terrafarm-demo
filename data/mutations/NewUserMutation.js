@@ -52,8 +52,8 @@ export default mutationWithClientMutationId({
       groups_pending: [],
       viewers: [],
       masters: [{id: 1}],
-    }).then((newUser) => {
-      return {localUserId: newUser.id};
+    }).then(result => {
+      return {localUserId: result.id};
     });
   },
 });

@@ -8,7 +8,6 @@ Demo version which runs locally.
 
 ### UI Design
 - [ ] layout sanity
-- [ ] code sanity
 
 #### New Resource Page
 - [ ] field for name
@@ -26,13 +25,14 @@ Demo version which runs locally.
 - [ ] group description
 
 ### Database Design
+- [ ] api sanity
 - [ ] replace mock database with a real db API [Fieldbook](https://fieldbook.com/books)
-  - [ ] mutations
-    - [ ] authenticate...
-    - [ ] cancel...
-    - [ ] connect...
-    - [ ] disconnect...
-    - [ ] pending...
+  - [x] mutations
+    - [x] authenticate...
+    - [x] cancel...
+    - [x] connect...
+    - [x] disconnect...
+    - [x] pending...
   - [ ] consolidate `data/api/` into one module
   - [ ] in type files, `const` endpoints at top
 
@@ -65,6 +65,7 @@ More detail on basic user experience patterns.
 
 #### User Profile
 - [ ] location
+- [ ] edit user details
 
 #### Testing
 Attempt full test coverage.
@@ -78,6 +79,8 @@ Attempt full test coverage.
 
 ### Database Design
 - [ ] Authentication with Auth0 JWT
+- [ ] parallel db requests
+- [ ] avoid redundant connection mutations
 
 ### Tooling
 - [ ] heroku deployment
@@ -99,6 +102,10 @@ Expand the user experience.
 
 #### Routes
 - [ ] URL parameter values (query keys) should be descriptive
+
+### Database Design
+- [ ] dev db and caching
+- [ ] optimistic updates
 
 
 ## 0.4

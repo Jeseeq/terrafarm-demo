@@ -61,9 +61,9 @@ export default mutationWithClientMutationId({
       users: [{id: localUserId}],
       resources: [],
       masters: [{id: 1}],
-    }).then((newGroup) => {
+    }).then(result => {
       return {
-        localGroupId: newGroup.id,
+        localGroupId: result.id,
         localUserId,
       };
     });

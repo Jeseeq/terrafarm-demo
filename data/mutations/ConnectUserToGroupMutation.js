@@ -64,12 +64,17 @@ export default mutationWithClientMutationId({
       resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
-  // ...
-  mutateAndGetPayload: ({userId, groupId}) => {
+  mutateAndGetPayload: async ({userId, groupId}) => {
     const localUserId = fromGlobalId(userId).id;
     const localGroupId = fromGlobalId(groupId).id;
-    connectUserToGroup(localUserId, localGroupId);
-    return { localUserId, localGroupId };
+    const user = await getItem(userEndpoint, localUserId);
+    user.groups.push({id: localGroupId});
+
+    return await updateItem(userEndpoint, localUserId, {
+      groups: user.groups,
+    }).then(() => {
+      return { localUserId, localGroupId };
+    });
   },
 });
 

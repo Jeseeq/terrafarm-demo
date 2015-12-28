@@ -35,7 +35,7 @@ export default mutationWithClientMutationId({
 
     return await updateItem(groupEndpoint, localGroupId, {
       name,
-    }).then((result) => {
+    }).then(result => {
       return {localGroupId: result.id};
     });
   },
