@@ -26,15 +26,10 @@ Demo version which runs locally.
 
 ### Database Design
 - [ ] api sanity
-- [ ] replace mock database with a real db API [Fieldbook](https://fieldbook.com/books)
-  - [x] mutations
-    - [x] authenticate...
-    - [x] cancel...
-    - [x] connect...
-    - [x] disconnect...
-    - [x] pending...
-  - [ ] consolidate `data/api/` into one module
-  - [ ] in type files, `const` endpoints at top
+  - [ ] commit resource mutation
+  - [ ] logout mutation - wait until implementing auth0
+- [ ] consolidate `data/api/` into one module
+- [ ] in type files, `const` endpoints at top
 
 
 ## 0.2

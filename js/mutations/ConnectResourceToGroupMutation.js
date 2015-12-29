@@ -53,6 +53,7 @@ export default class ConnectResourceToGroup extends Relay.Mutation {
         children: [Relay.QL`
           fragment on ConnectResourceToGroupPayload {
             groupEdge,
+            resourceEdge,
           }
         `],
       },

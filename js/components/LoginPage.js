@@ -50,11 +50,12 @@ class LoginPage extends React.Component {
     const {viewer, master} = this.props;
     const {user} = viewer;
     const {users} = master;
+    const guest = users.edges.find(edge => edge.node.name === 'Guest');
 
     return <div>
       <h2
         style={styles.userName}
-        onClick={this._handleLogin.bind(this, users.edges[0].node)}
+        onClick={this._handleLogin.bind(this, guest.node)}
       >
         Logout {user.name}
       </h2>

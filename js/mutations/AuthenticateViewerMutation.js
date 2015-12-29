@@ -65,6 +65,7 @@ export default class AuthenticateViewerMutation extends Relay.Mutation {
       type: 'FIELDS_CHANGE',
       fieldIDs: {
         viewer: this.props.viewer.id,
+        user: this.props.user.id,
       },
     }];
   }
