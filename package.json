@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node -r dotenv/config -r babel/register ./server.js",
     "update-schema": "node -r dotenv/config -r babel/register ./scripts/updateSchema.js",
-    "postinstall": "node -r babel/register ./scripts/updateSchema.js"
+    "postinstall": "npm run update-schema"
   },
   "dependencies": {
     "babel": "5.8.21",

@@ -1,1 +1,1 @@
-web: node -r babel/register ./server.js
+web: npm run start
