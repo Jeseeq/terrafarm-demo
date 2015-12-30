@@ -73,6 +73,7 @@ Attempt full test coverage.
 - [ ] route transitions
 - [ ] logo and keywords for `./app.json` and `./package.json`
 - [ ] favicon
+- [ ] bump dependencies, maybe node
 
 ### Database Design
 - [ ] Authentication with Auth0 JWT
