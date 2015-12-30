@@ -18,6 +18,9 @@ import getItem from '../api/getItem';
 import {ResourceType, ResourceConnection} from './ResourceType';
 import {GroupType, GroupConnection} from './GroupType';
 
+// const resourceEndpoint = getEndpoint(ResourceType);
+// const groupEndpoint = getEndpoint(GroupType);
+
 export const UserType = registerType(new GraphQLObjectType({
   name: 'User',
   description: 'A person who uses our app.',
@@ -31,29 +34,41 @@ export const UserType = registerType(new GraphQLObjectType({
       type: ResourceConnection,
       description: 'A person\'s list of economic inputs.',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.resources.map(async resource => await getItem(getEndpoint(ResourceType), resource.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const resourcePromises = _.resources.map(r => getItem(getEndpoint(ResourceType), r.id));
+        const resourceResults = await* resourcePromises;
+        return connectionFromArray(
+          resourceResults,
+          args
+        );
+      },
     },
     groups: {
       type: GroupConnection,
       description: 'A person\'s list of group memberships.',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups.map(async group => await getItem(getEndpoint(GroupType), group.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const groupPromises = _.groups.map(g => getItem(getEndpoint(GroupType), g.id));
+        const groupResults = await* groupPromises;
+        return connectionFromArray(
+          groupResults,
+          args
+        );
+      },
     },
     /* eslint camelcase: 0 */
     groupsPending: {
       type: GroupConnection,
       description: 'A person\'s list of pending group memberships.',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups_pending.map(async group_pending => await getItem(getEndpoint(GroupType), group_pending.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const groupPromises = _.groups_pending.map(g => getItem(getEndpoint(GroupType), g.id));
+        const groupResults = await* groupPromises;
+        return connectionFromArray(
+          groupResults,
+          args
+        );
+      },
     },
   }),
   interfaces: [nodeInterface],

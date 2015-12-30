@@ -13,7 +13,13 @@ class ProfilePage extends React.Component {
   state = {
     colorChart: {},
   };
+  componentWillMount () {
+    this.createColorChart();
+  }
   componentWillReceiveProps () {
+    this.createColorChart();
+  }
+  createColorChart () {
     const {viewer} = this.props;
     const {user} = viewer;
     const {groups} = user;

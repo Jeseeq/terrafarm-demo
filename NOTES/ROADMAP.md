@@ -7,29 +7,14 @@ Below is a roadmap of potential Terrafarm features and releases.
 Demo version which runs locally.
 
 ### UI Design
-- [ ] layout sanity
-
-#### New Resource Page
-- [ ] field for name
-- [ ] field for description
-
-#### New Group Page
-- [ ] field for name
-- [ ] field for description
 
 #### Resource Page
-- [ ] resource description
 - [ ] new layout/style for user name
 
-#### Group Page
-- [ ] group description
+#### Sanity
 
-### Database Design
-- [ ] api sanity
-  - [ ] commit resource mutation
-  - [ ] logout mutation - wait until implementing auth0
-- [ ] consolidate `data/api/` into one module
-- [ ] in type files, `const` endpoints at top
+### General
+- [ ] GitHub release tags
 
 
 ## 0.2
@@ -62,6 +47,20 @@ More detail on basic user experience patterns.
 - [ ] location
 - [ ] edit user details
 
+#### New Resource Page
+- [ ] field for name
+- [ ] field for description
+
+#### New Group Page
+- [ ] field for name
+- [ ] field for description
+
+#### Resource Page
+- [ ] resource description
+
+#### Group Page
+- [ ] group description
+
 #### Testing
 Attempt full test coverage.
 - [ ] unit tests
@@ -76,6 +75,9 @@ Attempt full test coverage.
 - [ ] Authentication with Auth0 JWT
 - [ ] parallel db requests
 - [ ] avoid redundant connection mutations
+- [ ] fewer calls to `getEndpoint`
+- [ ] consolidate `data/api/` into one module
+- [ ] resolve benign console warnings on mutations
 
 ### Tooling
 - [ ] heroku deployment

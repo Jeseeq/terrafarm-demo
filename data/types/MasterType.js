@@ -17,6 +17,10 @@ import {UserType, UserConnection} from './UserType';
 import {ResourceType, ResourceConnection} from './ResourceType';
 import {GroupType, GroupConnection} from './GroupType';
 
+// const userEndpoint = getEndpoint(UserType);
+// const resourceEndpoint = getEndpoint(ResourceType);
+// const groupEndpoint = getEndpoint(GroupType);
+
 export default registerType(new GraphQLObjectType({
   name: 'Master',
   description: 'A root-level client wrapper.',
@@ -25,26 +29,38 @@ export default registerType(new GraphQLObjectType({
     users: {
       type: UserConnection,
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.users.map(async user => await getItem(getEndpoint(UserType), user.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const userPromises = _.users.map(u => getItem(getEndpoint(UserType), u.id));
+        const userResults = await* userPromises;
+        return connectionFromArray(
+          userResults,
+          args
+        );
+      },
     },
     resources: {
       type: ResourceConnection,
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.resources.map(async resource => await getItem(getEndpoint(ResourceType), resource.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const resourcePromises = _.resources.map(r => getItem(getEndpoint(ResourceType), r.id));
+        const resourceResults = await* resourcePromises;
+        return connectionFromArray(
+          resourceResults,
+          args
+        );
+      },
     },
     groups: {
       type: GroupConnection,
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups.map(async group => await getItem(getEndpoint(GroupType), group.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const groupPromises = _.groups.map(g => getItem(getEndpoint(GroupType), g.id));
+        const groupResults = await* groupPromises;
+        return connectionFromArray(
+          groupResults,
+          args
+        );
+      },
     },
   },
   interfaces: [nodeInterface],

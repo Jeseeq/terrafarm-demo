@@ -35,7 +35,7 @@ export async function idFetcher (globalId, info) {
   if (getItemOverride) {
     item = await getItemOverride(id, info);
   } else {
-    item = await getItem(getEndpoint(type), id, info);
+    item = await getItem(getEndpoint({name: type}), id, info);
   }
 
   return { type, ...item };

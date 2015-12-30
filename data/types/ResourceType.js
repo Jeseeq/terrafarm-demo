@@ -18,6 +18,9 @@ import getItem from '../api/getItem';
 import {UserType, UserConnection} from './UserType';
 import {GroupType, GroupConnection} from './GroupType';
 
+// const userEndpoint = getEndpoint(UserType);
+// const groupEndpoint = getEndpoint(GroupType);
+
 export const ResourceType = registerType(new GraphQLObjectType({
   name: 'Resource',
   description: 'An economic input.',
@@ -31,19 +34,27 @@ export const ResourceType = registerType(new GraphQLObjectType({
       type: UserConnection,
       description: 'An economic input\'s list of owners.',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.users.map(async user => await getItem(getEndpoint(UserType), user.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const userPromises = _.users.map(u => getItem(getEndpoint(UserType), u.id));
+        const userResults = await* userPromises;
+        return connectionFromArray(
+          userResults,
+          args
+        );
+      },
     },
     groups: {
       type: GroupConnection,
       description: 'An economic input\'s list of groups with access.',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromArray(
-        _.groups.map(async group => await getItem(getEndpoint(GroupType), group.id)),
-        args
-      ),
+      resolve: async (_, args) => {
+        const groupPromises = _.groups.map(g => getItem(getEndpoint(GroupType), g.id));
+        const groupResults = await* groupPromises;
+        return connectionFromArray(
+          groupResults,
+          args
+        );
+      },
     },
   }),
   interfaces: [nodeInterface],
