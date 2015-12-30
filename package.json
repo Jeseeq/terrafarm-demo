@@ -6,8 +6,9 @@
   "version": "0.1.0",
   "scripts": {
     "start": "node -r dotenv/config -r babel/register ./server.js",
+    "start-heroku": "node -r babel/register ./server.js",
     "update-schema": "node -r dotenv/config -r babel/register ./scripts/updateSchema.js",
-    "postinstall": "npm run update-schema"
+    "postinstall": "node -r babel/register ./scripts/updateSchema.js"
   },
   "dependencies": {
     "babel": "5.8.21",
