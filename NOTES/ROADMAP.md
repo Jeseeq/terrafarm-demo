@@ -71,7 +71,7 @@ Attempt full test coverage.
 #### Other
 - [ ] css feature detection, fallbacks, and browser warnings
 - [ ] route transitions
-- [ ] logo and keywords for `./app.json` and `./package.json`
+- [ ] logo, image, keywords, auther for and `./package.json`
 - [ ] favicon
 - [ ] bump dependencies, maybe node
 
