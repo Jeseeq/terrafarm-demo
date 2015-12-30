@@ -71,6 +71,8 @@ Attempt full test coverage.
 #### Other
 - [ ] css feature detection, fallbacks, and browser warnings
 - [ ] route transitions
+- [ ] logo and keywords for `./app.json` and `./package.json`
+- [ ] favicon
 
 ### Database Design
 - [ ] Authentication with Auth0 JWT

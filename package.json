@@ -1,5 +1,5 @@
 {
-  "name": "terrafarm",
+  "name": "Terrafarm",
   "private": true,
   "description": "An app for connecting people and resources to start and manage small farms.",
   "repository": "rblakeley/terrafarm",
@@ -40,5 +40,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.4",
     "webpack-dev-server": "^1.10.1"
+  },
+  "engines": {
+    "node": "4.0.0"
   }
 }
