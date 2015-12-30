@@ -46,7 +46,7 @@ export default Relay.createContainer(ResourcePage, {
               name,
             }
           }
-        }
+        },
       }
     `,
   },

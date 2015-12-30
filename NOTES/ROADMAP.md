@@ -15,6 +15,7 @@ Demo version which runs locally.
 
 ### General
 - [ ] GitHub release tags
+- [ ] heroku
 
 
 ## 0.2
@@ -78,9 +79,6 @@ Attempt full test coverage.
 - [ ] fewer calls to `getEndpoint`
 - [ ] consolidate `data/api/` into one module
 - [ ] resolve benign console warnings on mutations
-
-### Tooling
-- [ ] heroku deployment
 
 
 ## 0.3
