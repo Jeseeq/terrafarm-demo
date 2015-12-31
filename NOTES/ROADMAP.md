@@ -15,7 +15,6 @@ Demo version which runs locally.
 
 ### General
 - [ ] GitHub release tags
-- [ ] heroku
 
 
 ## 0.2
@@ -82,6 +81,8 @@ Attempt full test coverage.
 - [ ] fewer calls to `getEndpoint`
 - [ ] consolidate `data/api/` into one module
 - [ ] resolve benign console warnings on mutations
+- [ ] dev vs heroku db and caching
+- [ ] optimistic updates
 
 
 ## 0.3
@@ -100,10 +101,6 @@ Expand the user experience.
 
 #### Routes
 - [ ] URL parameter values (query keys) should be descriptive
-
-### Database Design
-- [ ] dev db and caching
-- [ ] optimistic updates
 
 
 ## 0.4
