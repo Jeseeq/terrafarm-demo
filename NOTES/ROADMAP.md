@@ -2,21 +2,6 @@
 
 Below is a roadmap of potential Terrafarm features and releases.
 
-## 0.1
-
-Demo version which runs locally.
-
-### UI Design
-
-#### Resource Page
-- [ ] new layout/style for user name
-
-#### Sanity
-
-### General
-- [ ] GitHub release tags
-
-
 ## 0.2
 
 First public release.
@@ -57,6 +42,7 @@ More detail on basic user experience patterns.
 
 #### Resource Page
 - [ ] resource description
+- [ ] new layout/style for user name
 
 #### Group Page
 - [ ] group description
