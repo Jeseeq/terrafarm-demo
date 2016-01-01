@@ -10,6 +10,9 @@ First public release.
 
 More detail on basic user experience patterns.
 
+#### Browse Page
+- [ ] 
+
 #### User Stories
 - [ ] group member creates membership invitation
 - [ ] user offers resource to group

@@ -3,6 +3,13 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
+import Table from 'material-ui/lib/table/table';
+import TableBody from 'material-ui/lib/table/table-body';
+import TableFooter from 'material-ui/lib/table/table-footer';
+import TableHeader from 'material-ui/lib/table/table-header';
+import TableHeaderColumn from 'material-ui/lib/table/table-header-column';
+import TableRow from 'material-ui/lib/table/table-row';
+import TableRowColumn from 'material-ui/lib/table/table-row-column';
 
 const styles = {
   tab: {
@@ -18,13 +25,32 @@ class BrowsePage extends React.Component {
 
     return <div>
       <h2>Browse</h2>
-      <Tabs>
+      <Tabs secondary>
         <Tab label={'Users'} style={styles.tab}>
-          <ul>
-            {users.edges.map(edge => <li key={edge.node.id}>
-              <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
-            </li>)}
-          </ul>
+          <Table height={'425'} fixedHeader fixedFooter selectable={false} >
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
+              <TableRow>
+                <TableHeaderColumn tooltip={'Sort by ID'}>ID</TableHeaderColumn>
+                <TableHeaderColumn tooltip={'Sorty by Name'}>Name</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody showRowHover stripedRows displayRowCheckbox={false} >
+              {users.edges.map(edge => <TableRow key={edge.node.id}>
+                <TableRowColumn>
+                  {edge.node.id}
+                </TableRowColumn>
+                <TableRowColumn>
+                  <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
+                </TableRowColumn>
+              </TableRow>)}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableRowColumn>ID</TableRowColumn>
+                <TableRowColumn>Name</TableRowColumn>
+              </TableRow>
+            </TableFooter>
+          </Table>
         </Tab>
         <Tab label={'Resources'} style={styles.tab}>
           <ul>

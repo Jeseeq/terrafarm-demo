@@ -6,7 +6,10 @@ import ReactDOM from 'react-dom';
 import {RelayRouter} from 'react-router-relay';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import TerrafarmApp from './components/TerrafarmApp';
+import TerrafarmApp from './elements/TerrafarmApp';
+import HomePage from './elements/HomePage';
+import AboutPage from './elements/AboutPage';
+
 import BrowsePage from './components/BrowsePage';
 import LoginPage from './components/LoginPage';
 import ProfilePage from './components/ProfilePage';
@@ -15,7 +18,7 @@ import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
 
 import MasterAndViewerQueries from './queries/MasterAndViewerQueries';
-import MasterQueries from './queries/MasterQueries';
+// import MasterQueries from './queries/MasterQueries';
 // import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
@@ -28,10 +31,12 @@ ReactDOM.render(
   <RelayRouter history={createHashHistory({queryKey: false})}>
     <Route
       path={'/'} component={TerrafarmApp}
-      queries={MasterQueries}
     >
-      <IndexRoute
-        component={LoginPage}
+      <IndexRoute component={HomePage} />
+      <Route path={'about'} component={AboutPage} />
+
+      <Route
+        path={'login'} component={LoginPage}
         queries={MasterAndViewerQueries}
       />
       <Route

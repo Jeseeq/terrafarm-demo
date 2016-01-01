@@ -1,5 +1,4 @@
 import React from 'react';
-import Relay from 'react-relay';
 import MainMenu from '../elements/MainMenu';
 import TerrafarmRawTheme from '../shared-styles/terrafarm-raw-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
@@ -11,7 +10,7 @@ const cx = classNames.bind(styles);
 
 /* eslint new-cap: 0 */
 @ThemeDecorator(ThemeManager.getMuiTheme(TerrafarmRawTheme))
-class TerrafarmApp extends React.Component {
+export default class TerrafarmApp extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -128,14 +127,4 @@ TerrafarmApp.defaultProps = {
     'transitionend',
   ],
 };
-
-export default Relay.createContainer(TerrafarmApp, {
-  fragments: {
-    master: () => Relay.QL`
-      fragment on Master {
-        id,
-      }
-    `,
-  },
-});
 

@@ -1,0 +1,17 @@
+.this {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20% 4% 10%;
+}
+
+.title {
+  font-size: 2.8em; line-height: 4.3rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 25px;
+}
+
+.description {
+  margin-bottom: 25px;
+}

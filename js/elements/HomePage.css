@@ -1,0 +1,24 @@
+.this {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20% 4% 10%;
+}
+
+.title {
+  font-size: 4.3em; line-height: 4.3rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 25px;
+}
+
+.tagline {
+  font-size: 1.4em; line-height: 2.67em;
+  font-weight: light;
+  letter-spacing: 0.023em;
+  margin-bottom: 25px;
+}
+
+.link {
+  margin-bottom: 15px;
+}
