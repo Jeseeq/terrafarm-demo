@@ -7,7 +7,7 @@ Below is a roadmap of potential Terrafarm features and releases.
 First public release.
 
 ### Documentation
-- [ ] project website
+- [x] project website
 
 ### UI Design
 
@@ -59,6 +59,8 @@ Attempt full test coverage.
 - [ ] logo, image, keywords, auther for and `./package.json`
 - [ ] favicon
 - [ ] bump dependencies, maybe node
+- [ ] document Fieldbook
+- [ ] Google Analytics
 
 ### Database Design
 - [ ] Authentication with Auth0 JWT
