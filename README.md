@@ -2,6 +2,9 @@
 
 (WIP) An app for connecting people and resources to start and manage small farms.
 
+[app](http://terrafarm.herokuapp.com/)  
+[project page](http://rblakeley.github.io/terrafarm/)  
+
 ## Purpose
 
 The goal for this app is to encourage people living in all types of communities to get involved in farming.

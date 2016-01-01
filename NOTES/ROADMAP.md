@@ -6,9 +6,6 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 First public release.
 
-### Documentation
-- [x] project website
-
 ### UI Design
 
 More detail on basic user experience patterns.
