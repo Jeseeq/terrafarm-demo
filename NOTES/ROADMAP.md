@@ -43,6 +43,10 @@ More detail on basic user experience patterns.
 
 #### Group Page
 - [ ] group description
+- [ ] group growing, cultivation plan
+- [ ] only show 'pending users' heading if there is a list
+- [ ] only show 'my resources' which aren't already allocated
+- [ ] show resource requests
 
 #### Testing
 Attempt full test coverage.

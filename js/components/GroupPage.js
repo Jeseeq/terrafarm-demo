@@ -56,6 +56,7 @@ class GroupPage extends React.Component {
     const {group} = this.props;
     const memberControls = this._getMemberControls();
     return <div>
+      <h4>Group</h4>
       <h2>{group.name}</h2>
       <h3>Users</h3>
       <ul>

@@ -41,6 +41,13 @@ h2,
   padding-top: 12px;
   margin: 0.67em 0;
 }
+h2 {
+  padding-top: 0;
+  margin: 0 0 0.67em;
+}
+h3 {
+  margin-top: 25px;
+}
 ul,
 .list {
   list-style: none;
