@@ -5,6 +5,7 @@ Cultivate better food close to home.
 [Web app](http://terrafarm.herokuapp.com/) (pre-release)  
 [About](http://terrafarm.herokuapp.com/#/about)  
 [Readme](http://rblakeley.github.io/terrafarm/)  
+[Twitter](https://twitter.com/terrafarmapp)..
 
 ## Contributing
 
@@ -54,7 +55,7 @@ npm start
 
 ## License
 
-Copyright (c) 2015, Ryan Blakeley  
+Copyright (c) 2016, Ryan Blakeley  
 [Creative Commons BY-NC-ND 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/).  
 Parts from [Relay Starter Kit](https://github.com/relayjs/relay-starter-kit), which is [BSD licensed](./NOTES/LICENSE) and provides an additional [patent grant](./NOTES/PATENTS).  
 Parts from [codrops/PerspectivePageViewNavigation](https://github.com/codrops/PerspectivePageViewNavigation).  
