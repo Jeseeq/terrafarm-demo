@@ -2,9 +2,9 @@
 
 (WIP) Cultivate better food close to home.
 
-[app pre-release](http://terrafarm.herokuapp.com/)  
-[about](http://terrafarm.herokuapp.com/#/about)  
-[readme](http://rblakeley.github.io/terrafarm/)  
+[Web app](http://terrafarm.herokuapp.com/) (pre-release)  
+[About](http://terrafarm.herokuapp.com/#/about)  
+[Readme](http://rblakeley.github.io/terrafarm/)  
 
 ## Contributing
 
