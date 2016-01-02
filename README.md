@@ -5,7 +5,7 @@ Cultivate better food close to home.
 [Web app](http://terrafarm.herokuapp.com/) (pre-release)  
 [About](http://terrafarm.herokuapp.com/#/about)  
 [Readme](http://rblakeley.github.io/terrafarm/)  
-[Twitter](https://twitter.com/terrafarmapp)..
+[Twitter](https://twitter.com/terrafarmapp)  
 
 ## Contributing
 
@@ -21,15 +21,26 @@ Planned and potential features and releases are documented in the [Roadmap](./NO
 
 ## Features
 
-- app server
+- app server with Webpack and Babel
 - GraphQL server
 - transpiler that works with Relay
-- URL routing
+- ui libraries:
+  - React
+  - react-router
+  - material-ui
+  - react-icons (svg)
+- Jest test coverage
 
 ## Installation
 
 ```
 npm install
+```
+
+## Testing
+
+```
+npm test
 ```
 
 ## Running
@@ -45,7 +56,7 @@ npm start
 Any changes you make to files in the `js/` directory will cause the server to
 automatically rebuild the app and refresh your browser.
 
-If at any time you make changes to `data/schema.js`, stop the server,
+If at any time you make changes to `data/`, stop the server,
 regenerate `data/schema.json`, and restart the server:
 
 ```
