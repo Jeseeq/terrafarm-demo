@@ -2,7 +2,7 @@
 
 (WIP) Cultivate better food close to home.
 
-[terrafarm.herokuapp.com](http://terrafarm.herokuapp.com/)  
+[app pre-release](http://terrafarm.herokuapp.com/)  
 [about](http://terrafarm.herokuapp.com/#/about)  
 [readme](http://rblakeley.github.io/terrafarm/)  
 
