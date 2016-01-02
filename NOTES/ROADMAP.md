@@ -10,8 +10,9 @@ First public release.
 
 More detail on basic user experience patterns.
 
-#### Browse Page
-- [ ] 
+#### User Profile
+- [ ] location
+- [ ] edit user details
 
 #### User Stories
 - [ ] group member creates membership invitation
@@ -27,10 +28,6 @@ More detail on basic user experience patterns.
     - [ ] show pending group on resource page with approve/decline buttons
 - [ ] about page
   - [ ] recommended reading
-
-#### User Profile
-- [ ] location
-- [ ] edit user details
 
 #### New Resource Page
 - [ ] field for name
@@ -77,7 +74,12 @@ Attempt full test coverage.
 
 ### UI Design
 
-Expand the user experience.
+Improve the user experience.
+
+#### Browse Page Tables
+- [ ] responsive height
+- [ ] sort and tooltip
+- [ ] checkboxes and multiple selection
 
 #### User Stories
 - [ ] add message to membership and resource requests
@@ -95,7 +97,7 @@ Expand the user experience.
 
 ### UI Design
 
-Enhance the user experience.
+Improve the user experience.
 
 #### New Resource Page
 - [ ] predictive text field for naming resource

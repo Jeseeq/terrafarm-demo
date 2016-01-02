@@ -6,12 +6,15 @@
   padding: 20% 4% 10%;
 }
 
-.title {
-  font-size: 2.8em; line-height: 4.3rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 25px;
-}
-
 .description {
   margin-bottom: 25px;
+}
+.description h3,
+.description h4,
+.description p {
+  margin-bottom: 15px;
+}
+
+.link {
+  margin-bottom: 15px;
 }

@@ -12,13 +12,13 @@ export default class HomePage extends React.Component {
     return <div className={styles.this} >
       <h1 className={styles.title}>Terrafarm</h1>
       <div className={styles.tagline} >
-        <span>Cultivate food close to home</span>
+        <span>Cultivate good food close to home</span>
       </div>
       <Link to={'login'} className={styles.link} >
-        <RaisedButton primary label={'Login'} />
+        <RaisedButton secondary label={'Login'} />
       </Link>
       <Link to={'about'} className={styles.link} >
-        <RaisedButton secondary label={'About'} />
+        <RaisedButton label={'About'} />
       </Link>
     </div>;
   }

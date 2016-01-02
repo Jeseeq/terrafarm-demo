@@ -1,6 +1,4 @@
 import React from 'react';
-// import {Link} from 'react-router';
-import Lorem from 'react-lorem-component';
 
 // import classNames from 'classnames/bind';
 import styles from './AboutPage.css';
@@ -8,10 +6,18 @@ import styles from './AboutPage.css';
 
 export default class AboutPage extends React.Component {
   render () {
-    return <div className={styles.this}>
-      <h1 className={styles.title}>About</h1>
+    return <div>
+      <h2>About</h2>
       <div className={styles.description}>
-        <p>This is the description</p>
+        <h4>Improving food.</h4>
+        <h3>Problem</h3>
+        <p>Intensive factory farming and industrial agriculture produce low-quality food and massive negative externalities. They are the human activities most responsible for greenhouse gas emissions, species extinction, ocean dead zones, water pollution, and habitat destruction [source]. Antimicrobial drug resistance is also largely attributed to intensive animal agriculture [source].</p>
+        <h3>Research</h3>
+        <p>Pre-industrial farming was small-scale and depended on thoughtful stewardship, manual labor, and natural ecologies. Small-scale biodynamic farming promotes flavorful and nutritious food, improves our connection to the natural world, and has higher efficiencies on space, water-use, nutrient recycling, and calorie conversion [source].</p>
+        <h3>Question</h3>
+        <p>How would we accelerate a shift from reliance on industrial agriculture to small-scale distributed farming?</p>
+        <h3>Hypothesis</h3>
+        <p>There are untapped opportunities to connect willing people and latent resources for small-scale farming projects. Increasing contact between resource owners and people interested in farming will create mutual wealth and healthier communities.</p>
       </div>
     </div>;
   }
