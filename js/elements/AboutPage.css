@@ -8,8 +8,9 @@
   max-width: 450px;
 }
 
-.this h3 { width: 100%; }
-
+.this h3,
+.this p { width: 100%; }
+.this a { text-decoration: underline; }
 .description {
   margin-bottom: 25px;
 }
@@ -19,6 +20,3 @@
   margin-bottom: 15px;
 }
 
-.link {
-  margin-bottom: 15px;
-}

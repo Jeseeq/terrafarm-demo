@@ -1,17 +1,10 @@
 # Terrafarm
 
-(WIP) An app for connecting people and resources to start and manage small farms.
+(WIP) Cultivate better food close to home. http://terrafarm.herokuapp.com
 
-[app](http://terrafarm.herokuapp.com/)  
-[project page](http://rblakeley.github.io/terrafarm/)  
-
-## Purpose
-
-The goal for this app is to encourage people living in all types of communities to get involved in farming.
-
-We are testing the hypothesis that there are people interested in hobby or full-time farming who lack space and a variety of resources; while conversely, there are people who own unused spaces and resources who would be willing to provide access.
-
-Many vacant lots, yards, rooms, and semi-rural properties could be improved by letting interested farmers cultivate those spaces. The benefits of rich ecologies, connecting with nature, better-tasting healthy food, community projects, and less dependence on destructive industrial farms would create mutual wealth.
+[terrafarm.herokuapp.com](http://terrafarm.herokuapp.com/)  
+[about](http://terrafarm.herokuapp.com/about)  
+[readme](http://rblakeley.github.io/terrafarm/)  
 
 ## Contributing
 

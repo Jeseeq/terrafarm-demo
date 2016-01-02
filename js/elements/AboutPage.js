@@ -6,6 +6,7 @@ import styles from './AboutPage.css';
 
 export default class AboutPage extends React.Component {
   render () {
+    const githubUrl = 'http://rblakeley.github.io/terrafarm';
     return <div className={styles.this}>
       <h2>About</h2>
       <h4>Improving Food</h4>
@@ -17,6 +18,8 @@ export default class AboutPage extends React.Component {
       <p>How would we accelerate a shift from reliance on industrial agriculture to small-scale distributed farming?</p>
       <h3>Hypothesis</h3>
       <p>There are untapped opportunities to connect willing people and latent resources for small-scale farming projects. Increasing contact between resource owners and people interested in farming will create mutual wealth and healthier communities.</p>
+      <h3>Get Involved</h3>
+      <p><a href={githubUrl} className={styles.link}>Open source</a> development.</p>
     </div>;
   }
 }
