@@ -11,6 +11,7 @@ First public release.
 More detail on basic user experience patterns.
 
 #### User Profile
+- [ ] color icons layout
 - [ ] location
 - [ ] edit user details
 
@@ -48,13 +49,17 @@ More detail on basic user experience patterns.
 - [ ] only show 'my resources' which aren't already allocated
 - [ ] show resource requests
 
-#### Testing
-Attempt full test coverage.
+#### Home Page
+- [ ] shadows
+
+#### Tests
+- [ ] library?
 - [ ] unit tests
 - [ ] end-to-end test
 - [ ] chaos monkey (and add documentation)
 
 #### Other
+- [ ] text input edit, save, cancel interactions
 - [ ] css feature detection, fallbacks, and browser warnings
 - [ ] logo, image, keywords, auther for and `./package.json`
 - [ ] favicon
@@ -62,6 +67,8 @@ Attempt full test coverage.
 - [ ] document Fieldbook
 - [ ] Google Analytics
 - [ ] spinner
+- [ ] crowdfunding
+- [ ] google analytics
 
 ### Database Design
 - [ ] Authentication with Auth0 JWT
