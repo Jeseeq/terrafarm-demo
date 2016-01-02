@@ -1,6 +1,6 @@
 # Terrafarm
 
-(WIP) Cultivate better food close to home.
+Cultivate better food close to home.
 
 [Web app](http://terrafarm.herokuapp.com/) (pre-release)  
 [About](http://terrafarm.herokuapp.com/#/about)  
