@@ -32,6 +32,7 @@ class ProfilePage extends React.Component {
     const {user} = viewer;
 
     return <div>
+      <h4>Your profile</h4>
       <h2 className={styles.heading}>{user.name}</h2>
       <h3>Groups</h3>
       <NewGroupPanel user={user} master={master} />

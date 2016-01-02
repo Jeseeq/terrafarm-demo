@@ -18,6 +18,7 @@ class UserPage extends React.Component {
     const {user} = this.props;
 
     return <div>
+      <h4>User</h4>
       <h2>{user.name}</h2>
       <h3>Groups</h3>
       <ul>

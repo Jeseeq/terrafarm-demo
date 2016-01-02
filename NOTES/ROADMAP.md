@@ -62,6 +62,8 @@ Attempt full test coverage.
 - [ ] bump dependencies, maybe node
 - [ ] document Fieldbook
 - [ ] Google Analytics
+- [ ] https?
+- [ ] spinner
 
 ### Database Design
 - [ ] Authentication with Auth0 JWT
@@ -95,6 +97,9 @@ Improve the user experience.
 
 #### Routes
 - [ ] URL parameter values (query keys) should be descriptive
+
+### Refactor Styles
+- [ ] sanity
 
 
 ## 0.4

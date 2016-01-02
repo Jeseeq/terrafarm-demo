@@ -3,8 +3,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20% 4% 10%;
+  margin: 0 auto;
+  padding: 15px 0 10%;
+  max-width: 450px;
 }
+
+.this h3 { width: 100%; }
 
 .description {
   margin-bottom: 25px;

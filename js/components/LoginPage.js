@@ -2,12 +2,9 @@ import AuthenticateViewerMutation from '../mutations/AuthenticateViewerMutation'
 import React from 'react';
 import Relay from 'react-relay';
 import NewUserPanel from './NewUserPanel';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-const styles = {
-  userName: {
-    cursor: 'pointer',
-  },
-};
+import styles from './LoginPage.css';
 
 class LoginPage extends React.Component {
   static defaultProps = {
@@ -37,7 +34,7 @@ class LoginPage extends React.Component {
       <ul>
         {usersList.map(edge => <li key={edge.node.id}>
           <span
-            style={styles.userName}
+            className={styles.userName}
             onClick={this._handleLogin.bind(this, edge.node)}
           >
             {edge.node.name}
@@ -52,13 +49,12 @@ class LoginPage extends React.Component {
     const {users} = master;
     const guest = users.edges.find(edge => edge.node.name === 'Guest');
 
-    return <div>
-      <h2
-        style={styles.userName}
+    return <div className={styles.this}>
+      <h4>Logged in as {user.name}</h4>
+      <RaisedButton
         onClick={this._handleLogin.bind(this, guest.node)}
-      >
-        Logout {user.name}
-      </h2>
+        label={'Logout'}
+      />
     </div>;
   }
   render () {

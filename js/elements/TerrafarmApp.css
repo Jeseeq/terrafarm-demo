@@ -34,7 +34,7 @@ body,
   transition: opacity 0.4s, height 0s 0.4s;
 }
 
-.wrapper { position: relative; overflow: hidden; margin: 0 4%; }
+.wrapper { position: relative; overflow: hidden; padding-top: 80px; margin: 0 4%; }
 
 .outer-nav {
   position: fixed;

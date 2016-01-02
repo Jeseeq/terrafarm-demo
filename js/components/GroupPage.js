@@ -72,7 +72,6 @@ class GroupPage extends React.Component {
           />
         </li>)}
       </ul>
-      {memberControls}
       <h3>Resources</h3>
       <ul>
         {group.resources.edges.map(edge => <li key={edge.node.id}>
@@ -87,6 +86,7 @@ class GroupPage extends React.Component {
           />)}
         </li>)}
       </ul>
+      {memberControls}
     </div>;
   }
 }

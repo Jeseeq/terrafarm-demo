@@ -6,8 +6,9 @@ class ResourcePage extends React.Component {
   render () {
     const {resource} = this.props;
     return <div>
+      <h4>Resource</h4>
       <h2>{resource.name}</h2>
-      <h3>Users</h3>
+      <h3>User</h3>
       <ul>
         {resource.users.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>

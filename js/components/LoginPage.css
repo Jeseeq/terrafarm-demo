@@ -1,0 +1,11 @@
+.this {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  padding-bottom: 10%;
+}
+.this h4 { margin-bottom: 45px; }
+.userName { cursor: pointer; }
+
