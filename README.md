@@ -1,9 +1,9 @@
 # Terrafarm
 
-(WIP) Cultivate better food close to home. http://terrafarm.herokuapp.com
+(WIP) Cultivate better food close to home.
 
 [terrafarm.herokuapp.com](http://terrafarm.herokuapp.com/)  
-[about](http://terrafarm.herokuapp.com/about)  
+[about](http://terrafarm.herokuapp.com/#/about)  
 [readme](http://rblakeley.github.io/terrafarm/)  
 
 ## Contributing
