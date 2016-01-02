@@ -56,13 +56,11 @@ Attempt full test coverage.
 
 #### Other
 - [ ] css feature detection, fallbacks, and browser warnings
-- [ ] route transitions
 - [ ] logo, image, keywords, auther for and `./package.json`
 - [ ] favicon
 - [ ] bump dependencies, maybe node
 - [ ] document Fieldbook
 - [ ] Google Analytics
-- [ ] https?
 - [ ] spinner
 
 ### Database Design
@@ -97,6 +95,8 @@ Improve the user experience.
 
 #### Routes
 - [ ] URL parameter values (query keys) should be descriptive
+- [ ] transitions
+- [ ] https?
 
 ### Refactor Styles
 - [ ] sanity
