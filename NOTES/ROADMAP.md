@@ -11,16 +11,7 @@ First public release.
 More detail on basic user experience patterns.
 
 #### Stories
-- [ ] new/edit resource modal
-  - [ ] save all fields with 'Done' button
-    - [ ] formsy-react form
-  - [ ] name field
-    - [ ] label
-  - [ ] description field
-  - [ ] category field
-    - [ ] equipment
-      - [ ] pictures
-    - [ ] labor
+- [ ] new resource modal
 - [ ] new group modal
   - [ ] name field
   - [ ] space field
@@ -88,6 +79,15 @@ More detail on basic user experience patterns.
 ### Interface
 
 Improve the user experience.
+
+#### Edit/New Resource Modal
+- [ ] add formsy-react
+- [ ] category dropdown
+  - [ ] equipment
+    - [ ] pictures
+  - [ ] labor
+  - [ ] seeds
+  - [ ] compost
 
 #### Browse Page
 - [ ] tables
