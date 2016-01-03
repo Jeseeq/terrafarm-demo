@@ -5,15 +5,15 @@ import Colors from 'material-ui/lib/styles/colors';
 
 const {PropTypes} = React;
 
-const ENTER_KEY_CODE = 13;
-const ESC_KEY_CODE = 27;
+// const ENTER_KEY_CODE = 13;
+// const ESC_KEY_CODE = 27;
 
 export default class TextInput extends React.Component {
   static propTypes = {
     style: PropTypes.object,
     placeholder: PropTypes.string,
     label: PropTypes.string,
-    commitOnBlur: PropTypes.bool.isRequired,
+    commitOnBlur: PropTypes.bool,
     initialValue: PropTypes.string,
     onCancel: PropTypes.func,
     onDelete: PropTypes.func,
@@ -22,6 +22,7 @@ export default class TextInput extends React.Component {
   static defaultProps = {
     commitOnBlur: false,
     style: {
+      display: 'block',
       fontFamily: 'Simonetta, serif',
     },
   };
@@ -51,13 +52,6 @@ export default class TextInput extends React.Component {
   _handleChange = (e) => {
     this.setState({text: e.target.value});
   }
-  _handleKeyDown = (e) => {
-    if (this.props.onCancel && e.keyCode === ESC_KEY_CODE) {
-      this.props.onCancel();
-    } else if (e.keyCode === ENTER_KEY_CODE) {
-      this._commitChanges();
-    }
-  }
   _handleEnterKeyDown = () => {
     this._commitChanges();
   }
@@ -71,7 +65,6 @@ export default class TextInput extends React.Component {
         floatingLabelText={this.props.label}
         onBlur={this._handleBlur}
         onChange={this._handleChange}
-        onEnterKeyDown={this._handleEnterKeyDown}
         value={this.state.text}
       />
     );

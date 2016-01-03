@@ -30,6 +30,14 @@ export const ResourceType = registerType(new GraphQLObjectType({
       type: GraphQLString,
       description: 'An economic resource\'s name.',
     },
+    description: {
+      type: GraphQLString,
+      description: 'An economic resource\'s description.',
+    },
+    category: {
+      type: GraphQLString,
+      description: 'An economic resource\'s category',
+    },
     users: {
       type: UserConnection,
       description: 'An economic input\'s list of owners.',

@@ -11,20 +11,23 @@ First public release.
 More detail on basic user experience patterns.
 
 #### Stories
-- [ ] new/edit resource
+- [ ] new/edit resource modal
+  - [ ] save all fields with 'Done' button
+    - [ ] formsy-react form
   - [ ] name field
+    - [ ] label
   - [ ] description field
   - [ ] category field
     - [ ] equipment
       - [ ] pictures
     - [ ] labor
-- [ ] new group
+- [ ] new group modal
   - [ ] name field
   - [ ] space field
     - [ ] location
     - [ ] pictures
   - [ ] requirements field
-- [ ] member offers resource to group
+- [ ] member offers resource to group modal
   - [ ] hours per week field
   - [ ] group owner notified of offer
     - [ ] show alert next to group on profile page

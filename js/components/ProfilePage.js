@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
-import EditResourcePanel from './EditResourcePanel';
+import EditResource from './EditResource';
 import EditGroupPanel from './EditGroupPanel';
 import NewResourcePanel from './NewResourcePanel';
 import NewGroupPanel from './NewGroupPanel';
@@ -53,7 +53,7 @@ class ProfilePage extends React.Component {
       <NewResourcePanel user={user} master={master} />
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
-          <EditResourcePanel resource={edge.node} />
+          <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
           {edge.node.groups.edges.map(groupEdge => <div key={groupEdge.node.id}
             style={{
               display: 'inline-block', width: 10, height: 10,
@@ -62,6 +62,7 @@ class ProfilePage extends React.Component {
               backgroundColor: this.state.colorChart[groupEdge.node.id],
             }}
           />)}
+          <EditResource resource={edge.node} />
         </li>)}
       </ul>
       <h3>Pending Groups</h3>
@@ -93,7 +94,7 @@ export default Relay.createContainer(ProfilePage, {
                     }
                   }
                 },
-                ${EditResourcePanel.getFragment('resource')},
+                ${EditResource.getFragment('resource')},
               }
             }
           },
