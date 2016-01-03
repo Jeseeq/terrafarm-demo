@@ -8,6 +8,10 @@ class ResourcePage extends React.Component {
     return <div>
       <h4>Resource</h4>
       <h2>{resource.name}</h2>
+      <h3>Description</h3>
+      <p>{resource.description}</p>
+      <h3>Category</h3>
+      <p>{resource.category}</p>
       <h3>Owner</h3>
       <ul>
         {resource.users.edges.map(edge => <li key={edge.node.id}>
@@ -32,6 +36,8 @@ export default Relay.createContainer(ResourcePage, {
     resource: () => Relay.QL`
       fragment on Resource {
         name,
+        description,
+        category,
         users(first: 18) {
           edges {
             node {

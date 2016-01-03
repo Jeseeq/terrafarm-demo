@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-export default class RenameGroupMutation extends Relay.Mutation {
+export default class UpdateGroupMutation extends Relay.Mutation {
   static fragments = {
     group: () => Relay.QL`
       fragment on Group {
@@ -9,13 +9,15 @@ export default class RenameGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{renameGroup}`;
+    return Relay.QL`mutation{updateGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on RenameGroupPayload {
+      fragment on UpdateGroupPayload {
         group {
           name,
+          description,
+          category,
         },
       }
     `;
@@ -34,6 +36,8 @@ export default class RenameGroupMutation extends Relay.Mutation {
     return {
       id: this.props.group.id,
       name: this.props.name,
+      description: this.props.description,
+      category: this.props.category,
     };
   }
 }

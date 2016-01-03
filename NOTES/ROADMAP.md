@@ -4,20 +4,16 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.2
 
-First public release.
+Minimal feature-set for first public release.
 
 ### Interface
 
-More detail on basic user experience patterns.
+Basic user experience.
 
 #### Stories
-- [ ] remove renameResource mutation
-- [ ] new resource modal
-- [ ] new group modal
+- [ ] new/edit group modal
   - [ ] name field
   - [ ] space field
-    - [ ] location
-    - [ ] pictures
   - [ ] requirements field
 - [ ] member offers resource to group modal
   - [ ] hours per week field
@@ -25,6 +21,7 @@ More detail on basic user experience patterns.
     - [ ] show alert next to group on profile page
   - [ ] group owner approves/declines offer
     - [ ] show pending resource on group page with approve/decline button
+- [ ] new user modal
 
 #### Profile Page
 - [ ] 'edit' buttons
@@ -32,14 +29,12 @@ More detail on basic user experience patterns.
 - [ ] color icons
 
 #### Resource Page
-- [ ] icon next owner name
+- [ ] icon next to owner name
 - [ ] description
 - [ ] category
-- [ ] pictures
 
 #### Group Page
 - [ ] location
-- [ ] pictures
 - [ ] requirements
 - [ ] pending users
   - [ ] show **None** if list is empty
@@ -49,23 +44,21 @@ More detail on basic user experience patterns.
   - [ ] if group owner -> 'add resource' button
   - [ ] else if member -> 'offer resource' button
 
-#### Home Page
-- [ ] shadows
-
 #### About Page
 - [ ] 'Links' list with icons
 
 #### Other
+- [ ] remove renameResource mutation
 - [ ] text input edit, save, cancel interactions
-- [ ] css feature detection, fallbacks, and browser warnings
+- [ ] spinners
+- [ ] tabindex on nav button
 - [ ] logo, image, keywords, author for `./package.json`
 - [ ] favicon
 - [ ] bump dependencies, maybe node
 - [ ] document Fieldbook
-- [ ] spinners
-- [ ] crowdfunding
 - [ ] google analytics
-- [ ] tabindex on nav button
+- [ ] update `./CHANGELOG`
+- [ ] 'Groups' -> 'Spaces' ?
 
 ### Database
 - [ ] Authentication with Auth0 JWT
@@ -79,7 +72,12 @@ More detail on basic user experience patterns.
 
 ### Interface
 
-Improve the user experience.
+High-priority additions and improvements to the user experience.
+
+#### User Stories
+- [ ] add message to membership and resource requests
+- [ ] group defines resource needs
+- [ ] user defines resource availability
 
 #### Edit/New Resource Modal
 - [ ] resolve console warnings
@@ -88,8 +86,24 @@ Improve the user experience.
   - [ ] equipment
     - [ ] pictures
   - [ ] labor
+    - [ ] hours
+    - [ ] skill level
+  - [ ] materials
+    - [ ] pictures
   - [ ] seeds
+    - [ ] weight
   - [ ] compost
+    - [ ] weight
+
+#### Edit/New Group Modal
+- [ ] location
+- [ ] size
+- [ ] category dropdown
+  - [ ] yard
+  - [ ] vacant lot
+  - [ ] indoor
+  - [ ] rooftop
+- [ ] pictures
 
 #### Browse Page
 - [ ] tables
@@ -97,13 +111,14 @@ Improve the user experience.
   - [ ] sort and tooltip
   - [ ] checkboxes and multiple selection
 
-#### User Stories
-- [ ] add message to membership and resource requests
-- [ ] group defines resource needs
-- [ ] user defines resource availability
+#### Resource Page
+- [ ] pictures
 
-#### New Resource Page
-- [ ] pre-populated list of common resources with filter menu
+#### Group Page
+- [ ] pictures
+
+#### Home Page
+- [ ] shadows
 
 #### Routes
 - [ ] URL parameter values (query keys) should be descriptive
@@ -111,13 +126,13 @@ Improve the user experience.
 - [ ] https?
 
 #### Tests
-- [x] Jest
-- [ ] unit
-- [ ] end-to-end
+- [ ] ???
 - [ ] chaos monkey (and add documentation)
 
-#### Other
-- [ ] styles sanity and patterns
+#### Style
+- [ ] theme
+- [ ] class composition
+- [ ] css feature detection, fallbacks, and browser warnings
 
 ### Database
 - [ ] parallel requests
@@ -129,11 +144,14 @@ Improve the user experience.
 
 ### Interface
 
-Improve the user experience.
+Low-priority additions and improvements to the user experience.
 
 #### Research Groups
 - [ ] reading lists
 
 #### New Resource Page
 - [ ] predictive text field for naming resource
-- [ ] category field
+
+#### About Page
+- [ ] crowdfunding link
+

@@ -1,4 +1,5 @@
-import UpdateResourceMutation from '../mutations/UpdateResourceMutation';
+import UpdateGroupMutation from '../mutations/UpdateGroupMutation';
+import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
@@ -6,7 +7,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextInput from '../elements/TextInput';
 
-class EditResource extends React.Component {
+class EditGroup extends React.Component {
   state = {
     open: false,
   };
@@ -19,8 +20,8 @@ class EditResource extends React.Component {
   handleSave = () => {
     const {name, description, category} = this.refs;
     Relay.Store.update(
-      new UpdateResourceMutation({
-        resource: this.props.resource,
+      new UpdateGroupMutation({
+        group: this.props.group,
         attributes: {
           name: name.state.text,
           description: description.state.text,
@@ -30,8 +31,16 @@ class EditResource extends React.Component {
     );
     this.handleClose();
   }
+  handleDisconnectUserFromGroup = () => {
+    Relay.Store.update(
+      new DisconnectUserFromGroupMutation({
+        user: this.props.user,
+        group: this.props.group,
+      })
+    );
+  }
   render () {
-    const {resource} = this.props;
+    const {group} = this.props;
     const actions = [
       <FlatButton
         label={'Cancel'}
@@ -48,7 +57,7 @@ class EditResource extends React.Component {
     return <div>
       <RaisedButton label={'Edit'} onTouchTap={this.handleOpen} />
       <Dialog
-        title={'Edit Resource'}
+        title={'Edit Group'}
         actions={actions}
         onRequestClose={null}
         open={this.state.open}
@@ -56,32 +65,40 @@ class EditResource extends React.Component {
         <TextInput
           ref={'name'}
           label={'Name'}
-          initialValue={resource.name}
+          initialValue={group.name}
         />
         <TextInput
           ref={'description'}
           label={'Description'}
-          initialValue={resource.description}
+          initialValue={group.description}
         />
         <TextInput
           ref={'category'}
           label={'Category'}
-          initialValue={resource.category}
+          initialValue={group.category}
         />
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(EditResource, {
+export default Relay.createContainer(EditGroup, {
   fragments: {
-    resource: () => Relay.QL`
-      fragment on Resource {
+    user: () => Relay.QL`
+      fragment on User {
+        id,
+        name,
+        ${DisconnectUserFromGroupMutation.getFragment('user')},
+      }
+    `,
+    group: () => Relay.QL`
+      fragment on Group {
         id,
         name,
         description,
         category,
-        ${UpdateResourceMutation.getFragment('resource')},
+        ${UpdateGroupMutation.getFragment('group')},
+        ${DisconnectUserFromGroupMutation.getFragment('group')},
       }
     `,
   },

@@ -49,7 +49,7 @@ class NewResource extends React.Component {
       <Dialog
         title={'New Resource'}
         actions={actions}
-        modal
+        onRequestClose={null}
         open={this.state.open}
       >
         <TextInput

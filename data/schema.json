@@ -388,7 +388,7 @@
         {
           "kind": "OBJECT",
           "name": "Group",
-          "description": "An organized community.",
+          "description": "A cultivation project.",
           "fields": [
             {
               "name": "id",
@@ -408,7 +408,31 @@
             },
             {
               "name": "name",
-              "description": "An organized community's name.",
+              "description": "A cultivation project's name.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "description",
+              "description": "A cultivation project's location and requirements.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "category",
+              "description": "A cultivation project's category.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -420,7 +444,7 @@
             },
             {
               "name": "users",
-              "description": "An organized community's list of members.",
+              "description": "A cultivation project's list of members.",
               "args": [
                 {
                   "name": "after",
@@ -473,7 +497,7 @@
             },
             {
               "name": "usersPending",
-              "description": "An organized community's list of pending members.",
+              "description": "A cultivation project's list of pending members.",
               "args": [
                 {
                   "name": "after",
@@ -526,7 +550,7 @@
             },
             {
               "name": "resources",
-              "description": "An organized community's list of economic inputs.",
+              "description": "A cultivation project's list of economic inputs.",
               "args": [
                 {
                   "name": "after",
@@ -1099,7 +1123,7 @@
             },
             {
               "name": "description",
-              "description": "An economic resource's description.",
+              "description": "An economic resource's access availability.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -1480,33 +1504,6 @@
               "deprecationReason": null
             },
             {
-              "name": "renameResource",
-              "description": null,
-              "args": [
-                {
-                  "name": "input",
-                  "description": null,
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "RenameResourceInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "RenameResourcePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "updateResource",
               "description": null,
               "args": [
@@ -1534,7 +1531,7 @@
               "deprecationReason": null
             },
             {
-              "name": "renameGroup",
+              "name": "updateGroup",
               "description": null,
               "args": [
                 {
@@ -1545,7 +1542,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "RenameGroupInput",
+                      "name": "UpdateGroupInput",
                       "ofType": null
                     }
                   },
@@ -1554,7 +1551,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "RenameGroupPayload",
+                "name": "UpdateGroupPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2073,7 +2070,35 @@
               "defaultValue": null
             },
             {
-              "name": "groupName",
+              "name": "name",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "description",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "category",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -2170,98 +2195,6 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "RenameResourceInput",
-          "description": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "id",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "clientMutationId",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RenameResourcePayload",
-          "description": null,
-          "fields": [
-            {
-              "name": "resource",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Resource",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "clientMutationId",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
           "name": "UpdateResourceInput",
           "description": null,
           "fields": null,
@@ -2285,7 +2218,7 @@
               "description": null,
               "type": {
                 "kind": "INPUT_OBJECT",
-                "name": "attributes",
+                "name": "resourceAttributes",
                 "ofType": null
               },
               "defaultValue": null
@@ -2311,7 +2244,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "attributes",
+          "name": "resourceAttributes",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -2391,7 +2324,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "RenameGroupInput",
+          "name": "UpdateGroupInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -2410,16 +2343,12 @@
               "defaultValue": null
             },
             {
-              "name": "name",
+              "name": "attributes",
               "description": null,
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "INPUT_OBJECT",
+                "name": "groupAttributes",
+                "ofType": null
               },
               "defaultValue": null
             },
@@ -2443,8 +2372,49 @@
           "possibleTypes": null
         },
         {
+          "kind": "INPUT_OBJECT",
+          "name": "groupAttributes",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "name",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "description",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "category",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
-          "name": "RenameGroupPayload",
+          "name": "UpdateGroupPayload",
           "description": null,
           "fields": [
             {

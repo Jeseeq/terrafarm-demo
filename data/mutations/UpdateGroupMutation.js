@@ -2,6 +2,7 @@ import {
   GraphQLNonNull,
   GraphQLID,
   GraphQLString,
+  GraphQLInputObjectType,
 } from 'graphql';
 
 import {
@@ -19,10 +20,19 @@ import {GroupType} from '../types/GroupType';
 const groupEndpoint = getEndpoint(GroupType);
 
 export default mutationWithClientMutationId({
-  name: 'RenameGroup',
+  name: 'UpdateGroup',
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
-    name: { type: new GraphQLNonNull(GraphQLString) },
+    attributes: {
+      type: new GraphQLInputObjectType({
+        name: 'groupAttributes',
+        fields: {
+          name: { type: GraphQLString },
+          description: { type: GraphQLString },
+          category: { type: GraphQLString },
+        },
+      }),
+    },
   },
   outputFields: {
     group: {
@@ -30,15 +40,13 @@ export default mutationWithClientMutationId({
       resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
-  mutateAndGetPayload: async ({id, name}) => {
+  mutateAndGetPayload: async ({id, attributes}) => {
     const localGroupId = fromGlobalId(id).id;
 
-    return await updateItem(groupEndpoint, localGroupId, {
-      name,
-    }).then(result => {
-      return {localGroupId: result.id};
-    });
+    return await updateItem(groupEndpoint, localGroupId, attributes)
+      .then(result => {
+        return {localGroupId: result.id};
+      });
   },
 });
-
 

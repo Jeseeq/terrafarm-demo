@@ -23,16 +23,24 @@ import {ResourceType, ResourceConnection} from './ResourceType';
 
 export const GroupType = registerType(new GraphQLObjectType({
   name: 'Group',
-  description: 'An organized community.',
+  description: 'A cultivation project.',
   fields: () => ({
     id: globalIdField('Group'),
     name: {
       type: GraphQLString,
-      description: 'An organized community\'s name.',
+      description: 'A cultivation project\'s name.',
+    },
+    description: {
+      type: GraphQLString,
+      description: 'A cultivation project\'s location and requirements.',
+    },
+    category: {
+      type: GraphQLString,
+      description: 'A cultivation project\'s category.',
     },
     users: {
       type: UserConnection,
-      description: 'An organized community\'s list of members.',
+      description: 'A cultivation project\'s list of members.',
       args: connectionArgs,
       resolve: async (_, args) => {
         const userPromises = _.users.map(u => getItem(getEndpoint(UserType), u.id));
@@ -46,7 +54,7 @@ export const GroupType = registerType(new GraphQLObjectType({
     /* eslint camelcase: 0 */
     usersPending: {
       type: UserConnection,
-      description: 'An organized community\'s list of pending members.',
+      description: 'A cultivation project\'s list of pending members.',
       args: connectionArgs,
       resolve: async (_, args) => {
         const userPromises = _.users_pending.map(u => getItem(getEndpoint(UserType), u.id));
@@ -59,7 +67,7 @@ export const GroupType = registerType(new GraphQLObjectType({
     },
     resources: {
       type: ResourceConnection,
-      description: 'An organized community\'s list of economic inputs.',
+      description: 'A cultivation project\'s list of economic inputs.',
       args: connectionArgs,
       resolve: async (_, args) => {
         const resourcePromises = _.resources.map(r => getItem(getEndpoint(ResourceType), r.id));

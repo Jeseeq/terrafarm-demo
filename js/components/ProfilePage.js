@@ -2,9 +2,9 @@ import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import EditResource from './EditResource';
-import EditGroupPanel from './EditGroupPanel';
+import EditGroup from './EditGroup';
 import NewResource from './NewResource';
-import NewGroupPanel from './NewGroupPanel';
+import NewGroup from './NewGroup';
 
 import createColorChart from '../shared-styles/create-color-chart';
 import styles from './ProfilePage.css';
@@ -35,10 +35,10 @@ class ProfilePage extends React.Component {
       <h4>Your profile</h4>
       <h2 className={styles.heading}>{user.name}</h2>
       <h3>Groups</h3>
-      <NewGroupPanel user={user} master={master} />
+      <NewGroup user={user} master={master} />
       <ul>
         {user.groups.edges.map(edge => <li key={edge.node.id}>
-          <EditGroupPanel user={user} group={edge.node} />
+          <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
           <div
             style={{
               display: 'inline-block', width: 25, height: 8,
@@ -47,6 +47,7 @@ class ProfilePage extends React.Component {
               backgroundColor: this.state.colorChart[edge.node.id],
             }}
           />
+          <EditGroup user={user} group={edge.node} />
         </li>)}
       </ul>
       <h3>Resources</h3>
@@ -103,7 +104,7 @@ export default Relay.createContainer(ProfilePage, {
               node {
                 id,
                 name,
-                ${EditGroupPanel.getFragment('group')},
+                ${EditGroup.getFragment('group')},
               }
             }
           },
@@ -115,16 +116,16 @@ export default Relay.createContainer(ProfilePage, {
               }
             }
           },
-          ${EditGroupPanel.getFragment('user')},
+          ${EditGroup.getFragment('user')},
           ${NewResource.getFragment('user')},
-          ${NewGroupPanel.getFragment('user')},
+          ${NewGroup.getFragment('user')},
         },
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         ${NewResource.getFragment('master')},
-        ${NewGroupPanel.getFragment('master')},
+        ${NewGroup.getFragment('master')},
       }
     `,
   },

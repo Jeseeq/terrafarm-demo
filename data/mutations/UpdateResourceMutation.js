@@ -25,7 +25,7 @@ export default mutationWithClientMutationId({
     id: { type: new GraphQLNonNull(GraphQLID) },
     attributes: {
       type: new GraphQLInputObjectType({
-        name: 'attributes',
+        name: 'resourceAttributes',
         fields: {
           name: { type: GraphQLString },
           description: { type: GraphQLString },
@@ -49,5 +49,3 @@ export default mutationWithClientMutationId({
       });
   },
 });
-
-

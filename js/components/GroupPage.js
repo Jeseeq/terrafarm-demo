@@ -58,6 +58,10 @@ class GroupPage extends React.Component {
     return <div>
       <h4>Group</h4>
       <h2>{group.name}</h2>
+      <h3>Description</h3>
+      <p>{group.description}</p>
+      <h3>Category</h3>
+      <p>{group.category}</p>
       <h3>Members</h3>
       <ul>
         {group.users.edges.map(edge => <li key={edge.node.id}>
@@ -100,6 +104,8 @@ export default Relay.createContainer(GroupPage, {
       fragment on Group {
         id,
         name,
+        description,
+        category,
         users(first: 18) {
           edges {
             node {

@@ -27,7 +27,9 @@ export default mutationWithClientMutationId({
   name: 'NewGroup',
   inputFields: {
     userId: { type: new GraphQLNonNull(GraphQLID) },
-    groupName: { type: new GraphQLNonNull(GraphQLString) },
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    description: { type: new GraphQLNonNull(GraphQLString) },
+    category: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
     groupEdge: {
@@ -53,11 +55,13 @@ export default mutationWithClientMutationId({
       resolve: async () => await getItem(masterEndpoint, 1),
     },
   },
-  mutateAndGetPayload: async ({userId, groupName}) => {
+  mutateAndGetPayload: async ({userId, name, description, category}) => {
     const localUserId = fromGlobalId(userId).id;
 
     return await createItem(groupEndpoint, {
-      name: groupName,
+      name,
+      description,
+      category,
       users: [{id: localUserId}],
       resources: [],
       masters: [{id: 1}],

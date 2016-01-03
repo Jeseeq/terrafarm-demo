@@ -56,7 +56,9 @@ export default class NewGroupMutation extends Relay.Mutation {
   getVariables () {
     return {
       userId: this.props.user.id,
-      groupName: this.props.groupName,
+      name: this.props.name,
+      description: this.props.description,
+      category: this.props.category,
     };
   }
 }
