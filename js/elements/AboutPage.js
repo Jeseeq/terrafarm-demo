@@ -6,8 +6,13 @@ import styles from './AboutPage.css';
 
 export default class AboutPage extends React.Component {
   render () {
-    const githubUrl = 'http://rblakeley.github.io/terrafarm';
-    const twitterUrl = 'https://twitter.com/terrafarmapp';
+    const linkUrls = {
+      github: 'http://rblakeley.github.io/terrafarm',
+      crowdfunding: '',
+      twitter: 'https://twitter.com/terrafarmapp',
+      reddit: '',
+      email: 'mailto:terrafarmapp@gmail.com',
+    };
 
     return <div className={styles.this}>
       <h2>About</h2>
@@ -21,9 +26,11 @@ export default class AboutPage extends React.Component {
       <h3>Hypothesis</h3>
       <p>There are untapped opportunities to connect willing people and latent resources for small-scale farming projects. Increasing contact between resource owners and people interested in farming will create mutual wealth and healthier communities.</p>
       <h3>Links</h3>
-      <p><a href={githubUrl} className={styles.link}>Github</a></p>
-      <p><a href={twitterUrl} className={styles.link}>Twitter</a></p>
-      <p><a>Crowdfunding</a></p>
+      <p><a href={linkUrls.github} className={styles.link}>Open source project</a></p>
+      <p><a href={linkUrls.crowdfunding}>Crowdfunding</a></p>
+      <p><a href={linkUrls.reddit} className={styles.link}>Reddit</a></p>
+      <p><a href={linkUrls.twitter} className={styles.link}>Twitter</a></p>
+      <p><a href={linkUrls.email} classNames={styles.link}>Email</a></p>
     </div>;
   }
 }

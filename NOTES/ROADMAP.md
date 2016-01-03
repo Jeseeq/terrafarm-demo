@@ -52,6 +52,9 @@ More detail on basic user experience patterns.
 #### Home Page
 - [ ] shadows
 
+#### About Page
+- [ ] 'Links' list with icons
+
 #### Tests
 - [x] Jest
 - [ ] unit
