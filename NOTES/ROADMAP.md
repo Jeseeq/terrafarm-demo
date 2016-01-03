@@ -11,43 +11,48 @@ First public release.
 More detail on basic user experience patterns.
 
 #### Stories
-- [ ] group member creates membership invitation
-- [ ] user offers resource to group
-  - [ ] auto-create membership request
-  - [ ] group member approves/declines resource offer
+- [ ] new/edit resource
+  - [ ] name field
+  - [ ] description field
+  - [ ] category field
+    - [ ] equipment
+      - [ ] pictures
+    - [ ] labor
+- [ ] new group
+  - [ ] name field
+  - [ ] space field
+    - [ ] location
+    - [ ] pictures
+  - [ ] requirements field
+- [ ] member offers resource to group
+  - [ ] hours per week field
+  - [ ] group owner notified of offer
     - [ ] show alert next to group on profile page
+  - [ ] group owner approves/declines offer
     - [ ] show pending resource on group page with approve/decline button
-- [ ] group requests resource from user
-  - [ ] auto-create membership invitation
-  - [ ] user approves/declines resource request
-    - [ ] show alert next to resource on profile page
-    - [ ] show pending group on resource page with approve/decline buttons
-- [ ] about page
-  - [ ] recommended reading
 
 #### Profile Page
-- [ ] color icons layout
-- [ ] location
-- [ ] edit user details
-
-#### New Resource Page
-- [ ] field for name
-- [ ] field for description
-
-#### New Group Page
-- [ ] field for name
-- [ ] field for description
+- [ ] 'edit' buttons
+- [ ] 'new' buttons
+- [ ] color icons
 
 #### Resource Page
-- [ ] resource description
-- [ ] new layout/style for user name
+- [ ] icon next owner name
+- [ ] description
+- [ ] category
+- [ ] pictures
 
 #### Group Page
-- [ ] group description
-- [ ] group growing, cultivation plan
-- [ ] only show 'pending users' heading if there is a list
-- [ ] only show 'my resources' which aren't already allocated
-- [ ] show resource requests
+- [ ] location
+- [ ] pictures
+- [ ] requirements
+- [ ] pending users
+  - [ ] show **None** if list is empty
+- [ ] pending resources
+  - [ ] show **None** if list is empty
+- [ ] allocate resources modal
+  - [ ] if group owner -> 'add resource' button
+  - [ ] else if member -> 'offer resource' button
 
 #### Home Page
 - [ ] shadows
@@ -55,46 +60,37 @@ More detail on basic user experience patterns.
 #### About Page
 - [ ] 'Links' list with icons
 
-#### Tests
-- [x] Jest
-- [ ] unit
-- [ ] end-to-end
-- [ ] chaos monkey (and add documentation)
-
 #### Other
 - [ ] text input edit, save, cancel interactions
 - [ ] css feature detection, fallbacks, and browser warnings
-- [ ] logo, image, keywords, auther for and `./package.json`
+- [ ] logo, image, keywords, author for `./package.json`
 - [ ] favicon
 - [ ] bump dependencies, maybe node
 - [ ] document Fieldbook
-- [ ] Google Analytics
-- [ ] spinner
+- [ ] spinners
 - [ ] crowdfunding
 - [ ] google analytics
 - [ ] tabindex on nav button
 
 ### Database
 - [ ] Authentication with Auth0 JWT
-- [ ] parallel db requests
-- [ ] avoid redundant connection mutations
+- [ ] catch redundant connection mutations
 - [ ] fewer calls to `getEndpoint`
 - [ ] consolidate `data/api/` into one module
 - [ ] resolve benign console warnings on mutations
-- [ ] dev vs heroku db and caching
-- [ ] optimistic updates
 
 
 ## 0.3
 
-### UI Design
+### Interface
 
 Improve the user experience.
 
-#### Browse Page Tables
-- [ ] responsive height
-- [ ] sort and tooltip
-- [ ] checkboxes and multiple selection
+#### Browse Page
+- [ ] tables
+  - [ ] responsive height
+  - [ ] sort and tooltip
+  - [ ] checkboxes and multiple selection
 
 #### User Stories
 - [ ] add message to membership and resource requests
@@ -109,15 +105,29 @@ Improve the user experience.
 - [ ] transitions
 - [ ] https?
 
-### Refactor Styles
-- [ ] sanity
+#### Tests
+- [x] Jest
+- [ ] unit
+- [ ] end-to-end
+- [ ] chaos monkey (and add documentation)
+
+#### Other
+- [ ] styles sanity and patterns
+
+### Database
+- [ ] parallel requests
+- [ ] load testing
+- [ ] optimistic updates
 
 
 ## 0.4
 
-### UI Design
+### Interface
 
 Improve the user experience.
+
+#### Research Groups
+- [ ] reading lists
 
 #### New Resource Page
 - [ ] predictive text field for naming resource

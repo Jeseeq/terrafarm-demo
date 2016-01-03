@@ -1,22 +1,21 @@
 .this {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin: 0 auto;
-  padding: 15px 0 10%;
-  max-width: 450px;
+  padding: 15px 0 25px;
+  max-width: 680px;
 }
 
 .this h3,
 .this p { width: 100%; }
 .this a { text-decoration: underline; }
-.description {
-  margin-bottom: 25px;
-}
-.description h3,
-.description h4,
-.description p {
-  margin-bottom: 15px;
-}
 
+.links,
+.section { text-align: left; width: 100%; }
+
+.links { margin-bottom: 25px; }
+
+
+@media only screen and (min-width: 880px) {
+  .this { max-width: 790px; }
+  .links { position: fixed; width: 250px; }
+  .section { position: relative; left: 290px; max-width: 500px; }
+}

@@ -58,7 +58,7 @@ class GroupPage extends React.Component {
     return <div>
       <h4>Group</h4>
       <h2>{group.name}</h2>
-      <h3>Users</h3>
+      <h3>Members</h3>
       <ul>
         {group.users.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
