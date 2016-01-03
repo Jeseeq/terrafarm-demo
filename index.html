@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <h1>Terrafarm</h1>
-        <p>An app (pre-release) for cultivating better food close to home.</p>
+        <p>http://terrafarm.herokouapp.com</p>
 
         <p class="view"><a href="https://github.com/rblakeley/terrafarm">View the Project on GitHub <small>rblakeley/terrafarm</small></a></p>
 
@@ -35,7 +35,8 @@
 
 <p><a href="http://terrafarm.herokuapp.com/">Web app</a> (pre-release)<br>
 <a href="http://terrafarm.herokuapp.com/#/about">About</a><br>
-<a href="http://rblakeley.github.io/terrafarm/">Readme</a>  </p>
+<a href="http://rblakeley.github.io/terrafarm/">Readme</a><br>
+<a href="https://twitter.com/terrafarmapp">Twitter</a>  </p>
 
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
@@ -55,16 +56,31 @@
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
 
 <ul>
-<li>app server</li>
+<li>app server with Webpack and Babel</li>
 <li>GraphQL server</li>
 <li>transpiler that works with Relay</li>
-<li>URL routing</li>
+<li>ui libraries:
+
+<ul>
+<li>React</li>
+<li>react-router</li>
+<li>material-ui</li>
+<li>react-icons (svg)</li>
+</ul>
+</li>
+<li>Jest test coverage</li>
 </ul>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <pre><code>npm install
+</code></pre>
+
+<h2>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testing</h2>
+
+<pre><code>npm test
 </code></pre>
 
 <h2>
@@ -81,8 +97,8 @@
 <p>Any changes you make to files in the <code>js/</code> directory will cause the server to
 automatically rebuild the app and refresh your browser.</p>
 
-<p>If at any time you make changes to <code>data/schema.js</code>, stop the server,
-regenerate <code>data/schema.json</code>, and restart the server:</p>
+<p>If at any time you make changes to files in the <code>data/</code> directory, stop the
+server, regenerate <code>data/schema.json</code>, and restart the server:</p>
 
 <pre><code>npm run update-schema
 npm start
@@ -91,7 +107,7 @@ npm start
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-<p>Copyright (c) 2015, Ryan Blakeley<br>
+<p>Copyright (c) 2016, Ryan Blakeley<br>
 <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons BY-NC-ND 3.0</a>.<br>
 Parts from <a href="https://github.com/relayjs/relay-starter-kit">Relay Starter Kit</a>, which is <a href="./NOTES/LICENSE">BSD licensed</a> and provides an additional <a href="./NOTES/PATENTS">patent grant</a>.<br>
 Parts from <a href="https://github.com/codrops/PerspectivePageViewNavigation">codrops/PerspectivePageViewNavigation</a>.<br>
