@@ -11,6 +11,7 @@ First public release.
 More detail on basic user experience patterns.
 
 #### Stories
+- [ ] remove renameResource mutation
 - [ ] new resource modal
 - [ ] new group modal
   - [ ] name field
@@ -81,6 +82,7 @@ More detail on basic user experience patterns.
 Improve the user experience.
 
 #### Edit/New Resource Modal
+- [ ] resolve console warnings
 - [ ] add formsy-react
 - [ ] category dropdown
   - [ ] equipment

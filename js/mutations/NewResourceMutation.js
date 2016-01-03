@@ -56,7 +56,9 @@ export default class NewResourceMutation extends Relay.Mutation {
   getVariables () {
     return {
       userId: this.props.user.id,
-      resourceName: this.props.resourceName,
+      name: this.props.name,
+      description: this.props.description,
+      category: this.props.category,
     };
   }
 }

@@ -21,6 +21,7 @@ export default class TextInput extends React.Component {
   };
   static defaultProps = {
     commitOnBlur: false,
+    onSave: () => null,
     style: {
       display: 'block',
       fontFamily: 'Simonetta, serif',

@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 import EditResource from './EditResource';
 import EditGroupPanel from './EditGroupPanel';
-import NewResourcePanel from './NewResourcePanel';
+import NewResource from './NewResource';
 import NewGroupPanel from './NewGroupPanel';
 
 import createColorChart from '../shared-styles/create-color-chart';
@@ -50,7 +50,7 @@ class ProfilePage extends React.Component {
         </li>)}
       </ul>
       <h3>Resources</h3>
-      <NewResourcePanel user={user} master={master} />
+      <NewResource user={user} master={master} />
       <ul>
         {user.resources.edges.map(edge => <li key={edge.node.id}>
           <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
@@ -116,14 +116,14 @@ export default Relay.createContainer(ProfilePage, {
             }
           },
           ${EditGroupPanel.getFragment('user')},
-          ${NewResourcePanel.getFragment('user')},
+          ${NewResource.getFragment('user')},
           ${NewGroupPanel.getFragment('user')},
         },
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        ${NewResourcePanel.getFragment('master')},
+        ${NewResource.getFragment('master')},
         ${NewGroupPanel.getFragment('master')},
       }
     `,
