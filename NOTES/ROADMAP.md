@@ -6,16 +6,11 @@ Below is a roadmap of potential Terrafarm features and releases.
 
 First public release.
 
-### UI Design
+### Interface
 
 More detail on basic user experience patterns.
 
-#### User Profile
-- [ ] color icons layout
-- [ ] location
-- [ ] edit user details
-
-#### User Stories
+#### Stories
 - [ ] group member creates membership invitation
 - [ ] user offers resource to group
   - [ ] auto-create membership request
@@ -29,6 +24,11 @@ More detail on basic user experience patterns.
     - [ ] show pending group on resource page with approve/decline buttons
 - [ ] about page
   - [ ] recommended reading
+
+#### Profile Page
+- [ ] color icons layout
+- [ ] location
+- [ ] edit user details
 
 #### New Resource Page
 - [ ] field for name
@@ -53,9 +53,9 @@ More detail on basic user experience patterns.
 - [ ] shadows
 
 #### Tests
-- [ ] library?
-- [ ] unit tests
-- [ ] end-to-end test
+- [x] Jest
+- [ ] unit
+- [ ] end-to-end
 - [ ] chaos monkey (and add documentation)
 
 #### Other
@@ -69,8 +69,9 @@ More detail on basic user experience patterns.
 - [ ] spinner
 - [ ] crowdfunding
 - [ ] google analytics
+- [ ] tabindex on nav button
 
-### Database Design
+### Database
 - [ ] Authentication with Auth0 JWT
 - [ ] parallel db requests
 - [ ] avoid redundant connection mutations

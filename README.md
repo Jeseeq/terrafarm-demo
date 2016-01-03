@@ -56,8 +56,8 @@ npm start
 Any changes you make to files in the `js/` directory will cause the server to
 automatically rebuild the app and refresh your browser.
 
-If at any time you make changes to `data/`, stop the server,
-regenerate `data/schema.json`, and restart the server:
+If at any time you make changes to files in the `data/` directory, stop the
+server, regenerate `data/schema.json`, and restart the server:
 
 ```
 npm run update-schema
