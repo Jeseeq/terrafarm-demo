@@ -1,14 +1,16 @@
 import React from 'react';
+import GoOctoface from 'react-icons/lib/go/octoface';
+import FaRedditAlien from 'react-icons/lib/fa/reddit-alien';
+import FaTwitter from 'react-icons/lib/fa/twitter';
+import MdMailOutline from 'react-icons/lib/md/mail-outline';
 
-// import classNames from 'classnames/bind';
 import styles from './AboutPage.css';
-// const cx = classNames.bind(styles);
 
 export default class AboutPage extends React.Component {
   render () {
     const linkUrls = {
       github: 'http://rblakeley.github.io/terrafarm',
-      crowdfunding: '',
+      // crowdfunding: '',
       twitter: 'https://twitter.com/terrafarmapp',
       reddit: '',
       email: 'mailto:terrafarmapp@gmail.com',
@@ -16,12 +18,22 @@ export default class AboutPage extends React.Component {
 
     return <div className={styles.this}>
       <div className={styles.links}>
-        <h4>Links</h4>
-        <p><a href={linkUrls.github} className={styles.link}>Open source project</a></p>
-        <p><a href={linkUrls.crowdfunding}>Crowdfunding</a></p>
-        <p><a href={linkUrls.reddit} className={styles.link}>Reddit</a></p>
-        <p><a href={linkUrls.twitter} className={styles.link}>Twitter</a></p>
-        <p><a href={linkUrls.email} classNames={styles.link}>Email</a></p>
+        <p>
+          <GoOctoface className={styles.icon} />
+          <a href={linkUrls.github} className={styles.link}>Open source project</a>
+        </p>
+        <p>
+          <FaRedditAlien className={styles.icon} />
+          <a href={linkUrls.reddit} className={styles.link}>Reddit</a>
+        </p>
+        <p>
+          <FaTwitter className={styles.icon} />
+          <a href={linkUrls.twitter} className={styles.link}>Twitter</a>
+        </p>
+        <p>
+          <MdMailOutline className={styles.icon} />
+          <a href={linkUrls.email} classNames={styles.link}>Email</a>
+        </p>
       </div>
       <div className={styles.section}>
         <h4>Improving Food</h4>

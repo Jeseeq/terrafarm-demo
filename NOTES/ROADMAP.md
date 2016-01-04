@@ -16,24 +16,10 @@ Basic user experience.
   - [ ] new/edit resource
   - [ ] new/edit resource offer
   - [ ] new/edit group
-- [ ] member offers resource to group modal
-  - [ ] hours per week field
-  - [ ] group owner notified of offer
-    - [ ] show alert next to group on profile page
-  - [ ] group owner approves/declines offer
-    - [ ] show pending resource on group page with approve/decline button
 
 #### Group Page
-- [x] description
-- [x] pending users
-  - [x] show **None** if list is empty
-- [x] pending resources
-  - [x] show **None** if list is empty
-- [ ] request membership button
-- [x] allocate resources modal
-
-#### About Page
-- [ ] 'Links' list with icons
+- [ ] member approves/declines membership request
+- [ ] member approves/declines resource offer
 
 #### Other
 - [ ] spinners
@@ -98,6 +84,8 @@ High-priority additions and improvements to the user experience.
 
 #### Group Page
 - [ ] pictures
+- [ ] offer resource
+  - [ ] hours per week field
 
 #### Home Page
 - [ ] shadows
@@ -136,4 +124,7 @@ Low-priority additions and improvements to the user experience.
 
 #### About Page
 - [ ] crowdfunding link
+
+#### Profile Page
+- [ ] show alert next to group with pending actions
 
