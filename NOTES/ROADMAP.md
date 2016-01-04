@@ -11,10 +11,6 @@ Minimal feature-set for first public release.
 Basic user experience.
 
 #### Stories
-- [ ] new/edit group modal
-  - [ ] name field
-  - [ ] space field
-  - [ ] requirements field
 - [ ] member offers resource to group modal
   - [ ] hours per week field
   - [ ] group owner notified of offer

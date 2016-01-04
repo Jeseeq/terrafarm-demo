@@ -1,0 +1,13 @@
+.category {
+  margin: 25px 0 15px 0;
+  font-weight: 900;
+}
+.owner {
+  margin-bottom: 15px;
+}
+.icon {
+  margin-right: 0.67em;
+}
+.description {
+  margin-top: 25px;
+}

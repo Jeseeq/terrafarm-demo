@@ -1,29 +1,30 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
+import FaUser from 'react-icons/lib/fa/user';
+import FaGroup from 'react-icons/lib/fa/group';
+
+import styles from './ResourcePage.css';
 
 class ResourcePage extends React.Component {
   render () {
     const {resource} = this.props;
-    return <div>
+    const owner = resource.users.edges[0].node;
+    return <div className={styles.this}>
       <h4>Resource</h4>
       <h2>{resource.name}</h2>
-      <h3>Description</h3>
-      <p>{resource.description}</p>
-      <h3>Category</h3>
-      <p>{resource.category}</p>
-      <h3>Owner</h3>
-      <ul>
-        {resource.users.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
-        </li>)}
-      </ul>
-      <h3>Groups</h3>
-      <ul>
-        {resource.groups.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
-        </li>)}
-      </ul>
+      <p className={styles.category}>| {resource.category} |</p>
+      <p className={styles.owner}>
+        <Link to={`/user/${owner.id}`}>
+          <FaUser className={styles.icon} /> {owner.name}
+        </Link>
+      </p>
+      {resource.groups.edges.map(edge => <p key={edge.node.id}>
+        <Link to={`/group/${edge.node.id}`}>
+          <FaGroup className={styles.icon} /> {edge.node.name}
+        </Link>
+      </p>)}
+      <p className={styles.description}>{resource.description}</p>
     </div>;
   }
 }
