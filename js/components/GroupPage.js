@@ -3,23 +3,32 @@ import PendingUserToGroupMutation from '../mutations/PendingUserToGroupMutation'
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
-import MembershipRequests from './MembershipRequests';
-import CommitResourcesPanel from './CommitResourcesPanel';
-import FlatButton from 'material-ui/lib/flat-button';
+import RaisedButton from 'material-ui/lib/raised-button';
+import FaUser from 'react-icons/lib/fa/user';
+import FaTag from 'react-icons/lib/fa/tag';
+import NewResourceOffer from './NewResourceOffer';
+// import MembershipRequests from './MembershipRequests';
 import createColorChart from '../shared-styles/create-color-chart';
+
+import styles from './GroupPage.css';
 
 class GroupPage extends React.Component {
   state = {
     colorChart: {},
+    isMember: false,
+    isPendingMember: false,
   };
   componentWillMount () {
-    const {group} = this.props;
-    const {users} = group;
+    const {group, viewer} = this.props;
+    const {users, usersPending} = group;
+    const {user} = viewer;
     const userIds = users.edges.map(edge => edge.node.id);
+    const isMember = users.edges.find(edge => edge.node.id === user.id);
+    const isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
     const colorChart = createColorChart(userIds);
-    this.setState({colorChart});
+    this.setState({colorChart, isMember, isPendingMember});
   }
-  _handleRequestMembership = () => {
+  handleRequestMembership = () => {
     Relay.Store.update(
       new PendingUserToGroupMutation({
         user: this.props.viewer.user,
@@ -27,7 +36,7 @@ class GroupPage extends React.Component {
       })
     );
   }
-  _handleCancelMembershipRequest = () => {
+  handleCancelMembershipRequest = () => {
     Relay.Store.update(
       new CancelPendingUserToGroupMutation({
         user: this.props.viewer.user,
@@ -35,37 +44,58 @@ class GroupPage extends React.Component {
       })
     );
   }
-  _getMemberControls () {
-    const {group, viewer} = this.props;
-    const {users, usersPending} = group;
-    const {user} = viewer;
-    const isMember = users.edges.find(edge => edge.node.id === user.id);
-    const isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
-
-    if (isMember) {
-      return <div>
-        <MembershipRequests group={group} />
-        <CommitResourcesPanel group={group} viewer={viewer} />
-      </div>;
-    } else if (isPendingMember) {
-      return <FlatButton label={'Cancel Membership Request'} onClick={this._handleCancelMembershipRequest} />;
+  renderMembersPending () {
+    const {group} = this.props;
+    // add controls to accept/decline membership request
+    return this.state.isMember && <div className={styles.users}>
+      {group.usersPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
+        <Link to={`/user/${edge.node.id}`}>
+          <FaUser className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
+        </Link>
+      </div>)}
+    </div>;
+  }
+  renderNewMembershipRequest () {
+    if (this.state.isPendingMember) {
+      return <RaisedButton
+        label={'Cancel Membership Request'}
+        onClick={this.handleCancelMembershipRequest}
+        style={{margin: '10px 0 15px 10px'}}
+      />;
     }
-    return <FlatButton label={'Request Membership'} onClick={this._handleRequestMembership} />;
+    return <RaisedButton
+      label={'Request Membership'}
+      onClick={this.handleRequestMembership}
+      style={{margin: '10px 0 15px 10px'}}
+    />;
+  }
+  renderResourcesPending () {
+    const {group} = this.props;
+    // add controls to accept/decline resource offer
+    return this.state.isMember && <div className={styles.resources}>
+      {group.resourcesPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
+        <Link to={`/resource/${edge.node.id}`}>
+          <FaTag className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
+        </Link>
+      </div>)}
+    </div>;
+  }
+  renderNewResourceOffer () {
+    const {group, viewer} = this.props;
+    return this.state.isMember
+      && <NewResourceOffer group={group} viewer={viewer} />;
   }
   render () {
     const {group} = this.props;
-    const memberControls = this._getMemberControls();
     return <div>
       <h4>Group</h4>
       <h2>{group.name}</h2>
-      <h3>Description</h3>
-      <p>{group.description}</p>
-      <h3>Category</h3>
-      <p>{group.category}</p>
-      <h3>Members</h3>
-      <ul>
-        {group.users.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/user/${edge.node.id}`}>{edge.node.name}</Link>
+      <p className={styles.category}>| {group.category} |</p>
+      <div className={styles.users}>
+        {group.users.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
+          <Link to={`/user/${edge.node.id}`}>
+            <FaUser className={styles.icon} /> {edge.node.name}
+          </Link>
           <div
             style={{
               display: 'inline-block', width: 25, height: 8,
@@ -74,23 +104,29 @@ class GroupPage extends React.Component {
               backgroundColor: this.state.colorChart[edge.node.id],
             }}
           />
-        </li>)}
-      </ul>
-      <h3>Resources</h3>
-      <ul>
-        {group.resources.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
+        </div>)}
+        {this.renderMembersPending()}
+        {this.renderNewMembershipRequest()}
+      </div>
+      <div className={styles.resources}>
+        {group.resources.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
+          <Link to={`/resource/${edge.node.id}`}>
+            <FaTag className={styles.icon} /> {edge.node.name}
+          </Link>
           {edge.node.users.edges.map(userEdge => <div key={userEdge.node.id}
             style={{
               display: 'inline-block', width: 10, height: 10,
               marginLeft: 10,
+              marginRight: 10,
               borderRadius: '50%',
               backgroundColor: this.state.colorChart[userEdge.node.id],
             }}
           />)}
-        </li>)}
-      </ul>
-      {memberControls}
+        </div>)}
+        {this.renderResourcesPending()}
+        {this.renderNewResourceOffer()}
+      </div>
+      <p className={styles.description}>{group.description}</p>
     </div>;
   }
 }
@@ -136,10 +172,17 @@ export default Relay.createContainer(GroupPage, {
             }
           }
         },
+        resourcesPending(first: 18) {
+          edges {
+            node {
+              id,
+              name,
+            }
+          }
+        },
         ${PendingUserToGroupMutation.getFragment('group')},
         ${CancelPendingUserToGroupMutation.getFragment('group')},
-        ${MembershipRequests.getFragment('group')},
-        ${CommitResourcesPanel.getFragment('group')},
+        ${NewResourceOffer.getFragment('group')},
       }
     `,
     viewer: () => Relay.QL`
@@ -149,7 +192,7 @@ export default Relay.createContainer(GroupPage, {
           ${CancelPendingUserToGroupMutation.getFragment('user')},
           ${PendingUserToGroupMutation.getFragment('user')},
         },
-        ${CommitResourcesPanel.getFragment('viewer')},
+        ${NewResourceOffer.getFragment('viewer')},
       }
     `,
   },

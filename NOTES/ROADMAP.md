@@ -11,6 +11,11 @@ Minimal feature-set for first public release.
 Basic user experience.
 
 #### Stories
+- [ ] form validation
+  - [ ] new user
+  - [ ] new/edit resource
+  - [ ] new/edit resource offer
+  - [ ] new/edit group
 - [ ] member offers resource to group modal
   - [ ] hours per week field
   - [ ] group owner notified of offer
@@ -19,15 +24,13 @@ Basic user experience.
     - [ ] show pending resource on group page with approve/decline button
 
 #### Group Page
-- [ ] location
-- [ ] requirements
-- [ ] pending users
-  - [ ] show **None** if list is empty
-- [ ] pending resources
-  - [ ] show **None** if list is empty
-- [ ] allocate resources modal
-  - [ ] if group owner -> 'add resource' button
-  - [ ] else if member -> 'offer resource' button
+- [x] description
+- [x] pending users
+  - [x] show **None** if list is empty
+- [x] pending resources
+  - [x] show **None** if list is empty
+- [ ] request membership button
+- [x] allocate resources modal
 
 #### About Page
 - [ ] 'Links' list with icons
@@ -46,7 +49,6 @@ Basic user experience.
 - [ ] fewer calls to `getEndpoint`
 - [ ] consolidate `data/api/` into one module
 - [ ] resolve benign console warnings on mutations
-- [x] resourcesPending, groupsPending fields
 
 
 ## 0.3
@@ -62,7 +64,6 @@ High-priority additions and improvements to the user experience.
 
 #### Edit/New Resource Modal
 - [ ] resolve console warnings
-- [ ] add formsy-react
 - [ ] category dropdown
   - [ ] equipment
     - [ ] pictures

@@ -83,7 +83,7 @@ export const GroupType = registerType(new GraphQLObjectType({
       description: 'A cultivation project\'s list of pending economic inputs.',
       args: connectionArgs,
       resolve: async (_, args) => {
-        const resourcePromises = _.resources_pending.map(u => getItem(getEndpoint(ResourceType), u.id));
+        const resourcePromises = _.resources_pending.map(r => getItem(getEndpoint(ResourceType), r.id));
         const resourceResults = await* resourcePromises;
         return connectionFromArray(
           resourceResults,
