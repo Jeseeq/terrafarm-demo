@@ -45,8 +45,8 @@ class EditResource extends React.Component {
       />,
     ];
 
-    return <div>
-      <RaisedButton label={'Edit'} onTouchTap={this.handleOpen} />
+    return <div style={{display: 'inline-block'}}>
+      <FlatButton label={'Edit'} onTouchTap={this.handleOpen} />
       <Dialog
         title={'Edit Resource'}
         actions={actions}

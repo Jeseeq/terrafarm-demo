@@ -44,8 +44,8 @@ class NewResource extends React.Component {
       />,
     ];
 
-    return <div>
-      <RaisedButton label={'New'} onTouchTap={this.handleOpen} />
+    return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}}>
+      <RaisedButton label={'New Resource'} onTouchTap={this.handleOpen} />
       <Dialog
         title={'New Resource'}
         actions={actions}

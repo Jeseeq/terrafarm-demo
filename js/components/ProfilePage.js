@@ -5,6 +5,8 @@ import EditResource from './EditResource';
 import EditGroup from './EditGroup';
 import NewResource from './NewResource';
 import NewGroup from './NewGroup';
+import FaGroup from 'react-icons/lib/fa/group';
+import FaTag from 'react-icons/lib/fa/tag';
 
 import createColorChart from '../shared-styles/create-color-chart';
 import styles from './ProfilePage.css';
@@ -34,44 +36,47 @@ class ProfilePage extends React.Component {
     return <div>
       <h4>Your profile</h4>
       <h2 className={styles.heading}>{user.name}</h2>
-      <h3>Groups</h3>
-      <NewGroup user={user} master={master} />
-      <ul>
-        {user.groups.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
+      <div className={styles.groups}>
+        {user.groups.edges.map(edge => <div key={edge.node.id}>
+          <Link to={`/group/${edge.node.id}`}>
+            <FaGroup className={styles.icon} /> {edge.node.name}
+          </Link>
           <div
             style={{
               display: 'inline-block', width: 25, height: 8,
               marginLeft: 10,
+              marginRight: 10,
               borderRadius: 3,
               backgroundColor: this.state.colorChart[edge.node.id],
             }}
           />
           <EditGroup user={user} group={edge.node} />
-        </li>)}
-      </ul>
-      <h3>Resources</h3>
-      <NewResource user={user} master={master} />
-      <ul>
-        {user.resources.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/resource/${edge.node.id}`}>{edge.node.name}</Link>
+        </div>)}
+        {user.groupsPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
+          <Link to={`/group/${edge.node.id}`}>
+            <FaGroup className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
+          </Link>
+        </div>)}
+        <NewGroup user={user} master={master} />
+      </div>
+      <div className={styles.resources}>
+        {user.resources.edges.map(edge => <div key={edge.node.id}>
+          <Link to={`/resource/${edge.node.id}`}>
+            <FaTag className={styles.icon} /> {edge.node.name}
+          </Link>
           {edge.node.groups.edges.map(groupEdge => <div key={groupEdge.node.id}
             style={{
               display: 'inline-block', width: 10, height: 10,
               marginLeft: 10,
+              marginRight: 10,
               borderRadius: '50%',
               backgroundColor: this.state.colorChart[groupEdge.node.id],
             }}
           />)}
-          <EditResource resource={edge.node} />
-        </li>)}
-      </ul>
-      <h3>Pending Groups</h3>
-      <ul>
-        {user.groupsPending.edges.map(edge => <li key={edge.node.id}>
-          <Link to={`/group/${edge.node.id}`}>{edge.node.name}</Link>
-        </li>)}
-      </ul>
+          <EditResource user={user} resource={edge.node} />
+        </div>)}
+        <NewResource user={user} master={master} />
+      </div>
     </div>;
   }
 }

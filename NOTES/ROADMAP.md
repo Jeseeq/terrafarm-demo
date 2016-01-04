@@ -24,11 +24,6 @@ Basic user experience.
 - [ ] 'new' buttons
 - [ ] color icons
 
-#### Resource Page
-- [ ] icon next to owner name
-- [ ] description
-- [ ] category
-
 #### Group Page
 - [ ] location
 - [ ] requirements

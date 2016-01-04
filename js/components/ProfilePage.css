@@ -2,3 +2,5 @@
 .heading:after {
   content: '\2022';
 }
+.icon { margin-right: 0.67em; }
+.resources { margin-top: 25px; }
