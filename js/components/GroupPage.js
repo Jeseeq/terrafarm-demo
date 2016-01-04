@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import FaUser from 'react-icons/lib/fa/user';
 import FaTag from 'react-icons/lib/fa/tag';
 import NewResourceOffer from './NewResourceOffer';
-// import MembershipRequests from './MembershipRequests';
 import createColorChart from '../shared-styles/create-color-chart';
 
 import styles from './GroupPage.css';
@@ -19,14 +18,29 @@ class GroupPage extends React.Component {
     isPendingMember: false,
   };
   componentWillMount () {
+    this.createColorChart();
+    this.updateMemberStatus();
+  }
+  componentWillReceiveProps () {
+    this.createColorChart();
+    this.updateMemberStatus();
+  }
+  createColorChart () {
+    const {group} = this.props;
+    const {users} = group;
+    const userIds = users.edges.map(edge => edge.node.id);
+    const colorChart = createColorChart(userIds);
+    this.setState({colorChart});
+  }
+  updateMemberStatus () {
     const {group, viewer} = this.props;
     const {users, usersPending} = group;
     const {user} = viewer;
-    const userIds = users.edges.map(edge => edge.node.id);
+
     const isMember = users.edges.find(edge => edge.node.id === user.id);
     const isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
-    const colorChart = createColorChart(userIds);
-    this.setState({colorChart, isMember, isPendingMember});
+
+    this.setState({isMember, isPendingMember});
   }
   handleRequestMembership = () => {
     Relay.Store.update(
@@ -47,13 +61,15 @@ class GroupPage extends React.Component {
   renderMembersPending () {
     const {group} = this.props;
     // add controls to accept/decline membership request
-    return this.state.isMember && <div className={styles.users}>
-      {group.usersPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
-        <Link to={`/user/${edge.node.id}`}>
-          <FaUser className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
-        </Link>
-      </div>)}
-    </div>;
+    if (this.state.isMember) {
+      return <div className={styles.users}>
+        {group.usersPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
+          <Link to={`/user/${edge.node.id}`}>
+            <FaUser className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
+          </Link>
+        </div>)}
+      </div>;
+    }
   }
   renderNewMembershipRequest () {
     if (this.state.isPendingMember) {
@@ -72,18 +88,21 @@ class GroupPage extends React.Component {
   renderResourcesPending () {
     const {group} = this.props;
     // add controls to accept/decline resource offer
-    return this.state.isMember && <div className={styles.resources}>
-      {group.resourcesPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
-        <Link to={`/resource/${edge.node.id}`}>
-          <FaTag className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
-        </Link>
-      </div>)}
-    </div>;
+    if (this.state.isMember) {
+      return <div className={styles.resources}>
+        {group.resourcesPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
+          <Link to={`/resource/${edge.node.id}`}>
+            <FaTag className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
+          </Link>
+        </div>)}
+      </div>;
+    }
   }
   renderNewResourceOffer () {
-    const {group, viewer} = this.props;
-    return this.state.isMember
-      && <NewResourceOffer group={group} viewer={viewer} />;
+    if (this.state.isMember) {
+      const {group, viewer} = this.props;
+      return <NewResourceOffer group={group} viewer={viewer} />;
+    }
   }
   render () {
     const {group} = this.props;
@@ -91,6 +110,7 @@ class GroupPage extends React.Component {
       <h4>Group</h4>
       <h2>{group.name}</h2>
       <p className={styles.category}>| {group.category} |</p>
+
       <div className={styles.users}>
         {group.users.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
           <Link to={`/user/${edge.node.id}`}>
@@ -98,7 +118,9 @@ class GroupPage extends React.Component {
           </Link>
           <div
             style={{
-              display: 'inline-block', width: 25, height: 8,
+              display: 'inline-block',
+              width: 25,
+              height: 8,
               marginLeft: 10,
               borderRadius: 3,
               backgroundColor: this.state.colorChart[edge.node.id],
@@ -108,20 +130,25 @@ class GroupPage extends React.Component {
         {this.renderMembersPending()}
         {this.renderNewMembershipRequest()}
       </div>
+
       <div className={styles.resources}>
         {group.resources.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
           <Link to={`/resource/${edge.node.id}`}>
             <FaTag className={styles.icon} /> {edge.node.name}
           </Link>
-          {edge.node.users.edges.map(userEdge => <div key={userEdge.node.id}
-            style={{
-              display: 'inline-block', width: 10, height: 10,
-              marginLeft: 10,
-              marginRight: 10,
-              borderRadius: '50%',
-              backgroundColor: this.state.colorChart[userEdge.node.id],
-            }}
-          />)}
+          {edge.node.users.edges.map(userEdge => {
+            return <div key={userEdge.node.id}
+              style={{
+                display: 'inline-block',
+                width: 10,
+                height: 10,
+                marginLeft: 10,
+                marginRight: 10,
+                borderRadius: '50%',
+                backgroundColor: this.state.colorChart[userEdge.node.id],
+              }}
+            />;
+          })}
         </div>)}
         {this.renderResourcesPending()}
         {this.renderNewResourceOffer()}
@@ -154,6 +181,7 @@ export default Relay.createContainer(GroupPage, {
           edges {
             node {
               id,
+              name,
             }
           }
         },

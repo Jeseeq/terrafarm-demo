@@ -10,6 +10,12 @@ Minimal feature-set for first public release.
 
 Basic user experience.
 
+#### Group Page
+- [x] debug resources list: empty
+- [x] debug pending users list: no names
+- [ ] member approves/declines membership request
+- [ ] member approves/declines resource offer
+
 #### Stories
 - [ ] form validation
   - [ ] new user
@@ -17,23 +23,19 @@ Basic user experience.
   - [ ] new/edit resource offer
   - [ ] new/edit group
 
-#### Group Page
-- [ ] member approves/declines membership request
-- [ ] member approves/declines resource offer
-
 #### Other
-- [ ] spinners
-- [ ] logo, image for `./package.json`
-- [ ] favicon
-- [ ] bump dependencies, maybe node
-- [ ] document Fieldbook
 - [ ] google analytics
+- [ ] document Fieldbook
+- [ ] spinners
+- [ ] bump dependencies, maybe node
+- [ ] favicon
+- [ ] logo, image for `./package.json`
 
 ### Database
+- [ ] consolidate `data/api/` into one module
+- [ ] fewer calls to `getEndpoint`
 - [ ] Authentication with Auth0 JWT
 - [ ] catch redundant connection mutations
-- [ ] fewer calls to `getEndpoint`
-- [ ] consolidate `data/api/` into one module
 - [ ] resolve benign console warnings on mutations
 
 
@@ -128,3 +130,5 @@ Low-priority additions and improvements to the user experience.
 #### Profile Page
 - [ ] show alert next to group with pending actions
 
+#### Main Menu
+- [ ] alternative icon style if active page
