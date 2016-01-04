@@ -6,9 +6,10 @@ import TiHome from 'react-icons/lib/ti/home';
 import FaUser from 'react-icons/lib/fa/user';
 import MdSearch from 'react-icons/lib/md/search';
 
-// import classNames from 'classnames/bind';
 import styles from './MainMenu.css';
-// const cx = classNames.bind(styles);
+
+const ENTER_KEY_CODE = 13;
+// const ESC_KEY_CODE = 27;
 
 TweenMax.globalTimeScale(0.8);
 
@@ -33,23 +34,23 @@ export default class MainMenu extends React.Component {
   }
   componentWillReceiveProps (nextProps) {
     if (nextProps.shouldClose && this.state.on) {
-      this._handlePress();
+      this.handlePress();
     }
   }
-  _handleScaleDown = (event) => {
+  handleScaleDown = (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     const t = new TimelineMax();
     t.to(this['toggle-icon'], 0.1, {scale: 0.65});
 
-    this._handlePress(event);
+    this.handlePress();
   }
-  _handleIconScaleUp = () => {
+  handleIconScaleUp = () => {
     const t = new TimelineMax();
     t.to(this['toggle-icon'], 0.1, {scale: 1});
   }
-  _handlePress = (event) => {
+  handlePress = () => {
     const on = !this.state.on;
     const t = new TimelineMax();
 
@@ -61,10 +62,15 @@ export default class MainMenu extends React.Component {
       force3D: true,
     });
 
-    on ? this._openMenu(event) : this._closeMenu(event);
+    on ? this.openMenu() : this.closeMenu();
   }
-  _openMenu (event) {
-    this.props.onShow(event);
+  handleKeyDown = (event) => {
+    if (event.keyCode === ENTER_KEY_CODE) {
+      this.handlePress();
+    }
+  }
+  openMenu () {
+    this.props.onShow();
     const menuButtons = this.state.menuItems.map((menuItem, i) => this['menu-item-button-' + i]);
     const menuBounces = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-' + i]);
     const delay = 0.08;
@@ -103,8 +109,8 @@ export default class MainMenu extends React.Component {
       },
     }, delay);
   }
-  _closeMenu (event) {
-    this.props.onHide(event);
+  closeMenu () {
+    this.props.onHide();
     const menuBounces = this.state.menuItems.map((menuItem, i) => this['menu-item-bounce-' + i]);
     const menuButtons = this.state.menuItems.map((menuItem, i) => this['menu-item-button-' + i]);
     const delay = 0.08;
@@ -158,8 +164,8 @@ export default class MainMenu extends React.Component {
             <button
               ref={c => this['menu-item-button-' + i] = c}
               className={styles['menu-item-button']}
-              onMouseUp={this._handlePress}
-              onTouchEnd={this._handlePress}
+              onMouseUp={this.handlePress}
+              onTouchEnd={this.handlePress}
             >
               <div
                 className={styles['menu-item-icon']}
@@ -180,9 +186,9 @@ export default class MainMenu extends React.Component {
     return (
       <div
         className={styles.menu}
-        onMouseUp={this._handleIconScaleUp}
-        onTouchEnd={this._handleIconScaleUp}
-        onMouseLeave={this._handleIconScaleUp}
+        onMouseUp={this.handleIconScaleUp}
+        onTouchEnd={this.handleIconScaleUp}
+        onMouseLeave={this.handleIconScaleUp}
       >
         <div dangerouslySetInnerHTML={{__html: goo}} />
         <div className={styles['menu-wrapper']}>
@@ -192,8 +198,10 @@ export default class MainMenu extends React.Component {
           <button
             ref={c => this['toggle-icon'] = c}
             className={styles['menu-toggle-button']}
-            onMouseDown={this._handleScaleDown}
-            onTouchStart={this._handleScaleDown}
+            onMouseDown={this.handleScaleDown}
+            onTouchStart={this.handleScaleDown}
+            onKeyDown={this.handleKeyDown}
+            tabIndex={1}
           >
             <div className={styles['menu-toggle-icon']}><TiPlus /></div>
           </button>

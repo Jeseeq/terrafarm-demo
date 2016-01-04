@@ -1,9 +1,13 @@
 {
   "name": "terrafarm",
+  "author": "Ryan Blakeley <terrafarmapp@gmail.com> (http://rblakeley.github.io)",
   "private": true,
   "description": "An app for connecting people and resources to start and manage small farms.",
   "repository": "rblakeley/terrafarm",
   "version": "0.1.0",
+  "keywords": [ "agriculture", "farm", "food", "ecology", "access", "relay",
+    "graphql", "webpack", "babel", "react", "react-router", "svg"
+  ],
   "scripts": {
     "start": "node -r dotenv/config -r babel/register ./server.js",
     "start-heroku": "node -r babel/register ./server.js",
@@ -44,10 +48,10 @@
     "webpack": "^1.12.4",
     "webpack-dev-server": "^1.10.1"
   },
-  "engines": {
-    "node": "4.0.0"
-  },
   "devDependencies": {
     "jest-cli": "^0.8.2"
+  },
+  "engines": {
+    "node": "4.0.0"
   }
 }

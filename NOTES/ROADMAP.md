@@ -33,17 +33,12 @@ Basic user experience.
 - [ ] 'Links' list with icons
 
 #### Other
-- [ ] remove renameResource mutation
-- [ ] text input edit, save, cancel interactions
 - [ ] spinners
-- [ ] tabindex on nav button
-- [ ] logo, image, keywords, author for `./package.json`
+- [ ] logo, image for `./package.json`
 - [ ] favicon
 - [ ] bump dependencies, maybe node
 - [ ] document Fieldbook
 - [ ] google analytics
-- [ ] update `./CHANGELOG`
-- [ ] 'Groups' -> 'Spaces' ?
 
 ### Database
 - [ ] Authentication with Auth0 JWT
