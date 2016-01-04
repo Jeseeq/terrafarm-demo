@@ -6,7 +6,10 @@ import {Link} from 'react-router';
 import RaisedButton from 'material-ui/lib/raised-button';
 import FaUser from 'react-icons/lib/fa/user';
 import FaTag from 'react-icons/lib/fa/tag';
+// import NewMemberRequest from './NewMemberRequest';
 import NewResourceOffer from './NewResourceOffer';
+import PendingMember from './PendingMember';
+// import PendingResource from './PendingResource';
 import createColorChart from '../shared-styles/create-color-chart';
 
 import styles from './GroupPage.css';
@@ -67,6 +70,7 @@ class GroupPage extends React.Component {
           <Link to={`/user/${edge.node.id}`}>
             <FaUser className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
           </Link>
+          <PendingMember user={edge.node} group={group} />
         </div>)}
       </div>;
     }
@@ -182,6 +186,7 @@ export default Relay.createContainer(GroupPage, {
             node {
               id,
               name,
+              ${PendingMember.getFragment('user')},
             }
           }
         },
@@ -211,6 +216,7 @@ export default Relay.createContainer(GroupPage, {
         ${PendingUserToGroupMutation.getFragment('group')},
         ${CancelPendingUserToGroupMutation.getFragment('group')},
         ${NewResourceOffer.getFragment('group')},
+        ${PendingMember.getFragment('group')},
       }
     `,
     viewer: () => Relay.QL`

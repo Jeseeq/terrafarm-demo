@@ -11,10 +11,12 @@ Minimal feature-set for first public release.
 Basic user experience.
 
 #### Group Page
-- [x] debug resources list: empty
-- [x] debug pending users list: no names
-- [ ] member approves/declines membership request
+- [ ] NewMember component (copy NewResourceOffer)
+- [x] member approves/declines membership request
 - [ ] member approves/declines resource offer
+  - [ ] PendingResource component
+    - [ ] PendingResourceToGroup mutation
+    - [ ] CancelPendingResourceToGroup mutation
 
 #### Stories
 - [ ] form validation
@@ -30,6 +32,7 @@ Basic user experience.
 - [ ] bump dependencies, maybe node
 - [ ] favicon
 - [ ] logo, image for `./package.json`
+- [ ] User Page layout with icons
 
 ### Database
 - [ ] consolidate `data/api/` into one module
