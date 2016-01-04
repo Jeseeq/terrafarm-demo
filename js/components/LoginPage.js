@@ -1,8 +1,9 @@
 import AuthenticateViewerMutation from '../mutations/AuthenticateViewerMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import NewUserPanel from './NewUserPanel';
+import NewUser from './NewUser';
 import RaisedButton from 'material-ui/lib/raised-button';
+import FaUser from 'react-icons/lib/fa/user';
 
 import styles from './LoginPage.css';
 
@@ -29,18 +30,15 @@ class LoginPage extends React.Component {
 
     return <div>
       <h2>Login</h2>
-      <h3>Username</h3>
-      <NewUserPanel master={master} />
-      <ul>
-        {usersList.map(edge => <li key={edge.node.id}>
-          <span
-            className={styles.userName}
-            onClick={this._handleLogin.bind(this, edge.node)}
-          >
-            {edge.node.name}
-          </span>
-        </li>)}
-      </ul>
+      {usersList.map(edge => <div key={edge.node.id} style={{lineHeight: '37px', cursor: 'pointer'}}>
+        <span
+          className={styles.userName}
+          onClick={this._handleLogin.bind(this, edge.node)}
+        >
+          <FaUser className={styles.icon} /> {edge.node.name}
+        </span>
+      </div>)}
+      <NewUser master={master} />
     </div>;
   }
   renderLogout () {
@@ -90,7 +88,7 @@ export default Relay.createContainer(LoginPage, {
             },
           },
         },
-        ${NewUserPanel.getFragment('master')},
+        ${NewUser.getFragment('master')},
       }
     `,
   },

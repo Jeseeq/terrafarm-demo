@@ -1822,7 +1822,7 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "userName",
+              "name": "name",
               "description": null,
               "type": {
                 "kind": "NON_NULL",

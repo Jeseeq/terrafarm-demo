@@ -17,12 +17,7 @@ Basic user experience.
     - [ ] show alert next to group on profile page
   - [ ] group owner approves/declines offer
     - [ ] show pending resource on group page with approve/decline button
-- [ ] new user modal
-
-#### Profile Page
-- [ ] 'edit' buttons
-- [ ] 'new' buttons
-- [ ] color icons
+- [x] new user modal
 
 #### Group Page
 - [ ] location

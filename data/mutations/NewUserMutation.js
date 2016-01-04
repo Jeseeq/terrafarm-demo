@@ -22,7 +22,7 @@ const masterEndpoint = getEndpoint(MasterType);
 export default mutationWithClientMutationId({
   name: 'NewUser',
   inputFields: {
-    userName: { type: new GraphQLNonNull(GraphQLString) },
+    name: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
     userEdge: {
@@ -44,9 +44,9 @@ export default mutationWithClientMutationId({
       resolve: async () => await getItem(masterEndpoint, 1),
     },
   },
-  mutateAndGetPayload: async ({userName}) => {
+  mutateAndGetPayload: async ({name}) => {
     return await createItem(userEndpoint, {
-      name: userName,
+      name,
       resources: [],
       groups: [],
       groups_pending: [],

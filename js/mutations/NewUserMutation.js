@@ -35,7 +35,7 @@ export default class NewUserMutation extends Relay.Mutation {
   }
   getVariables () {
     return {
-      userName: this.props.userName,
+      name: this.props.name,
     };
   }
 }
