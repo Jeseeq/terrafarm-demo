@@ -1,12 +1,11 @@
-import CancelPendingUserToGroupMutation from '../mutations/CancelPendingUserToGroupMutation';
-import PendingUserToGroupMutation from '../mutations/PendingUserToGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import RaisedButton from 'material-ui/lib/raised-button';
 import FaUser from 'react-icons/lib/fa/user';
 import FaTag from 'react-icons/lib/fa/tag';
-// import NewMemberRequest from './NewMemberRequest';
+import NewMemberRequest from './NewMemberRequest';
+import CancelNewMemberRequest from './CancelNewMemberRequest';
 import NewResourceOffer from './NewResourceOffer';
 import PendingMember from './PendingMember';
 // import PendingResource from './PendingResource';
@@ -45,25 +44,9 @@ class GroupPage extends React.Component {
 
     this.setState({isMember, isPendingMember});
   }
-  handleRequestMembership = () => {
-    Relay.Store.update(
-      new PendingUserToGroupMutation({
-        user: this.props.viewer.user,
-        group: this.props.group,
-      })
-    );
-  }
-  handleCancelMembershipRequest = () => {
-    Relay.Store.update(
-      new CancelPendingUserToGroupMutation({
-        user: this.props.viewer.user,
-        group: this.props.group,
-      })
-    );
-  }
   renderMembersPending () {
     const {group} = this.props;
-    // add controls to accept/decline membership request
+
     if (this.state.isMember) {
       return <div className={styles.users}>
         {group.usersPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
@@ -75,19 +58,15 @@ class GroupPage extends React.Component {
       </div>;
     }
   }
-  renderNewMembershipRequest () {
+  renderNewMemberRequest () {
+    const {group, viewer} = this.props;
+    const {user} = viewer;
+
     if (this.state.isPendingMember) {
-      return <RaisedButton
-        label={'Cancel Membership Request'}
-        onClick={this.handleCancelMembershipRequest}
-        style={{margin: '10px 0 15px 10px'}}
-      />;
+      return <CancelNewMemberRequest group={group} user={user} />;
+    } else if (!this.state.isMember) {
+      return <NewMemberRequest group={group} user={user} />;
     }
-    return <RaisedButton
-      label={'Request Membership'}
-      onClick={this.handleRequestMembership}
-      style={{margin: '10px 0 15px 10px'}}
-    />;
   }
   renderResourcesPending () {
     const {group} = this.props;
@@ -132,7 +111,7 @@ class GroupPage extends React.Component {
           />
         </div>)}
         {this.renderMembersPending()}
-        {this.renderNewMembershipRequest()}
+        {this.renderNewMemberRequest()}
       </div>
 
       <div className={styles.resources}>
@@ -157,6 +136,7 @@ class GroupPage extends React.Component {
         {this.renderResourcesPending()}
         {this.renderNewResourceOffer()}
       </div>
+
       <p className={styles.description}>{group.description}</p>
     </div>;
   }
@@ -213,8 +193,8 @@ export default Relay.createContainer(GroupPage, {
             }
           }
         },
-        ${PendingUserToGroupMutation.getFragment('group')},
-        ${CancelPendingUserToGroupMutation.getFragment('group')},
+        ${NewMemberRequest.getFragment('group')},
+        ${CancelNewMemberRequest.getFragment('group')},
         ${NewResourceOffer.getFragment('group')},
         ${PendingMember.getFragment('group')},
       }
@@ -223,8 +203,8 @@ export default Relay.createContainer(GroupPage, {
       fragment on Viewer {
         user {
           id,
-          ${CancelPendingUserToGroupMutation.getFragment('user')},
-          ${PendingUserToGroupMutation.getFragment('user')},
+          ${NewMemberRequest.getFragment('user')},
+          ${CancelNewMemberRequest.getFragment('user')},
         },
         ${NewResourceOffer.getFragment('viewer')},
       }

@@ -11,8 +11,7 @@ Minimal feature-set for first public release.
 Basic user experience.
 
 #### Group Page
-- [ ] NewMember component (copy NewResourceOffer)
-- [x] member approves/declines membership request
+- [ ] debug new membership and isMember isPending
 - [ ] member approves/declines resource offer
   - [ ] PendingResource component
     - [ ] PendingResourceToGroup mutation
