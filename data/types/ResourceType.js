@@ -64,6 +64,19 @@ export const ResourceType = registerType(new GraphQLObjectType({
         );
       },
     },
+    groupsPending: {
+      type: GroupConnection,
+      description: 'An economic input\'s list of pending group commitments.',
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const groupPromises = _.groups_pending.map(u => getItem(getEndpoint(GroupType), u.id));
+        const groupResults = await* groupPromises;
+        return connectionFromArray(
+          groupResults,
+          args
+        );
+      },
+    },
   }),
   interfaces: [nodeInterface],
 }));

@@ -46,6 +46,7 @@ Basic user experience.
 - [ ] fewer calls to `getEndpoint`
 - [ ] consolidate `data/api/` into one module
 - [ ] resolve benign console warnings on mutations
+- [x] resourcesPending, groupsPending fields
 
 
 ## 0.3
