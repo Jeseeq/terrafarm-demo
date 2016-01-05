@@ -12,8 +12,6 @@ Basic user experience.
 
 #### Group Page
 - [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
-- [ ] member approves/declines resource offer
-  - [x] PendingResource component
 
 #### Stories
 - [ ] form validation
@@ -32,7 +30,6 @@ Basic user experience.
 - [ ] User Page layout with icons
 
 ### Database
-- [ ] consolidate `data/api/` into one module
 - [ ] fewer calls to `getEndpoint`
 - [ ] Authentication with Auth0 JWT
 - [ ] catch redundant connection mutations
@@ -132,3 +129,7 @@ Low-priority additions and improvements to the user experience.
 
 #### Main Menu
 - [ ] alternative icon style if active page
+
+### Database
+- [ ] consolidate `data/api/` into one module
+
