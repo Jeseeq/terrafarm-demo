@@ -37,12 +37,6 @@ Planned and potential features and releases are documented in the [Roadmap](./NO
 npm install
 ```
 
-## Testing
-
-```
-npm test
-```
-
 ## Running
 
 Start a local server:
@@ -63,6 +57,14 @@ server, regenerate `data/schema.json`, and restart the server:
 npm run update-schema
 npm start
 ```
+
+## Database
+
+This app's database is a free [fieldbook](https://fieldbook.com).
+
+## Hosting
+
+This app is being hosted for free by [heroku](https://heroku.com).
 
 ## License
 
