@@ -46,7 +46,7 @@
     "raw-loader": "^0.5.1",
     "react": "0.14.5",
     "react-dom": "0.14.5",
-    "react-ga": "^1.2.0",
+    "react-g-analytics": "^0.1.17",
     "react-icons": "^1.0.3",
     "react-lorem-component": "^0.10.0",
     "react-relay": "0.6.0",

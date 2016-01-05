@@ -3,6 +3,7 @@ import MainMenu from '../elements/MainMenu';
 import TerrafarmRawTheme from '../shared-styles/terrafarm-raw-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
+import GoogleAnalytics from 'react-g-analytics';
 
 import classNames from 'classnames/bind';
 import styles from './TerrafarmApp.css';
@@ -113,6 +114,8 @@ export default class TerrafarmApp extends React.Component {
             onHide={this._handleHideMainMenu}
           />
         </nav>
+
+        <GoogleAnalytics id={'UA-72017820-1'} />
       </div>
     );
   }

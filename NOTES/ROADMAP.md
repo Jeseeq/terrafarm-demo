@@ -30,7 +30,6 @@ Basic user experience.
 - [ ] User Page layout with icons
 
 ### Database
-- [ ] fewer calls to `getEndpoint`
 - [ ] Authentication with Auth0 JWT
 - [ ] catch redundant connection mutations
 - [ ] resolve benign console warnings on mutations
@@ -132,4 +131,5 @@ Low-priority additions and improvements to the user experience.
 
 ### Database
 - [ ] consolidate `data/api/` into one module
+- [ ] fewer calls to `getEndpoint`
 
