@@ -26,6 +26,7 @@ import UpdateGroupMutation from './mutations/UpdateGroupMutation';
 import PendingUserToGroupMutation from './mutations/PendingUserToGroupMutation';
 import PendingResourceToGroupMutation from './mutations/PendingResourceToGroupMutation';
 import CancelPendingUserToGroupMutation from './mutations/CancelPendingUserToGroupMutation';
+import CancelPendingResourceToGroupMutation from './mutations/CancelPendingResourceToGroupMutation';
 import ConnectUserToGroupMutation from './mutations/ConnectUserToGroupMutation';
 import ConnectResourceToGroupMutation from './mutations/ConnectResourceToGroupMutation';
 import DisconnectUserFromGroupMutation from './mutations/DisconnectUserFromGroupMutation';
@@ -88,6 +89,7 @@ const Mutation = new GraphQLObjectType({
     pendingUserToGroup: PendingUserToGroupMutation,
     pendingResourceToGroup: PendingResourceToGroupMutation,
     cancelPendingUserToGroup: CancelPendingUserToGroupMutation,
+    cancelPendingResourceToGroup: CancelPendingResourceToGroupMutation,
     connectUserToGroup: ConnectUserToGroupMutation,
     connectResourceToGroup: ConnectResourceToGroupMutation,
     disconnectUserFromGroup: DisconnectUserFromGroupMutation,

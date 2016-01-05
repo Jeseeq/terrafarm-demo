@@ -11,11 +11,9 @@ Minimal feature-set for first public release.
 Basic user experience.
 
 #### Group Page
-- [ ] debug new membership and isMember isPending
+- [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
 - [ ] member approves/declines resource offer
-  - [ ] PendingResource component
-    - [ ] PendingResourceToGroup mutation
-    - [ ] CancelPendingResourceToGroup mutation
+  - [x] PendingResource component
 
 #### Stories
 - [ ] form validation

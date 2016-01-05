@@ -1,4 +1,4 @@
-// import CancelPendingResourceToGroupMutation from '../mutations/CancelPendingResourceToGroupMutation';
+import CancelPendingResourceToGroupMutation from '../mutations/CancelPendingResourceToGroupMutation';
 import ConnectResourceToGroupMutation from '../mutations/ConnectResourceToGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
@@ -24,17 +24,14 @@ class PendingMember extends React.Component {
         group,
       })
     );
-/*
     Relay.Store.update(
       new CancelPendingResourceToGroupMutation({
         resource,
         group,
       })
     );
-*/
     this.handleClose();
   }
-/*
   handleDecline = () => {
     const {resource, group} = this.props;
     Relay.Store.update(
@@ -45,21 +42,19 @@ class PendingMember extends React.Component {
     );
     this.handleClose();
   }
-
-      <FlatButton
-        label={'Decline'}
-        secondary
-        onTouchTap={this.handleDecline}
-      />,
-
-*/
   render () {
     const {group, resource} = this.props;
+    const user = resource.users.edges[0].node;
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label={'Decline'}
+        secondary
+        onTouchTap={this.handleDecline}
       />,
       <FlatButton
         label={'Approve'}
@@ -77,30 +72,38 @@ class PendingMember extends React.Component {
         open={this.state.open}
       >
         <p>
-          <Link to={`/resource/${resource.id}`}>{resource.name}</Link> has requested
-          to join the <strong>{group.name}</strong>.
+          <Link to={`/user/${user.id}`} style={{textDecoration: 'underline'}}>
+          {user.name} </Link> has offered <Link to={`/resource/${resource.id}`}>
+          {resource.name}</Link> to the <strong>{group.name}</strong> group.
         </p>
       </Dialog>
     </div>;
   }
 }
-/*
- * ${CancelPendingResourceToGroupMutation.getFragment('group')},
- * ${CancelPendingResourceToGroupMutation.getFragment('resource')},
- */
+
 export default Relay.createContainer(PendingMember, {
   fragments: {
     group: () => Relay.QL`
       fragment on Group {
         id,
         ${ConnectResourceToGroupMutation.getFragment('group')},
+        ${CancelPendingResourceToGroupMutation.getFragment('group')},
       }
     `,
     resource: () => Relay.QL`
       fragment on Resource {
         id,
         name,
+        users(first: 1) {
+          edges {
+            node {
+              id,
+              name,
+            }
+          }
+        }
         ${ConnectResourceToGroupMutation.getFragment('resource')},
+        ${CancelPendingResourceToGroupMutation.getFragment('resource')},
       }
     `,
   },

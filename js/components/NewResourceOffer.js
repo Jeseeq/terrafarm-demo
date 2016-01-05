@@ -20,18 +20,19 @@ class NewResourceOffer extends React.Component {
   }
   handleChange = (e, index, value) => this.setState({resourceIndex: value});
   handleSave = () => {
-    const {user} = this.props;
+    const {user, group} = this.props;
+    const resource = user.resources.edges[this.state.resourceIndex].node;
+    console.log('resource -', resource);
     Relay.Store.update(
       new PendingResourceToGroupMutation({
-        group: this.props.group,
-        resource: user.resources.edges[this.state.resourceIndex],
+        group,
+        resource,
       })
     );
     this.handleClose();
   }
   render () {
-    const {viewer} = this.props;
-    const {user} = viewer;
+    const {user} = this.props;
     const actions = [
       <FlatButton
         label={'Cancel'}
@@ -79,20 +80,17 @@ export default Relay.createContainer(NewResourceOffer, {
         ${PendingResourceToGroupMutation.getFragment('group')},
       },
     `,
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        id,
-        user {
-          name,
-          resources(first: 18) {
-            edges {
-              node {
-                id,
-                name,
-                ${PendingResourceToGroupMutation.getFragment('resource')},
-              }
+    user: () => Relay.QL`
+      fragment on User {
+        name,
+        resources(first: 18) {
+          edges {
+            node {
+              id,
+              name,
+              ${PendingResourceToGroupMutation.getFragment('resource')},
             }
-          },
+          }
         },
       }
     `,

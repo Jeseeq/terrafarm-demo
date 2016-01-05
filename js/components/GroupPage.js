@@ -8,7 +8,7 @@ import NewMemberRequest from './NewMemberRequest';
 import CancelNewMemberRequest from './CancelNewMemberRequest';
 import NewResourceOffer from './NewResourceOffer';
 import PendingMember from './PendingMember';
-// import PendingResource from './PendingResource';
+import PendingResource from './PendingResource';
 import createColorChart from '../shared-styles/create-color-chart';
 
 import styles from './GroupPage.css';
@@ -48,7 +48,7 @@ class GroupPage extends React.Component {
     const {group} = this.props;
 
     if (this.state.isMember) {
-      return <div className={styles.users}>
+      return <div>
         {group.usersPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
           <Link to={`/user/${edge.node.id}`}>
             <FaUser className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
@@ -70,13 +70,14 @@ class GroupPage extends React.Component {
   }
   renderResourcesPending () {
     const {group} = this.props;
-    // add controls to accept/decline resource offer
+
     if (this.state.isMember) {
-      return <div className={styles.resources}>
+      return <div>
         {group.resourcesPending.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
           <Link to={`/resource/${edge.node.id}`}>
             <FaTag className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
           </Link>
+          <PendingResource resource={edge.node} group={group} />
         </div>)}
       </div>;
     }
@@ -84,7 +85,8 @@ class GroupPage extends React.Component {
   renderNewResourceOffer () {
     if (this.state.isMember) {
       const {group, viewer} = this.props;
-      return <NewResourceOffer group={group} viewer={viewer} />;
+      const {user} = viewer;
+      return <NewResourceOffer group={group} user={user} />;
     }
   }
   render () {
@@ -190,6 +192,7 @@ export default Relay.createContainer(GroupPage, {
             node {
               id,
               name,
+              ${PendingResource.getFragment('resource')},
             }
           }
         },
@@ -197,6 +200,7 @@ export default Relay.createContainer(GroupPage, {
         ${CancelNewMemberRequest.getFragment('group')},
         ${NewResourceOffer.getFragment('group')},
         ${PendingMember.getFragment('group')},
+        ${PendingResource.getFragment('group')},
       }
     `,
     viewer: () => Relay.QL`
@@ -205,8 +209,8 @@ export default Relay.createContainer(GroupPage, {
           id,
           ${NewMemberRequest.getFragment('user')},
           ${CancelNewMemberRequest.getFragment('user')},
+          ${NewResourceOffer.getFragment('user')},
         },
-        ${NewResourceOffer.getFragment('viewer')},
       }
     `,
   },
