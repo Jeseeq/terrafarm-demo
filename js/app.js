@@ -18,12 +18,9 @@ import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
 
 import MasterAndViewerQueries from './queries/MasterAndViewerQueries';
-// import MasterQueries from './queries/MasterQueries';
-// import ViewerQueries from './queries/ViewerQueries';
 import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
 import GroupAndViewerQueries from './queries/GroupAndViewerQueries';
-// import GroupQueries from './queries/GroupQueries';
 
 injectTapEventPlugin();
 
