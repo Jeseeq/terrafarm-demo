@@ -1,7 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
-import RaisedButton from 'material-ui/lib/raised-button';
 import FaUser from 'react-icons/lib/fa/user';
 import FaTag from 'react-icons/lib/fa/tag';
 import NewMemberRequest from './NewMemberRequest';

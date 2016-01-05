@@ -10,7 +10,7 @@ class ResourcePage extends React.Component {
   render () {
     const {resource} = this.props;
     const owner = resource.users.edges[0].node;
-    return <div className={styles.this}>
+    return <div>
       <h4>Resource</h4>
       <h2>{resource.name}</h2>
       <p className={styles.category}>| {resource.category} |</p>

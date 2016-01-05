@@ -22,16 +22,14 @@ Basic user experience.
 
 #### Other
 - [ ] spinners
-- [ ] bump dependencies, maybe node
-- [ ] favicon
-- [ ] logo, image for `./package.json`
-- [ ] User Page layout with icons
+- [x] User Page layout with icons
 
 ### Database
 - [ ] Authentication with Auth0 JWT
-- [ ] catch redundant connection mutations
-- [ ] resolve benign console warnings on mutations
 
+### Other
+- [ ] clean up console warnings
+- [ ] clean up styles
 
 ## 0.3
 
@@ -130,4 +128,11 @@ Low-priority additions and improvements to the user experience.
 ### Database
 - [ ] consolidate `data/api/` into one module
 - [ ] fewer calls to `getEndpoint`
+
+### Other
+- [ ] tests for mutations
+- [ ] tests for components
+- [ ] bump dependencies, maybe node
+- [ ] `./package.json` logo, image, or icon
+- [ ] favicon
 
