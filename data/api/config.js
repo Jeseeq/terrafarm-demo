@@ -1,4 +1,4 @@
-const bookId = '568ace7b013b5c0300775eed';
+const bookId = process.env.FIELDBOOK_ID;
 export const baseUrl = 'https://api.fieldbook.com/v1/' + bookId;
 export const options = {
   headers: {accept: 'application/json'},

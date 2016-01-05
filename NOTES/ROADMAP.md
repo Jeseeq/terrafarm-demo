@@ -21,8 +21,6 @@ Basic user experience.
   - [ ] new/edit group
 
 #### Other
-- [ ] google analytics
-- [ ] document Fieldbook
 - [ ] spinners
 - [ ] bump dependencies, maybe node
 - [ ] favicon
