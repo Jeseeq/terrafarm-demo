@@ -115,7 +115,7 @@ export default class TerrafarmApp extends React.Component {
           />
         </nav>
 
-        <GoogleAnalytics id={'UA-72017820-1'} />
+        <GoogleAnalytics id={process.env.GOOGLE_ANALYTICS} />
       </div>
     );
   }
