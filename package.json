@@ -5,8 +5,19 @@
   "description": "An app for connecting people and resources to start and manage small farms.",
   "repository": "rblakeley/terrafarm",
   "version": "0.1.0",
-  "keywords": [ "agriculture", "farm", "food", "ecology", "access", "relay",
-    "graphql", "webpack", "babel", "react", "react-router", "svg"
+  "keywords": [
+    "agriculture",
+    "farm",
+    "food",
+    "ecology",
+    "access",
+    "relay",
+    "graphql",
+    "webpack",
+    "babel",
+    "react",
+    "react-router",
+    "svg"
   ],
   "scripts": {
     "start": "node -r dotenv/config -r babel/register ./server.js",
@@ -35,6 +46,7 @@
     "raw-loader": "^0.5.1",
     "react": "0.14.5",
     "react-dom": "0.14.5",
+    "react-ga": "^1.2.0",
     "react-icons": "^1.0.3",
     "react-lorem-component": "^0.10.0",
     "react-relay": "0.6.0",
