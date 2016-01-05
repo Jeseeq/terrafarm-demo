@@ -18,19 +18,19 @@ export default class AboutPage extends React.Component {
 
     return <div className={styles.this}>
       <div className={styles.links}>
-        <p>
+        <p style={{lineHeight: '37px'}}>
           <GoOctoface className={styles.icon} />
           <a href={linkUrls.github} className={styles.link}>Open source project</a>
         </p>
-        <p>
+        <p style={{lineHeight: '37px'}}>
           <FaRedditAlien className={styles.icon} />
           <a href={linkUrls.reddit} className={styles.link}>Reddit</a>
         </p>
-        <p>
+        <p style={{lineHeight: '37px'}}>
           <FaTwitter className={styles.icon} />
           <a href={linkUrls.twitter} className={styles.link}>Twitter</a>
         </p>
-        <p>
+        <p style={{lineHeight: '37px'}}>
           <MdMailOutline className={styles.icon} />
           <a href={linkUrls.email} classNames={styles.link}>Email</a>
         </p>
