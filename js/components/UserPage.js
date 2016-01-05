@@ -25,7 +25,7 @@ class UserPage extends React.Component {
       <h4>User</h4>
       <h2>{user.name}</h2>
 
-      {user.groups.edges.map(edge => <div key={edge.node.id}>
+      {user.groups.edges.map(edge => <div key={edge.node.id} style={{lineHeight: '37px'}}>
         <Link to={`/group/${edge.node.id}`}>
           <FaGroup className={styles.icon} /> {edge.node.name}
         </Link>

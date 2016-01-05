@@ -22,7 +22,6 @@ Basic user experience.
 
 #### Other
 - [ ] spinners
-- [x] User Page layout with icons
 
 ### Database
 - [ ] Authentication with Auth0 JWT
