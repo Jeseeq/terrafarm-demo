@@ -10,6 +10,7 @@ const {PropTypes} = React;
 
 export default class TextInput extends React.Component {
   static propTypes = {
+    name: PropTypes.string,
     style: PropTypes.object,
     placeholder: PropTypes.string,
     label: PropTypes.string,
@@ -59,6 +60,7 @@ export default class TextInput extends React.Component {
   render () {
     return (
       <TextField
+        name={this.props.name}
         style={this.props.style}
         floatingLabelStyle={{color: Colors.blueGrey900}}
         underlineFocusStyle={{borderColor: Colors.blueGrey900}}

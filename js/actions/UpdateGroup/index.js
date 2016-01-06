@@ -11,6 +11,7 @@ class UpdateGroup extends React.Component {
   };
   handleSave = () => {
     const {group, name, description, category} = this.props;
+
     Relay.Store.update(
       new UpdateGroupMutation({
         group,

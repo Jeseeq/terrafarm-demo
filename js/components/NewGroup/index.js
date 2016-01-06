@@ -1,14 +1,21 @@
-import NewGroupMutation from '../../mutations/NewGroupMutation';
+import NewGroup from '../../actions/NewGroup';
 import React from 'react';
 import Relay from 'react-relay';
+import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextInput from '../../elements/TextInput';
 
-class NewGroup extends React.Component {
+class NewGroupDialog extends React.Component {
   state = {
     open: false,
+    canSubmit: false,
+    attributes: {
+      name: '',
+      description: '',
+      category: '',
+    },
   };
   handleOpen = () => {
     this.setState({open: true});
@@ -16,31 +23,40 @@ class NewGroup extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleSave = () => {
-    const {user, master} = this.props;
-    const {name, description, category} = this.refs;
-    Relay.Store.update(
-      new NewGroupMutation({
-        user,
-        master,
-        name: name.state.text,
-        description: description.state.text,
-        category: category.state.text,
-      })
-    );
-    this.handleClose();
+  handleValid () {
+    console.log('valid');
+    this.setState({
+      attributes: this.refs.form.model,
+      canSubmit: true,
+    });
+  }
+  handleInvalid () {
+    this.setState({canSubmit: false});
+  }
+  handleChange = () => {
+    console.log('change -', this.refs.form.getCurrentValues());
   }
   render () {
+    const {master, user} = this.props;
+
+    let {name, description, category} = this.refs;
+    name = name ? name.state.text : '';
+    description = description ? description.state.text : '';
+    category = category ? category.state.text : '';
+
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label={'Save'}
+      <NewGroup
+        master={master}
+        user={user}
         primary
-        onTouchTap={this.handleSave}
+        onComplete={this.handleClose}
+        attributes={this.state.attributes}
+        disabled={!this.state.canSubmit}
       />,
     ];
 
@@ -52,35 +68,51 @@ class NewGroup extends React.Component {
         onRequestClost={null}
         open={this.state.open}
       >
-        <TextInput
-          ref={'name'}
-          label={'Name'}
-        />
-        <TextInput
-          ref={'description'}
-          label={'Description'}
-          placeholder={'Describe the space and project requirements.'}
-        />
-        <TextInput
-          ref={'category'}
-          label={'Category'}
-          placeholder={'Yard, indoor, rooftop...'}
-        />
+        <Formsy.Form
+          ref={'form'}
+          onChange={this.handleChange}
+          onValid={this.handleValid}
+          onInvalid={this.handleInvalid}
+        >
+          <TextInput
+            name={'name'}
+            label={'Name'}
+          />
+          <TextInput
+            name={'description'}
+            label={'Description'}
+            placeholder={'Describe the space and project requirements.'}
+          />
+          <TextInput
+            name={'category'}
+            label={'Category'}
+            placeholder={'Yard, indoor, rooftop...'}
+          />
+        </Formsy.Form>
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(NewGroup, {
+// <Formsy onChange={this.handleChange} onCanSubmit={this.handleCanSubmit} />
+// Formsy
+//   handleChange (newModel) {
+//     if (this.props.onChange) {
+//       this.props.onChange(newModel);
+//     }
+//   }
+//   render <form onChange={this.onChange}>
+
+export default Relay.createContainer(NewGroupDialog, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        ${NewGroupMutation.getFragment('user')},
+        ${NewGroup.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        ${NewGroupMutation.getFragment('master')},
+        ${NewGroup.getFragment('master')},
       }
     `,
   },
