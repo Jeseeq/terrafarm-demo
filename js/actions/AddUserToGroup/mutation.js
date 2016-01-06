@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-export default class ConnectUserToGroupMutation extends Relay.Mutation {
+export default class AddUserToGroupMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
       fragment on User {

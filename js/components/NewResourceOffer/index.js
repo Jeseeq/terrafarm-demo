@@ -1,16 +1,20 @@
-import PendingResourceToGroupMutation from '../../mutations/PendingResourceToGroupMutation';
+import PendingResourceToGroup from '../../actions/PendingResourceToGroup';
 import React from 'react';
 import Relay from 'react-relay';
+import Formsy from 'formsy-react';
+import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
-import DropDownMenu from 'material-ui/lib/drop-down-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
 class NewResourceOffer extends React.Component {
   state = {
     open: false,
-    resourceIndex: 0,
+    attributes: {
+      resourceIndex: -1,
+    },
+    canSubmit: false,
   };
   handleOpen = () => {
     this.setState({open: true});
@@ -18,31 +22,43 @@ class NewResourceOffer extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleChange = (e, index, value) => this.setState({resourceIndex: value});
-  handleSave = () => {
-    const {user, group} = this.props;
-    const resource = user.resources.edges[this.state.resourceIndex].node;
-    console.log('resource -', resource);
-    Relay.Store.update(
-      new PendingResourceToGroupMutation({
-        group,
-        resource,
-      })
-    );
-    this.handleClose();
+  handleValid = () => {
+    this.setState({
+      canSubmit: true,
+    });
+  }
+  handleInvalid = () => {
+    this.setState({canSubmit: false});
+  }
+  handleChange = (currentValues, isChanged) => {
+    if (isChanged) {
+      this.setState({
+        attributes: {
+          resourceIndex: currentValues.resourceIndex,
+        },
+      });
+    }
   }
   render () {
-    const {user} = this.props;
+    const {group, user} = this.props;
+
+    let resource = null;
+    if (this.state.attributes.resourceIndex >= 0) {
+      resource = user.resources.edges[this.state.attributes.resourceIndex].node;
+    }
+
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label={'Offer'}
+      <PendingResourceToGroup
+        group={group}
+        resource={resource}
         primary
-        onTouchTap={this.handleSave}
+        onComplete={this.handleClose}
+        disabled={!this.state.canSubmit}
       />,
     ];
     const menuItems = user.resources.edges.map((edge, index) => {
@@ -57,13 +73,19 @@ class NewResourceOffer extends React.Component {
         onRequestClose={null}
         open={this.state.open}
       >
-        <DropDownMenu
-          ref={'resource'}
-          value={this.state.resourceIndex}
+        <Formsy.Form
+          ref={'form'}
           onChange={this.handleChange}
+          onValid={this.handleValid}
+          onInvalid={this.handleInvalid}
         >
-          {menuItems}
-        </DropDownMenu>
+          <FormsySelect
+            name={'resourceIndex'}
+            required
+          >
+            {menuItems}
+          </FormsySelect>
+        </Formsy.Form>
       </Dialog>
     </div>;
   }
@@ -77,7 +99,7 @@ export default Relay.createContainer(NewResourceOffer, {
     group: () => Relay.QL`
       fragment on Group {
         id,
-        ${PendingResourceToGroupMutation.getFragment('group')},
+        ${PendingResourceToGroup.getFragment('group')},
       },
     `,
     user: () => Relay.QL`
@@ -88,7 +110,7 @@ export default Relay.createContainer(NewResourceOffer, {
             node {
               id,
               name,
-              ${PendingResourceToGroupMutation.getFragment('resource')},
+              ${PendingResourceToGroup.getFragment('resource')},
             }
           }
         },

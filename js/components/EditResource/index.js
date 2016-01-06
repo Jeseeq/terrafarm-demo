@@ -1,6 +1,7 @@
 import UpdateResource from '../../actions/UpdateResource';
 import React from 'react';
 import Relay from 'react-relay';
+import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import TextInput from '../../elements/TextInput';
@@ -8,6 +9,12 @@ import TextInput from '../../elements/TextInput';
 class EditResource extends React.Component {
   state = {
     open: false,
+    canSubmit: false,
+    attributes: {
+      name: '',
+      description: '',
+      category: '',
+    },
   };
   handleOpen = () => {
     this.setState({open: true});
@@ -15,14 +22,17 @@ class EditResource extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
+  handleValid = () => {
+    this.setState({
+      attributes: this.refs.form.getCurrentValues(),
+      canSubmit: true,
+    });
+  }
+  handleInvalid = () => {
+    this.setState({canSubmit: false});
+  }
   render () {
     const {resource} = this.props;
-
-    let {name, description, category} = this.refs;
-    name = name ? name.state.text : resource.name;
-    description = description ? description.state.text : resource.description;
-    category = category ? category.state.text : resource.category;
-
     const actions = [
       <FlatButton
         label={'Cancel'}
@@ -31,11 +41,7 @@ class EditResource extends React.Component {
       />,
       <UpdateResource
         resource={resource}
-        attributes={{
-          name,
-          description,
-          category,
-        }}
+        attributes={this.state.attributes}
       />,
     ];
 
@@ -47,21 +53,27 @@ class EditResource extends React.Component {
         onRequestClose={null}
         open={this.state.open}
       >
-        <TextInput
-          ref={'name'}
-          label={'Name'}
-          initialValue={resource.name}
-        />
-        <TextInput
-          ref={'description'}
-          label={'Description'}
-          initialValue={resource.description}
-        />
-        <TextInput
-          ref={'category'}
-          label={'Category'}
-          initialValue={resource.category}
-        />
+        <Formsy.Form
+          ref={'form'}
+          onValid={this.handleValid}
+          onInvalid={this.handleInvalid}
+        >
+          <TextInput
+            ref={'name'}
+            label={'Name'}
+            initialValue={resource.name}
+          />
+          <TextInput
+            ref={'description'}
+            label={'Description'}
+            initialValue={resource.description}
+          />
+          <TextInput
+            ref={'category'}
+            label={'Category'}
+            initialValue={resource.category}
+          />
+        </Formsy.Form>
       </Dialog>
     </div>;
   }

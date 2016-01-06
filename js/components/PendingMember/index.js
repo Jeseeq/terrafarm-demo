@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RemovePendingUserToGroup from '../../actions/RemovePendingUserToGroup';
-import ConnectUserToGroup from '../../actions/ConnectUserToGroup';
+import AddUserToGroup from '../../actions/AddUserToGroup';
 
 class PendingMember extends React.Component {
   state = {
@@ -30,7 +30,7 @@ class PendingMember extends React.Component {
         label={'Decline'}
         secondary
       />,
-      <ConnectUserToGroup user={user} group={group} primary />,
+      <AddUserToGroup user={user} group={group} primary />,
     ];
 
     return <div style={{display: 'inline-block'}}>
@@ -58,7 +58,7 @@ export default Relay.createContainer(PendingMember, {
         id,
         name,
         ${RemovePendingUserToGroup.getFragment('group')},
-        ${ConnectUserToGroup.getFragment('group')},
+        ${AddUserToGroup.getFragment('group')},
       }
     `,
     user: () => Relay.QL`
@@ -66,7 +66,7 @@ export default Relay.createContainer(PendingMember, {
         id,
         name,
         ${RemovePendingUserToGroup.getFragment('user')},
-        ${ConnectUserToGroup.getFragment('user')},
+        ${AddUserToGroup.getFragment('user')},
       }
     `,
   },

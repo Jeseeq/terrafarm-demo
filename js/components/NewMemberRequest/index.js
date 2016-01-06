@@ -1,4 +1,4 @@
-import PendingUserToGroupMutation from '../../mutations/PendingUserToGroupMutation';
+import PendingUserToGroup from '../../actions/PendingUserToGroup';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
@@ -15,28 +15,19 @@ class NewMemberRequest extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleConfirm = () => {
-    const {user, group} = this.props;
-    Relay.Store.update(
-      new PendingUserToGroupMutation({
-        user,
-        group,
-      })
-    );
-    this.handleClose();
-  }
   render () {
-    const {group} = this.props;
+    const {user, group} = this.props;
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label={'Confirm'}
+      <PendingUserToGroup
+        user={user}
+        group={group}
         primary
-        onTouchTap={this.handleConfirm}
+        onComplete={this.handleClose}
       />,
     ];
 
@@ -63,14 +54,14 @@ export default Relay.createContainer(NewMemberRequest, {
       fragment on Group {
         id,
         name,
-        ${PendingUserToGroupMutation.getFragment('group')},
+        ${PendingUserToGroup.getFragment('group')},
       },
     `,
     user: () => Relay.QL`
       fragment on User {
         id,
         name,
-        ${PendingUserToGroupMutation.getFragment('user')},
+        ${PendingUserToGroup.getFragment('user')},
       }
     `,
   },

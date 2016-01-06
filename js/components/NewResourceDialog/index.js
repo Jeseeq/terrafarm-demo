@@ -1,13 +1,13 @@
-import UpdateGroup from '../../actions/UpdateGroup';
-import RemoveUserFromGroup from '../../actions/RemoveUserFromGroup';
+import NewResource from '../../actions/NewResource';
 import React from 'react';
 import Relay from 'react-relay';
 import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
+import RaisedButton from 'material-ui/lib/raised-button';
 import TextInput from '../../elements/TextInput';
 
-class EditGroup extends React.Component {
+class NewResourceDialog extends React.Component {
   state = {
     open: false,
     canSubmit: false,
@@ -33,26 +33,30 @@ class EditGroup extends React.Component {
     this.setState({canSubmit: false});
   }
   render () {
-    const {group, user} = this.props;
+    const {master, user} = this.props;
+
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <RemoveUserFromGroup group={group} user={user} secondary />,
-      <UpdateGroup
-        group={group}
+      <NewResource
+        master={master}
+        user={user}
+        primary
+        onComplete={this.handleClose}
         attributes={this.state.attributes}
+        disabled={!this.state.canSubmit}
       />,
     ];
 
-    return <div style={{display: 'inline-block'}}>
-      <FlatButton label={'Edit'} onTouchTap={this.handleOpen} />
+    return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}}>
+      <RaisedButton label={'New Resource'} onTouchTap={this.handleOpen} />
       <Dialog
-        title={'Edit Group'}
+        title={'New Resource'}
         actions={actions}
-        onRequestClose={null}
+        onRequestClost={null}
         open={this.state.open}
       >
         <Formsy.Form
@@ -61,19 +65,21 @@ class EditGroup extends React.Component {
           onInvalid={this.handleInvalid}
         >
           <TextInput
-            ref={'name'}
+            name={'name'}
             label={'Name'}
-            initialValue={group.name}
+            required
           />
           <TextInput
-            ref={'description'}
+            name={'description'}
             label={'Description'}
-            initialValue={group.description}
+            placeholder={'Describe the space and project requirements.'}
+            required
           />
           <TextInput
-            ref={'category'}
+            name={'category'}
             label={'Category'}
-            initialValue={group.category}
+            placeholder={'Yard, indoor, rooftop...'}
+            required
           />
         </Formsy.Form>
       </Dialog>
@@ -81,25 +87,17 @@ class EditGroup extends React.Component {
   }
 }
 
-export default Relay.createContainer(EditGroup, {
+export default Relay.createContainer(NewResourceDialog, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        id,
-        name,
-        ${RemoveUserFromGroup.getFragment('user')},
+        ${NewResource.getFragment('user')},
       }
     `,
-    group: () => Relay.QL`
-      fragment on Group {
-        id,
-        name,
-        description,
-        category,
-        ${UpdateGroup.getFragment('group')},
-        ${RemoveUserFromGroup.getFragment('group')},
+    master: () => Relay.QL`
+      fragment on Master {
+        ${NewResource.getFragment('master')},
       }
     `,
   },
 });
-

@@ -1,10 +1,10 @@
-import ConnectUserToGroupMutation from './mutation';
+import AddUserToGroupMutation from './mutation';
 import RemovePendingUserToGroupMutation from '../RemovePendingUserToGroup/mutation';
 import React from 'react';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/lib/flat-button';
 
-class RemovePendingUserToGroup extends React.Component {
+class AddPendingUserToGroup extends React.Component {
   static defaultProps = {
     label: 'Approve',
     primary: false,
@@ -13,7 +13,7 @@ class RemovePendingUserToGroup extends React.Component {
   handleConfirm = () => {
     const {user, group} = this.props;
     Relay.Store.update(
-      new ConnectUserToGroupMutation({
+      new AddUserToGroupMutation({
         user,
         group,
       })
@@ -37,7 +37,7 @@ class RemovePendingUserToGroup extends React.Component {
   }
 }
 
-export default Relay.createContainer(RemovePendingUserToGroup, {
+export default Relay.createContainer(AddPendingUserToGroup, {
   initialVariables: {
     groupId: null,
   },
@@ -46,7 +46,7 @@ export default Relay.createContainer(RemovePendingUserToGroup, {
       fragment on Group {
         id,
         name,
-        ${ConnectUserToGroupMutation.getFragment('group')},
+        ${AddUserToGroupMutation.getFragment('group')},
         ${RemovePendingUserToGroupMutation.getFragment('group')},
       },
     `,
@@ -54,7 +54,7 @@ export default Relay.createContainer(RemovePendingUserToGroup, {
       fragment on User {
         id,
         name,
-        ${ConnectUserToGroupMutation.getFragment('user')},
+        ${AddUserToGroupMutation.getFragment('user')},
         ${RemovePendingUserToGroupMutation.getFragment('user')},
       }
     `,
