@@ -4,6 +4,12 @@ import Relay from 'react-relay';
 import FlatButton from 'material-ui/lib/flat-button';
 
 class UpdateGroup extends React.Component {
+  static propTypes = {
+    label: React.PropTypes.string,
+    primary: React.PropTypes.bool,
+    secondary: React.PropTypes.bool,
+    onComplete: React.PropTypes.func,
+  };
   static defaultProps = {
     label: 'Save',
     primary: false,
@@ -22,6 +28,12 @@ class UpdateGroup extends React.Component {
         },
       })
     );
+    this.handleComplete();
+  }
+  handleComplete = () => {
+    if (this.props.onComplete) {
+      this.props.onComplete();
+    }
   }
   render () {
     return (

@@ -1,9 +1,9 @@
 import Relay from 'react-relay';
 
-export default class RemovePendingUserToGroupMutation extends Relay.Mutation {
+export default class RemoveResourceFromGroupMutation extends Relay.Mutation {
   static fragments = {
-    user: () => Relay.QL`
-      fragment on User {
+    resource: () => Relay.QL`
+      fragment on Resource {
         id,
       }
     `,
@@ -14,14 +14,14 @@ export default class RemovePendingUserToGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{removePendingUserToGroup}`;
+    return Relay.QL`mutation{disconnectResourceFromGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on RemovePendingUserToGroupPayload {
+      fragment on DisconnectResourceFromGroupPayload {
         removedGroupID,
-        removedUserID,
-        user,
+        removedResourceID,
+        resource,
         group,
       }
     `;
@@ -30,24 +30,26 @@ export default class RemovePendingUserToGroupMutation extends Relay.Mutation {
     return [
       {
         type: 'NODE_DELETE',
-        parentName: 'user',
-        parentID: this.props.user.id,
-        connectionName: 'groupsPending',
+        parentName: 'resource',
+        parentID: this.props.resource.id,
+        connectionName: 'groups',
         deletedIDFieldName: 'removedGroupID',
       },
       {
         type: 'NODE_DELETE',
         parentName: 'group',
         parentID: this.props.group.id,
-        connectionName: 'usersPending',
-        deletedIDFieldName: 'removedUserID',
+        connectionName: 'resources',
+        deletedIDFieldName: 'removedResourceID',
       },
     ];
   }
   getVariables () {
     return {
-      userId: this.props.user.id,
+      resourceId: this.props.resource.id,
       groupId: this.props.group.id,
     };
   }
 }
+
+

@@ -41,7 +41,9 @@ class EditResource extends React.Component {
       />,
       <UpdateResource
         resource={resource}
+        primary
         attributes={this.state.attributes}
+        onComplete={this.handleClose}
       />,
     ];
 
@@ -59,17 +61,17 @@ class EditResource extends React.Component {
           onInvalid={this.handleInvalid}
         >
           <TextInput
-            ref={'name'}
+            name={'name'}
             label={'Name'}
             initialValue={resource.name}
           />
           <TextInput
-            ref={'description'}
+            name={'description'}
             label={'Description'}
             initialValue={resource.description}
           />
           <TextInput
-            ref={'category'}
+            name={'category'}
             label={'Category'}
             initialValue={resource.category}
           />

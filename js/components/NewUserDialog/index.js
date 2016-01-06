@@ -1,14 +1,19 @@
-import NewUserMutation from '../../mutations/NewUserMutation';
+import NewUser from '../../actions/NewUser';
 import React from 'react';
 import Relay from 'react-relay';
+import Formsy from 'formsy-react';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextInput from '../../elements/TextInput';
 
-class NewUser extends React.Component {
+class NewUserDialog extends React.Component {
   state = {
     open: false,
+    canSubmit: false,
+    attributes: {
+      name: '',
+    },
   };
   handleOpen = () => {
     this.setState({open: true});
@@ -16,28 +21,29 @@ class NewUser extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleSave = () => {
-    const {master} = this.props;
-    const {name} = this.refs;
-    Relay.Store.update(
-      new NewUserMutation({
-        master,
-        name: name.state.text,
-      })
-    );
-    this.handleClose();
+  handleValid = () => {
+    this.setState({
+      attributes: this.refs.form.getCurrentValues(),
+      canSubmit: true,
+    });
+  }
+  handleInvalid = () => {
+    this.setState({canSubmit: false});
   }
   render () {
+    const {master} = this.props;
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label={'Save'}
+      <NewUser
+        master={master}
         primary
-        onTouchTap={this.handleSave}
+        onComplete={this.handleClose}
+        attributes={this.state.attributes}
+        disabled={!this.state.canSubmit}
       />,
     ];
 
@@ -49,22 +55,28 @@ class NewUser extends React.Component {
         onRequestClose={null}
         open={this.state.open}
       >
-        <TextInput
-          ref={'name'}
-          label={'Name'}
-        />
+        <Formsy.Form
+          ref={'form'}
+          onValid={this.handleValid}
+          onInvalid={this.handleInvalid}
+        >
+          <TextInput
+            name={'name'}
+            label={'Name'}
+            required
+          />
+        </Formsy.Form>
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(NewUser, {
+export default Relay.createContainer(NewUserDialog, {
   fragments: {
     master: () => Relay.QL`
       fragment on Master {
-        ${NewUserMutation.getFragment('master')},
+        ${NewUser.getFragment('master')},
       }
     `,
   },
 });
-

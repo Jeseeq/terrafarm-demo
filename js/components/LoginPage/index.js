@@ -1,7 +1,7 @@
 import AuthenticateViewer from '../../actions/AuthenticateViewer';
+import NewUser from '../../actions/NewUser';
 import React from 'react';
 import Relay from 'react-relay';
-import NewUser from '../NewUser';
 import FaUser from 'react-icons/lib/fa/user';
 
 import styles from './styles.css';

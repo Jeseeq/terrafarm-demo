@@ -9,6 +9,7 @@ export default class TextInput extends React.Component {
     placeholder: React.PropTypes.string,
     label: React.PropTypes.string,
     required: React.PropTypes.bool,
+    initialValue: React.PropTypes.string,
   };
   static defaultProps = {
     required: false,
@@ -26,6 +27,7 @@ export default class TextInput extends React.Component {
         underlineFocusStyle={{borderColor: Colors.blueGrey900}}
         hintText={this.props.placeholder}
         floatingLabelText={this.props.label}
+        value={this.props.initialValue}
         required={this.props.required}
       />
     );

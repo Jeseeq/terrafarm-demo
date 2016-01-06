@@ -40,9 +40,13 @@ class EditGroup extends React.Component {
         secondary
         onTouchTap={this.handleClose}
       />,
-      <RemoveUserFromGroup group={group} user={user} secondary />,
+      <RemoveUserFromGroup
+        group={group}
+        user={user}
+      />,
       <UpdateGroup
         group={group}
+        primary
         attributes={this.state.attributes}
       />,
     ];
@@ -61,17 +65,17 @@ class EditGroup extends React.Component {
           onInvalid={this.handleInvalid}
         >
           <TextInput
-            ref={'name'}
+            name={'name'}
             label={'Name'}
             initialValue={group.name}
           />
           <TextInput
-            ref={'description'}
+            name={'description'}
             label={'Description'}
             initialValue={group.description}
           />
           <TextInput
-            ref={'category'}
+            name={'category'}
             label={'Category'}
             initialValue={group.category}
           />

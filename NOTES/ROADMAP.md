@@ -11,8 +11,8 @@ Minimal feature-set for first public release.
 Basic user experience.
 
 #### Code Refactor
-- [ ] co-locate mutations with components
-- [ ] wrap actions in forms
+- [x] co-locate mutations with components
+- [x] wrap actions in forms
 
 #### Group Page
 - [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
@@ -44,6 +44,7 @@ High-priority additions and improvements to the user experience.
 - [ ] add message to membership and resource requests
 - [ ] group defines resource needs
 - [ ] user defines resource availability
+- [ ] remove resource from group
 
 #### Edit/New Resource Modal
 - [ ] resolve console warnings

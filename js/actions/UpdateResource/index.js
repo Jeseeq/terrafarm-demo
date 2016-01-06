@@ -4,6 +4,12 @@ import FlatButton from 'material-ui/lib/flat-button';
 import UpdateResourceMutation from './mutation';
 
 class UpdateResource extends React.Component {
+  static propTypes = {
+    label: React.PropTypes.string,
+    primary: React.PropTypes.bool,
+    secondary: React.PropTypes.bool,
+    onComplete: React.PropTypes.func,
+  };
   static defaultProps = {
     label: 'Save',
     primary: false,
@@ -21,6 +27,12 @@ class UpdateResource extends React.Component {
         },
       })
     );
+    this.handleComplete();
+  }
+  handleComplete = () => {
+    if (this.props.onComplete) {
+      this.props.onComplete();
+    }
   }
   render () {
     return (
