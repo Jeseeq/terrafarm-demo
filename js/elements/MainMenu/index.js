@@ -6,7 +6,7 @@ import TiHome from 'react-icons/lib/ti/home';
 import FaUser from 'react-icons/lib/fa/user';
 import MdSearch from 'react-icons/lib/md/search';
 
-import styles from './MainMenu.css';
+import styles from './styles.css';
 
 const ENTER_KEY_CODE = 13;
 // const ESC_KEY_CODE = 27;
@@ -150,7 +150,7 @@ export default class MainMenu extends React.Component {
     }, delay);
   }
   render () {
-    const goo = require('!!raw-loader!../images/goo.svg'); // fixes css filter (All browsers bug)
+    const goo = require('!!raw-loader!./goo.svg'); // fixes css filter (All browsers bug)
     const menuItems = this.state.menuItems.map((item, i) => {
       const angle = this.state.startingAngle + (this.state.slice * i);
       return (

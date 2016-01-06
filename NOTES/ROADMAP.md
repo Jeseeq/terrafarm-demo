@@ -10,6 +10,9 @@ Minimal feature-set for first public release.
 
 Basic user experience.
 
+#### Code Refactor
+- [ ] co-locate mutations with components
+
 #### Group Page
 - [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
 

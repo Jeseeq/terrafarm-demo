@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Logo.css';
+import styles from './styles.css';
 
 export default class Logo extends React.Component {
   render () {

@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import Colors from 'material-ui/lib/styles/colors';
 
 // import classNames from 'classnames/bind';
-import styles from './HomePage.css';
+import styles from './styles.css';
 // const cx = classNames.bind(styles);
 
 export default class HomePage extends React.Component {

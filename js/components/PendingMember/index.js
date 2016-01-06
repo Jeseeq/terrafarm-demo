@@ -1,5 +1,5 @@
-import CancelPendingUserToGroupMutation from '../mutations/CancelPendingUserToGroupMutation';
-import ConnectUserToGroupMutation from '../mutations/ConnectUserToGroupMutation';
+import CancelPendingUserToGroupMutation from '../../mutations/CancelPendingUserToGroupMutation';
+import ConnectUserToGroupMutation from '../../mutations/ConnectUserToGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';

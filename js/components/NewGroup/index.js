@@ -1,12 +1,12 @@
-import NewResourceMutation from '../mutations/NewResourceMutation';
+import NewGroupMutation from '../../mutations/NewGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
-import TextInput from '../elements/TextInput';
+import TextInput from '../../elements/TextInput';
 
-class NewResource extends React.Component {
+class NewGroup extends React.Component {
   state = {
     open: false,
   };
@@ -20,7 +20,7 @@ class NewResource extends React.Component {
     const {user, master} = this.props;
     const {name, description, category} = this.refs;
     Relay.Store.update(
-      new NewResourceMutation({
+      new NewGroupMutation({
         user,
         master,
         name: name.state.text,
@@ -45,11 +45,11 @@ class NewResource extends React.Component {
     ];
 
     return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}}>
-      <RaisedButton label={'New Resource'} onTouchTap={this.handleOpen} />
+      <RaisedButton label={'New Group'} onTouchTap={this.handleOpen} />
       <Dialog
-        title={'New Resource'}
+        title={'New Group'}
         actions={actions}
-        onRequestClose={null}
+        onRequestClost={null}
         open={this.state.open}
       >
         <TextInput
@@ -59,28 +59,28 @@ class NewResource extends React.Component {
         <TextInput
           ref={'description'}
           label={'Description'}
-          placeholder={'One sentence please'}
+          placeholder={'Describe the space and project requirements.'}
         />
         <TextInput
           ref={'category'}
           label={'Category'}
-          placeholder={'Equipment, labor, materials...'}
+          placeholder={'Yard, indoor, rooftop...'}
         />
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(NewResource, {
+export default Relay.createContainer(NewGroup, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
-        ${NewResourceMutation.getFragment('user')},
+        ${NewGroupMutation.getFragment('user')},
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
-        ${NewResourceMutation.getFragment('master')},
+        ${NewGroupMutation.getFragment('master')},
       }
     `,
   },

@@ -1,11 +1,11 @@
-import AuthenticateViewerMutation from '../mutations/AuthenticateViewerMutation';
+import AuthenticateViewerMutation from '../../mutations/AuthenticateViewerMutation';
 import React from 'react';
 import Relay from 'react-relay';
-import NewUser from './NewUser';
+import NewUser from '../NewUser';
 import RaisedButton from 'material-ui/lib/raised-button';
 import FaUser from 'react-icons/lib/fa/user';
 
-import styles from './LoginPage.css';
+import styles from './styles.css';
 
 class LoginPage extends React.Component {
   static defaultProps = {

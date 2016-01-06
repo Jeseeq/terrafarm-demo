@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import FaUser from 'react-icons/lib/fa/user';
 import FaGroup from 'react-icons/lib/fa/group';
 
-import styles from './ResourcePage.css';
+import styles from './styles.css';
 
 class ResourcePage extends React.Component {
   render () {

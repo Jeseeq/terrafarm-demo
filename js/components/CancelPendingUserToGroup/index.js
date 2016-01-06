@@ -1,11 +1,11 @@
-import PendingUserToGroupMutation from '../mutations/PendingUserToGroupMutation';
+import CancelPendingUserToGroupMutation from './mutation';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 
-class NewMemberRequest extends React.Component {
+class CancelPendingUserToGroup extends React.Component {
   state = {
     open: false,
   };
@@ -18,7 +18,7 @@ class NewMemberRequest extends React.Component {
   handleConfirm = () => {
     const {user, group} = this.props;
     Relay.Store.update(
-      new PendingUserToGroupMutation({
+      new CancelPendingUserToGroupMutation({
         user,
         group,
       })
@@ -41,20 +41,23 @@ class NewMemberRequest extends React.Component {
     ];
 
     return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}}>
-      <RaisedButton label={'Request Membership'} onTouchTap={this.handleOpen} />
+      <RaisedButton label={'Cancel Membership Request'} onTouchTap={this.handleOpen} />
       <Dialog
-        title={'New Membership Request'}
+        title={'Cancel Membership Request'}
         actions={actions}
         onRequestClose={null}
         open={this.state.open}
       >
-        <p>Please confirm your request to become a member of the <strong>{group.name}</strong> group.</p>
+        <p>
+          Please confirm that you no longer wish to become
+          a member of the <strong>{group.name}</strong> group.
+        </p>
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(NewMemberRequest, {
+export default Relay.createContainer(CancelPendingUserToGroup, {
   initialVariables: {
     groupId: null,
   },
@@ -63,16 +66,17 @@ export default Relay.createContainer(NewMemberRequest, {
       fragment on Group {
         id,
         name,
-        ${PendingUserToGroupMutation.getFragment('group')},
+        ${CancelPendingUserToGroupMutation.getFragment('group')},
       },
     `,
     user: () => Relay.QL`
       fragment on User {
         id,
         name,
-        ${PendingUserToGroupMutation.getFragment('user')},
+        ${CancelPendingUserToGroupMutation.getFragment('user')},
       }
     `,
   },
 });
+
 

@@ -1,12 +1,12 @@
-import UpdateResourceMutation from '../mutations/UpdateResourceMutation';
+import NewResourceMutation from '../../mutations/NewResourceMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
-import TextInput from '../elements/TextInput';
+import TextInput from '../../elements/TextInput';
 
-class EditResource extends React.Component {
+class NewResource extends React.Component {
   state = {
     open: false,
   };
@@ -17,21 +17,20 @@ class EditResource extends React.Component {
     this.setState({open: false});
   }
   handleSave = () => {
+    const {user, master} = this.props;
     const {name, description, category} = this.refs;
     Relay.Store.update(
-      new UpdateResourceMutation({
-        resource: this.props.resource,
-        attributes: {
-          name: name.state.text,
-          description: description.state.text,
-          category: category.state.text,
-        },
+      new NewResourceMutation({
+        user,
+        master,
+        name: name.state.text,
+        description: description.state.text,
+        category: category.state.text,
       })
     );
     this.handleClose();
   }
   render () {
-    const {resource} = this.props;
     const actions = [
       <FlatButton
         label={'Cancel'}
@@ -45,10 +44,10 @@ class EditResource extends React.Component {
       />,
     ];
 
-    return <div style={{display: 'inline-block'}}>
-      <FlatButton label={'Edit'} onTouchTap={this.handleOpen} />
+    return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}}>
+      <RaisedButton label={'New Resource'} onTouchTap={this.handleOpen} />
       <Dialog
-        title={'Edit Resource'}
+        title={'New Resource'}
         actions={actions}
         onRequestClose={null}
         open={this.state.open}
@@ -56,32 +55,32 @@ class EditResource extends React.Component {
         <TextInput
           ref={'name'}
           label={'Name'}
-          initialValue={resource.name}
         />
         <TextInput
           ref={'description'}
           label={'Description'}
-          initialValue={resource.description}
+          placeholder={'One sentence please'}
         />
         <TextInput
           ref={'category'}
           label={'Category'}
-          initialValue={resource.category}
+          placeholder={'Equipment, labor, materials...'}
         />
       </Dialog>
     </div>;
   }
 }
 
-export default Relay.createContainer(EditResource, {
+export default Relay.createContainer(NewResource, {
   fragments: {
-    resource: () => Relay.QL`
-      fragment on Resource {
-        id,
-        name,
-        description,
-        category,
-        ${UpdateResourceMutation.getFragment('resource')},
+    user: () => Relay.QL`
+      fragment on User {
+        ${NewResourceMutation.getFragment('user')},
+      }
+    `,
+    master: () => Relay.QL`
+      fragment on Master {
+        ${NewResourceMutation.getFragment('master')},
       }
     `,
   },

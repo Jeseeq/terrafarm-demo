@@ -1,6 +1,6 @@
 @import 'sanitize.css/sanitize.css';
 @import url(https://fonts.googleapis.com/css?family=Overlock|Simonetta:400,400italic,900|Patrick+Hand+SC|Life+Savers|Raleway+Dots);
-@import '../shared-styles/typography.css';
+@import '../../shared-styles/typography.css';
 
 html,
 body,

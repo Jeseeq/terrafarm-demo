@@ -1,15 +1,15 @@
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
-import EditResource from './EditResource';
-import EditGroup from './EditGroup';
-import NewResource from './NewResource';
-import NewGroup from './NewGroup';
+import EditResource from '../EditResource';
+import EditGroup from '../EditGroup';
+import NewResource from '../NewResource';
+import NewGroup from '../NewGroup';
 import FaGroup from 'react-icons/lib/fa/group';
 import FaTag from 'react-icons/lib/fa/tag';
 
-import createColorChart from '../shared-styles/create-color-chart';
-import styles from './ProfilePage.css';
+import createColorChart from '../../shared-styles/create-color-chart';
+import styles from './styles.css';
 
 class ProfilePage extends React.Component {
   state = {

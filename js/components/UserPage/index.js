@@ -3,9 +3,9 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 import FaGroup from 'react-icons/lib/fa/group';
 import FaTag from 'react-icons/lib/fa/tag';
-import createColorChart from '../shared-styles/create-color-chart';
+import createColorChart from '../../shared-styles/create-color-chart';
 
-import styles from './UserPage.css';
+import styles from './styles.css';
 
 class UserPage extends React.Component {
   state = {

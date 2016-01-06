@@ -1,4 +1,4 @@
-import PendingResourceToGroupMutation from '../mutations/PendingResourceToGroupMutation';
+import PendingResourceToGroupMutation from '../../mutations/PendingResourceToGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';

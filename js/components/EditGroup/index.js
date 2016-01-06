@@ -1,10 +1,10 @@
-import UpdateGroupMutation from '../mutations/UpdateGroupMutation';
-import DisconnectUserFromGroupMutation from '../mutations/DisconnectUserFromGroupMutation';
+import UpdateGroupMutation from '../../mutations/UpdateGroupMutation';
+import DisconnectUserFromGroupMutation from '../../mutations/DisconnectUserFromGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
-import TextInput from '../elements/TextInput';
+import TextInput from '../../elements/TextInput';
 
 class EditGroup extends React.Component {
   state = {

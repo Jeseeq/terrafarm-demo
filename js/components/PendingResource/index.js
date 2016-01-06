@@ -1,5 +1,5 @@
-import CancelPendingResourceToGroupMutation from '../mutations/CancelPendingResourceToGroupMutation';
-import ConnectResourceToGroupMutation from '../mutations/ConnectResourceToGroupMutation';
+import CancelPendingResourceToGroupMutation from '../../mutations/CancelPendingResourceToGroupMutation';
+import ConnectResourceToGroupMutation from '../../mutations/ConnectResourceToGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';

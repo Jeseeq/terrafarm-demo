@@ -1,18 +1,15 @@
 import React from 'react';
 import GoOctoface from 'react-icons/lib/go/octoface';
-import FaRedditAlien from 'react-icons/lib/fa/reddit-alien';
 import FaTwitter from 'react-icons/lib/fa/twitter';
 import MdMailOutline from 'react-icons/lib/md/mail-outline';
 
-import styles from './AboutPage.css';
+import styles from './styles.css';
 
 export default class AboutPage extends React.Component {
   render () {
     const linkUrls = {
-      github: 'http://rblakeley.github.io/terrafarm',
-      // crowdfunding: '',
+      github: 'https://github.com/rblakeley/terrafarm#readme',
       twitter: 'https://twitter.com/terrafarmapp',
-      reddit: '',
       email: 'mailto:terrafarmapp@gmail.com',
     };
 
@@ -21,10 +18,6 @@ export default class AboutPage extends React.Component {
         <p style={{lineHeight: '37px'}}>
           <GoOctoface className={styles.icon} />
           <a href={linkUrls.github} className={styles.link}>Open source project</a>
-        </p>
-        <p style={{lineHeight: '37px'}}>
-          <FaRedditAlien className={styles.icon} />
-          <a href={linkUrls.reddit} className={styles.link}>Reddit</a>
         </p>
         <p style={{lineHeight: '37px'}}>
           <FaTwitter className={styles.icon} />
@@ -50,4 +43,21 @@ export default class AboutPage extends React.Component {
   }
 }
 
+/*
+import FaRedditAlien from 'react-icons/lib/fa/reddit-alien';
+@TODO crowdfunding import ICON from 'react-icons/lib/...'
+
+@TODO urls
+crowdfunding: '',
+reddit: '',
+
+<p style={{lineHeight: '37px'}}>
+  <ICON className={styles.icon} />
+  <a href={linkUrls.crowdfunding} className={styles.link}>Crowdfunding</a>
+</p>
+<p style={{lineHeight: '37px'}}>
+  <FaRedditAlien className={styles.icon} />
+  <a href={linkUrls.reddit} className={styles.link}>Reddit</a>
+</p>
+*/
 

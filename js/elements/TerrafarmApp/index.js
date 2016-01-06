@@ -1,12 +1,12 @@
 import React from 'react';
-import MainMenu from '../elements/MainMenu';
-import TerrafarmRawTheme from '../shared-styles/terrafarm-raw-theme';
+import MainMenu from '../MainMenu';
+import TerrafarmRawTheme from '../../shared-styles/terrafarm-raw-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 import GoogleAnalytics from 'react-g-analytics';
 
 import classNames from 'classnames/bind';
-import styles from './TerrafarmApp.css';
+import styles from './styles.css';
 const cx = classNames.bind(styles);
 
 /* eslint new-cap: 0 */
