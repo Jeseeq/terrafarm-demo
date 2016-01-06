@@ -1,74 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TextField from 'material-ui/lib/text-field';
+import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import Colors from 'material-ui/lib/styles/colors';
-
-const {PropTypes} = React;
-
-// const ENTER_KEY_CODE = 13;
-// const ESC_KEY_CODE = 27;
 
 export default class TextInput extends React.Component {
   static propTypes = {
-    name: PropTypes.string,
-    style: PropTypes.object,
-    placeholder: PropTypes.string,
-    label: PropTypes.string,
-    commitOnBlur: PropTypes.bool,
-    initialValue: PropTypes.string,
-    onCancel: PropTypes.func,
-    onDelete: PropTypes.func,
-    onSave: PropTypes.func.isRequired,
+    name: React.PropTypes.string,
+    style: React.PropTypes.object,
+    placeholder: React.PropTypes.string,
+    label: React.PropTypes.string,
+    required: React.PropTypes.bool,
   };
   static defaultProps = {
-    commitOnBlur: false,
-    onSave: () => null,
+    required: false,
     style: {
       display: 'block',
       fontFamily: 'Simonetta, serif',
     },
   };
-  state = {
-    isEditing: false,
-    text: this.props.initialValue || '',
-  };
-  componentDidMount () {
-    ReactDOM.findDOMNode(this).focus();
-  }
-  _commitChanges = () => {
-    const newText = this.state.text.trim();
-    if (this.props.onDelete && newText === '') {
-      this.props.onDelete();
-    } else if (this.props.onCancel && newText === this.props.initialValue) {
-      this.props.onCancel();
-    } else if (newText !== '') {
-      this.props.onSave(newText);
-      this.setState({text: ''});
-    }
-  }
-  _handleBlur = () => {
-    if (this.props.commitOnBlur) {
-      this._commitChanges();
-    }
-  }
-  _handleChange = (e) => {
-    this.setState({text: e.target.value});
-  }
-  _handleEnterKeyDown = () => {
-    this._commitChanges();
-  }
   render () {
     return (
-      <TextField
+      <FormsyText
         name={this.props.name}
         style={this.props.style}
         floatingLabelStyle={{color: Colors.blueGrey900}}
         underlineFocusStyle={{borderColor: Colors.blueGrey900}}
         hintText={this.props.placeholder}
         floatingLabelText={this.props.label}
-        onBlur={this._handleBlur}
-        onChange={this._handleChange}
-        value={this.state.text}
+        required={this.props.required}
       />
     );
   }

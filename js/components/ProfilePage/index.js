@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import EditResource from '../EditResource';
 import EditGroup from '../EditGroup';
 import NewResource from '../NewResource';
-import NewGroup from '../NewGroup';
+import NewGroupDialog from '../NewGroupDialog';
 import FaGroup from 'react-icons/lib/fa/group';
 import FaTag from 'react-icons/lib/fa/tag';
 
@@ -57,7 +57,7 @@ class ProfilePage extends React.Component {
             <FaGroup className={styles.icon} style={{opacity: 0.15}}/> {edge.node.name}
           </Link>
         </div>)}
-        <NewGroup user={user} master={master} />
+        <NewGroupDialog user={user} master={master} />
       </div>
       <div className={styles.resources}>
         {user.resources.edges.map(edge => <div key={edge.node.id}>
@@ -123,14 +123,14 @@ export default Relay.createContainer(ProfilePage, {
           },
           ${EditGroup.getFragment('user')},
           ${NewResource.getFragment('user')},
-          ${NewGroup.getFragment('user')},
+          ${NewGroupDialog.getFragment('user')},
         },
       }
     `,
     master: () => Relay.QL`
       fragment on Master {
         ${NewResource.getFragment('master')},
-        ${NewGroup.getFragment('master')},
+        ${NewGroupDialog.getFragment('master')},
       }
     `,
   },

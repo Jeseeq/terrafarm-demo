@@ -23,26 +23,17 @@ class NewGroupDialog extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleValid () {
-    console.log('valid');
+  handleValid = () => {
     this.setState({
-      attributes: this.refs.form.model,
+      attributes: this.refs.form.getCurrentValues(),
       canSubmit: true,
     });
   }
-  handleInvalid () {
+  handleInvalid = () => {
     this.setState({canSubmit: false});
-  }
-  handleChange = () => {
-    console.log('change -', this.refs.form.getCurrentValues());
   }
   render () {
     const {master, user} = this.props;
-
-    let {name, description, category} = this.refs;
-    name = name ? name.state.text : '';
-    description = description ? description.state.text : '';
-    category = category ? category.state.text : '';
 
     const actions = [
       <FlatButton
@@ -70,23 +61,25 @@ class NewGroupDialog extends React.Component {
       >
         <Formsy.Form
           ref={'form'}
-          onChange={this.handleChange}
           onValid={this.handleValid}
           onInvalid={this.handleInvalid}
         >
           <TextInput
             name={'name'}
             label={'Name'}
+            required
           />
           <TextInput
             name={'description'}
             label={'Description'}
             placeholder={'Describe the space and project requirements.'}
+            required
           />
           <TextInput
             name={'category'}
             label={'Category'}
             placeholder={'Yard, indoor, rooftop...'}
+            required
           />
         </Formsy.Form>
       </Dialog>

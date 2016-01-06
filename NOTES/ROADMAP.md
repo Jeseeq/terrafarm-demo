@@ -12,6 +12,7 @@ Basic user experience.
 
 #### Code Refactor
 - [ ] co-locate mutations with components
+- [ ] wrap actions in forms
 
 #### Group Page
 - [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
