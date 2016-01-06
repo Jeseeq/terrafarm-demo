@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-export default class CancelPendingUserToGroupMutation extends Relay.Mutation {
+export default class RemovePendingUserToGroupMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
       fragment on User {
@@ -14,11 +14,11 @@ export default class CancelPendingUserToGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{cancelPendingUserToGroup}`;
+    return Relay.QL`mutation{removePendingUserToGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on CancelPendingUserToGroupPayload {
+      fragment on RemovePendingUserToGroupPayload {
         removedGroupID,
         removedUserID,
         user,

@@ -1,10 +1,10 @@
-import CancelPendingUserToGroupMutation from '../../mutations/CancelPendingUserToGroupMutation';
-import ConnectUserToGroupMutation from '../../mutations/ConnectUserToGroupMutation';
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
+import RemovePendingUserToGroup from '../RemovePendingUserToGroup';
+import ConnectUserToGroup from '../ConnectUserToGroup';
 
 class PendingMember extends React.Component {
   state = {
@@ -16,32 +16,6 @@ class PendingMember extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleApprove = () => {
-    const {user, group} = this.props;
-    Relay.Store.update(
-      new ConnectUserToGroupMutation({
-        user,
-        group,
-      })
-    );
-    Relay.Store.update(
-      new CancelPendingUserToGroupMutation({
-        user,
-        group,
-      })
-    );
-    this.handleClose();
-  }
-  handleDecline = () => {
-    const {user, group} = this.props;
-    Relay.Store.update(
-      new CancelPendingUserToGroupMutation({
-        user,
-        group,
-      })
-    );
-    this.handleClose();
-  }
   render () {
     const {group, user} = this.props;
     const actions = [
@@ -50,16 +24,13 @@ class PendingMember extends React.Component {
         secondary
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
+      <RemovePendingUserToGroup
+        user={user}
+        group={group}
         label={'Decline'}
         secondary
-        onTouchTap={this.handleDecline}
       />,
-      <FlatButton
-        label={'Approve'}
-        primary
-        onTouchTap={this.handleApprove}
-      />,
+      <ConnectUserToGroup user={user} group={group} primary />,
     ];
 
     return <div style={{display: 'inline-block'}}>
@@ -86,16 +57,16 @@ export default Relay.createContainer(PendingMember, {
       fragment on Group {
         id,
         name,
-        ${CancelPendingUserToGroupMutation.getFragment('group')},
-        ${ConnectUserToGroupMutation.getFragment('group')},
+        ${RemovePendingUserToGroup.getFragment('group')},
+        ${ConnectUserToGroup.getFragment('group')},
       }
     `,
     user: () => Relay.QL`
       fragment on User {
         id,
         name,
-        ${CancelPendingUserToGroupMutation.getFragment('user')},
-        ${ConnectUserToGroupMutation.getFragment('user')},
+        ${RemovePendingUserToGroup.getFragment('user')},
+        ${ConnectUserToGroup.getFragment('user')},
       }
     `,
   },

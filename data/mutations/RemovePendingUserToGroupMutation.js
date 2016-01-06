@@ -20,7 +20,7 @@ const userEndpoint = getEndpoint(UserType);
 const groupEndpoint = getEndpoint(GroupType);
 
 export default mutationWithClientMutationId({
-  name: 'CancelPendingUserToGroup',
+  name: 'RemovePendingUserToGroup',
   inputFields: {
     userId: { type: new GraphQLNonNull(GraphQLID) },
     groupId: { type: new GraphQLNonNull(GraphQLID) },
