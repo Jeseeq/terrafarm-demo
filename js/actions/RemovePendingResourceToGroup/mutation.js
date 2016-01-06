@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-export default class CancelPendingResourceToGroupMutation extends Relay.Mutation {
+export default class RemovePendingResourceToGroupMutation extends Relay.Mutation {
   static fragments = {
     resource: () => Relay.QL`
       fragment on Resource {

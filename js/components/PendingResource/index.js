@@ -1,5 +1,5 @@
-import CancelPendingResourceToGroupMutation from '../../mutations/CancelPendingResourceToGroupMutation';
-import ConnectResourceToGroupMutation from '../../mutations/ConnectResourceToGroupMutation';
+import RemovePendingResourceToGroup from '../../actions/RemovePendingResourceToGroup';
+import AddResourceToGroup from '../../actions/AddResourceToGroup';
 import React from 'react';
 import Relay from 'react-relay';
 import {Link} from 'react-router';
@@ -16,32 +16,6 @@ class PendingMember extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleApprove = () => {
-    const {resource, group} = this.props;
-    Relay.Store.update(
-      new ConnectResourceToGroupMutation({
-        resource,
-        group,
-      })
-    );
-    Relay.Store.update(
-      new CancelPendingResourceToGroupMutation({
-        resource,
-        group,
-      })
-    );
-    this.handleClose();
-  }
-  handleDecline = () => {
-    const {resource, group} = this.props;
-    Relay.Store.update(
-      new CancelPendingResourceToGroupMutation({
-        resource,
-        group,
-      })
-    );
-    this.handleClose();
-  }
   render () {
     const {group, resource} = this.props;
     const user = resource.users.edges[0].node;
@@ -51,16 +25,8 @@ class PendingMember extends React.Component {
         secondary
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label={'Decline'}
-        secondary
-        onTouchTap={this.handleDecline}
-      />,
-      <FlatButton
-        label={'Approve'}
-        primary
-        onTouchTap={this.handleApprove}
-      />,
+      <RemovePendingResourceToGroup label={'Decline'} secondary onComplete={this.handleClose} />,
+      <AddResourceToGroup primary onComplete={this.handleClose} />,
     ];
 
     return <div style={{display: 'inline-block'}}>
@@ -86,8 +52,7 @@ export default Relay.createContainer(PendingMember, {
     group: () => Relay.QL`
       fragment on Group {
         id,
-        ${ConnectResourceToGroupMutation.getFragment('group')},
-        ${CancelPendingResourceToGroupMutation.getFragment('group')},
+        ${RemovePendingResourceToGroup.getFragment('group')},
       }
     `,
     resource: () => Relay.QL`
@@ -102,8 +67,7 @@ export default Relay.createContainer(PendingMember, {
             }
           }
         }
-        ${ConnectResourceToGroupMutation.getFragment('resource')},
-        ${CancelPendingResourceToGroupMutation.getFragment('resource')},
+        ${RemovePendingResourceToGroup.getFragment('resource')},
       }
     `,
   },

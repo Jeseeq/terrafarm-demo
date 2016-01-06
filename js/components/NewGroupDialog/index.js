@@ -87,15 +87,6 @@ class NewGroupDialog extends React.Component {
   }
 }
 
-// <Formsy onChange={this.handleChange} onCanSubmit={this.handleCanSubmit} />
-// Formsy
-//   handleChange (newModel) {
-//     if (this.props.onChange) {
-//       this.props.onChange(newModel);
-//     }
-//   }
-//   render <form onChange={this.onChange}>
-
 export default Relay.createContainer(NewGroupDialog, {
   fragments: {
     user: () => Relay.QL`
