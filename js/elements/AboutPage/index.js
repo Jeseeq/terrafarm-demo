@@ -11,6 +11,9 @@ export default class AboutPage extends React.Component {
       github: 'https://github.com/rblakeley/terrafarm#readme',
       twitter: 'https://twitter.com/terrafarmapp',
       email: 'mailto:terrafarmapp@gmail.com',
+      sources: {
+        workforce: 'https://www.agclassroom.org/gan/timeline/farmers_land.htm',
+      },
     };
 
     return <div className={styles.this}>
@@ -31,13 +34,32 @@ export default class AboutPage extends React.Component {
       <div className={styles.section}>
         <h4>Improving Food</h4>
         <h3>Problem</h3>
-        <p>Intensive factory farming and industrial agriculture produce low-quality food and massive negative externalities. They are the human activities most responsible for greenhouse gas emissions, species extinction, ocean dead zones, water pollution, and habitat destruction [source]. Antimicrobial drug resistance is also largely attributed to intensive animal agriculture [source].</p>
-        <h3>Research</h3>
-        <p>Pre-industrial farming was small-scale and depended on thoughtful stewardship, manual labor, and natural ecologies. Small-scale biodynamic farming promotes flavorful and nutritious food, improves our connection to the natural world, and has higher efficiencies on space, water-use, nutrient recycling, and calorie conversion [source].</p>
-        <h3>Question</h3>
-        <p>How would we accelerate a shift from reliance on industrial agriculture to small-scale distributed farming?</p>
-        <h3>Hypothesis</h3>
-        <p>There are untapped opportunities to connect willing people and latent resources for small-scale farming projects. Increasing contact between resource owners and people interested in farming will create mutual wealth and healthier communities.</p>
+        <p>Intensive factory farming produces low-quality food and massive negative externalities. It is the human acitivty most responsible for:</p>
+        <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
+          <li>greenhouse gas emissions</li>
+          <li>species extinction</li>
+          <li>ocean dead zones</li>
+          <li>water pollution</li>
+          <li>habitat destruction</li>
+          <li>antimicrobial drug-resistance</li>
+          <li style={{listStyle: 'none', fontSize: 13}}><em>Source: ...</em></li>
+        </ul>
+        <p>Farming is a deeply human tradition that has been abstracted from every-day life over the past 225 years.</p>
+        <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
+          <li>1790 &mdash; 90% of the U.S. workforce are farmers.</li>
+          <li>1890 &mdash; 43%</li>
+          <li>1990 &mdash; 2<strong style={{margin: '0 0.08em'}}>.</strong>5%</li>
+          <li style={{listStyle: 'none', fontSize: 13}}><em>Source: ...</em></li>
+        </ul>
+        <p>Farming is hard work with low economic incentive. Up-front resource requirements are prohibitive for many people who are otherwise interested.</p>
+        <h3>Opportunity</h3>
+        <p>Increasing contact between owners of latent resources and people interested in farming will create mutual wealth and healthier communities.</p>
+        <p>We should cultivate small-scale biodynamic farms close to home. Thoughtful stewardship, manual labor, and natural ecologies provide:</p>
+        <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
+          <li>food that tastes better and is more nutritious</li>
+          <li>connection with the natural world</li>
+          <li>efficienct use of space, water, and waste</li>
+        </ul>
       </div>
     </div>;
   }

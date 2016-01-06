@@ -11,6 +11,8 @@
 .links,
 .section { text-align: left; width: 100%; }
 
+.section p { margin: 8px 0 15px; line-height: 1.46em; }
+
 .links { margin-bottom: 25px; }
 .icon { margin-right: 0.67em; }
 

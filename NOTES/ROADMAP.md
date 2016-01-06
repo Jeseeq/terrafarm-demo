@@ -16,9 +16,6 @@ Basic user experience.
 ### Database
 - [ ] Authentication with Auth0 JWT
 
-#### Group Page
-- [x] debug render NewMemberRequest/Cancel... (look at isMember isPending)
-
 ## 0.3
 
 ### Interface
