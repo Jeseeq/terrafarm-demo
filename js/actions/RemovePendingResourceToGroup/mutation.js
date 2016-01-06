@@ -14,11 +14,11 @@ export default class RemovePendingResourceToGroupMutation extends Relay.Mutation
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{cancelPendingResourceToGroup}`;
+    return Relay.QL`mutation{removePendingResourceToGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on CancelPendingResourceToGroupPayload {
+      fragment on RemovePendingResourceToGroupPayload {
         removedGroupID,
         removedResourceID,
         resource,

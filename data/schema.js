@@ -17,20 +17,20 @@ import {ResourceType} from './types/ResourceType';
 import ViewerType from './types/ViewerType';
 import {nodeField} from './types/node';
 
+import AddResourceToGroupMutation from './mutations/AddResourceToGroupMutation';
+import AddUserToGroupMutation from './mutations/AddUserToGroupMutation';
 import AuthenticateViewerMutation from './mutations/AuthenticateViewerMutation';
-import CancelPendingResourceToGroupMutation from './mutations/CancelPendingResourceToGroupMutation';
-import ConnectUserToGroupMutation from './mutations/ConnectUserToGroupMutation';
-import ConnectResourceToGroupMutation from './mutations/ConnectResourceToGroupMutation';
-import DisconnectUserFromGroupMutation from './mutations/DisconnectUserFromGroupMutation';
-import DisconnectResourceFromGroupMutation from './mutations/DisconnectResourceFromGroupMutation';
-import NewUserMutation from './mutations/NewUserMutation';
-import NewResourceMutation from './mutations/NewResourceMutation';
 import NewGroupMutation from './mutations/NewGroupMutation';
-import PendingUserToGroupMutation from './mutations/PendingUserToGroupMutation';
+import NewResourceMutation from './mutations/NewResourceMutation';
+import NewUserMutation from './mutations/NewUserMutation';
 import PendingResourceToGroupMutation from './mutations/PendingResourceToGroupMutation';
+import PendingUserToGroupMutation from './mutations/PendingUserToGroupMutation';
+import RemovePendingResourceToGroupMutation from './mutations/RemovePendingResourceToGroupMutation';
 import RemovePendingUserToGroupMutation from './mutations/RemovePendingUserToGroupMutation';
-import UpdateResourceMutation from './mutations/UpdateResourceMutation';
+import RemoveResourceFromGroupMutation from './mutations/RemoveResourceFromGroupMutation';
+import RemoveUserFromGroupMutation from './mutations/RemoveUserFromGroupMutation';
 import UpdateGroupMutation from './mutations/UpdateGroupMutation';
+import UpdateResourceMutation from './mutations/UpdateResourceMutation';
 
 const Root = new GraphQLObjectType({
   name: 'Root',
@@ -80,20 +80,20 @@ const Root = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
+    addResourceToGroup: AddResourceToGroupMutation,
+    addUserToGroup: AddUserToGroupMutation,
     authenticateViewer: AuthenticateViewerMutation,
-    cancelPendingResourceToGroup: CancelPendingResourceToGroupMutation,
-    connectUserToGroup: ConnectUserToGroupMutation,
-    connectResourceToGroup: ConnectResourceToGroupMutation,
-    disconnectUserFromGroup: DisconnectUserFromGroupMutation,
-    disconnectResourceFromGroup: DisconnectResourceFromGroupMutation,
-    newUser: NewUserMutation,
-    newResource: NewResourceMutation,
     newGroup: NewGroupMutation,
-    pendingUserToGroup: PendingUserToGroupMutation,
+    newResource: NewResourceMutation,
+    newUser: NewUserMutation,
     pendingResourceToGroup: PendingResourceToGroupMutation,
+    pendingUserToGroup: PendingUserToGroupMutation,
+    removePendingResourceToGroup: RemovePendingResourceToGroupMutation,
     removePendingUserToGroup: RemovePendingUserToGroupMutation,
-    updateResource: UpdateResourceMutation,
+    removeResourceFromGroup: RemoveResourceFromGroupMutation,
+    removeUserFromGroup: RemoveUserFromGroupMutation,
     updateGroup: UpdateGroupMutation,
+    updateResource: UpdateResourceMutation,
   }),
 });
 

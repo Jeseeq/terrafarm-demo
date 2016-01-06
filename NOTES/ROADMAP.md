@@ -10,10 +10,6 @@ Minimal feature-set for first public release.
 
 Basic user experience.
 
-#### Code Refactor
-- [x] co-locate mutations with components
-- [x] wrap actions in forms
-
 #### Group Page
 - [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
 
@@ -134,6 +130,7 @@ Low-priority additions and improvements to the user experience.
 - [ ] fewer calls to `getEndpoint`
 
 ### Other
+- [ ] form validation
 - [ ] tests for mutations
 - [ ] tests for components
 - [ ] bump dependencies, maybe node

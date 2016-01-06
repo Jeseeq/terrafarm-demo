@@ -14,11 +14,11 @@ export default class AddUserToGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{connectUserToGroup}`;
+    return Relay.QL`mutation{addUserToGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on ConnectUserToGroupPayload {
+      fragment on AddUserToGroupPayload {
         groupEdge,
         userEdge,
         user,

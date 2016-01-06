@@ -14,11 +14,11 @@ export default class DisconnectUserFromGroupMutation extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{disconnectUserFromGroup}`;
+    return Relay.QL`mutation{removeUserFromGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on DisconnectUserFromGroupPayload {
+      fragment on RemoveUserFromGroupPayload {
         removedGroupID,
         removedUserID,
         user,

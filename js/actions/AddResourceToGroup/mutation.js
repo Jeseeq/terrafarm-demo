@@ -14,11 +14,11 @@ export default class AddResourceToGroup extends Relay.Mutation {
     `,
   };
   getMutation () {
-    return Relay.QL`mutation{connectResourceToGroup}`;
+    return Relay.QL`mutation{addResourceToGroup}`;
   }
   getFatQuery () {
     return Relay.QL`
-      fragment on ConnectResourceToGroupPayload {
+      fragment on AddResourceToGroupPayload {
         groupEdge {
           node,
         },
@@ -53,7 +53,7 @@ export default class AddResourceToGroup extends Relay.Mutation {
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
-          fragment on ConnectResourceToGroupPayload {
+          fragment on AddResourceToGroupPayload {
             groupEdge,
           }
         `],

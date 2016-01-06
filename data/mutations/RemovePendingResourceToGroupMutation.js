@@ -20,7 +20,7 @@ const resourceEndpoint = getEndpoint(ResourceType);
 const groupEndpoint = getEndpoint(GroupType);
 
 export default mutationWithClientMutationId({
-  name: 'CancelPendingResourceToGroup',
+  name: 'RemovePendingResourceToGroup',
   inputFields: {
     resourceId: { type: new GraphQLNonNull(GraphQLID) },
     groupId: { type: new GraphQLNonNull(GraphQLID) },
