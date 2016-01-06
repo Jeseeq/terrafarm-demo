@@ -1,9 +1,8 @@
-import UpdateResourceMutation from '../../mutations/UpdateResourceMutation';
+import UpdateResource from '../../actions/UpdateResource';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
-// import RaisedButton from 'material-ui/lib/raised-button';
 import TextInput from '../../elements/TextInput';
 
 class EditResource extends React.Component {
@@ -16,32 +15,27 @@ class EditResource extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleSave = () => {
-    const {name, description, category} = this.refs;
-    Relay.Store.update(
-      new UpdateResourceMutation({
-        resource: this.props.resource,
-        attributes: {
-          name: name.state.text,
-          description: description.state.text,
-          category: category.state.text,
-        },
-      })
-    );
-    this.handleClose();
-  }
   render () {
     const {resource} = this.props;
+
+    let {name, description, category} = this.refs;
+    name = name ? name.state.text : resource.name;
+    description = description ? description.state.text : resource.description;
+    category = category ? category.state.text : resource.category;
+
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label={'Save'}
-        primary
-        onTouchTap={this.handleSave}
+      <UpdateResource
+        resource={resource}
+        attributes={{
+          name,
+          description,
+          category,
+        }}
       />,
     ];
 
@@ -81,7 +75,7 @@ export default Relay.createContainer(EditResource, {
         name,
         description,
         category,
-        ${UpdateResourceMutation.getFragment('resource')},
+        ${UpdateResource.getFragment('resource')},
       }
     `,
   },

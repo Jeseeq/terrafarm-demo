@@ -1,8 +1,7 @@
-import AuthenticateViewerMutation from '../../mutations/AuthenticateViewerMutation';
+import AuthenticateViewer from '../../actions/AuthenticateViewer';
 import React from 'react';
 import Relay from 'react-relay';
 import NewUser from '../NewUser';
-import RaisedButton from 'material-ui/lib/raised-button';
 import FaUser from 'react-icons/lib/fa/user';
 
 import styles from './styles.css';
@@ -14,29 +13,21 @@ class LoginPage extends React.Component {
       viewerId: 1,
     },
   };
-  _handleLogin (user) {
-    const {viewer} = this.props;
-    Relay.Store.update(
-      new AuthenticateViewerMutation({
-        viewer: viewer,
-        user: user,
-      })
-    );
-  }
   renderLogin () {
-    const {master} = this.props;
+    const {master, viewer} = this.props;
     const {users} = master;
     const usersList = users.edges.filter(edge => edge.node.name !== 'Guest');
 
     return <div>
       <h2>Login</h2>
       {usersList.map(edge => <div key={edge.node.id} style={{lineHeight: '37px', cursor: 'pointer'}}>
-        <span
-          className={styles.userName}
-          onClick={this._handleLogin.bind(this, edge.node)}
-        >
-          <FaUser className={styles.icon} /> {edge.node.name}
-        </span>
+        <FaUser className={styles.icon} />
+        <AuthenticateViewer
+          style={{display: 'inline-block'}}
+          label={edge.node.name}
+          viewer={viewer}
+          user={edge.node}
+        />
       </div>)}
       <NewUser master={master} />
     </div>;
@@ -49,9 +40,11 @@ class LoginPage extends React.Component {
 
     return <div className={styles.this}>
       <h4>Logged in as {user.name}</h4>
-      <RaisedButton
-        onClick={this._handleLogin.bind(this, guest.node)}
+      <AuthenticateViewer
+        style={{display: 'inline-block'}}
         label={'Logout'}
+        viewer={viewer}
+        user={guest.node}
       />
     </div>;
   }
@@ -74,7 +67,7 @@ export default Relay.createContainer(LoginPage, {
           id,
           name,
         },
-        ${AuthenticateViewerMutation.getFragment('viewer')},
+        ${AuthenticateViewer.getFragment('viewer')},
       }
     `,
     master: () => Relay.QL`
@@ -84,7 +77,7 @@ export default Relay.createContainer(LoginPage, {
             node {
               id,
               name,
-              ${AuthenticateViewerMutation.getFragment('user')},
+              ${AuthenticateViewer.getFragment('user')},
             },
           },
         },

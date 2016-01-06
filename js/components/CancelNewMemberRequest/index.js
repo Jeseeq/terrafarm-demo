@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
-import RemovePendingUserToGroup from '../RemovePendingUserToGroup';
+import RemovePendingUserToGroup from '../../actions/RemovePendingUserToGroup';
 
 class CancelNewMemberRequest extends React.Component {
   state = {

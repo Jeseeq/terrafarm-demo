@@ -1,5 +1,5 @@
-import UpdateGroup from '../UpdateGroup';
-import DisconnectUserFromGroupMutation from '../../mutations/DisconnectUserFromGroupMutation';
+import UpdateGroup from '../../actions/UpdateGroup';
+import RemoveUserFromGroup from '../../actions/RemoveUserFromGroup';
 import React from 'react';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/lib/dialog';
@@ -16,26 +16,21 @@ class EditGroup extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   }
-  handleDisconnectUserFromGroup = () => {
-    Relay.Store.update(
-      new DisconnectUserFromGroupMutation({
-        user: this.props.user,
-        group: this.props.group,
-      })
-    );
-  }
   render () {
-    const {group} = this.props;
+    const {group, user} = this.props;
+
     let {name, description, category} = this.refs;
     name = name ? name.state.text : group.name;
     description = description ? description.state.text : group.description;
     category = category ? category.state.text : group.category;
+
     const actions = [
       <FlatButton
         label={'Cancel'}
         secondary
         onTouchTap={this.handleClose}
       />,
+      <RemoveUserFromGroup group={group} user={user} secondary />,
       <UpdateGroup
         group={group}
         attributes={{
@@ -80,7 +75,7 @@ export default Relay.createContainer(EditGroup, {
       fragment on User {
         id,
         name,
-        ${DisconnectUserFromGroupMutation.getFragment('user')},
+        ${RemoveUserFromGroup.getFragment('user')},
       }
     `,
     group: () => Relay.QL`
@@ -90,7 +85,7 @@ export default Relay.createContainer(EditGroup, {
         description,
         category,
         ${UpdateGroup.getFragment('group')},
-        ${DisconnectUserFromGroupMutation.getFragment('group')},
+        ${RemoveUserFromGroup.getFragment('group')},
       }
     `,
   },

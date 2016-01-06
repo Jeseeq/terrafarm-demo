@@ -3,8 +3,8 @@ import Relay from 'react-relay';
 import {Link} from 'react-router';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
-import RemovePendingUserToGroup from '../RemovePendingUserToGroup';
-import ConnectUserToGroup from '../ConnectUserToGroup';
+import RemovePendingUserToGroup from '../../actions/RemovePendingUserToGroup';
+import ConnectUserToGroup from '../../actions/ConnectUserToGroup';
 
 class PendingMember extends React.Component {
   state = {

@@ -28,8 +28,6 @@ class RemovePendingUserToGroup extends React.Component {
   render () {
     return (
       <FlatButton
-        user={this.props.user}
-        group={this.props.group}
         label={this.props.label}
         primary={this.props.primary}
         secondary={this.props.secondary}
