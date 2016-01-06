@@ -10,21 +10,14 @@ Minimal feature-set for first public release.
 
 Basic user experience.
 
-#### Group Page
-- [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
-
 #### Stories
-- [ ] form validation
-  - [ ] new user
-  - [ ] new/edit resource
-  - [ ] new/edit resource offer
-  - [ ] new/edit group
-
-#### Other
-- [ ] spinners
+- [ ] show spinners
 
 ### Database
 - [ ] Authentication with Auth0 JWT
+
+#### Group Page
+- [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
 
 ### Other
 - [ ] clean up console warnings
@@ -131,8 +124,14 @@ Low-priority additions and improvements to the user experience.
 
 ### Other
 - [ ] form validation
-- [ ] tests for mutations
-- [ ] tests for components
+  - [ ] new user
+  - [ ] new/edit resource
+  - [ ] new/edit resource offer
+  - [ ] new/edit group
+- [ ] tests
+  - [ ] actions
+  - [ ] components
+  - [ ] elements
 - [ ] bump dependencies, maybe node
 - [ ] `./package.json` logo, image, or icon
 - [ ] favicon

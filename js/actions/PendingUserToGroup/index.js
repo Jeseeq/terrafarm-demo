@@ -21,10 +21,10 @@ class PendingUserToGroup extends React.Component {
     }
   }
   handleConfirm = () => {
-    const {resource, group} = this.props;
+    const {user, group} = this.props;
     Relay.Store.update(
       new PendingUserToGroupMutation({
-        resource,
+        user,
         group,
       })
     );
