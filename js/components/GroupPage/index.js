@@ -19,28 +19,35 @@ class GroupPage extends React.Component {
     isPendingMember: false,
   };
   componentWillMount () {
-    this.createColorChart();
-    this.updateMemberStatus();
-  }
-  componentWillReceiveProps () {
-    this.createColorChart();
-    this.updateMemberStatus();
-  }
-  createColorChart () {
-    const {group} = this.props;
-    const {users} = group;
-    const userIds = users.edges.map(edge => edge.node.id);
-    const colorChart = createColorChart(userIds);
-    this.setState({colorChart});
-  }
-  updateMemberStatus () {
     const {group, viewer} = this.props;
     const {users, usersPending} = group;
     const {user} = viewer;
 
-    const isMember = users.edges.find(edge => edge.node.id === user.id);
-    const isPendingMember = usersPending.edges.find(edge => edge.node.id === user.id);
+    const members = users;
+    const membersPending = usersPending;
 
+    this.createColorChart(members);
+    this.updateMemberStatus(user, members, membersPending);
+  }
+  componentWillReceiveProps (nextProps) {
+    const {group, viewer} = nextProps;
+    const {users, usersPending} = group;
+    const {user} = viewer;
+
+    const members = users;
+    const membersPending = usersPending;
+
+    this.createColorChart(members);
+    this.updateMemberStatus(user, members, membersPending);
+  }
+  createColorChart (members) {
+    const userIds = members.edges.map(edge => edge.node.id);
+    const colorChart = createColorChart(userIds);
+    this.setState({colorChart});
+  }
+  updateMemberStatus (user, members, membersPending) {
+    const isMember = members.edges.findIndex(edge => edge.node.id === user.id) > -1;
+    const isPendingMember = membersPending.edges.findIndex(edge => edge.node.id === user.id) > -1;
     this.setState({isMember, isPendingMember});
   }
   renderMembersPending () {

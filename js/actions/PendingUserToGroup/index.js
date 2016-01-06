@@ -15,7 +15,7 @@ class PendingUserToGroup extends React.Component {
     primary: false,
     secondary: false,
   };
-  onComplete = () => {
+  onComplete () {
     if (this.props.onComplete) {
       this.props.onComplete();
     }
@@ -47,12 +47,14 @@ export default Relay.createContainer(PendingUserToGroup, {
     group: () => Relay.QL`
       fragment on Group {
         id,
+        users(first: 18) { edges { node { id } } },
         ${PendingUserToGroupMutation.getFragment('group')},
       }
     `,
     user: () => Relay.QL`
       fragment on User {
         id,
+        groups(first: 18) { edges { node { id } } },
         ${PendingUserToGroupMutation.getFragment('user')},
       }
     `,

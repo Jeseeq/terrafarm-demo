@@ -16,14 +16,19 @@ class CancelNewMemberRequest extends React.Component {
     this.setState({open: false});
   }
   render () {
-    const {group} = this.props;
+    const {group, user} = this.props;
     const actions = [
       <FlatButton
         label={'Back'}
         secondary
         onTouchTap={this.handleClose}
       />,
-      <RemovePendingUserToGroup primary />,
+      <RemovePendingUserToGroup
+        group={group}
+        user={user}
+        primary
+        onComplete={this.handleClose}
+      />,
     ];
 
     return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}}>

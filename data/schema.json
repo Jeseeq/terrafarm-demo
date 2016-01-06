@@ -978,8 +978,8 @@
               "deprecationReason": null
             },
             {
-              "name": "groups",
-              "description": "A person's list of group memberships.",
+              "name": "groupsPending",
+              "description": "A person's list of pending group memberships.",
               "args": [
                 {
                   "name": "after",
@@ -1031,8 +1031,8 @@
               "deprecationReason": null
             },
             {
-              "name": "groupsPending",
-              "description": "A person's list of pending group memberships.",
+              "name": "groups",
+              "description": "A person's list of group memberships.",
               "args": [
                 {
                   "name": "after",

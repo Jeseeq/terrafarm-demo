@@ -43,11 +43,12 @@ export default mutationWithClientMutationId({
       resolve: async ({localGroupId}) => await getItem(groupEndpoint, localGroupId),
     },
   },
+  /* eslint eqeqeq: 0 */
   mutateAndGetPayload: async ({userId, groupId}) => {
     const localUserId = fromGlobalId(userId).id;
     const localGroupId = fromGlobalId(groupId).id;
     const user = await getItem(userEndpoint, localUserId);
-    const groupIndex = user.groups_pending.findIndex(g => g.id === localGroupId);
+    const groupIndex = user.groups_pending.findIndex(g => g.id == localGroupId);
 
     user.groups_pending.splice(groupIndex, 1);
 

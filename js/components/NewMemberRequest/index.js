@@ -17,7 +17,6 @@ class NewMemberRequest extends React.Component {
   }
   render () {
     const {user, group} = this.props;
-    console.log(user);
     const actions = [
       <FlatButton
         label={'Cancel'}

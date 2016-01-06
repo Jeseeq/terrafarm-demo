@@ -11,17 +11,13 @@ Minimal feature-set for first public release.
 Basic user experience.
 
 #### Stories
-- [ ] show spinners
+- [ ] spinners
 
 ### Database
 - [ ] Authentication with Auth0 JWT
 
 #### Group Page
-- [ ] debug render NewMemberRequest/Cancel... (look at isMember isPending)
-
-### Other
-- [ ] clean up console warnings
-- [ ] clean up styles
+- [x] debug render NewMemberRequest/Cancel... (look at isMember isPending)
 
 ## 0.3
 
@@ -123,6 +119,9 @@ Low-priority additions and improvements to the user experience.
 - [ ] fewer calls to `getEndpoint`
 
 ### Other
+- [ ] clean up styles
+  - [ ] move shared-styles
+  - [ ] add `shared-styles/global.css`
 - [ ] form validation
   - [ ] new user
   - [ ] new/edit resource
@@ -135,4 +134,5 @@ Low-priority additions and improvements to the user experience.
 - [ ] bump dependencies, maybe node
 - [ ] `./package.json` logo, image, or icon
 - [ ] favicon
+- [ ] clean up console warnings
 

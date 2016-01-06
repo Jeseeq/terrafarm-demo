@@ -43,19 +43,6 @@ export const UserType = registerType(new GraphQLObjectType({
         );
       },
     },
-    groups: {
-      type: GroupConnection,
-      description: 'A person\'s list of group memberships.',
-      args: connectionArgs,
-      resolve: async (_, args) => {
-        const groupPromises = _.groups.map(g => getItem(getEndpoint(GroupType), g.id));
-        const groupResults = await* groupPromises;
-        return connectionFromArray(
-          groupResults,
-          args
-        );
-      },
-    },
     /* eslint camelcase: 0 */
     groupsPending: {
       type: GroupConnection,
@@ -63,6 +50,19 @@ export const UserType = registerType(new GraphQLObjectType({
       args: connectionArgs,
       resolve: async (_, args) => {
         const groupPromises = _.groups_pending.map(g => getItem(getEndpoint(GroupType), g.id));
+        const groupResults = await* groupPromises;
+        return connectionFromArray(
+          groupResults,
+          args
+        );
+      },
+    },
+    groups: {
+      type: GroupConnection,
+      description: 'A person\'s list of group memberships.',
+      args: connectionArgs,
+      resolve: async (_, args) => {
+        const groupPromises = _.groups.map(g => getItem(getEndpoint(GroupType), g.id));
         const groupResults = await* groupPromises;
         return connectionFromArray(
           groupResults,
