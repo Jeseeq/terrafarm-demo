@@ -37,12 +37,13 @@ body,
 .wrapper { position: relative; overflow: hidden; padding-top: 80px; margin: 0 4%; }
 
 :global .content-leave {
-  position: absolute;
   opacity: 1;
-  transition: opacity 100ms ease-in;
+  transform: translate(0);
+  transition: all 100ms ease-in;
 }
 :global .content-leave.content-leave-active {
   opacity: 0;
+  transform: translate(0, 5em, 15em);
 }
 :global .content-enter,
 :global .content-appear {

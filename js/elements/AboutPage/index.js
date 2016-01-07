@@ -19,11 +19,19 @@ export default class AboutPage extends React.Component {
       <div className={styles.links}>
         <p style={{lineHeight: '37px'}}>
           <GoOctoface className={styles.icon} />
-          <a href={linkUrls.github} className={styles.link}>Open source project</a>
+          <a
+            target={'_blank'}
+            href={linkUrls.github}
+            className={styles.link}
+          >
+            Open source project
+          </a>
         </p>
         <p style={{lineHeight: '37px'}}>
           <MdMailOutline className={styles.icon} />
-          <a href={linkUrls.email} classNames={styles.link}>Email</a>
+          <a href={linkUrls.email} classNames={styles.link} >
+            Email
+          </a>
         </p>
       </div>
       <div className={styles.section}>
