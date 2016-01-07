@@ -2,6 +2,7 @@
 
 ### Documentation
 - gh-pages
+- Heroku free hosting
 
 ### Interface
 - Home Page
@@ -12,6 +13,7 @@
 - Browse Page table
 - User/Resource/Group page layouts
 - edit/new user/resource/group modals
+- create `actions` as components with mutations
 - color connection indicators
 - material components
 

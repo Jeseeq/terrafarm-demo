@@ -3,18 +3,7 @@
 Below is a roadmap of potential Terrafarm features and releases.
 
 ## 0.2
-
-Minimal feature-set for first public release.
-
-### Interface
-
-Basic user experience.
-
-#### Stories
 - [ ] spinners
-
-### Database
-- [ ] Authentication with Auth0 JWT
 
 ## 0.3
 
@@ -24,12 +13,9 @@ High-priority additions and improvements to the user experience.
 
 #### User Stories
 - [ ] add message to membership and resource requests
-- [ ] group defines resource needs
-- [ ] user defines resource availability
 - [ ] remove resource from group
 
 #### Edit/New Resource Modal
-- [ ] resolve console warnings
 - [ ] category dropdown
   - [ ] equipment
     - [ ] pictures
@@ -53,30 +39,20 @@ High-priority additions and improvements to the user experience.
   - [ ] rooftop
 - [ ] pictures
 
-#### Browse Page
-- [ ] tables
-  - [ ] responsive height
-  - [ ] sort and tooltip
-  - [ ] checkboxes and multiple selection
-
 #### Resource Page
 - [ ] pictures
 
 #### Group Page
 - [ ] pictures
-- [ ] offer resource
-  - [ ] hours per week field
 
 #### Home Page
 - [ ] shadows
 
 #### Routes
-- [ ] URL parameter values (query keys) should be descriptive
-- [ ] transitions
-- [ ] https?
+- [ ] transition animations
 
 #### Tests
-- [ ] ???
+- [ ] `./js/actions/*`
 - [ ] chaos monkey (and add documentation)
 
 #### Style
@@ -85,8 +61,7 @@ High-priority additions and improvements to the user experience.
 - [ ] css feature detection, fallbacks, and browser warnings
 
 ### Database
-- [ ] parallel requests
-- [ ] load testing
+- [ ] Authentication with Auth0 JWT
 - [ ] optimistic updates
 
 
@@ -99,6 +74,12 @@ Low-priority additions and improvements to the user experience.
 #### Research Groups
 - [ ] reading lists
 
+#### Group Page
+- [ ] resource needs
+
+#### Resource Page
+- [ ] resource availability
+
 #### New Resource Page
 - [ ] predictive text field for naming resource
 
@@ -108,12 +89,20 @@ Low-priority additions and improvements to the user experience.
 #### Profile Page
 - [ ] show alert next to group with pending actions
 
+#### Browse Page
+- [ ] tables
+  - [ ] responsive height
+  - [ ] sort and tooltip
+  - [ ] checkboxes and multiple selection
+
 #### Main Menu
 - [ ] alternative icon style if active page
 
 ### Database
 - [ ] consolidate `data/api/` into one module
 - [ ] fewer calls to `getEndpoint`
+- [ ] parallel requests
+- [ ] load testing
 
 ### Other
 - [ ] clean up styles
@@ -132,4 +121,5 @@ Low-priority additions and improvements to the user experience.
 - [ ] `./package.json` logo, image, or icon
 - [ ] favicon
 - [ ] clean up console warnings
-
+- [ ] URL parameter values (query keys) should be descriptive
+- [ ] https?

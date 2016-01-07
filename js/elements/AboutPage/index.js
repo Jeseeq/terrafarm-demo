@@ -29,7 +29,14 @@ export default class AboutPage extends React.Component {
       <div className={styles.section}>
         <h4>Improving Food</h4>
         <h3>Problem</h3>
-        <p>Intensive factory farming produces low-quality food and massive negative externalities. It is the human acitivty most responsible for:</p>
+        <p>Farming is a deep human tradition that has been abstracted away from every-day life over the past 225 years.</p>
+        <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
+          <li>1790 &mdash; 90% of the U.S. workforce were farmers.</li>
+          <li>1890 &mdash; 43%</li>
+          <li>1990 &mdash; 2<strong style={{margin: '0 0.08em'}}>.</strong>5%</li>
+          <li style={{listStyle: 'none', fontSize: 13}}><em>Source: ...</em></li>
+        </ul>
+        <p>Intensive factory farming produces low-quality food and massive negative externalities:</p>
         <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
           <li>greenhouse gas emissions</li>
           <li>species extinction</li>
@@ -39,22 +46,15 @@ export default class AboutPage extends React.Component {
           <li>antimicrobial drug-resistance</li>
           <li style={{listStyle: 'none', fontSize: 13}}><em>Source: ...</em></li>
         </ul>
-        <p>Farming is a deeply human tradition that has been abstracted from every-day life over the past 225 years.</p>
-        <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
-          <li>1790 &mdash; 90% of the U.S. workforce were farmers.</li>
-          <li>1890 &mdash; 43%</li>
-          <li>1990 &mdash; 2<strong style={{margin: '0 0.08em'}}>.</strong>5%</li>
-          <li style={{listStyle: 'none', fontSize: 13}}><em>Source: ...</em></li>
-        </ul>
-        <p>Farming is hard work. Up-front resource requirements are prohibitive for many people who are otherwise interested.</p>
+        <p>Small-scale farming with thoughtful stewardship, manual labor, and natural ecologies is hard work. Up-front resource requirements are prohibitive for many people who are otherwise interested.</p>
         <h3>Opportunity</h3>
-        <p>Increase contact between owners of latent resources and people interested in farming. Cultivate small-scale biodynamic farms close to home with thoughtful stewardship, manual labor, and natural ecologies.</p>
-        <p>The benefits are:</p>
+        <p>Some of the benefits of a small-scale biodynamic farm are:</p>
         <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
           <li>food that tastes better and is more nutritious</li>
           <li>connection with the natural world</li>
           <li>efficienct use of space, water, and waste</li>
         </ul>
+        <p>The idea behind this app is to increase contact between owners of latent resources and people interested in farming.</p>
         <h3>Get started</h3>
         <p><Link to={'create-account'}>Create an account</Link>.</p>
         <p>Post resources on your profile.</p>
