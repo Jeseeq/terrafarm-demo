@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import MainMenu from '../MainMenu';
 import TerrafarmRawTheme from '../../shared-styles/terrafarm-raw-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
@@ -9,7 +9,7 @@ import classNames from 'classnames/bind';
 import styles from './styles.css';
 const cx = classNames.bind(styles);
 
-const {CSSTransitionGroup} = React;
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 /* eslint new-cap: 0 */
 @ThemeDecorator(ThemeManager.getMuiTheme(TerrafarmRawTheme))
