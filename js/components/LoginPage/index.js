@@ -1,5 +1,5 @@
 import AuthenticateViewer from '../../actions/AuthenticateViewer';
-import NewUser from '../../actions/NewUser';
+import NewUserDialog from '../NewUserDialog';
 import React from 'react';
 import Relay from 'react-relay';
 import FaUser from 'react-icons/lib/fa/user';
@@ -29,7 +29,7 @@ class LoginPage extends React.Component {
           user={edge.node}
         />
       </div>)}
-      <NewUser master={master} />
+      <NewUserDialog master={master} />
     </div>;
   }
   renderLogout () {
@@ -81,7 +81,7 @@ export default Relay.createContainer(LoginPage, {
             },
           },
         },
-        ${NewUser.getFragment('master')},
+        ${NewUserDialog.getFragment('master')},
       }
     `,
   },

@@ -15,6 +15,7 @@ class CreateAccountPage extends React.Component {
     const {master} = this.props;
 
     return <div>
+      <h2>Create Account</h2>
       <NewUserDialog master={master} open />
     </div>;
   }
