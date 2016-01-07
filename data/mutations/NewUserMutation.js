@@ -34,6 +34,7 @@ export default mutationWithClientMutationId({
         const userResults = await* userPromises;
         const offset = userResults.findIndex(u => u.id == localUserId);
         const cursor = offsetToCursor(offset);
+        console.log('offset -', offset);
         return {
           cursor: cursor,
           node: userResults[offset],

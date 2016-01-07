@@ -22,16 +22,26 @@ export default class NewUserMutation extends Relay.Mutation {
     `;
   }
   getConfigs () {
-    return [{
-      type: 'RANGE_ADD',
-      parentName: 'master',
-      parentID: this.props.master.id,
-      connectionName: 'users',
-      edgeName: 'userEdge',
-      rangeBehaviors: {
-        '': 'append',
+    return [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'master',
+        parentID: this.props.master.id,
+        connectionName: 'users',
+        edgeName: 'userEdge',
+        rangeBehaviors: {
+          '': 'append',
+        },
       },
-    }];
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on NewUserPayload {
+            userEdge,
+          }
+        `],
+      },
+    ];
   }
   getVariables () {
     return {
