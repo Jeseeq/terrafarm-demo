@@ -6,9 +6,18 @@
   "repository": "rblakeley/terrafarm",
   "version": "0.1.0",
   "keywords": [
-    "agriculture", "farm", "food", "ecology", "access",
-    "relay", "graphql", "webpack", "babel",
-    "react", "react-router", "svg"
+    "agriculture",
+    "farm",
+    "food",
+    "ecology",
+    "access",
+    "relay",
+    "graphql",
+    "webpack",
+    "babel",
+    "react",
+    "react-router",
+    "svg"
   ],
   "scripts": {
     "start": "node -r dotenv/config -r babel/register ./server.js",
@@ -38,6 +47,7 @@
     "pluralize": "^1.2.1",
     "raw-loader": "^0.5.1",
     "react": "0.14.5",
+    "react-addons-css-transition-group": "^0.14.5",
     "react-dom": "0.14.5",
     "react-g-analytics": "^0.1.17",
     "react-icons": "^1.0.3",

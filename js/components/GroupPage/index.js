@@ -13,6 +13,10 @@ import createColorChart from '../../shared-styles/create-color-chart';
 import styles from './styles.css';
 
 class GroupPage extends React.Component {
+  static contextTypes = {
+    location: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
+  };
   state = {
     colorChart: {},
     isMember: false,
@@ -97,7 +101,7 @@ class GroupPage extends React.Component {
   }
   render () {
     const {group} = this.props;
-    return <div>
+    return <div key={this.context.location.pathname}>
       <h4>Group</h4>
       <h2>{group.name}</h2>
       <p className={styles.category}>| {group.category} |</p>

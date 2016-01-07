@@ -8,6 +8,10 @@ import createColorChart from '../../shared-styles/create-color-chart';
 import styles from './styles.css';
 
 class UserPage extends React.Component {
+  static contextTypes = {
+    location: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
+  };
   state = {
     colorChart: {},
   };
@@ -21,7 +25,7 @@ class UserPage extends React.Component {
   render () {
     const {user} = this.props;
 
-    return <div>
+    return <div key={this.context.location.pathname}>
       <h4>User</h4>
       <h2>{user.name}</h2>
 

@@ -23,7 +23,7 @@ class BrowsePage extends React.Component {
     const {master} = this.props;
     const {users, resources, groups} = master;
 
-    return <div>
+    return <div key={'browse'}>
       <h2>Browse</h2>
       <Tabs secondary>
         <Tab label={'Users'} style={styles.tab}>

@@ -12,6 +12,10 @@ import createColorChart from '../../shared-styles/create-color-chart';
 import styles from './styles.css';
 
 class ProfilePage extends React.Component {
+  static contextTypes = {
+    location: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
+  };
   state = {
     colorChart: {},
   };
@@ -33,7 +37,7 @@ class ProfilePage extends React.Component {
     const {viewer, master} = this.props;
     const {user} = viewer;
 
-    return <div>
+    return <div key={this.context.location.pathname}>
       <h4>Your profile</h4>
       <h2 className={styles.heading}>{user.name}</h2>
       <div className={styles.groups}>

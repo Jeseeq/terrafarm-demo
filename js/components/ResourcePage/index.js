@@ -7,10 +7,14 @@ import FaGroup from 'react-icons/lib/fa/group';
 import styles from './styles.css';
 
 class ResourcePage extends React.Component {
+  static contextTypes = {
+    location: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
+  };
   render () {
     const {resource} = this.props;
     const owner = resource.users.edges[0].node;
-    return <div>
+    return <div key={this.context.location.pathname}>
       <h4>Resource</h4>
       <h2>{resource.name}</h2>
       <p className={styles.category}>| {resource.category} |</p>

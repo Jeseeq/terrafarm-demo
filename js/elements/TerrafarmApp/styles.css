@@ -36,6 +36,25 @@ body,
 
 .wrapper { position: relative; overflow: hidden; padding-top: 80px; margin: 0 4%; }
 
+:global .content-leave {
+  position: absolute;
+  opacity: 1;
+  transition: opacity 100ms ease-in;
+}
+:global .content-leave.content-leave-active {
+  opacity: 0;
+}
+:global .content-enter,
+:global .content-appear {
+  opacity: 0.01;
+  transition: all 500ms ease-in;
+}
+:global .content-enter.content-enter-active,
+:global .content-appear.content-appear-active {
+  opacity: 1;
+  transition: all .5s ease-in;
+}
+
 .outer-nav {
   position: fixed;
   top: -150px; left: 50%;

@@ -7,6 +7,10 @@ import FaUser from 'react-icons/lib/fa/user';
 import styles from './styles.css';
 
 class LoginPage extends React.Component {
+  static contextTypes = {
+    location: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
+  };
   static defaultProps = {
     params: {
       masterId: 1,
@@ -54,7 +58,7 @@ class LoginPage extends React.Component {
     const isLoggedIn = user && user.name !== 'Guest';
     const content = isLoggedIn ? this.renderLogout() : this.renderLogin();
 
-    return <div>{content}</div>;
+    return <div key={this.context.location.pathname}>{content}</div>;
   }
 }
 
