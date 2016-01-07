@@ -31,7 +31,7 @@ class CancelNewMemberRequest extends React.Component {
       />,
     ];
 
-    return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}}>
+    return <div style={{display: 'inline-block', margin: '10px 0 15px 10px'}} >
       <RaisedButton label={'Cancel Membership Request'} onTouchTap={this.handleOpen} />
       <Dialog
         title={'Cancel Membership Request'}
