@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "babel": "5.8.21",
+    "babel-core": "^5.4.0",
     "babel-loader": "5.3.2",
     "babel-relay-plugin": "0.6.0",
     "classnames": "^2.2.1",
@@ -47,7 +48,7 @@
     "pluralize": "^1.2.1",
     "raw-loader": "^0.5.1",
     "react": "0.14.5",
-    "react-addons-css-transition-group": "^0.14.5",
+    "react-addons-css-transition-group": "0.14.5",
     "react-dom": "0.14.5",
     "react-g-analytics": "^0.1.17",
     "react-icons": "^1.0.3",

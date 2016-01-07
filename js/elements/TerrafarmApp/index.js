@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React from 'react/addons';
 import MainMenu from '../MainMenu';
 import TerrafarmRawTheme from '../../shared-styles/terrafarm-raw-theme';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
@@ -9,6 +8,8 @@ import GoogleAnalytics from 'react-g-analytics';
 import classNames from 'classnames/bind';
 import styles from './styles.css';
 const cx = classNames.bind(styles);
+
+const {CSSTransitionGroup} = React;
 
 /* eslint new-cap: 0 */
 @ThemeDecorator(ThemeManager.getMuiTheme(TerrafarmRawTheme))
@@ -104,7 +105,7 @@ export default class TerrafarmApp extends React.Component {
             className={cx({wrapper: true})}
             style={{top: this.state.contentScroll}}
           >
-            <ReactCSSTransitionGroup
+            <CSSTransitionGroup
               transitionName={'content'}
               transitionAppear
               transitionAppearTimeout={500}
@@ -114,7 +115,7 @@ export default class TerrafarmApp extends React.Component {
               {React.cloneElement(this.props.children, {
                 key: this.context.location.pathname,
               })}
-            </ReactCSSTransitionGroup>
+            </CSSTransitionGroup>
           </div>
         </div>
         <nav
