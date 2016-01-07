@@ -3,6 +3,9 @@ import Relay from 'react-relay';
 import NewUserDialog from '../NewUserDialog';
 
 class CreateAccountPage extends React.Component {
+  static propTypes = {
+    masterId: React.PropTypes.num,
+  };
   static defaultProps = {
     params: {
       masterId: 1,
