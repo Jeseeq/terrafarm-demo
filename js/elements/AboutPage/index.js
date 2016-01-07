@@ -56,7 +56,25 @@ export default class AboutPage extends React.Component {
           <li>efficienct use of space, water, and waste</li>
         </ul>
         <h3>Get started</h3>
-        <p><Link to={'create-account'}>Create an account</Link> and post resources: equipment, labor, materials, seeds, and compost. Post a location for a Group: yard, lot, indoor, and rooftop.</p>
+        <p><Link to={'create-account'}>Create an account</Link>.</p>
+        <p>Post resources on your profile.</p>
+        <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
+          <li>equipment</li>
+          <li>labor</li>
+          <li>materials</li>
+          <li>seeds</li>
+          <li>compost</li>
+        </ul>
+        <p>Create a group by posting space.</p>
+        <ul style={{fontSize: 14, margin: '15px 0', listStyle: 'initial'}}>
+          <li>yard</li>
+          <li>lot</li>
+          <li>indoor</li>
+          <li>rooftop</li>
+        </ul>
+        <p>Request to join groups and allocate resources. Group members approve or decline requests.</p>
+        <h3>Science and Engineering</h3>
+        <p><em>Coming soon</em></p>
       </div>
     </div>;
   }
