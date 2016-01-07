@@ -4,7 +4,7 @@ import NewUserDialog from '../NewUserDialog';
 
 class CreateAccountPage extends React.Component {
   static propTypes = {
-    masterId: React.PropTypes.num,
+    masterId: React.PropTypes.number,
   };
   static defaultProps = {
     params: {

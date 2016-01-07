@@ -11,6 +11,10 @@ class NewUserDialog extends React.Component {
   static propTypes = {
     open: React.PropTypes.bool,
   };
+  static contextTypes = {
+    location: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired,
+  };
   static defaultProps = {
     open: false,
   };
@@ -29,6 +33,10 @@ class NewUserDialog extends React.Component {
   }
   handleClose = () => {
     this.setState({open: false});
+  }
+  handleComplete = () => {
+    this.handleClose();
+    this.context.history.pushState(null, 'login');
   }
   handleValid = () => {
     this.setState({
@@ -51,7 +59,7 @@ class NewUserDialog extends React.Component {
         master={master}
         attributes={this.state.attributes}
         primary
-        onComplete={this.handleClose}
+        onComplete={this.handleComplete}
         disabled={!this.state.canSubmit}
       />,
     ];
