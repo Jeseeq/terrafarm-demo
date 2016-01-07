@@ -31,6 +31,7 @@ export default mutationWithClientMutationId({
     description: { type: new GraphQLNonNull(GraphQLString) },
     category: { type: new GraphQLNonNull(GraphQLString) },
   },
+  /* eslint eqeqeq: 0 */
   outputFields: {
     resourceEdge: {
       type: ResourceEdge,
@@ -38,7 +39,7 @@ export default mutationWithClientMutationId({
         const master = await getItem(masterEndpoint, 1);
         const resourcePromises = master.resources.map(r => getItem(resourceEndpoint, r.id));
         const resourceResults = await* resourcePromises;
-        const offset = resourceResults.findIndex(r => r.id === localResourceId);
+        const offset = resourceResults.findIndex(r => r.id == localResourceId);
         const cursor = offsetToCursor(offset);
         return {
           cursor: cursor,

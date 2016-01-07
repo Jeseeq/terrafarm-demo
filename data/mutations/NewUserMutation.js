@@ -24,6 +24,7 @@ export default mutationWithClientMutationId({
   inputFields: {
     name: { type: new GraphQLNonNull(GraphQLString) },
   },
+  /* eslint eqeqeq: 0 */
   outputFields: {
     userEdge: {
       type: UserEdge,
@@ -31,7 +32,7 @@ export default mutationWithClientMutationId({
         const master = await getItem(masterEndpoint, 1);
         const userPromises = master.users.map(u => getItem(userEndpoint, u.id));
         const userResults = await* userPromises;
-        const offset = userResults.findIndex(u => u.id === localUserId);
+        const offset = userResults.findIndex(u => u.id == localUserId);
         const cursor = offsetToCursor(offset);
         return {
           cursor: cursor,

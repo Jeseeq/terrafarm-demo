@@ -8,13 +8,22 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import TextInput from '../../elements/TextInput';
 
 class NewUserDialog extends React.Component {
-  state = {
-    open: false,
-    canSubmit: false,
-    attributes: {
-      name: '',
-    },
+  static propTypes = {
+    open: React.PropTypes.bool,
   };
+  static defaultProps = {
+    open: false,
+  };
+  constructor (props) {
+    super(props);
+    this.state = {
+      open: props.open,
+      canSubmit: false,
+      attributes: {
+        name: '',
+      },
+    };
+  }
   handleOpen = () => {
     this.setState({open: true});
   }
@@ -40,9 +49,9 @@ class NewUserDialog extends React.Component {
       />,
       <NewUser
         master={master}
+        attributes={this.state.attributes}
         primary
         onComplete={this.handleClose}
-        attributes={this.state.attributes}
         disabled={!this.state.canSubmit}
       />,
     ];

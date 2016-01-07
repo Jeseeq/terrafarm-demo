@@ -26,6 +26,7 @@ export default mutationWithClientMutationId({
     resourceId: { type: new GraphQLNonNull(GraphQLID) },
     groupId: { type: new GraphQLNonNull(GraphQLID) },
   },
+  /* eslint eqeqeq: 0 */
   outputFields: {
     groupEdge: {
       type: GroupEdge,
@@ -33,7 +34,7 @@ export default mutationWithClientMutationId({
         const resource = await getItem(resourceEndpoint, localResourceId);
         const groupPromises = resource.groups_pending.map(g => getItem(groupEndpoint, g.id));
         const groupResults = await* groupPromises;
-        const offset = groupResults.findIndex(g => g.id === localGroupId);
+        const offset = groupResults.findIndex(g => g.id == localGroupId);
         const cursor = offsetToCursor(offset);
         return {
           cursor: cursor,
@@ -47,7 +48,7 @@ export default mutationWithClientMutationId({
         const group = await getItem(groupEndpoint, localGroupId);
         const resourcePromises = group.resources_pending.map(r => getItem(resourceEndpoint, r.id));
         const resourceResults = await* resourcePromises;
-        const offset = resourceResults.findIndex(r => r.id === localResourceId);
+        const offset = resourceResults.findIndex(r => r.id == localResourceId);
         const cursor = offsetToCursor(offset);
         return {
           cursor: cursor,

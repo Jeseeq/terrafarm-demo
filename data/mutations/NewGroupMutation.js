@@ -31,6 +31,7 @@ export default mutationWithClientMutationId({
     description: { type: new GraphQLNonNull(GraphQLString) },
     category: { type: new GraphQLNonNull(GraphQLString) },
   },
+  /* eslint eqeqeq: 0 */
   outputFields: {
     groupEdge: {
       type: GroupEdge,
@@ -38,7 +39,7 @@ export default mutationWithClientMutationId({
         const master = await getItem(masterEndpoint, 1);
         const groupPromises = master.groups.map(r => getItem(groupEndpoint, r.id));
         const groupResults = await* groupPromises;
-        const offset = groupResults.findIndex(g => g.id === localGroupId);
+        const offset = groupResults.findIndex(g => g.id == localGroupId);
         const cursor = offsetToCursor(offset);
         return {
           cursor: cursor,

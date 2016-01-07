@@ -12,12 +12,14 @@ import AboutPage from './elements/AboutPage';
 
 import BrowsePage from './components/BrowsePage';
 import LoginPage from './components/LoginPage';
+import CreateAccountPage from './components/CreateAccountPage';
 import ProfilePage from './components/ProfilePage';
 import UserPage from './components/UserPage';
 import ResourcePage from './components/ResourcePage';
 import GroupPage from './components/GroupPage';
 
 import MasterAndViewerQueries from './queries/MasterAndViewerQueries';
+import MasterQueries from './queries/MasterQueries';
 import UserQueries from './queries/UserQueries';
 import ResourceQueries from './queries/ResourceQueries';
 import GroupAndViewerQueries from './queries/GroupAndViewerQueries';
@@ -35,6 +37,10 @@ ReactDOM.render(
       <Route
         path={'login'} component={LoginPage}
         queries={MasterAndViewerQueries}
+      />
+      <Route
+        path={'create-account'} component={CreateAccountPage}
+        queries={MasterQueries}
       />
       <Route
         path={'browse'} component={BrowsePage}
