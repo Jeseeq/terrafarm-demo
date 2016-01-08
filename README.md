@@ -1,8 +1,6 @@
 # Terrafarm Demo
 
-This project has been moved into a private repo. This part will remain open source as a demo for the technology stack.
-
-The [app](http://terrafarm.herokuapp.com/) (pre-release) that is being developed privately.
+This is a demo of the stack used for [terrafarm.herokuapp.com](http://terrafarm.herokuapp.com/).
 
 ## Contributing
 
