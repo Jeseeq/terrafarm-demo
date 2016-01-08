@@ -8,7 +8,7 @@ import styles from './styles.css';
 export default class AboutPage extends React.Component {
   render () {
     const linkUrls = {
-      github: 'https://github.com/rblakeley/terrafarm#readme',
+      github: 'https://github.com/rblakeley/terrafarm-demo#readme',
       email: 'mailto:terrafarmapp@gmail.com',
       sources: {
         workforce: 'https://www.agclassroom.org/gan/timeline/farmers_land.htm',
