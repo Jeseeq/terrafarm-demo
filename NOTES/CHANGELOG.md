@@ -16,6 +16,7 @@
 - create `actions` as components with mutations
 - color connection indicators
 - material components
+- route transitions
 
 ### Database
 - migrated to Fieldbook

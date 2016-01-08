@@ -24,7 +24,6 @@
     "start-heroku": "node -r babel/register ./server.js",
     "update-schema": "node -r dotenv/config -r babel/register ./scripts/updateSchema.js",
     "postinstall": "node -r babel/register ./scripts/updateSchema.js",
-    "test": "jest"
   },
   "dependencies": {
     "babel": "5.8.21",

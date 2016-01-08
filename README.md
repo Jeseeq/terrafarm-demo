@@ -1,11 +1,8 @@
-# Terrafarm
+# Terrafarm Demo
 
-Cultivate better food close to home.
+This project has been moved into a private repo. This part will remain open source as a demo for the technology stack.
 
-[Web app](http://terrafarm.herokuapp.com/) (pre-release)  
-[About](http://terrafarm.herokuapp.com/#/about)  
-[Readme](http://rblakeley.github.io/terrafarm/)  
-[Twitter](https://twitter.com/terrafarmapp)  
+The [app](http://terrafarm.herokuapp.com/) (pre-release) that is being developed privately.
 
 ## Contributing
 
@@ -64,7 +61,7 @@ This app's database is a free [fieldbook](https://fieldbook.com).
 
 ## Hosting
 
-This app is being hosted for free by [heroku](https://heroku.com).
+This app is ready to be deployed to [Heroku](https://heroku.com).
 
 ## License
 
